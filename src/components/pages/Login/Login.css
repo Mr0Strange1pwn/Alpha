@@ -19,9 +19,8 @@
     flex-direction: column;
     padding: 20px;
     border: 1px solid lightgrey;
-    margin-top: 120px;
-    margin-bottom: 120px;
-    height: 800px;
+    margin-top: 5%;
+    margin-bottom: 5%;
     background-color:white;
     
 }
@@ -42,7 +41,6 @@
 
 .login__forgettwo {
     float: right;
-    margin-top: 20px;
     margin-bottom: 40px;
 } 
 
@@ -53,9 +51,9 @@
     text-align: center;
 }
 
-.login__container > h5 {
+.login__container > h3 {
     font-weight: 500;
-    margin-top: 60px;
+    margin-top: 5%;
     margin-left: auto;
     margin-right: auto
 }
@@ -97,4 +95,7 @@
 
   .focus-visible{
       border: none;
+  }
+  .input_field{
+      margin-left: 5px;
   }
