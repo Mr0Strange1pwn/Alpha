@@ -1,0 +1,94 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "useremail": "nirvanpandagre@gmai.com",
+      "userpassword": "12345",
+      "id": 2
+    },
+    {
+      "useremail": "Nirvan.mt@mechlin.com",
+      "userpassword": "98765",
+      "id": 3
+    },
+    {
+      "useremail": "Nirvan.mt@mechlin.com",
+      "userpassword": "98765",
+      "id": 4
+    },
+    {
+      "useremail": "Nirvan.mt@mechlin.com",
+      "userpassword": "98765",
+      "id": 5
+    },
+    {
+      "useremail": "Nirvan.mt@mechlin.com",
+      "userpassword": "98765",
+      "id": 6
+    },
+    {
+      "useremail": "gg@gmail.com",
+      "userpassword": "123456",
+      "id": 7
+    },
+    {
+      "useremail": "gg@gmail.com",
+      "userpassword": "123456",
+      "id": 8
+    },
+    {
+      "useremail": "kk@gmail.com",
+      "userpassword": "1234567",
+      "id": 9
+    },
+    {
+      "useremail": "samo@gmail.com",
+      "userpassword": "1234567",
+      "id": 10
+    },
+    {
+      "useremail": "Nirvan.mt@mechlintech.com",
+      "userpassword": "12345",
+      "id": 11
+    },
+    {
+      "useremail": "",
+      "userpassword": "",
+      "id": 12
+    },
+    {
+      "useremail": "nirvanpandagre143@gmail.com",
+      "userpassword": "8990756",
+      "id": 13
+    },
+    {
+      "useremail": "nirvanpandagre143@gmail.com",
+      "userpassword": "1233455",
+      "id": 14
+    },
+    {
+      "useremail": "Nirvan.mt@mechlintech.com",
+      "userpassword": "1234555",
+      "id": 15
+    },
+    {
+      "useremail": "raja@gmail.com",
+      "userpassword": "1234567",
+      "id": 16
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
