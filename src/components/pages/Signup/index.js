@@ -1,61 +1,138 @@
-import React, { useState } from 'react';
-import './signUp.css';
-import { FaRegCheckCircle } from 'react-icons/fa';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState } from "react";
+import "./signUp.css";
+import { useHistory } from "react-router-dom";
 import { Post } from "../../../Utils/JSONUtils";
-import logo from "../../../images/logo.png";
-
-
-
 
 function SignUp() {
+  const [useremail, setUserEmail] = useState("");
+  const [userpassword, setUserpassword] = useState("");
+  const [ispasswordValid, setisPasswordValid] = useState([]);
 
+  const [values, setValues] = useState({
+    password: "",
+    showPassword: false,
+  });
 
-    const [useremail, setUserEmail] = useState("");
-    const [userpassword, setUserpassword] = useState("");
-    const { push } = useHistory();
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
 
-    async function loginuser() {
+  const handlePasswordChange = (prop) => (event) => {
+    passwordValidator(event.target.value);
+    setValues({ ...values, [prop]: event.target.value });
+  };
 
-        console.warn(useremail, userpassword);
-        Post("http://localhost:3003/posts", {
-            useremail,
-            userpassword
-        }).then(() => {
-            setUserEmail("");
-            setUserpassword("");
-            push("/signUp");
-        }).catch((err) => {
-            console.log(err)
-        })
+  const { push } = useHistory();
 
+  const passwordValidator = (val) => {
+    setisPasswordValid();
+
+    // Validate small letters
+    let smallLetter = [];
+    console.log("pss", val);
+    var lowerCaseLetters = /[a-z]/g;
+    if (!val.match(lowerCaseLetters)) {
+      smallLetter.push("Password must contain a lower case");
     }
 
-    return (
-        <div>
-            <div className="signup">
-                <div className="signup__container">
-                    <img className="signup__logo" src={logo} alt="logo" />
-                    <h5>RESET PASSWORD</h5>
-                    <form>
-                        <h6>New Password</h6>
-                        <input vlaue={useremail} onChange={event => setUserEmail(event.target.value)} placeholder="" type="email" />
-                        <h6>Confirm Password</h6>
-                        <input type="password" vlaue={userpassword} onChange={event => setUserpassword(event.target.value)} placeholder="" />
+    // Validate capital letters
+    var capitalLetter = [];
+    var upperCaseLetters = /[A-Z]/g;
+    if (!val.match(upperCaseLetters)) {
+      capitalLetter.push("Password must contain a capital letter");
+    }
 
-                        <p>Password must consists of 8 letters including 1 Upper case Alphabet and 1 Symbol</p>
+    // Validate numbers
+    var number = [];
+    var numbers = /[0-9]/g;
+    if (!val.match(numbers)) {
+      number.push("Password must contain a number");
+    }
 
+    // Validate length
+    var Length = [];
+    if (!val.length >= 8) {
+      Length.push("Password must consist of 8 letters");
+    }
 
-                    </form>
+    var myInput = [];
+    var SC = /[!@#$%^&*]/g;
+    if (!val.match(SC)) {
+      myInput.push("Password must contain a spacial character !@#$%^&* ");
+    }
 
-                    <button onClick={loginuser} type="button" class="btn btn-primary btn-lg">RESET PASSWORD</button>
+    let Errors = [smallLetter, Length, capitalLetter, number, myInput];
+    console.log("Errs", Errors);
+    setisPasswordValid(Errors);
+  };
 
-                </div>
+  async function loginuser() {
+    console.warn(useremail, userpassword);
+    Post("http://localhost:3003/posts", {
+      useremail,
+      userpassword,
+    })
+      .then(() => {
+        setUserEmail("");
+        setUserpassword("");
+        push("/signUp");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
-            </div>
+  return (
+    <div>
+      <div
+        className="signup"
+        style={{ backgroundImage: "url(/images/Login-bg.jpg)" }}
+      >
+        <div className="signup__container">
+          <h5>RESET PASSWORD</h5>
+          <form>
+            <h6>New Password</h6>
+            <input
+              vlaue={userpassword}
+              onChange={(event) => setUserpassword(event.target.value)}
+              placeholder=""
+              type="password"
+            />
+
+            <h6>Confirm Password</h6>
+            <input
+              // vlaue = {userpassword}
+              // onChange ={ event => setUserpassword(event.target.value)}
+              // placeholder="" type="password"
+              className="input_field"
+              style={{ width: "100%", border: "none" }}
+              type={values.showPassword ? "text" : "password"}
+              onChange={handlePasswordChange("password")}
+              value={values.password}
+              // onChange={(event) => setUserpassword(event.target.value)}
+              placeholder="Password"
+            />
+
+            {ispasswordValid.length > 0
+              ? ispasswordValid.reduce((...Errors) => (
+                  <p style={{ color: "orange", fontWeight: "400" }}>
+                    {Errors}{" "}
+                  </p>
+                ))
+              : null}
+          </form>
+
+          <button
+            onClick={loginuser}
+            type="button"
+            className="btn btn-primary btn-lg"
+          >
+            RESET PASSWORD
+          </button>
         </div>
-    )
+      </div>
+    </div>
+  );
 }
 
 export default SignUp;
-
