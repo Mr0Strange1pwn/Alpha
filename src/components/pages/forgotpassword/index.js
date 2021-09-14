@@ -4,26 +4,27 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import { Link, useHistory } from "react-router-dom";
 import { Post } from "../../../Utils/JSONUtils";
 import logo from "../../../images/logo.png";
+import { emailValidator, passwordValidator } from '../../../Utils/fieldValidator'
 
 function Forgetpassword() {
   const [useremail, setUserEmail] = useState("");
-  const [userpassword, setUserpassword] = useState("");
+  const [mailError, setmailError] = useState(true);
+  const [showerror, setshowError] = useState(false);
   const { push } = useHistory();
 
   async function loginuser() {
-    console.warn(useremail, userpassword);
-    Post("http://localhost:3003/posts", {
-      useremail,
-      userpassword,
-    })
-      .then(() => {
-        setUserEmail("");
-        setUserpassword("");
-        push("/signUp");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!useremail.length > 0) {
+      setshowError(true)
+    }
+
+    if (useremail.length > 0 && mailError) {
+      // To Do next implementation
+    }
+  }
+
+  const handleChange = (value) => {
+    setmailError(emailValidator(value))
+    setUserEmail(value)
   }
 
   return (
@@ -55,22 +56,24 @@ function Forgetpassword() {
                 style={{
                   width: "100%",
                   border: "none",
-                  marginLeft:"5%"
+                  marginLeft: "5%"
                 }}
                 className="email_type"
                 vlaue={useremail}
-                onChange={(event) => setUserEmail(event.target.value)}
+                onChange={(event) => handleChange(event.target.value)}
                 placeholder="Email"
                 type="email"
               />
             </div>
+            {mailError ? null : <p style={{ color: "red" }}>not a valid mail</p>}
+            {showerror ? !useremail ? <p style={{ color: "red" }} >Email field is required</p> : null : null}
           </form>
 
           <button
             onClick={loginuser}
             type="button"
             class="btn btn-primary btn-lg"
-            style={{ backgroundColor: "#3b1d8f", color: "white",marginTop:"10%" }}
+            style={{ backgroundColor: "#3b1d8f", color: "white", marginTop: "10%" }}
           >
             SUBMIT
           </button>

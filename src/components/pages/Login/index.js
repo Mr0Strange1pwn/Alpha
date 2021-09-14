@@ -150,7 +150,7 @@ function Login() {
               </label>
 
               <h7 className="login__forgettwo">
-                <Link className="linUrl" to="/signUp">Forget Password?</Link>
+                <Link className="linUrl" to="/forgetpassword">Forget Password?</Link>
               </h7>
             </div>
 
