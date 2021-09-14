@@ -47,7 +47,7 @@ function Forgetpassword() {
                 display: "flex",
                 borderBottom: "2px solid",
                 margin: "15pxx 0",
-                paddingBottom: "8px",
+                paddingBottom: "5%",
               }}
             >
               <img src="images/Email-icon.png" style={{ marginRight: "2px" }} />
@@ -55,6 +55,7 @@ function Forgetpassword() {
                 style={{
                   width: "100%",
                   border: "none",
+                  marginLeft:"5%"
                 }}
                 className="email_type"
                 vlaue={useremail}
@@ -69,6 +70,7 @@ function Forgetpassword() {
             onClick={loginuser}
             type="button"
             class="btn btn-primary btn-lg"
+            style={{ backgroundColor: "#3b1d8f", color: "white",marginTop:"10%" }}
           >
             SUBMIT
           </button>
