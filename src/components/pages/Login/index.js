@@ -137,11 +137,15 @@ function Login() {
                 onChange={(value) => onChangeData({ name: "userEmail", value })}
                 placeholder="Email"
                 type="email"
-                required
+             
               />
 
             </div>
-            {!isEmailvalid ? <p style={{ color: "red", fontWeight: 'bold' }}>not a valid mail</p> : null}
+            {!isEmailvalid ? <p style={{ color: "red" }}>not a valid mail</p> : null}
+            {/* <div className="Error_message">
+               {userData.userEmail.length==0 ? <p className="errorMessage" style={{ color: "red" }}>This Field Required</p> : null}
+            </div> */}
+           
             <div
               style={{
                 display: "flex",
@@ -192,10 +196,10 @@ function Login() {
               </label>
 
               <h7 className="login__forgettwo">
-                <Link to="/signUp">Forget Password?</Link>
+                <Link className="linUrl" to="/signUp">Forget Password?</Link>
               </h7>
             </div>
-
+          
           </form>
 
           <button
@@ -212,7 +216,7 @@ function Login() {
             <p>
               Don't have an account?{" "}
               <b>
-                <Link to="/signUp">Signup here</Link>
+                <Link className="linUrl" to="/signUp">Signup here</Link>
               </b>
             </p>{" "}
           </div>
