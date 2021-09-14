@@ -40,10 +40,8 @@
     color:#d58661;
 }
 .login__container p{
-    margin-top: 15px;
     font-size: 15px;
-    margin-bottom: 15px;
-    text-align: center;
+    margin-bottom: 15px;  
 }
 
 .login__container > h3 {

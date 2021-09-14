@@ -6,12 +6,21 @@ import passIcon from "../../../images/Eye-blue.png";
 import showpassIcon from "../../../images/Eye.png";
 import { logIn } from "../../../redux/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
+import { emailValidator, passwordValidator } from '../../../Utils/fieldValidator'
 
 function Login() {
   const [values, setValues] = useState({
     password: "",
     showPassword: false,
   });
+  const { push } = useHistory();
+  const auth = useSelector((store) => store);
+  const dispatch = useDispatch();
+  console.log("store", auth);
+  const [errors, setErrors] = useState(false);
+  const [userEmail, setuserEmail] = useState("");
+  const [isEmailvalid, setIsEmailvalid] = useState(true)
+  const [ispasswordValid, setisPasswordValid] = useState(true)
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
@@ -19,92 +28,39 @@ function Login() {
 
 
   const handlePasswordChange = (prop) => (event) => {
-    passwordValidator(event.target.value)
+    setisPasswordValid(passwordValidator(event.target.value))
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const { push } = useHistory();
-  const auth = useSelector((store) => store);
-  const dispatch = useDispatch();
-  console.log("store", auth);
-  const [errors, setErrors] = useState({});
-  const [userData, setUserData] = useState({
-    userEmail: "",
-    password: "",
-  });
-  const [isEmailvalid, setIsEmailvalid] = useState(true)
-  const [ispasswordValid, setisPasswordValid] = useState([])
-
   const handleLogin = () => {
-    if (!userData.userEmail) {
-      setErrors((prev) => {
-        return { ...prev, userEmail: "Plase enter userEmail" };
-      });
-      console.log("error", errors);
-    } else {
-      console.log("data");
+    // if (!userEmail.userEmail) {
+    //   setErrors((prev) => {
+    //     return { ...prev, userEmail: "Plase enter userEmail" };
+    //   });
+    //   console.log("error", errors);
+    // } else {
+    //   console.log("data");
+    // }
+
+    if (!userEmail.length > 0) {
+      setErrors(true)
+    }
+    if (!values.password.length > 0) {
+      setErrors(true)
+    }
+
+    if (userEmail.length > 0 && values.password.length > 0 && isEmailvalid && ispasswordValid) {
+      dispatch(logIn({ userEmail, password: values.password }))
     }
   };
 
-  const emailValidator = (val) => {
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let isV = re.test(val);
-    setIsEmailvalid(isV)
 
-  }
-
-  const passwordValidator = (val) => {
-
-    setisPasswordValid([])
-    let Errors = []
-    console.log("pss", val)
-    var lowerCaseLetters = /[a-z]/g;
-    if (!val.match(lowerCaseLetters)) {
-      Errors.push("Pawweord must contain a lower case");
-    }
-
-    // Validate capital letters
-    var upperCaseLetters = /[A-Z]/g;
-    if (!val.match(upperCaseLetters)) {
-      Errors.push("Pawweord must contain a capital letter")
-    }
-
-    // Validate numbers
-    var numbers = /[0-9]/g;
-    if (!val.match(numbers)) {
-      Errors.push("Pawweord must contain a number")
-    }
-
-    // Validate length
-    if (!val.length >= 8) {
-      Errors.push("Pawweord must contain 8 or more cheracters")
-    }
-
-    var SC = /[!@#$%^&*]/g;
-    if (!val.match(SC)) {
-      Errors.push("Pawweord must contain a spacial character !@#$%^&* ")
-    }
-
-
-    console.log("Errs", Errors)
-    setisPasswordValid(Errors)
-  }
 
   const onChangeData = ({ name, value }) => {
-    if (name == "userEmail") {
-      emailValidator(value.target.value)
-    }
 
-    setUserData({ ...userData, [name]: value });
-    if (value !== "") {
-      setErrors((prev) => {
-        return { ...prev, [name]: null };
-      });
-    } else {
-      setErrors((prev) => {
-        return { ...prev, [name]: "This Field Required" };
-      });
-    }
+    setIsEmailvalid(emailValidator(value.target.value))
+
+    setuserEmail(value.target.value);
   };
   return (
     <div>
@@ -132,20 +88,17 @@ function Login() {
                   width: "100%",
                   border: "none",
                 }}
-                vlaue={userData.userEmail}
+                vlaue={userEmail}
                 // onChange={(event) => setUserEmail(event.target.value)}
                 onChange={(value) => onChangeData({ name: "userEmail", value })}
                 placeholder="Email"
                 type="email"
-             
+
               />
 
             </div>
+            {errors ? !userEmail ? <p style={{ color: "red" }} >Email field is required</p> : null : null}
             {!isEmailvalid ? <p style={{ color: "red" }}>not a valid mail</p> : null}
-            {/* <div className="Error_message">
-               {userData.userEmail.length==0 ? <p className="errorMessage" style={{ color: "red" }}>This Field Required</p> : null}
-            </div> */}
-           
             <div
               style={{
                 display: "flex",
@@ -183,7 +136,8 @@ function Login() {
                 />
               </button>
             </div>
-            {ispasswordValid.length > 0 ? ispasswordValid.map(err => <p style={{ color: "red", fontWeight: 'bold' }}>{err}</p>) : null}
+            {errors ? !values.password ? <p style={{ color: "red" }} >password field is required</p> : null : null}
+            {!ispasswordValid ? <p style={{ color: "red" }}>password must contain atlest 1 chapital letter and spacial characters </p> : null}
             <div class="form-group form-check">
               <input
                 type="checkbox"
@@ -199,11 +153,10 @@ function Login() {
                 <Link className="linUrl" to="/signUp">Forget Password?</Link>
               </h7>
             </div>
-          
+
           </form>
 
           <button
-            // onClick={() => dispatch(logIn({ useremail, userpassword }))}
             onClick={() => handleLogin()}
             type="button"
             class="btn btn-lg"

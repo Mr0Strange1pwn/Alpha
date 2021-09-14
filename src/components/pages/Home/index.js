@@ -10,7 +10,7 @@ export default function Home() {
     return (
         <div>
             <h1>Home</h1>
-            <p> user INFO {` email :  ${userInfo.useremail} ,, pass : ${userInfo.userpassword}`} </p>
+            <p> user INFO {` email :  ${userInfo.userEmail} ,, pass : ${userInfo.password}`} </p>
 
             <button onClick={() => dispatch(logOut())} >LoGOUT</button>
         </div>
