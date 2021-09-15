@@ -37,7 +37,7 @@ function Forgetpassword() {
           <img className="login__logo" src={logo} alt="logo" />
           <h4>FORGET PASSWORD?</h4>
           <form>
-            <div className="forget_text-box">
+            <div className="forget_text-box" style={{marginBottom:"10%"}}>
               <p>
                 Enter the email address you used when you joined <br />
                 and we'll send you instructions to reset your password{" "}
@@ -65,8 +65,8 @@ function Forgetpassword() {
                 type="email"
               />
             </div>
-            {mailError ? null : <p style={{ color: "red" }}>not a valid mail</p>}
-            {showerror ? !useremail ? <p style={{ color: "red" }} >Email field is required</p> : null : null}
+            {mailError ? null : <p style={{ color: "red" ,textAlign:"unset" }}>not a valid mail</p>}
+            {showerror ? !useremail ? <p style={{ color: "red", textAlign:"unset" }} >Email field is required</p> : null : null}
           </form>
 
           <button

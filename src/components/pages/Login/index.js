@@ -153,7 +153,7 @@ function Login() {
                 <Link className="linUrl" to="/forgetpassword">Forget Password?</Link>
               </h7>
             </div>
-
+          
           </form>
 
           <button
@@ -169,7 +169,7 @@ function Login() {
             <p>
               Don't have an account?{" "}
               <b>
-                <Link className="linUrl" to="/signUp">Signup here</Link>
+                <Link className="linUrl" to="/resetPassword">Signup here</Link>
               </b>
             </p>{" "}
           </div>

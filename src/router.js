@@ -1,7 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Login from "./components/pages/Login";
-import SignUp from "./components/pages/Signup/index";
+import ResetPassword from "./components/pages/ResetPassword";
+import ChangePassword from "./components/pages/changePassword";
 import Navbar from "./components/pages/navbar";
 import Error from "./components/pages/error";
 import Forgetpassword from "./components/pages/forgotpassword";
@@ -24,11 +25,14 @@ const Routes = () => {
           <Route exact path="/">
             <Login />
           </Route>
-          <Route exact path="/signUp">
-            <SignUp />
+          <Route exact path="/resetPassword">
+            <ResetPassword />
           </Route>
           <Route path="/forgetpassword">
             <Forgetpassword />
+          </Route>
+          <Route path="/changepassword">
+            <ChangePassword />
           </Route>
           {/* <Route exact path ="/Post/:category" component={Post} />
     <Route component={Error}/ > */}
