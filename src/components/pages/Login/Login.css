@@ -1,115 +1,111 @@
-.login{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.login__logo{
-    object-fit: contain;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    
-
+.login__logo {
+  object-fit: contain;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
-.login__container{
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    border: 1px solid lightgrey;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    background-color:white;
-    
+.login__container {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid lightgrey;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  background-color: white;
 }
 
 .login__forgetone {
-    float: left;
-    margin-top: 20px;
-    margin-bottom: 40px;
-    text-decoration: none;
-    
-} 
+  float: left;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  text-decoration: none;
+}
 
 .login__forgettwo {
-    float: right;
-    margin-bottom: 40px;
-} 
-.linUrl{
-    color:#d58661;
+  float: right;
+  margin-bottom: 40px;
 }
-.login__container p{
-    font-size: 15px;
-    margin-bottom: 15px;  
+.linUrl {
+  color: #f07238;
+  text-decoration: none;
+}
+.login__container p {
+  font-size: 15px;
+  margin-bottom: 15px;
 }
 
-.login__container > h3 {
-    font-weight: 500;
-    margin-top: 5%;
-    margin-left: auto;
-    margin-right: auto
+.login__container > h4 {
+  font-weight: 700;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
 }
 .text-box {
-    color: #000;
-    text-decoration-line: none;
+  color: #000;
+  text-decoration-line: none;
 }
-.login__container > form > input  {
-    background-color:white;
-    border: none;
-    border-bottom: 2px solid rgb(29, 14, 241);
-    margin-bottom: 5px;
-    height: 50px;
-    width: 98%;
-    outline: none  !important;
-    padding-bottom: 20px;
-    
-}
-
-
-.login__container > form > input[type=email]::placeholder {
-    color: black;
-    font-weight: 400;
-    background-repeat: no-repeat;
-    width: 90px;
-    height: 40px ;
-    padding-left: 50px;
-    padding-bottom: 10px;
-  }
-  .login__container > form > input[type=password]::placeholder {
-    color: black;
-    font-weight: 400;
-    background-repeat: no-repeat;
-    width: 90px;
-    height: 40px ;
-    padding-left: 50px;
-    padding-bottom: 10px;
-  }
-
-  .focus-visible{
-      border: none;
-  }
-  .input_field{
-      margin-left: 5px;
-  }
-
-  input[type = checkbox]{
-    box-shadow:none !important;
-    -webkit-appearance: none;
-    background-color: #fafafa;
-    border: 1px solid #cacece;
-    /* box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05); */
-    padding: 9px;
-    /* border-radius: 3px; */
-    display: inline-block;
-    position: relative;    
+.login__container > form > input {
+  background-color: white;
+  border: none;
+  border-bottom: 2px solid rgb(29, 14, 241);
+  margin-bottom: 5px;
+  height: 50px;
+  width: 98%;
+  outline: none !important;
+  padding-bottom: 20px;
 }
 
-input[type = checkbox]:checked {
-  background-color:#3b1d8f;
-  /* border: 1px solid #adb8c0; */
-  /* box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1); */
+.login__container > form > input[type="email"]::placeholder {
+  color: black;
+  font-weight: 400;
+  background-repeat: no-repeat;
+  width: 90px;
+  height: 40px;
+  padding-left: 50px;
+  padding-bottom: 10px;
+}
+.login__container > form > input[type="password"]::placeholder {
+  color: black;
+  font-weight: 400;
+  background-repeat: no-repeat;
+  width: 90px;
+  height: 40px;
+  padding-left: 50px;
+  padding-bottom: 10px;
+}
+
+.focus-visible {
+  border: none;
+}
+.input_field {
+  margin-left: 5px;
+}
+
+input[type="checkbox"] {
+  box-shadow: none !important;
+  -webkit-appearance: none;
+  background-color: #fafafa;
+  border: 1px solid #cacece;
+  padding: 9px;
+  display: inline-block;
+  position: relative;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #003366;
   color: #99a1a7;
 }
-  
+.signup_link {
+  margin-left: 10%;
+}
+.form-check-label {
+  margin-right: 10px;
+}

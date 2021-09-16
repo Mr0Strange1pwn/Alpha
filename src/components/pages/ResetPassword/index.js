@@ -55,9 +55,9 @@ function ResetPassword() {
     // }
     if (values.password.length > 0) {
       if (values.password == values.newpassword) {
-        alert("correct password");
+        alert("Correct password");
       } else {
-        alert("Password do not match");
+        alert("Password does not match");
       }
     }
   };
@@ -65,16 +65,16 @@ function ResetPassword() {
   return (
     <div>
       <div
-        className="login"
+        className="resetPassword"
         style={{ backgroundImage: "url(/images/Login-bg.jpg)" }}
       >
-        <div className="login__container">
-          <img className="login__logo" src={logo} alt="logo" />
+        <div className="resetPassword__container">
+          <img className="resetPassword__logo" src={logo} alt="logo" />
           {/* <h5>Login</h5> */}
-          <h3>RESET PASSWORD</h3>
-          <form>
+          <h4>RESET PASSWORD</h4>
+          <form style={{ marginTop: "10%" }}>
             <label class="form-check-label" for="exampleCheck1">
-              Current Password
+              New Password
             </label>
             <div
               style={{
@@ -94,7 +94,7 @@ function ResetPassword() {
                 onChange={handlePasswordChange("password")}
                 value={values.password}
                 // onChange={(event) => setUserpassword(event.target.value)}
-                placeholder="Password"
+                placeholder="New Password"
               />
 
               <button
@@ -114,14 +114,14 @@ function ResetPassword() {
             </div>
             {errors ? (
               !values.password ? (
-                <p style={{ color: "red" }}>password field is required</p>
+                <p style={{ color: "red" }}>Password is required</p>
               ) : null
             ) : null}
             {/* {!ispasswordValid ? <p style={{ color: "red" }}>password must contain atlest 1 chapital letter and spacial characters </p> : null} */}
 
             {/* New Password */}
             <label class="form-check-label" for="exampleCheck1">
-              New Password
+              Confirm Password
             </label>
             <div
               style={{
@@ -141,7 +141,7 @@ function ResetPassword() {
                 onChange={newhandlePasswordChange("newpassword")}
                 value={values.newpassword}
                 // onChange={(event) => setUserpassword(event.target.value)}
-                placeholder="Password"
+                placeholder="Confirm Password"
               />
 
               <button
@@ -161,13 +161,13 @@ function ResetPassword() {
             </div>
             {errors ? (
               !values.newpassword ? (
-                <p style={{ color: "red" }}>password field is required</p>
+                <p style={{ color: "red" }}>Password is required</p>
               ) : null
             ) : null}
             {!ispasswordValid ? (
               <p style={{ color: "red" }}>
-                password must contain atlest 1 chapital letter and spacial
-                characters{" "}
+                Password should contain at least 1 Uppercase,1 Special
+                Character,1 Digit, and min 8 Characters.{" "}
               </p>
             ) : null}
           </form>
@@ -176,9 +176,13 @@ function ResetPassword() {
             onClick={() => handleLogin()}
             type="button"
             class="btn btn-lg"
-            style={{ backgroundColor: "#3b1d8f", color: "white" }}
+            style={{
+              backgroundColor: "#003366",
+              color: "white",
+              fontWeight: "600",
+            }}
           >
-            LOGIN
+            RESET PASSWORD
           </button>
         </div>
       </div>

@@ -65,9 +65,9 @@ function ChangePassword() {
         <div className="changePassword__container">
           <img className="logo" src={logo} alt="logo" />
           <h4>CHANGE PASSWORD</h4>
-          <form>
+          <form style={{ marginTop: "8%" }}>
             <label class="form-check-label" for="exampleCheck1">
-              Old Password
+              Current Password
             </label>
             <div
               style={{
@@ -87,7 +87,7 @@ function ChangePassword() {
                 onChange={handlePasswordChange("oldpassword")}
                 value={values.oldpassword}
                 // onChange={(event) => setUserpassword(event.target.value)}
-                placeholder="Password"
+                placeholder="Current Password"
               />
 
               {/* <button onClick={() => handleClickShowPassword()} type="button" style={{ border: "none", backgroundColor: "transparent" }}>
@@ -103,7 +103,7 @@ function ChangePassword() {
             </div>
             {errors ? (
               !values.oldpassword ? (
-                <p style={{ color: "red" }}>password field is required</p>
+                <p style={{ color: "red" }}>Password is required</p>
               ) : null
             ) : null}
 
@@ -130,7 +130,7 @@ function ChangePassword() {
                 onChange={newhandlePasswordChange("newpassword")}
                 value={values.newpassword}
                 // onChange={(event) => setUserpassword(event.target.value)}
-                placeholder="Password"
+                placeholder="New Password"
               />
 
               <button
@@ -150,7 +150,7 @@ function ChangePassword() {
             </div>
             {errors ? (
               !values.newpassword ? (
-                <p style={{ color: "red" }}>password field is required</p>
+                <p style={{ color: "red" }}>Password is required</p>
               ) : null
             ) : null}
 
@@ -178,7 +178,7 @@ function ChangePassword() {
                 onChange={handlePasswordChange("password")}
                 value={values.password}
                 // onChange={(event) => setUserpassword(event.target.value)}
-                placeholder="Password"
+                placeholder="Confirm Password"
               />
 
               <button
@@ -198,13 +198,13 @@ function ChangePassword() {
             </div>
             {errors ? (
               !values.password ? (
-                <p style={{ color: "red" }}>password field is required</p>
+                <p style={{ color: "red" }}>Password is required</p>
               ) : null
             ) : null}
             {!ispasswordValid ? (
               <p style={{ color: "red" }}>
-                password must contain atlest 1 chapital letter and spacial
-                characters{" "}
+                Password should contain at least 1 Uppercase,1 Special
+                Character,1 Digit, and min 8 Characters.{" "}
               </p>
             ) : null}
           </form>
@@ -213,9 +213,13 @@ function ChangePassword() {
             onClick={() => handleLogin()}
             type="button"
             class="btn btn-lg"
-            style={{ backgroundColor: "#3b1d8f", color: "white" }}
+            style={{
+              backgroundColor: "#003366",
+              color: "white",
+              fontWeight: "600",
+            }}
           >
-            LOGIN
+            UPDATE PASSWORD
           </button>
         </div>
       </div>

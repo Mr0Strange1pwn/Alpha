@@ -35,12 +35,12 @@ function Forgetpassword() {
       >
         <div className="forget__container">
           <img className="login__logo" src={logo} alt="logo" />
-          <h4>FORGET PASSWORD?</h4>
-          <form>
+          <h4>FORGOT PASSWORD?</h4>
+          <form style={{marginTop:"5%"}}>
             <div className="forget_text-box" style={{marginBottom:"10%"}}>
               <p>
                 Enter the email address you used when you joined <br />
-                and we'll send you instructions to reset your password{" "}
+                and we'll send you instructions to reset your password.{" "}
               </p>
             </div>
             <div
@@ -65,15 +65,15 @@ function Forgetpassword() {
                 type="email"
               />
             </div>
-            {mailError ? null : <p style={{ color: "red" ,textAlign:"unset" }}>not a valid mail</p>}
-            {showerror ? !useremail ? <p style={{ color: "red", textAlign:"unset" }} >Email field is required</p> : null : null}
+            {mailError ? null : <p style={{ color: "red" ,textAlign:"unset" }}>Please enter a valid email.</p>}
+            {showerror ? !useremail ? <p style={{ color: "red", textAlign:"unset" }} >Email is required</p> : null : null}
           </form>
 
           <button
             onClick={loginuser}
             type="button"
             class="btn btn-primary btn-lg"
-            style={{ backgroundColor: "#3b1d8f", color: "white", marginTop: "10%" }}
+            style={{ backgroundColor: "#003366", color: "white", marginTop: "10%",fontWeight:"600" }}
           >
             SUBMIT
           </button>

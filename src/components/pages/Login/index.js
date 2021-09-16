@@ -6,7 +6,10 @@ import passIcon from "../../../images/Eye-blue.png";
 import showpassIcon from "../../../images/Eye.png";
 import { logIn } from "../../../redux/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
-import { emailValidator, passwordValidator } from '../../../Utils/fieldValidator'
+import {
+  emailValidator,
+  passwordValidator,
+} from "../../../Utils/fieldValidator";
 
 function Login() {
   const [values, setValues] = useState({
@@ -19,16 +22,15 @@ function Login() {
   console.log("store", auth);
   const [errors, setErrors] = useState(false);
   const [userEmail, setuserEmail] = useState("");
-  const [isEmailvalid, setIsEmailvalid] = useState(true)
-  const [ispasswordValid, setisPasswordValid] = useState(true)
+  const [isEmailvalid, setIsEmailvalid] = useState(true);
+  const [ispasswordValid, setisPasswordValid] = useState(true);
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
 
-
   const handlePasswordChange = (prop) => (event) => {
-    setisPasswordValid(passwordValidator(event.target.value))
+    setisPasswordValid(passwordValidator(event.target.value));
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -43,22 +45,24 @@ function Login() {
     // }
 
     if (!userEmail.length > 0) {
-      setErrors(true)
+      setErrors(true);
     }
     if (!values.password.length > 0) {
-      setErrors(true)
+      setErrors(true);
     }
 
-    if (userEmail.length > 0 && values.password.length > 0 && isEmailvalid && ispasswordValid) {
-      dispatch(logIn({ userEmail, password: values.password }))
+    if (
+      userEmail.length > 0 &&
+      values.password.length > 0 &&
+      isEmailvalid &&
+      ispasswordValid
+    ) {
+      dispatch(logIn({ userEmail, password: values.password }));
     }
   };
 
-
-
   const onChangeData = ({ name, value }) => {
-
-    setIsEmailvalid(emailValidator(value.target.value))
+    setIsEmailvalid(emailValidator(value.target.value));
 
     setuserEmail(value.target.value);
   };
@@ -71,13 +75,13 @@ function Login() {
         <div className="login__container">
           <img className="login__logo" src={logo} alt="logo" />
           {/* <h5>Login</h5> */}
-          <h3>Login</h3>
-          <form>
+          <h4>LOGIN</h4>
+          <form style={{ marginTop: "10%" }}>
             <div
               style={{
                 display: "flex",
                 borderBottom: "2px solid",
-                margin: "15pxx 0",
+                margin: "15px 0",
                 paddingBottom: "8px",
               }}
             >
@@ -93,12 +97,16 @@ function Login() {
                 onChange={(value) => onChangeData({ name: "userEmail", value })}
                 placeholder="Email"
                 type="email"
-
               />
-
             </div>
-            {errors ? !userEmail ? <p style={{ color: "red" }} >Email field is required</p> : null : null}
-            {!isEmailvalid ? <p style={{ color: "red" }}>not a valid mail</p> : null}
+            {errors ? (
+              !userEmail ? (
+                <p style={{ color: "red" }}>Email is required</p>
+              ) : null
+            ) : null}
+            {!isEmailvalid ? (
+              <p style={{ color: "red" }}>Please enter a valid email.</p>
+            ) : null}
             <div
               style={{
                 display: "flex",
@@ -124,54 +132,113 @@ function Login() {
                 placeholder="Password"
               />
 
-
-              <button onClick={() => handleClickShowPassword()} type="button" style={{ border: "none", backgroundColor: "transparent" }}>
+              <button
+                onClick={() => handleClickShowPassword()}
+                type="button"
+                style={{ border: "none", backgroundColor: "transparent" }}
+              >
                 <img
                   src={
                     values.showPassword == true
                       ? "images/Eye.png"
                       : "images/Eye-blue.png"
                   }
-                  style={{ marginRight: "2px" }}
+                  style={{ marginRight: "2px", height: "19px", width: "33px" }}
                 />
               </button>
             </div>
-            {errors ? !values.password ? <p style={{ color: "red" }} >password field is required</p> : null : null}
-            {!ispasswordValid ? <p style={{ color: "red" }}>password must contain atlest 1 chapital letter and spacial characters </p> : null}
+            {errors ? (
+              !values.password ? (
+                <p style={{ color: "red" }}>Password is required</p>
+              ) : null
+            ) : null}
+            {!ispasswordValid ? (
+              <p style={{ color: "red" }}>
+                Password should contain at least 1 Uppercase,1 Special
+                Character,1 Digit, and min 8 Characters.{" "}
+              </p>
+            ) : null}
             <div class="form-group form-check">
               <input
                 type="checkbox"
                 class="form-check-input"
                 id="exampleCheck1"
-
               />
               <label class="form-check-label" for="exampleCheck1">
                 Remember me
               </label>
 
               <h7 className="login__forgettwo">
-                <Link className="linUrl" to="/forgetpassword">Forget Password?</Link>
+                <Link className="linUrl" to="/forgetpassword">
+                  Forgot Password?
+                </Link>
               </h7>
             </div>
-          
+            {/* <p>Select a maintenance drone:</p>
+
+<div>
+  <input type="radio" id="huey" name="drone" value="huey"
+         checked/>
+  <label for="huey">Huey</label>
+    <input type="radio" id="contactChoice1"
+     name="contact" value="email"/>
+    <label for="contactChoice1">Email</label>
+</div>
+
+<div>
+  <input type="radio" id="dewey" name="drone" value="dewey"/>
+  <label for="dewey">Dewey</label>
+</div>
+
+<div>
+  <input type="radio" id="louie" name="drone" value="louie"/>
+  <label for="louie">Louie</label>
+</div>
+
+<div>
+    <input type="radio" id="contactChoice1"
+     name="contact" value="email"/>
+    <label for="contactChoice1">Email</label>
+
+    <input type="radio" id="contactChoice2"
+     name="contact" value="phone"/>
+    <label for="contactChoice2">Phone</label>
+
+    <input type="radio" id="contactChoice3"
+     name="contact" value="mail"/>
+    <label for="contactChoice3">Mail</label>
+  </div>
+  <div>
+    <button type="submit">Submit</button>
+  </div> */}
           </form>
 
           <button
             onClick={() => handleLogin()}
             type="button"
             class="btn btn-lg"
-            style={{ backgroundColor: "#3b1d8f", color: "white" }}
+            style={{
+              backgroundColor: "#003366",
+              color: "white",
+              fontWeight: "600",
+            }}
           >
             LOGIN
           </button>
 
-          <div>
-            <p>
+          <div className="signup_link">
+            {/* <p>
               Don't have an account?{" "}
               <b>
                 <Link className="linUrl" to="/resetPassword">Signup here</Link>
               </b>
-            </p>{" "}
+            </p> */}
+            <label class="form-check-label" for="exampleCheck1">
+              Don't have an account?{"   "}
+            </label>
+            <Link className="linUrl" to="/resetPassword">
+              Signup here
+            </Link>{" "}
           </div>
         </div>
       </div>
