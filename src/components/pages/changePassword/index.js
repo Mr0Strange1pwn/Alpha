@@ -16,9 +16,10 @@ function ChangePassword() {
   const [values, setValues] = useState({
     password: "",
     newpassword: "",
-    oldpassword: "",
+    currentpassword: "",
     showPassword: false,
     newshowPassword: false,
+    showCurrentPassword: false,
   });
   const { push } = useHistory();
   const auth = useSelector((store) => store);
@@ -32,7 +33,9 @@ function ChangePassword() {
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
-
+  const handleClickShowCurrentPassword = () => {
+    setValues({ ...values, showCurrentPassword: !values.showCurrentPassword });
+  };
   const newhandleClickShowPassword = () => {
     setValues({ ...values, newshowPassword: !values.newshowPassword });
   };
@@ -83,23 +86,22 @@ function ChangePassword() {
                   width: "100%",
                   border: "none",
                 }}
-                type={"password"}
-                onChange={handlePasswordChange("oldpassword")}
-                value={values.oldpassword}
-                // onChange={(event) => setUserpassword(event.target.value)}
+                type={values.showCurrentPassword ? "text" : "password"}
+                onChange={handlePasswordChange("currentpassword")}
+                value={values.currentpassword}
                 placeholder="Current Password"
               />
 
-              {/* <button onClick={() => handleClickShowPassword()} type="button" style={{ border: "none", backgroundColor: "transparent" }}>
+              <button onClick={() => handleClickShowCurrentPassword()} type="button" style={{ border: "none", backgroundColor: "transparent" }}>
                 <img
                   src={
-                    values.showPassword == true
+                    values.showCurrentPassword == true
                       ? "images/Eye.png"
                       : "images/Eye-blue.png"
                   }
                   style={{ marginRight: "2px" }}
                 />
-              </button> */}
+              </button>
             </div>
             {errors ? (
               !values.oldpassword ? (
