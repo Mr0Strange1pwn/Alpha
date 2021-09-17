@@ -3,7 +3,6 @@ import "./forgetpassword.css";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { Link, useHistory } from "react-router-dom";
 import { Post } from "../../../Utils/JSONUtils";
-import logo from "../../../images/logo.png";
 import { emailValidator, passwordValidator } from '../../../Utils/fieldValidator'
 
 function Forgetpassword() {
@@ -34,7 +33,7 @@ function Forgetpassword() {
         style={{ backgroundImage: "url(/images/Login-bg.jpg)" }}
       >
         <div className="forget__container">
-          <img className="login__logo" src={logo} alt="logo" />
+          <img className="login__logo" src="images/logo.png" alt="logo" />
           <h4>FORGOT PASSWORD?</h4>
           <form style={{marginTop:"5%"}}>
             <div className="forget_text-box" style={{marginBottom:"10%"}}>

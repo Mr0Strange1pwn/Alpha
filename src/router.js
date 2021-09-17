@@ -8,6 +8,11 @@ import Error from "./components/pages/error";
 import Forgetpassword from "./components/pages/forgotpassword";
 import { useSelector } from "react-redux";
 import Home from "./components/pages/Home";
+import Dashboard from "./components/pages/dashboard";
+import Employee from "./components/pages/Employee";
+import Rolespermission from "./components/pages/Rolespermission";
+import Projects from "./components/pages/projects";
+import Settings from "./components/pages/settings";
 
 const Routes = () => {
   const { isLoggedIn } = useSelector((store) => store.auth);
@@ -34,6 +39,24 @@ const Routes = () => {
           <Route path="/changepassword">
             <ChangePassword />
           </Route>
+          <div>
+          <Navbar />
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
+          <Route  exact path="/Employee">
+            <Employee />
+          </Route>
+          <Route path="/Rolespermission">
+            <Rolespermission />
+          </Route>
+          <Route path="/projects">
+            <Projects />
+          </Route>
+          <Route path="/settings">
+            <Settings />
+          </Route>
+          </div>
           {/* <Route exact path ="/Post/:category" component={Post} />
     <Route component={Error}/ > */}
         </Switch>

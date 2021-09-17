@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import "./changePassword.css";
 import { useHistory } from "react-router-dom";
 import { Post } from "../../../Utils/JSONUtils";
-import logo from "../../../images/logo.png";
-import passIcon from "../../../images/Eye-blue.png";
-import showpassIcon from "../../../images/Eye.png";
 import { logIn } from "../../../redux/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -66,7 +63,7 @@ function ChangePassword() {
         style={{ backgroundImage: "url(/images/Login-bg.jpg)" }}
       >
         <div className="changePassword__container">
-          <img className="logo" src={logo} alt="logo" />
+          <img className="logo" src="images/logo.png" alt="logo" />
           <h4>CHANGE PASSWORD</h4>
           <form style={{ marginTop: "8%" }}>
             <label class="form-check-label" for="exampleCheck1">

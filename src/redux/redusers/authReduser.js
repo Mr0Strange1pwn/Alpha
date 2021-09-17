@@ -3,6 +3,7 @@ import { LOG_IN, SIGN_UP, LOG_OUT } from "../actions/authAction"
 const InitialState = {
     isLoggedIn: false,
     userInfo: {},
+    toggle: false,
 }
 
 const authReduser = (state = InitialState, action) => {
@@ -20,9 +21,20 @@ const authReduser = (state = InitialState, action) => {
                 isLoggedIn: false
             }
         }
+        case "ON" : {
+            return {
+                ...state, toggle : true
+            }
+        }
+        case "OFF" : {
+                return {
+                    ...state, toggle : false
+                }
+        }
         default: return { ...state }
     }
 
 }
 
 export default authReduser
+

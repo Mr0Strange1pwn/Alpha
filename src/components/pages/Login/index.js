@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import "./Login.css";
 import { Link, useHistory } from "react-router-dom";
-import logo from "../../../images/logo.png";
-import passIcon from "../../../images/Eye-blue.png";
-import showpassIcon from "../../../images/Eye.png";
 import { logIn } from "../../../redux/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -73,7 +70,7 @@ function Login() {
         style={{ backgroundImage: "url(/images/Login-bg.jpg)" }}
       >
         <div className="login__container">
-          <img className="login__logo" src={logo} alt="logo" />
+          <img className="login__logo" src="images/logo.png" alt="logo" />
           {/* <h5>Login</h5> */}
           <h4>LOGIN</h4>
           <form style={{ marginTop: "10%" }}>

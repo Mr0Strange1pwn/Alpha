@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import "./resetPassword.css";
 import { useHistory } from "react-router-dom";
 import { Post } from "../../../Utils/JSONUtils";
-import logo from "../../../images/logo.png";
-import passIcon from "../../../images/Eye-blue.png";
-import showpassIcon from "../../../images/Eye.png";
 import { logIn } from "../../../redux/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -69,7 +66,7 @@ function ResetPassword() {
         style={{ backgroundImage: "url(/images/Login-bg.jpg)" }}
       >
         <div className="resetPassword__container">
-          <img className="resetPassword__logo" src={logo} alt="logo" />
+          <img className="resetPassword__logo" src="images/logo.png" alt="logo" />
           {/* <h5>Login</h5> */}
           <h4>RESET PASSWORD</h4>
           <form style={{ marginTop: "10%" }}>
