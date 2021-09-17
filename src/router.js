@@ -15,17 +15,45 @@ import Projects from "./components/pages/projects";
 import Settings from "./components/pages/settings";
 
 const Routes = () => {
-  const { isLoggedIn } = useSelector((store) => store.auth);
+  const { isLoggedIn, toggle } = useSelector((store) => store.auth);
+
+  const btnStyle = {
+    marginLeft: '20%'
+  }
+  if (toggle) {
+    btnStyle.marginLeft = '5%'
+  }
   return (
     <>
       {/* <Navbar /> */}
       {isLoggedIn ? (
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-        </Switch>
+        <div >
+          <div> <Navbar /></div>
+          <div style={btnStyle}  >
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/dashboard">
+                <Dashboard />
+              </Route>
+              <Route exact path="/Employee">
+                <Employee />
+              </Route>
+              <Route path="/Rolespermission">
+                <Rolespermission />
+              </Route>
+              <Route path="/projects">
+                <Projects />
+              </Route>
+              <Route path="/settings">
+                <Settings />
+              </Route>
+            </Switch>
+          </div>
+        </div>
       ) : (
+
         <Switch>
           <Route exact path="/">
             <Login />
@@ -39,24 +67,7 @@ const Routes = () => {
           <Route path="/changepassword">
             <ChangePassword />
           </Route>
-          <div>
-          <Navbar />
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route  exact path="/Employee">
-            <Employee />
-          </Route>
-          <Route path="/Rolespermission">
-            <Rolespermission />
-          </Route>
-          <Route path="/projects">
-            <Projects />
-          </Route>
-          <Route path="/settings">
-            <Settings />
-          </Route>
-          </div>
+
           {/* <Route exact path ="/Post/:category" component={Post} />
     <Route component={Error}/ > */}
         </Switch>
