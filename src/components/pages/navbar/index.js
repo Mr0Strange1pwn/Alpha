@@ -3,13 +3,12 @@ import { Link } from "react-router-dom";
 import "./navbar.css";
 import { useSelector, useDispatch } from "react-redux";
 import { faToggleOff } from "@fortawesome/free-solid-svg-icons";
+import { useLocation } from "react-router-dom";
 
 function Navbar() {
   const [change, setChange] = useState(false);
-
   const { toggle } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
-
   useEffect(() => {}, [change]);
 
   const clickHandle = () => {
@@ -30,11 +29,11 @@ function Navbar() {
   if (change) {
     hideme.display = "none";
   }
+  const location = useLocation();
+  const pathname = location.pathname;
 
   return (
     <div className="sidebar" style={btnStyle}>
-      {/* <img className="login__logo" src={logo} alt="logo" /> <button class="openbtn" onClick={this.clickHandle} >&#9776;</button> */}
-
       <nav class="nav flex-column">
         <div>
           <img className="login__logo" src="images/logo.png" alt="logo" />{" "}
@@ -49,46 +48,96 @@ function Navbar() {
             &#9776;
           </button>
         </div>
-        <div style={{marginLeft:"10px"}}>
-          <Link to="/dashboard">
+        <div style={{ marginLeft: "10px" }}>
+          <Link to="/">
             <img
               className="image__logo"
-              src="images/Dashboard-h.png"
+              src={
+                pathname == "/"
+                  ? "images/Dashboard-h.png"
+                  : "images/Dashboard.png"
+              }
               alt="logo"
             />
-            <a className="nav-link" style={hideme} href="/dashboard">
+            <a
+              className="nav-link"
+              style={{ color: pathname == "/" ? "#f07238" : "white" }}
+              href="/dashboard"
+            >
               DASHBOARD
             </a>
           </Link>
           <Link to="/Employee">
             <img
               className="image__logo"
-              src="images/Employees-h.png"
+              src={
+                pathname == "/Employee"
+                  ? "images/Employees-h.png"
+                  : "images/Employee.png"
+              }
               alt="logo"
             />{" "}
-            <a className="nav-link" style={hideme} href="">
+            <a
+              className="nav-link"
+              style={{ color: pathname == "/Employee" ? "#f07238" : "white" }}
+              href=""
+            >
               EMPLOYEE
             </a>
           </Link>
           <Link to="/Rolespermission">
-            <img className="image__logo" src="images/Role-H.png" alt="logo" />{" "}
-            <a className="nav-link" style={hideme} href="">
+            <img
+              className="image__logo"
+              src={
+                pathname == "/Rolespermission"
+                  ? "images/Role-H.png"
+                  : "images/Role.png"
+              }
+              alt="logo"
+            />{" "}
+            <a
+              className="nav-link"
+              style={{
+                color: pathname == "/Rolespermission" ? "#f07238" : "white",
+              }}
+              href=""
+            >
               ROLES AND PERMISSION
             </a>
           </Link>
           <Link to="/projects">
             <img
               className="image__logo"
-              src="images/Project-h.png"
+              src={
+                pathname == "/projects"
+                  ? "images/Project-h.png"
+                  : "images/Projects.png"
+              }
               alt="logo"
             />{" "}
-            <a className="nav-link" style={hideme} href="">
+            <a
+              className="nav-link"
+              style={{ color: pathname == "/projects" ? "#f07238" : "white" }}
+              href=""
+            >
               PROJECTS
             </a>
           </Link>
           <Link to="/settings">
-            <img className="image__logo" src="images/Set-h.png" alt="logo" />{" "}
-            <a className="nav-link" style={hideme} href="">
+            <img
+              className="image__logo"
+              src={
+                pathname == "/settings"
+                  ? "images/Set-h.png"
+                  : "images/Setting.png"
+              }
+              alt="logo"
+            />{" "}
+            <a
+              className="nav-link"
+              style={{ color: pathname == "/settings" ? "#f07238" : "white" }}
+              href=""
+            >
               SETTINGS
             </a>
           </Link>
@@ -103,7 +152,7 @@ function Navbar() {
           clickHandle();
         }}
       >
-     {">>"}
+        {">>"}
       </button>
     </div>
   );

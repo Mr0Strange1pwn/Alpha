@@ -31,10 +31,8 @@ const Routes = () => {
           <div> <Navbar /></div>
           <div style={btnStyle}  >
             <Switch>
+             
               <Route exact path="/">
-                <Home />
-              </Route>
-              <Route path="/dashboard">
                 <Dashboard />
               </Route>
               <Route exact path="/Employee">
@@ -49,6 +47,9 @@ const Routes = () => {
               <Route path="/settings">
                 <Settings />
               </Route>
+              {/* <Route exact path="/">
+                <Home />
+              </Route> */}
             </Switch>
           </div>
         </div>

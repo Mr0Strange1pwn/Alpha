@@ -18,10 +18,10 @@ const dispatch = useDispatch()
 //   dispatch({type: "ON"})
 //  }
  const btnStyle = {
- marginLeft:'20%'
+//  marginLeft:'20%'
  }
  if(toggle){
- btnStyle.marginLeft = '5%'
+//  btnStyle.marginLeft = '5%'
  }
 
 console.log(toggle);

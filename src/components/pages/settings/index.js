@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Dashboard() {
+function Setting() {
     return (
         <div>
             <p>Have a Nice day Yestereday</p>
@@ -8,4 +8,4 @@ function Dashboard() {
     )
 }
 
-export default Dashboard;
+export default Setting;
