@@ -1,5 +1,7 @@
 import React from "react";
 import "./dashboard.css";
+import Adduser from '../../common/Adduser'
+
 function Dashboard() {
   return (
     <div className="conatiner">
@@ -20,7 +22,9 @@ function Dashboard() {
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">User Management</h5>
-          
+            <Adduser title="Create Project" />
+            <Adduser title="Create Task" />
+            <Adduser title="Assign Task" />
           </div>
         </div>
       </div>
@@ -30,189 +34,14 @@ function Dashboard() {
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Task Management</h5>
-            <div class="row">
-              <div class="col-3"><h6>Create Project</h6></div>
-              <div class="col-3">
-                {" "}
-                <input
-                  type="radio"
-                  id="huey4"
-                  name="drone4"
-                  value="huey4"
-                  checked
-                />
-                <label for="huey">View Only</label>
-              </div>
-              <div class="col-3">
-                {" "}
-                <input
-                  type="radio"
-                  id="huey4"
-                  name="drone4"
-                  value="huey4"
-                  checked
-                />
-                <label for="huey">No Access</label>
-              </div>
-              <div class="col-3">
-                {" "}
-                <input
-                  type="radio"
-                  id="huey4"
-                  name="drone4"
-                  value="huey4"
-                  checked
-                />
-                <label for="huey">All Access</label>
-              </div>
-            </div>
 
-            <div class="row">
-              <div class="col-3"><h6>Create Task</h6></div>
-              <div class="col-3">
-                {" "}
-                <input
-                  type="radio"
-                  id="huey5"
-                  name="drone5"
-                  value="huey5"
-                  checked
-                />
-                <label for="huey">View Only</label>
-              </div>
-              <div class="col-3">
-                {" "}
-                <input
-                  type="radio"
-                  id="huey5"
-                  name="drone5"
-                  value="huey5"
-                  checked
-                />
-                <label for="huey">No Access</label>
-              </div>
-              <div class="col-3">
-                {" "}
-                <input
-                  type="radio"
-                  id="huey5"
-                  name="drone5"
-                  value="huey5"
-                  checked
-                />
-                <label for="huey">All Access</label>
-              </div>
-            </div>
+            <Adduser title="Create Project" />
+            <Adduser title="Create Task" />
+            <Adduser title="Assign Task" />
+            <Adduser title="Create Project Board" />
+            <Adduser title="Reports" />
 
-            <div class="row">
-              <div class="col-3"><h6>Assign Task</h6></div>
-              <div class="col-3">
-                {" "}
-                <input
-                  type="radio"
-                  id="huey6"
-                  name="drone6"
-                  value="huey6"
-                  checked
-                />
-                <label for="huey">View Only</label>
-              </div>
-              <div class="col-3">
-                {" "}
-                <input
-                  type="radio"
-                  id="huey6"
-                  name="drone6"
-                  value="huey6"
-                  checked
-                />
-                <label for="huey">No Access</label>
-              </div>
-              <div class="col-3">
-                {" "}
-                <input
-                  type="radio"
-                  id="huey6"
-                  name="drone6"
-                  value="huey6"
-                  checked
-                />
-                <label for="huey">All Access</label>
-              </div>
-            </div>
 
-            <div class="row">
-              <div class="col-3"><h6>Create Project Board</h6></div>
-              <div class="col-3">
-                {" "}
-                <input
-                  type="radio"
-                  id="huey7"
-                  name="drone7"
-                  value="huey7"
-                  checked
-                />
-                <label for="huey">View Only</label>
-              </div>
-              <div class="col-3">
-                {" "}
-                <input
-                  type="radio"
-                  id="huey7"
-                  name="drone7"
-                  value="huey7"
-                  checked
-                />
-                <label for="huey">No Access</label>
-              </div>
-              <div class="col-3">
-                {" "}
-                <input
-                  type="radio"
-                  id="huey7"
-                  name="drone7"
-                  value="huey7"
-                  checked
-                />
-                <label for="huey">All Acsess</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-3"><h6>Reports</h6></div>
-              <div class="col-3">
-                {" "}
-                <input
-                  type="radio"
-                  id="huey8"
-                  name="drone8"
-                  value="huey8"
-                  checked
-                />
-                <label for="huey">View Only</label>
-              </div>
-              <div class="col-3">
-                {" "}
-                <input
-                  type="radio"
-                  id="huey8"
-                  name="drone8"
-                  value="huey8"
-                  checked
-                />
-                <label for="huey">No Access</label>
-              </div>
-              <div class="col-3">
-                {" "}
-                <input
-                  type="radio"
-                  id="huey8"
-                  name="drone8"
-                  value="huey8"
-                  checked
-                />
-                <label for="huey">All Access</label>
-              </div>
-            </div>
           </div>
         </div>
       </div>
