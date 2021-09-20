@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import Login from "./components/pages/Login";
 import ResetPassword from "./components/pages/ResetPassword";
 import ChangePassword from "./components/pages/changePassword";
@@ -16,7 +16,7 @@ import Settings from "./components/pages/settings";
 
 const Routes = () => {
   const { isLoggedIn, toggle } = useSelector((store) => store.auth);
-
+  const Location = useLocation()
   const btnStyle = {
     marginLeft: '20%'
   }
@@ -29,9 +29,10 @@ const Routes = () => {
       {isLoggedIn ? (
         <div >
           <div> <Navbar /></div>
+          <div style={btnStyle}> Path: {Location.pathname}  </div>
           <div style={btnStyle}  >
             <Switch>
-             
+
               <Route exact path="/">
                 <Dashboard />
               </Route>
