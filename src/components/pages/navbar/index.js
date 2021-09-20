@@ -48,7 +48,7 @@ function Navbar() {
             &#9776;
           </button>
         </div>
-        <div style={{ marginLeft: "10px" }}>
+        <div style={{ marginLeft: "15px",marginTop:"10%" }} >
           <Link to="/">
             <img
               className="image__logo"
@@ -67,7 +67,7 @@ function Navbar() {
               DASHBOARD
             </a>
           </Link>
-          <Link to="/Employee">
+          <Link to="/Employee" className="navBar-link">
             <img
               className="image__logo"
               src={
@@ -85,7 +85,7 @@ function Navbar() {
               EMPLOYEE
             </a>
           </Link>
-          <Link to="/Rolespermission">
+          <Link to="/Rolespermission" className="navBar-link">
             <img
               className="image__logo"
               src={
@@ -105,7 +105,7 @@ function Navbar() {
               ROLES AND PERMISSION
             </a>
           </Link>
-          <Link to="/projects">
+          <Link to="/projects" className="navBar-link">
             <img
               className="image__logo"
               src={
@@ -123,7 +123,7 @@ function Navbar() {
               PROJECTS
             </a>
           </Link>
-          <Link to="/settings">
+          <Link to="/settings" className="navBar-link">
             <img
               className="image__logo"
               src={

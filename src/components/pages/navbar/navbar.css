@@ -18,7 +18,10 @@
       
   }
   .nav-link{
-    margin-left: 10%;
+    margin-left: 11%;
+  }
+  .navBar-link{
+    margin-top: "10%";
   }
   .image__logo{
       width: 30px;
@@ -28,10 +31,10 @@
       float:right;
       width: 50px;
       height: 40px;
-      padding-top: 30px;
+      padding-top: 38px;
       padding-bottom: 40px;
       background-color: #003366;
-      color: aqua;
+      color: #f9fafb;
       border: none;
   
   }

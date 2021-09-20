@@ -1,7 +1,8 @@
 import { LOG_IN, SIGN_UP, LOG_OUT } from "../actions/authAction"
 
 const InitialState = {
-    isLoggedIn: false,
+    // isLoggedIn: false,
+    isLoggedIn: true,
     userInfo: {},
     toggle: false,
 }
