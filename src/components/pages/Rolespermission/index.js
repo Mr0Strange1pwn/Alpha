@@ -4,10 +4,142 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Header from "../Header/Header";
+import { useTable, usePagination } from 'react-table'
+
+function Table({ columns, data }) {
+  // Use the state and functions returned from useTable to build your UI
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    page, // Instead of using 'rows', we'll use page,
+    // which has only the rows for the active page
+
+    // The rest of these things are super handy, too ;)
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
+  } = useTable(
+    {
+      columns,
+      data,
+      initialState: { pageIndex: 0 },
+    },
+    usePagination
+  )
+
+  // Render the UI for your table
+  return (
+    <>
+
+      <table {...getTableProps()}>
+        <thead >
+          {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {page.map((row, i) => {
+            prepareRow(row)
+            return (
+              <tr  {...row.getRowProps()}>
+                <div >
+                  {row.cells.map(cell => {
+                    return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                  })}
+                </div>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+      {/* 
+        Pagination can be built however you'd like. 
+        This is just a very basic UI implementation:
+      */}
+      <div className="pagination">
+        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          {'<<'}
+        </button>{' '}
+        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+          {'<'}
+        </button>{' '}
+        <button onClick={() => nextPage()} disabled={!canNextPage}>
+          {'>'}
+        </button>{' '}
+        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          {'>>'}
+        </button>{' '}
+        <span>
+          Page{' '}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>{' '}
+        </span>
+        <span>
+          | Go to page:{' '}
+          <input
+            type="number"
+            defaultValue={pageIndex + 1}
+            onChange={e => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0
+              gotoPage(page)
+            }}
+            style={{ width: '100px' }}
+          />
+        </span>{' '}
+        <select
+          value={pageSize}
+          onChange={e => {
+            setPageSize(Number(e.target.value))
+          }}
+        >
+          {[5, 10, 20, 30, 40, 50].map(pageSize => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+      </div>
+    </>
+  )
+}
 
 const Rolespermission = () => {
 
   const { id } = useParams();
+
+  const columns = React.useMemo(
+    () => [
+      // {
+      //   Header: 'ID',
+      //   accessor: 'id',
+      // },
+      {
+        Header: 'Role Name',
+        accessor: 'useremail',
+      },
+      {
+        Header: 'User Count',
+        accessor: "userpassword"
+      },
+      // {
+      //   Header: 'Actions',
+      // }
+    ],
+    []
+  )
 
   const stnStyle = {
     backgroundColor: "green",
@@ -29,11 +161,11 @@ const Rolespermission = () => {
 
   const searchHandler = () => {
     let filterDAta = student.filter((data) =>
-  //  console.log("data",data)
-       data.useremail.includes(searchQuery)
+      //  console.log("data",data)
+      data.useremail.includes(searchQuery)
     );
     if (filterDAta.length > 0) {
-      console.log("filterDAta",filterDAta)
+      console.log("filterDAta", filterDAta)
       setStudent(filterDAta);
     }
     console.log(filterDAta)
@@ -60,7 +192,7 @@ const Rolespermission = () => {
     <div className="header">
       <Header headerName="Role and Permissions" />
       <div className="main">
-        <div style={{marginTop:"4%"}}>
+        <div style={{ marginTop: "4%" }}>
           <div class="row">
             <div class="col-sm-6">
               {" "}
@@ -78,25 +210,25 @@ const Rolespermission = () => {
                 aria-label="Search"
               /> */}
               <div class="col-sm-5">
-              <div class="input-group">
-                <input
-                  class="form-control  border"
-                  type="search"
-                  id="example-search-input"
-                  placeholder="Search Member"
-                  //value={searchQuery}
-                  // onChangeText={(value) => setSearchQuery(value)}
-                  onChange={(value) => setSearchQuery(value.target.value)}
-                  style={{
-                   
-                    backgroundImage:search==false? "url(images/Search.png)":"",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "right",
-                    backgroundOrigin:"content-box",
-                    padding: "5px",
-                   backgroundColor:"#f1f1f1"
-                  }}
-                />
+                <div class="input-group">
+                  <input
+                    class="form-control  border"
+                    type="search"
+                    id="example-search-input"
+                    placeholder="Search Member"
+                    //value={searchQuery}
+                    // onChangeText={(value) => setSearchQuery(value)}
+                    onChange={(value) => setSearchQuery(value.target.value)}
+                    style={{
+
+                      backgroundImage: search == false ? "url(images/Search.png)" : "",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "right",
+                      backgroundOrigin: "content-box",
+                      padding: "5px",
+                      backgroundColor: "#f1f1f1"
+                    }}
+                  />
                 </div>
                 {/* <span class="input-group-append">
                     <button class="btn btn-outline-secondary bg-white border-start-0 border-bottom-0 border ms-n5" type="button">
@@ -204,7 +336,7 @@ const Rolespermission = () => {
         {/* </div>
       </nav> */}
 
-        <div class="container">
+        {/* <div class="container">
           <div class="row">
             <div class="col">
               <p>
@@ -240,9 +372,9 @@ const Rolespermission = () => {
               <p>Actions</p>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        {student.map((students, i) => {
+        {/* {student.map((students, i) => {
           return (
             <div class="newcontainer">
               <div class="row" key={i}>
@@ -255,7 +387,7 @@ const Rolespermission = () => {
                 <div class="col">
                   <p>{students.userpassword}</p>
                 </div>
-                <div class="col" style={{marginRight:"4%"}}>
+                <div class="col" style={{ marginRight: "4%" }}>
                   <button
                     className="dustbin_image"
                     onClick={() => handleDelete(students.id)}
@@ -273,21 +405,23 @@ const Rolespermission = () => {
               </div>
             </div>
           );
-        })}
-<nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-end">
-    <li class="page-item disabled">
-      <a class="page-link text-decoration-underline border-0" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-    </li>
-    <li class="page-item"><a class="page-link  border-0" href="#">1</a></li>
-    <li class="page-item"><a class="page-link  border-0" href="#">2</a></li>
-    <li class="page-item"><a class="page-link  border-0" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link text-decoration-underline border-0" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
+        })} */}
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+              <a class="page-link text-decoration-underline border-0" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link  border-0" href="#">1</a></li>
+            <li class="page-item"><a class="page-link  border-0" href="#">2</a></li>
+            <li class="page-item"><a class="page-link  border-0" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link text-decoration-underline border-0" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
       </div>
+
+      <Table data={student} columns={columns} />
     </div>
   );
 };
