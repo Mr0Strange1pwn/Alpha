@@ -1,8 +1,8 @@
-.conatiner {
+.form {
     margin-left: 5%;
 }
 .form-label {
-margin-top: 5%;
+margin-top: 3%;
 font-weight: 700;
 }
 .role {
@@ -17,4 +17,7 @@ font-weight: 700;
 }
 .card-title{
     color:#f07238;
+}
+.radio_lable{
+    padding-left: 10px;
 }

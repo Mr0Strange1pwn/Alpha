@@ -29,7 +29,7 @@ const Routes = () => {
       {isLoggedIn ? (
         <div >
           <div> <Navbar /></div>
-          <div style={btnStyle}> Path: {Location.pathname}  </div>
+          {/* <div style={btnStyle}> {Location.pathname}  </div> */}
           <div style={btnStyle}  >
             <Switch>
 

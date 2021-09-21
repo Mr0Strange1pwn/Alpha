@@ -171,43 +171,6 @@ function Login() {
                 </Link>
               </h7>
             </div>
-            {/* <p>Select a maintenance drone:</p>
-
-<div>
-  <input type="radio" id="huey" name="drone" value="huey"
-         checked/>
-  <label for="huey">Huey</label>
-    <input type="radio" id="contactChoice1"
-     name="contact" value="email"/>
-    <label for="contactChoice1">Email</label>
-</div>
-
-<div>
-  <input type="radio" id="dewey" name="drone" value="dewey"/>
-  <label for="dewey">Dewey</label>
-</div>
-
-<div>
-  <input type="radio" id="louie" name="drone" value="louie"/>
-  <label for="louie">Louie</label>
-</div>
-
-<div>
-    <input type="radio" id="contactChoice1"
-     name="contact" value="email"/>
-    <label for="contactChoice1">Email</label>
-
-    <input type="radio" id="contactChoice2"
-     name="contact" value="phone"/>
-    <label for="contactChoice2">Phone</label>
-
-    <input type="radio" id="contactChoice3"
-     name="contact" value="mail"/>
-    <label for="contactChoice3">Mail</label>
-  </div>
-  <div>
-    <button type="submit">Submit</button>
-  </div> */}
           </form>
 
           <button
