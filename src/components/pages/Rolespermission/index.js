@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./Rolespermission.css";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import Header from "../Header/Header";
+import AddRole from "./addRole";
+import { Link ,useParams, useHistory } from "react-router-dom";
 
 const Rolespermission = () => {
-
   const { id } = useParams();
-
-  const stnStyle = {
-    backgroundColor: "green",
-  };
   const [student, setStudent] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [search, setSearch] = useState(false)
+  
   useEffect(() => {
     getAllStudent();
   }, []);
@@ -27,9 +23,13 @@ const Rolespermission = () => {
     }
   }, [searchQuery])
 
+  const history = useHistory();
+  const routeChange = () =>{ 
+    let path = `./AddRole`; 
+    history.push(path);
+  }
   const searchHandler = () => {
     let filterDAta = student.filter((data) =>
-  //  console.log("data",data)
        data.useremail.includes(searchQuery)
     );
     if (filterDAta.length > 0) {
@@ -49,6 +49,7 @@ const Rolespermission = () => {
   }
 
   const handleDelete = async (id) => {
+    alert("Are u sure want to delete this row?")
     await axios.delete(`http://localhost:3003/posts/${id}`);
     var newstudent = student.filter((item) => {
       return item.id !== id;
@@ -115,6 +116,7 @@ const Rolespermission = () => {
                   className="btn btn-outline-success float-right"
                   style={{ backgroundColor: "#003366", color: "white" }}
                   type="submit"
+                  onClick={routeChange}
                 >
                   Add Role
                 </button>
@@ -157,7 +159,7 @@ const Rolespermission = () => {
               </p>
             </div>
             <div class="col">
-              <p>Actions</p>
+              <p style={{marginLeft: "30%"}}>Actions</p>
             </div>
           </div>
         </div>
@@ -169,12 +171,13 @@ const Rolespermission = () => {
                   <p style={{marginRight:"20%"}}>{i + 1}</p>
                 </div>
                 <div class="col">
-                  <p>{students.useremail}</p>
+                  <p>{students.username}</p>
                 </div>
                 <div class="col">
                   <p>{students.userpassword}</p>
                 </div>
-                <div class="col" style={{marginRright: "auto"}}>
+                <div class="col " >
+                  <div>
                   <button
                     className="dustbin_image"
                     onClick={() => handleDelete(students.id)}
@@ -188,6 +191,8 @@ const Rolespermission = () => {
                       alt="logo"
                     />
                   </Link>
+                  </div>
+                 
                 </div>
               </div>
             </div>

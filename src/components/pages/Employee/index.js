@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./Employee.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useParams  } from "react-router-dom";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import Header from "../Header/Header";
 
 const Employee = () => {
-
   const { id } = useParams();
-
-  const stnStyle = {
-    backgroundColor: "green",
-  };
   const [student, setStudent] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [search, setSearch] = useState(false)
+
+  const history = useHistory();
+  const routeChange = () =>{ 
+    let path = `./Registration`; 
+    history.push(path);
+  }
   useEffect(() => {
     getAllStudent();
   }, []);
@@ -49,6 +49,7 @@ const Employee = () => {
   }
 
   const handleDelete = async (id) => {
+    alert("Are u sure want to delete this employee?")
     await axios.delete(`http://localhost:3003/posts/${id}`);
     var newstudent = student.filter((item) => {
       return item.id !== id;
@@ -117,6 +118,7 @@ const Employee = () => {
                   className="btn btn-outline-success float-right"
                   style={{ backgroundColor: "#003366", color: "white" }}
                   type="submit"
+                  onClick={routeChange}
                 >
                   Add Employee
                 </button>

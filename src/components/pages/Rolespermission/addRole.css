@@ -1,0 +1,24 @@
+.form {
+    margin-left: 5%;
+}
+.form-label {
+margin-top: 3%;
+font-weight: 700;
+}
+.role {
+    background-color: #f1f1f1;
+    width: 20%!important;
+    
+}
+.card-body{
+    background-color: #f1f1f1;
+}
+.card  {
+    width: 90%;
+}
+.card-title{
+    color:#f07238;
+}
+.radio_lable{
+    padding-left: 10px;
+}

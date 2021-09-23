@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import "./Registration.css";
-import Header from "../Header/Header";
+import Header from "../../Header/Header";
 import Upload from "./Upload";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import PhoneInputNumber from "../../common/PhoneInput"
+import PhoneInputNumber from "../../../common/PhoneInput"
 
 function Registration() {
   const [startDate, setStartDate] = useState(new Date());
-
   const ytnStyle = {
     backgroundColor: "white",
     marginTop: "200px",
@@ -22,8 +21,7 @@ function Registration() {
             <div
               style={{
                 backgroundColor: "#f1f1f1",
-                // height: "150px",
-                // width: "150px",
+              
               }}
             >
                < Upload/>
@@ -144,7 +142,7 @@ function Registration() {
                 id="inputGroupSelect03"
                 aria-label="Example select with button addon"
               >
-                <option selected>Choose Manager..</option>
+                <option selected>Choose Manager</option>
                 <option value="1">Manager</option>
                 <option value="2">Assistant Manager</option>
                 <option value="3">Juniar Manager</option>

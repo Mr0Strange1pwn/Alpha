@@ -1,28 +1,34 @@
 {
   "posts": [
     {
-      "useremail": "nirvan.mt@mechlin.com",
-      "username": "data2",
+      "useremail": "tester.mt@mechlin.com",
+      "username": "tester",
+      "userpassword": "98765",
+      "id": 1
+    },
+    {
+      "useremail": "sumit.mt@mechlin.com",
+      "username": "developer",
+      "userpassword": "98765",
+      "id": 2
+    },
+    {
+      "useremail": "manager.mt@mechlin.com",
+      "username": "manager",
+      "userpassword": "98765",
+      "id": 3
+    },
+    {
+      "useremail": "employee.mt@mechlin.com",
+      "username": "employee",
       "userpassword": "98765",
       "id": 4
     },
     {
-      "useremail": "sumit.mt@mechlin.com",
-      "username": "data2",
+      "useremail": "employee1.mt@mechlin.com",
+      "username": "employee1",
       "userpassword": "98765",
-      "id": 6
-    },
-    {
-      "useremail": "nirvan.mt@mechlin.com",
-      "username": "data2",
-      "userpassword": "98765",
-      "id": 7
-    },
-    {
-      "useremail": "sumit.mt@mechlin.com",
-      "username": "data2",
-      "userpassword": "98765",
-      "id": 8
+      "id": 5
     }
   ],
   "comments": [],
