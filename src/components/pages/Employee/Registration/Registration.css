@@ -52,7 +52,9 @@ input[type=text], select, textarea{
     width: 75%;
     margin-top: 6px;
   }
-  
+  /* .calander{
+    background-image: url("images/Filter.png");
+  } */
   /* Clear floats after the columns */
   .row:after {
     content: "";

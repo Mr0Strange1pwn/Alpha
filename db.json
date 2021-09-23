@@ -23,12 +23,6 @@
       "username": "employee",
       "userpassword": "98765",
       "id": 4
-    },
-    {
-      "useremail": "employee1.mt@mechlin.com",
-      "username": "employee1",
-      "userpassword": "98765",
-      "id": 5
     }
   ],
   "comments": [],

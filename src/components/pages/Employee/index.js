@@ -28,6 +28,14 @@ const Employee = () => {
     }
   }, [searchQuery])
 
+  const delAlert=(id)=> {
+    if (window.confirm("Are you sure want to delete this employee?")) {
+      handleDelete(id)
+    } else {
+     
+    }
+  }
+
   const searchHandler = () => {
     let filterDAta = student.filter((data) =>
   //  console.log("data",data)
@@ -49,7 +57,8 @@ const Employee = () => {
   }
 
   const handleDelete = async (id) => {
-    alert("Are u sure want to delete this employee?")
+    
+    // alert("Are u sure want to delete this employee?")
     await axios.delete(`http://localhost:3003/posts/${id}`);
     var newstudent = student.filter((item) => {
       return item.id !== id;
@@ -213,7 +222,7 @@ const Employee = () => {
                 <div class="col" >
                   <button
                     className="dustbin_image"
-                    onClick={() => handleDelete(students.id)}
+                    onClick={() => delAlert(students.id)}
                   >
                     <img src="images/Del.png" alt="logo" />
                   </button>

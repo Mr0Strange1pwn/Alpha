@@ -47,9 +47,16 @@ const Rolespermission = () => {
       console.log("something is wrong");
     }
   }
+  const delAlert=(id)=> {
+    if (window.confirm("Are you sure want to delete this employee?")) {
+      handleDelete(id)
+    } else {
+     
+    }
+  }
 
   const handleDelete = async (id) => {
-    alert("Are u sure want to delete this row?")
+    
     await axios.delete(`http://localhost:3003/posts/${id}`);
     var newstudent = student.filter((item) => {
       return item.id !== id;
@@ -180,7 +187,7 @@ const Rolespermission = () => {
                   <div>
                   <button
                     className="dustbin_image"
-                    onClick={() => handleDelete(students.id)}
+                    onClick={() => delAlert(students.id)}
                   >
                     <img src="images/Del.png" alt="logo" />
                   </button>
