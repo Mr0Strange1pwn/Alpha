@@ -10,14 +10,15 @@
 }
 
 
-.container{
+.role-container{
     background-color: #f07238;
     color:white;
     font-weight: 700;
     border-radius: 3px;
     padding: 10px;
     text-align: center;
-
+    margin-top: 2%;
+    margin-bottom: 1%;
 }
 .newcontainer{
     
@@ -27,10 +28,10 @@
     text-align: center;
 
 }
-.newcontainer .row {
+.role-row {
     background-color:#f1f1f1;
     border-collapse: separate;
-    border-spacing:15px;
+    /* border-spacing:15px; */
     color:darkblue;
     font-weight: 600;
     border-radius: 3px;

@@ -1,24 +1,28 @@
 {
   "posts": [
     {
-      "useremail": "nirvanpandagre@gmai.com",
-      "userpassword": "12345",
-      "id": 2
-    },
-    {
-      "useremail": "Nirvan.mt@mechlin.com",
-      "userpassword": "98765",
-      "id": 3
-    },
-    {
-      "useremail": "Nirvan.mt@mechlin.com",
+      "useremail": "nirvan.mt@mechlin.com",
+      "username": "data2",
       "userpassword": "98765",
       "id": 4
     },
     {
-      "useremail": "Nirvan.mt@mechlin.com",
+      "useremail": "sumit.mt@mechlin.com",
+      "username": "data2",
       "userpassword": "98765",
-      "id": 5
+      "id": 6
+    },
+    {
+      "useremail": "nirvan.mt@mechlin.com",
+      "username": "data2",
+      "userpassword": "98765",
+      "id": 7
+    },
+    {
+      "useremail": "sumit.mt@mechlin.com",
+      "username": "data2",
+      "userpassword": "98765",
+      "id": 8
     }
   ],
   "comments": [],

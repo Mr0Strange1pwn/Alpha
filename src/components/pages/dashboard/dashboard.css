@@ -7,7 +7,8 @@ font-weight: 700;
 }
 .role {
     background-color: #f1f1f1;
-    width: 20%;
+    width: 20%!important;
+    
 }
 .card-body{
     background-color: #f1f1f1;

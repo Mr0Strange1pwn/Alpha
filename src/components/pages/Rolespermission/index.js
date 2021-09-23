@@ -57,38 +57,21 @@ const Rolespermission = () => {
   };
 
   return (
-    <div className="header">
+    <div className="role-header">
       <Header headerName="Role and Permissions" />
       <div className="main">
         <div style={{marginTop:"4%"}}>
           <div class="row">
-            <div class="col-sm-6">
-              {" "}
-              {/* <input
-                className="form-control me-2"
-                type="search"
-                style={{
-                  backgroundImage: "url(" + "images/Search.png" + ")",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "right",
-                  padding: "5px",
-                  width: "200px",
-                }}
-                placeholder="Search"
-                aria-label="Search"
-              /> */}
+            <div class="col-sm-6" style={{marginTop: "5px"}}>
               <div class="col-sm-5">
               <div class="input-group">
                 <input
                   class="form-control  border"
                   type="search"
                   id="example-search-input"
-                  placeholder="Search Member"
-                  //value={searchQuery}
-                  // onChangeText={(value) => setSearchQuery(value)}
+                  placeholder="Search here.."
                   onChange={(value) => setSearchQuery(value.target.value)}
                   style={{
-                   
                     backgroundImage:search==false? "url(images/Search.png)":"",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "right",
@@ -98,19 +81,9 @@ const Rolespermission = () => {
                   }}
                 />
                 </div>
-                {/* <span class="input-group-append">
-                    <button class="btn btn-outline-secondary bg-white border-start-0 border-bottom-0 border ms-n5" type="button">
-                    <img
-                      className="filter_image"
-                      src="images/Search.png"
-                      alt="logo"
-                    />
-                    </button>
-                </span> */}
               </div>
             </div>
             <div class="col-sm-6">
-              {" "}
               <div className="pos">
                 <button
                   className="btn btn-outline-success float-right"
@@ -149,62 +122,9 @@ const Rolespermission = () => {
             </div>
           </div>
         </div>
-        {/* <nav className="navbar navbar-expand-lg navbar-light">
-        <div className="container-fluid"> */}
-        {/* <form className="d-flex">
-            <input
-              className="form-control me-2"
-              type="search"
-              style={{
-                backgroundImage: "url(" + "images/Search.png" + ")",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "right",
-                padding: "5px",
-                width: "200px",
-              }}
-              placeholder="Search"
-              aria-label="Search"
-            />
+     
 
-            <div className="pos">
-              <button
-                className="btn btn-outline-success float-right"
-                type="submit"
-              >
-                <Link to="/">
-                  <img
-                    className="export_image"
-                    src="images/Export.png"
-                    alt="logo"
-                  />
-                </Link>
-                Export
-              </button>
-              <button
-                className="btn btn-outline-success float-right"
-                type="submit"
-              >
-                <Link to="/">
-                  <img
-                    className="filter_image"
-                    src="images/Filter.png"
-                    alt="logo"
-                  />
-                </Link>
-                filter
-              </button>
-              <button
-                className="btn btn-outline-success float-right"
-                type="submit"
-              >
-                Add Role
-              </button>
-            </div>
-          </form> */}
-        {/* </div>
-      </nav> */}
-
-        <div class="container">
+        <div class="role-container">
           <div class="row">
             <div class="col">
               <p>
@@ -241,13 +161,12 @@ const Rolespermission = () => {
             </div>
           </div>
         </div>
-
         {student.map((students, i) => {
           return (
             <div class="newcontainer">
-              <div class="row" key={i}>
+              <div className="row role-row" key={i}>
                 <div class="col">
-                  <p>{i + 1}</p>
+                  <p style={{marginRight:"20%"}}>{i + 1}</p>
                 </div>
                 <div class="col">
                   <p>{students.useremail}</p>
@@ -255,7 +174,7 @@ const Rolespermission = () => {
                 <div class="col">
                   <p>{students.userpassword}</p>
                 </div>
-                <div class="col" style={{marginRight:"4%"}}>
+                <div class="col" style={{marginRright: "auto"}}>
                   <button
                     className="dustbin_image"
                     onClick={() => handleDelete(students.id)}

@@ -14,6 +14,7 @@ import Rolespermission from "./components/pages/Rolespermission";
 import Projects from "./components/pages/projects";
 import Settings from "./components/pages/settings";
 import View from "./components/pages/People/View";
+import Registration from "./components/pages/Registration";
 
 const Routes = () => {
   const { isLoggedIn, toggle } = useSelector((store) => store.auth);
@@ -48,6 +49,9 @@ const Routes = () => {
               </Route>
               <Route path="/settings">
                 <Settings />
+              </Route>
+              <Route path="/Registration">
+                <Registration />
               </Route>
               {/* <Route exact path="/">
                 <Home />

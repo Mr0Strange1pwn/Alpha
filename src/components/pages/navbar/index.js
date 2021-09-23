@@ -64,7 +64,7 @@ function Navbar() {
               style={{ color: pathname == "/" ? "#f07238" : "white" }}
               href="/dashboard"
             >
-              DASHBOARD
+              Dashboard
             </a>
           </Link>
           <Link to="/Employee" className="navBar-link">
@@ -82,7 +82,7 @@ function Navbar() {
               style={{ color: pathname == "/Employee" ? "#f07238" : "white" }}
               href=""
             >
-              EMPLOYEE
+              Employees
             </a>
           </Link>
           <Link to="/Rolespermission" className="navBar-link">
@@ -102,7 +102,7 @@ function Navbar() {
               }}
               href=""
             >
-              ROLES AND PERMISSION
+              Roles and Permission
             </a>
           </Link>
           <Link to="/projects" className="navBar-link">
@@ -120,7 +120,7 @@ function Navbar() {
               style={{ color: pathname == "/projects" ? "#f07238" : "white" }}
               href=""
             >
-              PROJECTS
+              Projects
             </a>
           </Link>
           <Link to="/settings" className="navBar-link">
@@ -138,7 +138,7 @@ function Navbar() {
               style={{ color: pathname == "/settings" ? "#f07238" : "white" }}
               href=""
             >
-              SETTINGS
+              Settings
             </a>
           </Link>
         </div>
