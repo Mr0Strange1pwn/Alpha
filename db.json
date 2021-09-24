@@ -7,22 +7,16 @@
       "id": 1
     },
     {
-      "useremail": "sumit.mt@mechlin.com",
-      "username": "developer",
+      "useremail": "tester.mt@mechlin.com",
+      "username": "tester",
       "userpassword": "98765",
       "id": 2
     },
     {
-      "useremail": "manager.mt@mechlin.com",
-      "username": "manager",
+      "useremail": "sester.mt@mechlin.com",
+      "username": "tester",
       "userpassword": "98765",
       "id": 3
-    },
-    {
-      "useremail": "employee.mt@mechlin.com",
-      "username": "employee",
-      "userpassword": "98765",
-      "id": 4
     }
   ],
   "comments": [],

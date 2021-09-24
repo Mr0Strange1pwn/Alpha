@@ -4,34 +4,34 @@ import Header from "../../Header/Header";
 import Upload from "./Upload";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import PhoneInputNumber from "../../../common/PhoneInput";
-import { FaBitbucket } from "react-icons/fa";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
     <div>
-  
       <input
-      type="text"
-      id="lname"
+        type="text"
+        id="lname"
         className="example-custom-input"
         onClick={(e) => onClick(e.preventDefault())}
         value={value}
-        style={{ 
-          backgroundImage:"url(images/Email-icon.png)",
+        style={{
+          backgroundImage: "url(images/calendar.png)",
           backgroundRepeat: "no-repeat",
-          backgroundPosition: "right",}}
+          backgroundPosition: "right",
+          backgroundOrigin: "content-box",
+          padding: "5px",
+        }}
       />
-      {/* <img src="images/Email-icon.png" style={{ marginRight: "2px" }} /> */}
-
+     
     </div>
-
-
   );
 };
 function Registration() {
   const [startDate, setStartDate] = useState(new Date());
-  console.log("startDate", startDate);
+  const [value, setValue] = useState();
+
   const ytnStyle = {
     backgroundColor: "blue",
     backgroundImage: "linear-gradient(45deg, black, transparent)",
@@ -59,19 +59,19 @@ function Registration() {
                 type="text"
                 id="fname"
                 name="firstname"
-                placeholder="Enter your Name.."
+                placeholder="Name"
               />
             </div>
 
             <div className="col">
               <label class="form-check-label reg-lable" for="exampleCheck1">
-                Email Address
+                Email
               </label>
               <input
                 type="text"
                 id="lname"
                 name="lastname"
-                placeholder="Enter Email Address.."
+                placeholder="Email"
               />
             </div>
           </div>
@@ -80,10 +80,14 @@ function Registration() {
               <label class="form-check-label reg-lable" for="exampleCheck1">
                 Mobile Number
               </label>
-              
+              <PhoneInput
+                country={"us"}
+                value={value}
+                onChange={(value) => setValue(value)}
+              />
               {/* <PhoneInputNumber/> */}
-            
-              <div style={{display:"flex"}}>
+
+              {/* <div style={{display:"flex"}}>
                 <div style={{width:"20%"}}>
                 <PhoneInputNumber/>
                 </div>
@@ -92,20 +96,18 @@ function Registration() {
                 type="text"
                 id="fname"
                 name="firstname"
-                placeholder="Enter Mobile Number.."
+                placeholder="Mobile Number"
               />
                 </div>
              
-              </div>
-               
-             
+              </div> */}
+
               {/* <input
                 type="text"
                 id="fname"
                 name="firstname"
                 placeholder="Enter Mobile Number.."
               /> */}
-             
             </div>
 
             <div className="col">
@@ -138,31 +140,56 @@ function Registration() {
               <label class="form-check-label reg-lable" for="exampleCheck1">
                 Designation
               </label>
-              <input
+              {/* <input
                 type="text"
                 id="fname"
                 name="firstname"
-                placeholder="Enter Designation"
-              />
+                placeholder="Choose Designation"
+              /> */}
+              <select
+                class="form-select"
+                id="inputGroupSelect03"
+                aria-label="Example select with button addon"
+              >
+                <option selected>Choose Designation</option>
+                <option value="1">Developer</option>
+                <option value="2">Tester</option>
+                <option value="3">Designer</option>
+              </select>
             </div>
 
             <div className="col">
               <label class="form-check-label reg-lable" for="exampleCheck1">
                 Role
               </label>
-              <input
+              {/* <input
                 type="text"
                 id="lname"
                 name="lastname"
                 placeholder="Role"
-              />
+              /> */}
+              <select
+                class="form-select"
+                id="inputGroupSelect03"
+                aria-label="Example select with button addon"
+              >
+                <option selected>Choose Role</option>
+                <option value="1">Lead</option>
+                <option value="2">QA Lead</option>
+                <option value="3">Fresher</option>
+              </select>
             </div>
           </div>
           <div className="row">
             <label
               class="form-check-label reg-lable"
               for="exampleCheck1"
-              style={{ fontSize: "25px", fontWeight: "700", marginLeft: "1%" }}
+              style={{
+                fontSize: "25px",
+                fontWeight: "700",
+                marginLeft: "1%",
+                marginTop: "1%",
+              }}
             >
               Advance Setting
             </label>
@@ -208,28 +235,15 @@ function Registration() {
             </div>
           </div>
         </form>
-        <div
-          className="d-grid gap-2 d-md-block"
-          style={{
-            marginTop: "2%",
-            marginBottom: "10px",
-            textAlignLast: "start",
-          }}
-        >
-          <button
-            className="btn "
-            style={{ backgroundColor: "#003366", color: "white" }}
-            type="button"
-          >
-            Save
-          </button>
-          <button
-            className="btn btn-secondary"
-            type="button"
-            style={{ marginLeft: "5px" }}
-          >
-            Cancel
-          </button>
+        <div className="d-grid gap-2 d-md-block">
+          <div className="addrole_Button">
+            <button className="btn  float-left" type="submit">
+              Save
+            </button>
+            <button className="btn  float-left" type="submit">
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </div>

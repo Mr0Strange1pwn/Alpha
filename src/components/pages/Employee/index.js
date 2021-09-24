@@ -3,13 +3,14 @@ import "./Employee.css";
 import { Link, useHistory, useParams  } from "react-router-dom";
 import axios from "axios";
 import Header from "../Header/Header";
-
+import AlertModel from "../../common/AlertModel.js"
 const Employee = () => {
   const { id } = useParams();
   const [student, setStudent] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [search, setSearch] = useState(false)
-
+ const [modalOpen, setModalOpen] = useState(false);
+ const [ids,setID]=useState()
   const history = useHistory();
   const routeChange = () =>{ 
     let path = `./Registration`; 
@@ -29,11 +30,8 @@ const Employee = () => {
   }, [searchQuery])
 
   const delAlert=(id)=> {
-    if (window.confirm("Are you sure want to delete this employee?")) {
-      handleDelete(id)
-    } else {
-     
-    }
+    setModalOpen(true)
+      setID(id)
   }
 
   const searchHandler = () => {
@@ -57,19 +55,21 @@ const Employee = () => {
   }
 
   const handleDelete = async (id) => {
-    
-    // alert("Are u sure want to delete this employee?")
+   
+   
     await axios.delete(`http://localhost:3003/posts/${id}`);
     var newstudent = student.filter((item) => {
       return item.id !== id;
     });
     setStudent(newstudent);
+     setModalOpen(false)
+    
   };
 
   return (
     <div className="header">
       <Header headerName="Employee List" />
-      <div className="main">
+      {modalOpen ? <AlertModel setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>:      <div className="main">
         <div style={{marginTop:"4%"}}>
           <div class="row">
             <div class="col-sm-6" style={{marginTop: "5px"}}>
@@ -98,7 +98,7 @@ const Employee = () => {
             <div class="col-sm-6" >
               <div className="pos">
                 <button
-                  className="btn btn-outline-success float-right"
+                  className="btn  float-right"
                   type="submit"
                 >
                   <Link to="/">
@@ -121,7 +121,7 @@ const Employee = () => {
                       alt="logo"
                     />
                   </Link>
-                  filter
+                  Filter
                 </button>
                 <button
                   className="btn btn-outline-success float-right"
@@ -169,7 +169,7 @@ const Employee = () => {
               </p>
             </div>
             <div class="col">
-              <p style={{marginLeft:"35%"}}>
+              <p style={{marginLeft:"34%"}}>
                Phone No 
               </p>
             </div>
@@ -251,7 +251,8 @@ const Employee = () => {
     </li>
   </ul>
 </nav>
-      </div>
+      </div>}
+
     </div>
   );
 };

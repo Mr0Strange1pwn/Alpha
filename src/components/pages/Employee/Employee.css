@@ -55,6 +55,12 @@
     border-spacing: 5px;
     margin: 5px;
     float: right;
+
+}
+.pos >button:hover {
+    color: #fff;
+    background-color: #003366;
+    border-color: #003366; /*set the color you want here*/
 }
 .export_image{
     height: 20px;

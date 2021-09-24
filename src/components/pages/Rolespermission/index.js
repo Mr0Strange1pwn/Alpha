@@ -4,13 +4,14 @@ import axios from "axios";
 import Header from "../Header/Header";
 import AddRole from "./addRole";
 import { Link ,useParams, useHistory } from "react-router-dom";
-
+import AlertModel from "../../common/AlertModel.js"
 const Rolespermission = () => {
   const { id } = useParams();
   const [student, setStudent] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [search, setSearch] = useState(false)
-  
+  const [modalOpen, setModalOpen] = useState(false);
+  const [ids,setID]=useState()
   useEffect(() => {
     getAllStudent();
   }, []);
@@ -48,11 +49,8 @@ const Rolespermission = () => {
     }
   }
   const delAlert=(id)=> {
-    if (window.confirm("Are you sure want to delete this employee?")) {
-      handleDelete(id)
-    } else {
-     
-    }
+    setModalOpen(true)
+      setID(id)
   }
 
   const handleDelete = async (id) => {
@@ -61,13 +59,14 @@ const Rolespermission = () => {
     var newstudent = student.filter((item) => {
       return item.id !== id;
     });
+      setModalOpen(false)
     setStudent(newstudent);
   };
 
   return (
     <div className="role-header">
       <Header headerName="Role and Permissions" />
-      <div className="main">
+      {modalOpen ? <AlertModel setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>:      <div className="main">
         <div style={{marginTop:"4%"}}>
           <div class="row">
             <div class="col-sm-6" style={{marginTop: "5px"}}>
@@ -117,7 +116,7 @@ const Rolespermission = () => {
                       alt="logo"
                     />
                   </Link>
-                  filter
+                  Filter
                 </button>
                 <button
                   className="btn btn-outline-success float-right"
@@ -218,7 +217,8 @@ const Rolespermission = () => {
     </li>
   </ul>
 </nav>
-      </div>
+      </div>}
+
     </div>
   );
 };

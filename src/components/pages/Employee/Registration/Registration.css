@@ -72,3 +72,12 @@ input[type=text], select, textarea{
       margin-top: 0;
     }
   }
+  .react-tel-input .country-list .country {
+    padding: 8px 9px;
+    color: darkslateblue;
+}
+.react-tel-input .form-control {
+  height: 49px!important;
+  width: 100%!important;
+  background-color: #f1f1f1!important;
+}

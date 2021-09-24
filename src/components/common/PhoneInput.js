@@ -32,7 +32,7 @@ import en from 'react-phone-number-input/locale/en.json'
       {getCountries().map((country) => (
         
         <option key={country} value={getCountryCallingCode(country)}>
-          {labels[country]} +{getCountryCallingCode(country)}
+         +{getCountryCallingCode(country)}  {"       "}{labels[country]} 
         </option>
       ))}
     </select>
