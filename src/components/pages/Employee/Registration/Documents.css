@@ -1,0 +1,71 @@
+
+  .doc-container{
+    background-color: #f07238;
+    color:white;
+    font-weight: 700;
+    border-radius: 3px;
+    padding: 10px;
+    text-align: center;
+    margin-top: 2%;
+    margin-bottom: 1%;
+}
+.doccontainer{
+    
+    font-weight: 700;
+    border-radius: 3px;
+    padding: 10px;
+    text-align: center;
+
+}
+.doc-row {
+    background-color:#f1f1f1;
+    border-collapse: separate;
+    /* border-spacing:15px; */
+    color:darkblue;
+    font-weight: 600;
+    border-radius: 3px;
+    padding: 10px;
+    text-align: center;
+
+}
+  
+
+  /* Floating column for labels: 25% width */
+  .col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+  }
+  .form-select{
+      line-height:2.2;
+      background-color: #f1f1f1;
+  }
+  /* Floating column for inputs: 75% width */
+  .col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+  }
+  
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+ 
+  /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+      width: 100%;
+      margin-top: 0;
+    }
+  }
+  .react-tel-input .country-list .country {
+    padding: 8px 9px;
+    color: darkslateblue;
+}
+.react-tel-input .form-control {
+  height: 49px!important;
+  width: 100%!important;
+  background-color: #f1f1f1!important;
+}
