@@ -1,0 +1,168 @@
+import React ,{useState ,useContext} from 'react'
+import { Stepper ,Step ,stepClassName} from 'react-form-stepper';
+import {Multistepcontext} from './../../../StepContext';
+import Documents from "./../Employee/Registration/Documents";
+import Registration from "./../Employee/Registration";
+import Employee from "./../Employee";
+import Header from "./../Header/Header";
+import SteponeImage from  "./../../NewImages/Step1-h.png"
+import SteptwoImage from  "./../../NewImages/Step2-h.png"
+import StepthreeImage from "./../../NewImages/Step3-h.png"
+import StepfourImage from "./../../NewImages/Step4-h.png"
+import "./Stepper.css";
+import Payroll from '../Employee/Registration/Payroll';
+import JobDetails from '../Employee/Registration/JobDetails';
+
+
+  
+    const FirstStepper =() => {
+
+      
+const {page ,currentStep , finalData ,setCurrentStep} = useContext(Multistepcontext);
+
+
+
+const boxstyle = {
+            backgroundImage: "url(" + SteponeImage + ")",
+            border:"3px solid #f07238",
+            borderStyle:"dashed",
+          }
+const boxstylehr = {
+            borderTop:"3px solid #f07238",
+            borderStyle:"dashed",
+          }
+const MakeInv = {
+            display:"none"
+          }
+          
+const boxstyletwo = {
+  backgroundImage: "url(" + SteptwoImage + ")",
+  border:"3px solid #f07238",
+  borderStyle:"dashed"
+}
+
+const boxstylethree = {
+  backgroundImage: "url(" + StepthreeImage + ")",
+  border:"3px solid #f07238",
+  borderStyle:"dashed"
+}
+const boxstylefour = {
+    backgroundImage: "url(" + StepfourImage + ")",
+    border:"3px solid #f07238",
+    borderStyle:"dashed"
+  }
+
+
+          const stpstyle = {
+            opacity:"0",
+             marginTop:"50px",
+             fontcolor:"darkblue",
+             fontweight:"800"
+          }
+        
+          const ststyle = {
+            opacity:"0",
+             marginTop:"90px",
+          }
+          function showstep(Step){
+            switch(currentStep) {
+              case 1:
+                return  <Registration />
+              case 2:
+                return  <Documents />
+              case 3:
+                return   <Payroll />
+              case 4:
+                return   <JobDetails />
+            }
+         }
+
+    return ( 
+      <>  
+      {page ===1?(
+        <div> 
+        <Header headerName="Registration" />
+          <div>
+<div className="center-stepper">
+  <Stepper style={{width:"90%"}} activeStep={currentStep}  orientation="horizontal">
+  <div className="cen">
+<div className="frame" style={boxstyle}><Step style={ststyle} label="1.General Details" /></div><hr style={boxstylehr} className="new2" /> 
+<div className="gframe"><Step  style={stpstyle}  label="2.Documents"  /></div><hr className="new2" />
+<div className="hframe"><Step style={stpstyle}  label="3.Payroll" /></div><hr className="new2" />
+<div className="iframe"><Step  style={stpstyle}  label="4.Job Details" /></div></div>
+  </Stepper>
+  </div>
+ {showstep(1)}
+ </div>
+ </div>
+      ) 
+  :page ===2?(
+        <div> 
+        <Header headerName="Registration" />
+          <div>
+<div className="center-stepper">
+  <Stepper style={{width:"90%"}} activeStep={currentStep}  orientation="horizontal">
+  <div className="cen">
+<div className="frame" style={boxstyle}><Step style={ststyle} label="1.General Details" /></div><hr  style={boxstylehr} className="new2" /> 
+<div className="gframe" style={boxstyletwo}><Step  style={stpstyle}  label="2.Documents"  /></div><hr  style={boxstylehr} className="new2" />
+<div className="hframe"><Step style={stpstyle}  label="3.Payroll" /></div><hr className="new2" />
+<div className="iframe"><Step  style={stpstyle}  label="4.Job Details" /></div></div>
+  </Stepper>
+  </div>
+ {showstep(1)}
+ </div>
+ </div>
+  ):page ===3? (<div> 
+    <Header headerName="Registration" />
+      <div>
+<div className="center-stepper">
+<Stepper style={{width:"90%"}} activeStep={currentStep}  orientation="horizontal">
+<div className="cen">
+<div className="frame" style={boxstyle}><Step style={ststyle} label="1.General Details" /></div><hr style={boxstylehr} className="new2" /> 
+<div className="gframe" style={boxstyletwo}><Step  style={stpstyle}  label="2.Documents"  /></div><hr style={boxstylehr} className="new2" />
+<div className="hframe" style={boxstylethree}><Step style={stpstyle}  label="3.Payroll" /></div><hr className="new2" />
+<div className="iframe"><Step  style={stpstyle}  label="4.Job Details" /></div></div>
+</Stepper>
+</div>
+{showstep(1)}
+</div>
+</div>)
+:page ===4? (<div> 
+    <Header headerName="Registration" />
+      <div>
+<div className="center-stepper">
+<Stepper style={{width:"90%"}} activeStep={currentStep}  orientation="horizontal">
+<div className="cen">
+<div className="frame" style={boxstyle}><Step style={ststyle} label="1.General Details" /></div><hr style={boxstylehr} className="new2" /> 
+<div className="gframe" style={boxstyletwo}><Step  style={stpstyle}  label="2.Documents"  /></div><hr style={boxstylehr} className="new2" />
+<div className="hframe" style={boxstylethree}><Step style={stpstyle}  label="3.Payroll" /></div><hr style={boxstylehr}  className="new2" />
+<div className="iframe" style={boxstylefour}><Step  style={stpstyle}  label="4.Job Details" /></div></div>
+</Stepper>
+</div>
+{showstep(1)}
+</div>
+</div>)
+:<div>
+<Header headerName="Registration" />
+          <div>
+<div className="center-stepper">
+  <Stepper style={{width:"90%"}} activeStep={currentStep}  orientation="horizontal">
+  <div className="cen">
+<div className="frame" ><Step style={ststyle} label="1.General Details" /></div><hr className="new2" /> 
+<div className="gframe"><Step  style={stpstyle}  label="2.Documents"  /></div><hr className="new2" />
+<div className="hframe"><Step style={stpstyle}  label="3.Payroll" /></div><hr className="new2" />
+<div className="iframe"><Step  style={stpstyle}  label="4.Job Details" /></div></div>
+  </Stepper>
+  </div>
+ {showstep(1)}
+ </div>
+</div>
+    }
+      </>
+        
+    ) 
+}
+    
+
+
+export default FirstStepper

@@ -13,7 +13,7 @@ const Employee = () => {
  const [ids,setID]=useState()
   const history = useHistory();
   const routeChange = () =>{ 
-    let path = `./Registration`; 
+    let path = `./AddPeople`; 
     history.push(path);
   }
   useEffect(() => {

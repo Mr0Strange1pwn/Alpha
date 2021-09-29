@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import "./Registration.css";
 import Header from "../../Header/Header";
 import Upload from "./Upload";
@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+ import {Multistepcontext} from '../../../../StepContext';
 
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
@@ -31,13 +32,14 @@ function Registration() {
   const [startDate, setStartDate] = useState(new Date());
   const [value, setValue] = useState();
 
+  const {page ,backpackClick ,userData ,currentStep,setUserData ,setFinalData ,setCurrentStep} = useContext(Multistepcontext)
   const ytnStyle = {
     backgroundColor: "blue",
     backgroundImage: "linear-gradient(45deg, black, transparent)",
   };
   return (
     <div>
-      <Header headerName="Registration" />
+      {/* <Header headerName="Registration" /> */}
       <div style={{ display: "flex", marginLeft: "8%", marginTop: "5%" }}>
         <div
           style={{
@@ -194,8 +196,8 @@ function Registration() {
             <button className="btn  float-left" type="submit">
               Save
             </button>
-            <button className="btn  float-left" type="submit">
-              Cancel
+            <button onClick={()=>{setCurrentStep(2);backpackClick(2)}} className="btn  float-left" type="submit">
+              Next
             </button>
           </div>
         </div>

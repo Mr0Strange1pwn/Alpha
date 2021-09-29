@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState , useContext } from "react";
 import Header from "../../Header/Header";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-input-2/lib/style.css";
 import TimePicker from "../../../common/TimePicker";
+import {Multistepcontext} from '../../../../StepContext';
  
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
@@ -29,12 +30,14 @@ function JobDetails() {
   const [startDate, setStartDate] = useState(new Date());
   const [value, setValue] = useState();
 
+  const {page ,backpackClick ,userData ,currentStep,setUserData ,setFinalData ,setCurrentStep} = useContext(Multistepcontext)
+
   const ytnStyle = {
     width: "48%important",
   };
   return (
     <div>
-      <Header headerName="Registration Payroll" />
+      {/* <Header headerName="Registration Payroll" /> */}
 
       <div class="container">
         <form>
@@ -117,7 +120,7 @@ function JobDetails() {
             <button className="btn  float-left" type="submit">
              Save
             </button>
-            <button className="btn  float-left" type="submit">
+            <button onClick={()=>{setCurrentStep(2);backpackClick(2)}} className="btn  float-left" type="submit">
               Back
             </button>
           </div>

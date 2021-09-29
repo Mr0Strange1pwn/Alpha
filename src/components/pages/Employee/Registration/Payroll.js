@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState ,useContext } from "react";
 import Header from "../../Header/Header";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-input-2/lib/style.css";
 import NumberInput from "../../../common/numberInput"
-import "./Payroll.css"
+import {Multistepcontext} from '../../../../StepContext';
+
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
     <div>
@@ -29,10 +30,12 @@ function Payroll() {
   const [startDate, setStartDate] = useState(new Date());
   const [value, setValue] = useState();
 
+  const {page ,backpackClick ,userData ,currentStep,setUserData ,setFinalData ,setCurrentStep} = useContext(Multistepcontext)
+
 
   return (
     <div>
-      <Header headerName="Registration Payroll" />
+      {/* <Header headerName="Registration Payroll" /> */}
 
       <div class="container">
         <form>
@@ -48,20 +51,18 @@ function Payroll() {
                 >
                   {/* <NumberInput placeholder="Lakh"/> */}
                   <input
-                    id="fname"
-                    name="firstname"
+                    placeholder="Lakh"
                     type="number"
-                    style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",height: "50px"}}
+                    style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px"}}
                   />
                 </div>
 
                 <div className="col-6">
                 {/* <NumberInput placeholder="Thousands"/> */}
                 <input
-                    id="fname"
-                    name="firstname"
+                    placeholder="Thousants"
                     type="number"
-                    style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",height: "50px"}}
+                    style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px"}}
                   />
 
                 </div>
@@ -93,16 +94,18 @@ function Payroll() {
                 >
                   {/* <NumberInput placeholder="PL"/> */}
                   <input
+                    placeholder="PL"
                     type="number"
-                    style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",height: "50px"}}
+                    style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px"}}
                   />
                 </div>
 
                 <div className="col-6">
                 {/* <NumberInput placeholder="SL" /> */}
                 <input
+                    placeholder="SL"
                     type="number"
-                   style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",height: "50px"}}
+                   style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px"}}
                   />
                 </div>
               </div>
@@ -128,12 +131,13 @@ function Payroll() {
         </form>
         <div className="d-grid gap-2 d-md-block">
           <div className="addrole_Button">
-            <button className="btn  float-left" type="submit">
-              Next
-            </button>
-            <button className="btn  float-left" type="submit">
+          <button onClick={()=>{setCurrentStep(2);backpackClick(2)}} className="btn  float-left" type="submit">
               Back
             </button>
+            <button className="btn  float-left" onClick={()=>{setCurrentStep(4);backpackClick(4)}} type="submit">
+              Next
+            </button>
+          
           </div>
         </div>
       </div>
