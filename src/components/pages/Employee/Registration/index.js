@@ -24,7 +24,6 @@ const ExampleCustomInput = ({ value, onClick }) => {
           padding: "5px",
         }}
       />
-     
     </div>
   );
 };
@@ -85,29 +84,6 @@ function Registration() {
                 value={value}
                 onChange={(value) => setValue(value)}
               />
-              {/* <PhoneInputNumber/> */}
-
-              {/* <div style={{display:"flex"}}>
-                <div style={{width:"20%"}}>
-                <PhoneInputNumber/>
-                </div>
-                <div style={{width:"80%"}}>
-                <input
-                type="text"
-                id="fname"
-                name="firstname"
-                placeholder="Mobile Number"
-              />
-                </div>
-             
-              </div> */}
-
-              {/* <input
-                type="text"
-                id="fname"
-                name="firstname"
-                placeholder="Enter Mobile Number.."
-              /> */}
             </div>
 
             <div className="col">
@@ -115,13 +91,7 @@ function Registration() {
                 Date of Birth{" "}
                 <i class="fas fa-calendar-week" style={{ color: "black" }} />
               </label>
-              {/* <input
-                type="text"
-                id="lname"
-                name="lastname"
-                placeholder="Select your DOB"
-                data-provide="datepicker"
-              /> */}
+
               <DatePicker
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
@@ -140,12 +110,7 @@ function Registration() {
               <label class="form-check-label reg-lable" for="exampleCheck1">
                 Designation
               </label>
-              {/* <input
-                type="text"
-                id="fname"
-                name="firstname"
-                placeholder="Choose Designation"
-              /> */}
+
               <select
                 class="form-select"
                 id="inputGroupSelect03"
@@ -162,12 +127,7 @@ function Registration() {
               <label class="form-check-label reg-lable" for="exampleCheck1">
                 Role
               </label>
-              {/* <input
-                type="text"
-                id="lname"
-                name="lastname"
-                placeholder="Role"
-              /> */}
+
               <select
                 class="form-select"
                 id="inputGroupSelect03"
@@ -199,12 +159,6 @@ function Registration() {
               <label class="form-check-label reg-lable" for="exampleCheck1">
                 Manager
               </label>
-              {/* <input
-                type="text"
-                id="fname"
-                name="firstname"
-                placeholder="Choose manager"
-              /> */}
 
               <select
                 class="form-select"

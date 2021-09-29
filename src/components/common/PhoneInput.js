@@ -18,46 +18,46 @@
 //   )
 // }
 // export default PhoneInputNumber
-import React, { useState } from "react";
-import PropTypes from 'prop-types'
-import { getCountries, getCountryCallingCode } from 'react-phone-number-input/input'
-import en from 'react-phone-number-input/locale/en.json'
+// import React, { useState } from "react";
+// import PropTypes from 'prop-types'
+// import { getCountries, getCountryCallingCode } from 'react-phone-number-input/input'
+// import en from 'react-phone-number-input/locale/en.json'
 
-  const CountrySelect = ({ value, onChange, labels, ...rest }) => (
-    <select
-      {...rest}
-      value={value}
-      onChange={event => console.log(event.target.value)}>
+//   const CountrySelect = ({ value, onChange, labels, ...rest }) => (
+//     <select
+//       {...rest}
+//       value={value}
+//       onChange={event => console.log(event.target.value)}>
       
-      {getCountries().map((country) => (
+//       {getCountries().map((country) => (
         
-        <option key={country} value={getCountryCallingCode(country)}>
-         +{getCountryCallingCode(country)}  {"       "}{labels[country]} 
-        </option>
-      ))}
-    </select>
-  )
+//         <option key={country} value={getCountryCallingCode(country)}>
+//          +{getCountryCallingCode(country)}  {"       "}{labels[country]} 
+//         </option>
+//       ))}
+//     </select>
+//   )
   
-  CountrySelect.propTypes = {
-    value: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
-    labels: PropTypes.objectOf(PropTypes.string).isRequired
-  }
-  CountrySelect.propTypes = {
-    value: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
-    labels: PropTypes.objectOf(PropTypes.string).isRequired
-  }
-  const PhoneInputNumber=()=> {
-    const [country, setCountry] = useState()
-    console.log("country",country)
-  return (
-    <CountrySelect
-    labels={en}
-    value={country}
-    onChange={setCountry}/>
-  )
+//   CountrySelect.propTypes = {
+//     value: PropTypes.string,
+//     onChange: PropTypes.func.isRequired,
+//     labels: PropTypes.objectOf(PropTypes.string).isRequired
+//   }
+//   CountrySelect.propTypes = {
+//     value: PropTypes.string,
+//     onChange: PropTypes.func.isRequired,
+//     labels: PropTypes.objectOf(PropTypes.string).isRequired
+//   }
+//   const PhoneInputNumber=()=> {
+//     const [country, setCountry] = useState()
+//     console.log("country",country)
+//   return (
+//     <CountrySelect
+//     labels={en}
+//     value={country}
+//     onChange={setCountry}/>
+//   )
 
   
-}
-export default PhoneInputNumber
+// }
+// export default PhoneInputNumber
