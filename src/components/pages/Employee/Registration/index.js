@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
  import {Multistepcontext} from '../../../../StepContext';
+ import { useHistory } from "react-router-dom";
 
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
@@ -33,6 +34,11 @@ function Registration() {
   const [value, setValue] = useState();
 
   const {page ,backpackClick ,userData ,currentStep,setUserData ,setFinalData ,setCurrentStep} = useContext(Multistepcontext)
+  const history = useHistory();
+  const routeChange = () =>{ 
+    let path = `./Employee`; 
+    history.push(path);
+  }
   const ytnStyle = {
     backgroundColor: "blue",
     backgroundImage: "linear-gradient(45deg, black, transparent)",
@@ -193,10 +199,10 @@ function Registration() {
         </form>
         <div className="d-grid gap-2 d-md-block">
           <div className="addrole_Button">
-            <button className="btn  float-left" type="submit">
-              Save
+            <button className="btn  float-left" type="submit" onClick={routeChange}>
+              Cancel
             </button>
-            <button onClick={()=>{setCurrentStep(2);backpackClick(2)}} className="btn  float-left" type="submit">
+            <button onClick={()=>{setCurrentStep(2);backpackClick(2)}} className="btn  float-left" type="submit" style={{backgroundColor:"#25344b"}}>
               Next
             </button>
           </div>

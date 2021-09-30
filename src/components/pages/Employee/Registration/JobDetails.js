@@ -117,7 +117,7 @@ function JobDetails() {
         </form>
         <div className="d-grid gap-2 d-md-block">
           <div className="addrole_Button">
-            <button className="btn  float-left" type="submit">
+            <button className="btn  float-left" type="submit" style={{backgroundColor:"#25344b"}}>
              Save
             </button>
             <button onClick={()=>{setCurrentStep(2);backpackClick(2)}} className="btn  float-left" type="submit">

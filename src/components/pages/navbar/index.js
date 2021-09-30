@@ -72,14 +72,14 @@ function Navbar() {
               className="image__logo"
               src={
                 pathname == "/Employee"
-                  ? "images/Employees-h.png"
+                  ? "images/Employees-h.png" : pathname == "/AddPeople" ? "images/Employees-h.png"
                   : "images/Employee.png"
               }
               alt="logo"
             />{" "}
             <a
               className="nav-link"
-              style={{ color: pathname == "/Employee" ? "#f07238" : "white" }}
+              style={{ color: pathname == "/Employee" ? "#f07238" : pathname == "/AddPeople" ?  "#f07238":"white" }}
               href=""
             >
               Employees
@@ -105,11 +105,11 @@ function Navbar() {
               Roles and Permission
             </a>
           </Link>
-          <Link to="/projects" className="navBar-link">
+          <Link to="/Project" className="navBar-link">
             <img
               className="image__logo"
               src={
-                pathname == "/projects"
+                pathname == "/Project"
                   ? "images/Project-h.png"
                   : "images/Projects.png"
               }
@@ -117,7 +117,7 @@ function Navbar() {
             />{" "}
             <a
               className="nav-link"
-              style={{ color: pathname == "/projects" ? "#f07238" : "white" }}
+              style={{ color: pathname == "/Project" ? "#f07238" : "white" }}
               href=""
             >
               Projects

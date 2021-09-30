@@ -134,7 +134,7 @@ function Payroll() {
           <button onClick={()=>{setCurrentStep(2);backpackClick(2)}} className="btn  float-left" type="submit">
               Back
             </button>
-            <button className="btn  float-left" onClick={()=>{setCurrentStep(4);backpackClick(4)}} type="submit">
+            <button className="btn  float-left" onClick={()=>{setCurrentStep(4);backpackClick(4)}} type="submit" style={{backgroundColor:"#25344b"}}>
               Next
             </button>
           

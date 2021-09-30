@@ -69,4 +69,70 @@
   width: 100%!important;
   background-color: #f1f1f1!important;
 }
+.card
+{
+	width: 350px;
+	height: 250px;
+  margin-left: 90px;
+  border: none;
+  align-items: center;
+  position: relative;
+}
+.cardnew{
+  margin-left: 200px;
+	color: darkblue;
+  font-weight: 700;
+  padding: 20px;
+}
+.card3
+{
+  margin-left: 20px;
+}
+.labone
+{
+	margin-left: 60px;
+  color: darkblue;
+  position: absolute;
+  bottom: 90px;
+  font-weight: 600;
+}
+.labutton{
+  margin-top: 70px;
+  margin-left: 60px;
+  
+}
+.labtwo
+{
+	margin-left: 150px;
+  color: darkblue;
+  position: absolute;
+  bottom: 70px;
+  font-weight: 600;
+}
+.labthree{
+  background-color: #f07238; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 40px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 30px;
+}
+.givespace{
+  margin-left: 75px;
+  position: absolute;
+  bottom: 20px;
+}
+.Instyle
+{
+  width: 450px;
+  margin-left: 50px;
+  margin-right: 50px;
+  color: darkblue;
+  font-weight: 600;
+  position: absolute;
+  bottom:65px;
+}
 

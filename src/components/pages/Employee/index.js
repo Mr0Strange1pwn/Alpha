@@ -55,8 +55,6 @@ const Employee = () => {
   }
 
   const handleDelete = async (id) => {
-   
-   
     await axios.delete(`http://localhost:3003/posts/${id}`);
     var newstudent = student.filter((item) => {
       return item.id !== id;
