@@ -51,18 +51,18 @@ function Payroll() {
                 >
                   {/* <NumberInput placeholder="Lakh"/> */}
                   <input
-                    placeholder="Lakh"
+                    placeholder="Lakhs"
                     type="number"
-                    style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px"}}
+                    style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px",paddingLeft:"10px"}}
                   />
                 </div>
 
                 <div className="col-6">
                 {/* <NumberInput placeholder="Thousands"/> */}
                 <input
-                    placeholder="Thousants"
+                    placeholder="Thousands"
                     type="number"
-                    style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px"}}
+                    style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px",paddingLeft:"10px"}}
                   />
 
                 </div>
@@ -77,7 +77,7 @@ function Payroll() {
                 type="text"
                 id="fname"
                 name="firstname"
-                placeholder="Per Day Cost"
+                placeholder="INR"
               />
              
             </div>
@@ -96,7 +96,7 @@ function Payroll() {
                   <input
                     placeholder="PL"
                     type="number"
-                    style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px"}}
+                    style={{paddingLeft:"10px",backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px"}}
                   />
                 </div>
 
@@ -105,7 +105,7 @@ function Payroll() {
                 <input
                     placeholder="SL"
                     type="number"
-                   style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px"}}
+                   style={{paddingLeft:"10px",backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px"}}
                   />
                 </div>
               </div>

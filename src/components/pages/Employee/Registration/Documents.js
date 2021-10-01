@@ -117,7 +117,7 @@ const Documents = () => {
               </div>
 
               <div class="col">
-                <p style={{ marginLeft: "40%" }}>Actions</p>
+                <p style={{ textAlignLast:" right",paddingRight:" 10%"}}>Actions</p>
               </div>
             </div>
           </div>
