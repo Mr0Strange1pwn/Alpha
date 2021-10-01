@@ -62,7 +62,7 @@ const boxstylefour = {
         
           const ststyle = {
             opacity:"0",
-             marginTop:"90px"
+             marginTop:"100px"
           }
           function showstep(Step){
             switch(currentStep) {
@@ -103,7 +103,7 @@ console.log("currentStep",currentStep)
 <div className="center-stepper">
   <Stepper style={{width:"90%"}} activeStep={currentStep}  orientation="horizontal">
   <div className="cen">
-<div className="frame" style={boxstyle}><Step style={ststyle} label="1.General Details" /></div><hr  style={boxstylehr} className="new2" /> 
+<div className="frame" style={boxstyle}><Step style={ststyle} label={currentStep==2?<span style={{color:"red"}}>1.General Details</span>:""} /></div><hr  style={boxstylehr} className="new2" /> 
 <div className="gframe" style={boxstyletwo}><Step  style={stpstyle} label={currentStep==2?<span style={{color:"red"}}>2.Documents</span>:""}   /></div><hr  style={boxstylehr} className="new2" />
 <div className="hframe"><Step style={stpstyle}  label="3.Payroll" /></div><hr className="new2" />
 <div className="iframe"><Step  style={stpstyle}  label="4.Job Details" /></div></div>
@@ -118,8 +118,8 @@ console.log("currentStep",currentStep)
 <div className="center-stepper">
 <Stepper style={{width:"90%"}} activeStep={currentStep}  orientation="horizontal">
 <div className="cen">
-<div className="frame" style={boxstyle}><Step style={ststyle} label="1.General Details" /></div><hr style={boxstylehr} className="new2" /> 
-<div className="gframe" style={boxstyletwo}><Step  style={stpstyle}  label="2.Documents"  /></div><hr style={boxstylehr} className="new2" />
+<div className="frame" style={boxstyle}><Step style={ststyle} label={currentStep==3?<span style={{color:"red"}}>1.General Details</span>:""} /></div><hr style={boxstylehr} className="new2" /> 
+<div className="gframe" style={boxstyletwo}><Step  style={stpstyle}  label={currentStep==3?<span style={{color:"red"}}>2.Documents</span>:""}  /></div><hr style={boxstylehr} className="new2" />
 <div className="hframe" style={boxstylethree}><Step style={stpstyle}  label={currentStep==3?<span style={{color:"red"}}>3.Payroll</span>:""} /></div><hr style={boxstylehr} className="new2" />
 <div className="iframe"><Step  style={stpstyle}  label="4.Job Details" /></div></div>
 </Stepper>
@@ -133,9 +133,9 @@ console.log("currentStep",currentStep)
 <div className="center-stepper">
 <Stepper style={{width:"90%"}} activeStep={currentStep}  orientation="horizontal">
 <div className="cen">
-<div className="frame" style={boxstyle}><Step style={ststyle} label="1.General Details" /></div><hr style={boxstylehr} className="new2" /> 
-<div className="gframe" style={boxstyletwo}><Step  style={stpstyle}  label="2.Documents"  /></div><hr style={boxstylehr} className="new2" />
-<div className="hframe" style={boxstylethree}><Step style={stpstyle}  label="3.Payroll" /></div><hr style={boxstylehr}  className="new2" />
+<div className="frame" style={boxstyle}><Step style={ststyle} label={currentStep==4?<span style={{color:"red"}}>1.General Details</span>:""} /></div><hr style={boxstylehr} className="new2" /> 
+<div className="gframe" style={boxstyletwo}><Step  style={stpstyle}  label={currentStep==4?<span style={{color:"red"}}>2.Documents</span>:""} /></div><hr style={boxstylehr} className="new2" />
+<div className="hframe" style={boxstylethree}><Step style={stpstyle}  label={currentStep==4?<span style={{color:"red"}}>3.Payroll</span>:""} /></div><hr style={boxstylehr}  className="new2" />
 <div className="iframe" style={boxstylefour}><Step  style={stpstyle}  label={currentStep==4?<span style={{color:"red"}}>4.Job Details</span>:""} /></div></div>
 </Stepper>
 </div>

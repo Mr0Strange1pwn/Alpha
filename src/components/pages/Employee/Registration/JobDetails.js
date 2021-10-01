@@ -64,9 +64,10 @@ function JobDetails() {
               </label>
               {/* <TimePicker/> */}
               <input
+             
                 defaultValue="04:20"
                 type="time"
-                style={{width:"100%", backgroundColor: "#f1f1f1",height:"50%",border:"1px solid #ced4da",borderRadius:".25rem"}}
+                style={{width:"100%", backgroundColor: "#f1f1f1",height:"50%",border:"1px solid #ced4da",borderRadius:".25rem", paddingLeft: "10px"}}
 	            />
 
               {/* <select
@@ -103,7 +104,12 @@ function JobDetails() {
               <label class="form-check-label reg-lable" for="exampleCheck1">
                 Probation Period(No of Months)
               </label>
-              <DatePicker
+              <input
+                    placeholder="Thousants"
+                    type="number"
+                    style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "100%",height: "50px"}}
+                  />
+              {/* <DatePicker
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
                 peekNextMonth
@@ -111,7 +117,7 @@ function JobDetails() {
                 showYearDropdown
                 dropdownMode="select"
                 customInput={<ExampleCustomInput />}
-              />
+              /> */}
             </div>
           </div>
         </form>
