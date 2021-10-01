@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import "./Registration.css";
 import Header from "../../Header/Header";
 import Upload from "./Upload";
@@ -6,8 +6,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
- import {Multistepcontext} from '../../../../StepContext';
- import { useHistory } from "react-router-dom";
+import { Multistepcontext } from '../../../../StepContext';
+import { useHistory } from "react-router-dom";
+import { emailValidator } from '../../../../Utils/fieldValidator'
 
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
@@ -31,18 +32,36 @@ const ExampleCustomInput = ({ value, onClick }) => {
 };
 function Registration() {
   const [startDate, setStartDate] = useState(new Date());
-  const [value, setValue] = useState();
-
-  const {page ,backpackClick ,userData ,currentStep,setUserData ,setFinalData ,setCurrentStep} = useContext(Multistepcontext)
+  const [phoneNO, setPhoneNO] = useState();
+  const [details, setDetails] = useState({
+    name: "",
+    email: "",
+    designation: "",
+    role: ""
+  });
+  const [showError, setShowError] = useState(false)
+  const { page, backpackClick, userData, currentStep, setUserData, setFinalData, setCurrentStep } = useContext(Multistepcontext)
   const history = useHistory();
-  const routeChange = () =>{ 
-    let path = `./Employee`; 
+  const routeChange = () => {
+    let path = `./Employee`;
     history.push(path);
   }
   const ytnStyle = {
     backgroundColor: "blue",
     backgroundImage: "linear-gradient(45deg, black, transparent)",
   };
+
+  const handleValueChange = (e) => {
+    setDetails({ ...details, [e.target.name]: e.target.value })
+  }
+
+  const handleNext = () => {
+    setShowError(true)
+    if (details.name && details.designation && emailValidator(details.email) && details.role) {
+      setCurrentStep(2); backpackClick(2)
+    }
+  }
+
   return (
     <div>
       {/* <Header headerName="Registration" /> */}
@@ -63,10 +82,13 @@ function Registration() {
                 Name
               </label>
               <input
+                style={{ border: showError ? details.name.length === 0 ? " 1px solid red" : null : null }}
                 type="text"
                 id="fname"
-                name="firstname"
+                name="name"
                 placeholder="Name"
+                value={details.name}
+                onChange={e => handleValueChange(e)}
               />
             </div>
 
@@ -75,10 +97,13 @@ function Registration() {
                 Email
               </label>
               <input
+                style={{ border: showError ? !emailValidator(details.email) ? " 1px solid red" : null : null }}
                 type="text"
                 id="lname"
-                name="lastname"
+                name="email"
                 placeholder="Email"
+                value={details.email}
+                onChange={e => handleValueChange(e)}
               />
             </div>
           </div>
@@ -89,8 +114,8 @@ function Registration() {
               </label>
               <PhoneInput
                 country={"us"}
-                value={value}
-                onChange={(value) => setValue(value)}
+                value={phoneNO}
+                onChange={(value) => setPhoneNO(value)}
               />
             </div>
 
@@ -120,9 +145,13 @@ function Registration() {
               </label>
 
               <select
+                style={{ border: showError ? details.designation.length === 0 ? " 1px solid red" : null : null }}
                 class="form-select"
                 id="inputGroupSelect03"
                 aria-label="Example select with button addon"
+                name="designation"
+                value={details.designation}
+                onChange={e => handleValueChange(e)}
               >
                 <option selected>Choose Designation</option>
                 <option value="1">Developer</option>
@@ -137,9 +166,13 @@ function Registration() {
               </label>
 
               <select
+                style={{ border: showError ? details.role.length === 0 ? " 1px solid red" : null : null }}
                 class="form-select"
                 id="inputGroupSelect03"
                 aria-label="Example select with button addon"
+                name="role"
+                value={details.role}
+                onChange={e => handleValueChange(e)}
               >
                 <option selected>Choose Role</option>
                 <option value="1">Lead</option>
@@ -202,7 +235,7 @@ function Registration() {
             <button className="btn  float-left" type="submit" onClick={routeChange}>
               Cancel
             </button>
-            <button onClick={()=>{setCurrentStep(2);backpackClick(2)}} className="btn  float-left" type="submit" style={{backgroundColor:"#25344b"}}>
+            <button onClick={() => handleNext()} className="btn  float-left" type="submit" style={{ backgroundColor: "#25344b" }}>
               Next
             </button>
           </div>
