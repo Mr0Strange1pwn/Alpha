@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./addRole.css";
 import AddRolePermission from "../../common/AddRolePermission";
 import Header from "../Header/Header";
+
 function AddRole() {
   const [roleName, setRoleName] = useState();
   const [selectedValue, setValue] = useState({
@@ -43,7 +44,7 @@ function AddRole() {
           <label for="exampleFormControlInput1" className="form-label">
             Set Permissions
           </label>
-          <div className="card">
+          <div className="add-management">
             <div className="card-body">
               <h5 className="card-title">User Management</h5>
               <AddRolePermission title="Create Role" onChange={handleChange} />
@@ -62,7 +63,7 @@ function AddRole() {
 
         <div className="mb-12">
           <label for="exampleFormControlInput1" className="form-label"></label>
-          <div className="card">
+          <div className="add-management">
             <div className="card-body">
               <h5 className="card-title">Task Management</h5>
 
