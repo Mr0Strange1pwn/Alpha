@@ -6,39 +6,34 @@ import "react-phone-input-2/lib/style.css";
 import TimePicker from "../../../common/TimePicker";
 import {Multistepcontext} from '../../../../StepContext';
  
-const ExampleCustomInput = ({ value, onClick }) => {
-  return (
-    <div>
-      <input
-        type="text"
-        id="lname"
-        className="example-custom-input"
-        onClick={(e) => onClick(e.preventDefault())}
-        value={value}
-        style={{
-          backgroundImage: "url(images/calendar.png)",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "right",
-          backgroundOrigin: "content-box",
-          padding: "11px",
-        }}
-      />
-    </div>
-  );
-};
+
 function JobDetails() {
   const [startDate, setStartDate] = useState(new Date());
   const [value, setValue] = useState();
-
+  const [showError ,setError ] =useState(false)
   const {page ,backpackClick ,userData ,currentStep,setUserData ,setFinalData ,setCurrentStep} = useContext(Multistepcontext)
+  const [ details , SetDetails] =useState({
+    jobType:"",
+    shiftTime:"",
+    weekelyHoliday:"",
+    probationPeriod:""
+  })
 
-  const ytnStyle = {
-    width: "48%important",
-  };
+  const handleChange = (e) => {
+        SetDetails({...details, [e.target.name]: e.target.value})
+  }
+
+  const handleSave = () => {
+    setError(true)
+    if(details.jobType && details.shiftTime && details.weekelyHoliday && details.probationPeriod){
+      console.log("details", details)
+    }
+  }
+  const inputStyle = {
+    width:"100%", backgroundColor: "#f1f1f1",height:"50%",border:"1px solid #ced4da",borderRadius:".25rem", paddingLeft: "10px"
+  }
   return (
     <div>
-      {/* <Header headerName="Registration Payroll" /> */}
-
       <div class="container">
         <form>
         <div className="row">
@@ -48,9 +43,13 @@ function JobDetails() {
               </label>
 
               <select
+                style={{border: showError ? details.jobType.length === 0 ? " 1px solid red" : null : null}}
                 class="form-select"
                 id="inputGroupSelect03"
                 aria-label="Example select with button addon"
+                name="jobType"
+                value={details.jobType}
+                onChange={e => handleChange(e)}
               >
                 <option selected>Full Time</option>
                 <option value="1">Part Time</option>
@@ -64,22 +63,15 @@ function JobDetails() {
               </label>
               {/* <TimePicker/> */}
               <input
-             
-                defaultValue="04:20"
+                style={{...inputStyle, border: showError ? details.shiftTime.length === 0 ? " 1px solid red" : null : null }}
+                // defaultValue="04:20"
                 type="time"
-                style={{width:"100%", backgroundColor: "#f1f1f1",height:"50%",border:"1px solid #ced4da",borderRadius:".25rem", paddingLeft: "10px"}}
+                name="shiftTime"
+                value={details.shiftTime}
+                onChange={e => handleChange(e)}
+
 	            />
 
-              {/* <select
-                class="form-select"
-                id="inputGroupSelect03"
-                aria-label="Example select with button addon"
-              >
-                <option selected>Choose ScreenShot</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select> */}
             </div>
           </div>
           <div className="row">
@@ -89,11 +81,15 @@ function JobDetails() {
               </label>
 
               <select
+                style={{border: showError ? details.weekelyHoliday.length === 0 ? " 1px solid red" : null : null}}
                 class="form-select"
                 id="inputGroupSelect03"
                 aria-label="Example select with button addon"
+                name="weekelyHoliday"
+                value={details.weekelyHoliday}
+                onChange={e => handleChange(e)}
               >
-                <option selected>+1</option>
+                <option selected>Weekely Holidays</option>
                 <option value="1">+1.5</option>
                 <option value="2">+2</option>
                 <option value="3">+2.5</option>
@@ -105,28 +101,22 @@ function JobDetails() {
                 Probation Period(No of Months)
               </label>
               <input
-                    placeholder="Thousants"
+                    style={{...inputStyle, border: showError ? details.probationPeriod.length === 0 ? " 1px solid red" : null : null }}
+                    placeholder="Probation Period"
                     type="number"
-                    style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "100%",height: "50px"}}
+                    name="probationPeriod"
+                    value={details.probationPeriod}
+                    onChange={e => handleChange(e)}
                   />
-              {/* <DatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                peekNextMonth
-                showMonthDropdown
-                showYearDropdown
-                dropdownMode="select"
-                customInput={<ExampleCustomInput />}
-              /> */}
             </div>
           </div>
         </form>
         <div className="d-grid gap-2 d-md-block">
           <div className="addrole_Button">
-            <button className="btn  float-left" type="submit" style={{backgroundColor:"#25344b"}}>
+            <button className="btn  float-left" type="submit" style={{backgroundColor:"#25344b"}} onClick={() => handleSave()}>
              Save
             </button>
-            <button onClick={()=>{setCurrentStep(2);backpackClick(2)}} className="btn  float-left" type="submit">
+            <button onClick={()=>{setCurrentStep(3);backpackClick(3)}} className="btn  float-left" type="submit">
               Back
             </button>
           </div>

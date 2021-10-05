@@ -24,7 +24,7 @@ const ExampleCustomInput = ({ value, onClick }) => {
           backgroundRepeat: "no-repeat",
           backgroundPosition: "right",
           backgroundOrigin: "content-box",
-          padding: "5px",
+          padding: "10px",
         }}
       />
     </div>
@@ -37,7 +37,9 @@ function Registration() {
     name: "",
     email: "",
     designation: "",
-    role: ""
+    role: "",
+    manager: "",
+    screenshot:""
   });
   const [showError, setShowError] = useState(false)
   const { page, backpackClick, userData, currentStep, setUserData, setFinalData, setCurrentStep } = useContext(Multistepcontext)
@@ -57,7 +59,7 @@ function Registration() {
 
   const handleNext = () => {
     setShowError(true)
-    if (details.name && details.designation && emailValidator(details.email) && details.role) {
+    if (details.name && details.designation && emailValidator(details.email) && details.role && details.manager && details.screenshot) {
       setCurrentStep(2); backpackClick(2)
     }
   }
@@ -202,9 +204,13 @@ function Registration() {
               </label>
 
               <select
+                style={{ border: showError ? details.manager.length === 0 ? " 1px solid red" : null : null }}
                 class="form-select"
                 id="inputGroupSelect03"
                 aria-label="Example select with button addon"
+                name="manager"
+                value={details.manager}
+                onChange={e => handleValueChange(e)}
               >
                 <option selected>Choose Manager</option>
                 <option value="1">Manager</option>
@@ -218,9 +224,13 @@ function Registration() {
                 Screenshot Recurrence(in Min)
               </label>
               <select
+                style={{ border: showError ? details.screenshot.length === 0 ? " 1px solid red" : null : null }}
                 class="form-select"
                 id="inputGroupSelect03"
                 aria-label="Example select with button addon"
+                name="screenshot"
+                value={details.screenshot}
+                onChange={e => handleValueChange(e)}
               >
                 <option selected>Choose ScreenShot</option>
                 <option value="1">One</option>

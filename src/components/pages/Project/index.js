@@ -10,6 +10,20 @@ const CreateProject = () => {
   const [task, setTask] = useState(false);
   const [InputData, setInputData] = useState("");
   const [Items, setItems] = useState([]);
+  const [showError, SetError] = useState(false);
+  const [projectDetails, setDetails] = useState({
+    name: "",
+    projectType: "",
+    description: "",
+    assignedTo: "",
+    category: "",
+    weekelyhour: "",
+    perhourcost: "",
+  });
+  console.log("projectDetails", projectDetails.category);
+  const handleChange = (e) => {
+    setDetails({ ...projectDetails, [e.target.name]: e.target.value });
+  };
   const handleProject = () => {
     setProjectInfo(!projectInfo);
     setTask(false);
@@ -35,6 +49,17 @@ const CreateProject = () => {
     setItems(updateditems);
   };
 
+  const handleCreate = () => {
+    SetError(true);
+    if (
+      projectDetails.name &&
+      projectDetails.projectType &&
+      projectDetails.description &&
+      projectDetails.assignedTo
+    ) {
+      console.log("projectDeatils", projectDetails);
+    }
+  };
   return (
     <div className="project-header">
       <Header headerName="Create Project" />
@@ -46,7 +71,7 @@ const CreateProject = () => {
                 <img
                   src="images/Project-info-icon.png"
                   alt="Project-info-icon"
-                  style={{padding: "8px"}}
+                  style={{ padding: "8px" }}
                 />
                 <label
                   class="form-check-label reg-lable"
@@ -68,7 +93,7 @@ const CreateProject = () => {
                       : "images/forwardicon.png"
                   }
                   onClick={handleProject}
-                  style={{ marginRight: "10px",padding: "8px" }}
+                  style={{ marginRight: "10px", padding: "8px" }}
                   alt="Project-info-icon"
                 />
               </div>
@@ -87,10 +112,20 @@ const CreateProject = () => {
                         Name
                       </label>
                       <input
+                        style={{
+                          backgroundColor: "white",
+                          border: showError
+                            ? projectDetails.name.length === 0
+                              ? " 1px solid red"
+                              : null
+                            : null,
+                        }}
                         type="text"
                         class="form-control"
                         placeholder="Name"
-                        style={{ backgroundColor: "white" }}
+                        name="name"
+                        value={projectDetails.name}
+                        onChange={(e) => handleChange(e)}
                       />
                     </div>
 
@@ -102,15 +137,24 @@ const CreateProject = () => {
                         Project Type
                       </label>
                       <select
+                        style={{
+                          backgroundColor: "white",
+                          border: showError
+                            ? projectDetails.projectType.length === 0
+                              ? " 1px solid red"
+                              : null
+                            : null,
+                        }}
                         class="form-select"
                         id="inputGroupSelect03"
                         aria-label="Example select with button addon"
-                        style={{ backgroundColor: "white" }}
+                        name="projectType"
+                        value={projectDetails.projectType}
+                        onChange={(e) => handleChange(e)}
                       >
                         <option selected>Select Project Type</option>
-                        <option value="1">React js</option>
-                        <option value="2">React Native</option>
-                        <option value="3">Angular</option>
+                        <option value="1">Billable Hour</option>
+                        <option value="2">Non Billable Hour</option>
                       </select>
                     </div>
                   </div>
@@ -123,7 +167,20 @@ const CreateProject = () => {
                       >
                         Project Description
                       </label>
-                      <textarea class="form-control" rows="3"></textarea>
+                      <textarea
+                        style={{
+                          border: showError
+                            ? projectDetails.description.length === 0
+                              ? " 1px solid red"
+                              : null
+                            : null,
+                        }}
+                        class="form-control"
+                        rows="3"
+                        name="description"
+                        value={projectDetails.description}
+                        onChange={(e) => handleChange(e)}
+                      />
                     </div>
                   </div>
                   <div className="row">
@@ -136,10 +193,20 @@ const CreateProject = () => {
                       </label>
 
                       <select
+                        style={{
+                          backgroundColor: "white",
+                          border: showError
+                            ? projectDetails.assignedTo.length === 0
+                              ? " 1px solid red"
+                              : null
+                            : null,
+                        }}
                         class="form-select"
                         id="inputGroupSelect03"
                         aria-label="Example select with button addon"
-                        style={{ backgroundColor: "white" }}
+                        name="assignedTo"
+                        value={projectDetails.assignedTo}
+                        onChange={(e) => handleChange(e)}
                       >
                         <option selected>Choose Assignee</option>
                         <option value="1">Developer</option>
@@ -147,7 +214,98 @@ const CreateProject = () => {
                         <option value="3">Designer</option>
                       </select>
                     </div>
+
+                    {projectDetails.projectType == "1" ? (
+                      <div className="col-md-6">
+                        <label
+                          class="form-check-label reg-lable"
+                          for="exampleCheck1"
+                        >
+                          Project Category
+                        </label>
+
+                        <select
+                          style={{
+                            backgroundColor: "white",
+                            border: showError
+                              ? projectDetails.category.length === 0
+                                ? " 1px solid red"
+                                : null
+                              : null,
+                          }}
+                          class="form-select"
+                          id="inputGroupSelect03"
+                          aria-label="Example select with button addon"
+                          name="category"
+                          value={projectDetails.category}
+                          onChange={(e) => handleChange(e)}
+                        >
+                          <option selected>Choose Project Category</option>
+                          <option value="1">Retainer</option>
+                          <option value="2">Non Retainer</option>
+                        </select>
+                      </div>
+                    ) : null}
+                    
                   </div>
+
+                  {projectDetails.projectType == "1" ? (
+                    projectDetails.category == "1" ? (
+                      <div className="row">
+                        <div className="col-md-6">
+                          <label
+                            class="form-check-label reg-lable"
+                            for="exampleCheck1"
+                          >
+                            Per Hour Cost
+                          </label>
+
+                          <input
+                            style={{
+                              backgroundColor: "white",
+                              border: showError
+                                ? projectDetails.perhourcost.length === 0
+                                  ? " 1px solid red"
+                                  : null
+                                : null,
+                            }}
+                            type="text"
+                            class="form-control"
+                            placeholder="Per Hour Cost"
+                            name="perhourcost"
+                            value={projectDetails.perhourcost}
+                            onChange={(e) => handleChange(e)}
+                          />
+                        </div>
+                        <div className="col-md-6">
+                          <label
+                            class="form-check-label reg-lable"
+                            for="exampleCheck1"
+                          >
+                            Weekely Hour
+                          </label>
+
+                          <input
+                            style={{
+                              backgroundColor: "white",
+                              border: showError
+                                ? projectDetails.weekelyhour.length === 0
+                                  ? " 1px solid red"
+                                  : null
+                                : null,
+                            }}
+                            type="text"
+                            class="form-control"
+                            placeholder="Weekely Hour"
+                            name="weekelyhour"
+                            value={projectDetails.weekelyhour}
+                            onChange={(e) => handleChange(e)}
+                          />
+                        </div>
+                      </div>
+                    ) : null
+                  ) : null}
+
                 </form>
               </div>
             </div>
@@ -159,7 +317,11 @@ const CreateProject = () => {
           <div class="project-container">
             <div class="row">
               <div className="col" style={{ display: "flex" }}>
-                <img src="images/Tasks.png" alt="Project-info-icon"  style={{padding: "8px" }} />
+                <img
+                  src="images/Tasks.png"
+                  alt="Project-info-icon"
+                  style={{ padding: "8px" }}
+                />
                 <label
                   class="form-check-label reg-lable"
                   for="exampleCheck1"
@@ -176,7 +338,7 @@ const CreateProject = () => {
                       : "images/forwardicon.png"
                   }
                   onClick={handleTask}
-                  style={{ marginRight: "10px",padding: "8px" }}
+                  style={{ marginRight: "10px", padding: "8px" }}
                   alt="Project-info-icon"
                 />
               </div>
@@ -227,7 +389,14 @@ const CreateProject = () => {
                           <div class="doccontainernew">
                             <div class="row" key={i}>
                               <div class="col">
-                                <p style={{ color: "black",textAlign: "justify" }}>{elem}</p>
+                                <p
+                                  style={{
+                                    color: "black",
+                                    textAlign: "justify",
+                                  }}
+                                >
+                                  {elem}
+                                </p>
                               </div>
 
                               <div class="col">
@@ -258,6 +427,7 @@ const CreateProject = () => {
               className="btn  float-left"
               type="submit"
               style={{ backgroundColor: "#25344b" }}
+              onClick={() => handleCreate()}
             >
               Create
             </button>

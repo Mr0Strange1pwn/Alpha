@@ -29,10 +29,31 @@ const ExampleCustomInput = ({ value, onClick }) => {
 function Payroll() {
   const [startDate, setStartDate] = useState(new Date());
   const [value, setValue] = useState();
-
+  const [showerror ,setError ] =useState(false)
   const {page ,backpackClick ,userData ,currentStep,setUserData ,setFinalData ,setCurrentStep} = useContext(Multistepcontext)
+  const [ details, setDetails] =useState({
+    annualCtc: "",
+    annualCtcThou:"",
+    perDayCost: "",
+    totalLeaveSL:"",
+    totalLeavePL:"",
+    
+  })
 
+  const handleChange = (e) => {
+    setDetails({...details, [e.target.name]:e.target.value})
+  }
 
+  const handleNext = () => {
+    setError(true)
+    if(details.annualCtc && details.perDayCost && details.totalLeavePL && details.totalLeaveSL  && details.annualCtcThou){
+      setCurrentStep(4);backpackClick(4)
+    }
+
+  }
+  const payrollInputStyle = {
+    backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px",paddingLeft:"10px"
+  }
   return (
     <div>
       {/* <Header headerName="Registration Payroll" /> */}
@@ -51,18 +72,24 @@ function Payroll() {
                 >
                   {/* <NumberInput placeholder="Lakh"/> */}
                   <input
+                    name="annualCtc"
+                    value={details.annualCtc}
+                    onChange={e =>handleChange(e)}
                     placeholder="Lakhs"
                     type="number"
-                    style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px",paddingLeft:"10px"}}
+                    style={{...payrollInputStyle, border: showerror ? details.annualCtc.length === 0 ? " 1px solid red" : null : null}}
                   />
                 </div>
 
                 <div className="col-6">
                 {/* <NumberInput placeholder="Thousands"/> */}
                 <input
+                    name="annualCtcThou"
+                    value={details.annualCtcThou}
+                    onChange={e=>handleChange(e)}
                     placeholder="Thousands"
                     type="number"
-                    style={{backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px",paddingLeft:"10px"}}
+                    style={{...payrollInputStyle, border: showerror ? details.annualCtcThou.length === 0 ? " 1px solid red" : null : null}}
                   />
 
                 </div>
@@ -74,10 +101,13 @@ function Payroll() {
               </label>
 
               <input
+                style={{border: showerror ? details.perDayCost.length === 0 ? " 1px solid red ": null : null}}
+                placeholder="INR"
                 type="text"
                 id="fname"
-                name="firstname"
-                placeholder="INR"
+                name="perDayCost"
+                value={details.perDayCost}
+                onChange={e=>handleChange(e)}
               />
              
             </div>
@@ -92,20 +122,25 @@ function Payroll() {
                   className="col-6 ytnStyle"
                   style={{ width: "48%", margin: "auto" }}
                 >
-                  {/* <NumberInput placeholder="PL"/> */}
                   <input
+                    style={{...payrollInputStyle, border: showerror ? details.totalLeavePL.length === 0 ? " 1px solid red ": null : null}}
                     placeholder="PL"
                     type="number"
-                    style={{paddingLeft:"10px",backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px"}}
+                    name="totalLeavePL"
+                    value={details.totalLeavePL}
+                    onChange={e=> handleChange(e)}
                   />
                 </div>
 
                 <div className="col-6">
                 {/* <NumberInput placeholder="SL" /> */}
                 <input
+                    style={{...payrollInputStyle, border: showerror ? details.totalLeaveSL.length === 0 ? " 1px solid red ": null : null}}
                     placeholder="SL"
                     type="number"
-                   style={{paddingLeft:"10px",backgroundColor: "#f1f1f1",border:"1px solid #ced4da",borderRadius:".25rem",width: "90%",height: "50px"}}
+                    name="totalLeaveSL"
+                    value={details.totalLeaveSL}
+                    onChange={e => handleChange(e)}
                   />
                 </div>
               </div>
@@ -134,7 +169,7 @@ function Payroll() {
           <button onClick={()=>{setCurrentStep(2);backpackClick(2)}} className="btn  float-left" type="submit">
               Back
             </button>
-            <button className="btn  float-left" onClick={()=>{setCurrentStep(4);backpackClick(4)}} type="submit" style={{backgroundColor:"#25344b"}}>
+            <button className="btn  float-left" onClick={()=>handleNext()} type="submit" style={{backgroundColor:"#25344b"}}>
               Next
             </button>
           
