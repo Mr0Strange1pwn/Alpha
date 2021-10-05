@@ -32,15 +32,10 @@ const CreateProject = () => {
     setMileStone(!mileStone);
     setProjectInfo(false);
   };
-  const deleteItems = (id) => {
-    console.log(id);
-    const updateditems = Items.filter((elem, i) => {
-      return i !== id;
-    });
-    setItems(updateditems);
-  };
+
   const handleTask = () => {
     setTask(!task)
+    setMileStone(!mileStone)
   }
   const handleCreate = () => {
     SetError(true);

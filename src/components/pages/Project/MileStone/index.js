@@ -35,6 +35,15 @@ const ExampleCustomInput = ({ value, onClick }) => {
     const [ids,setID]=useState()
     const [isOpen , setIsOpen] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
+    const [item, setItem] = useState({
+        id:"",
+        name:"",
+        status:"",
+        amount:""
+    });
+   
+    const [data,setData]=useState([])
+    console.log("data",data)
     useEffect(() => {
       getAllStudent();
     }, []);
@@ -43,9 +52,17 @@ const ExampleCustomInput = ({ value, onClick }) => {
         getAllStudent()
     }, [])
   
+const handleChange = (e) => {
+    setItem({...item,id:new Date().getTime().toString(), [e.target.name]: e.target.value})
 
-const handleModal = () => {
-    
+}
+const handleSave = () => {
+     const newData ={
+        id: new Date().getTime().toString(),
+        item
+     }
+    setData([...data,item])
+    setIsOpen(false)
 }
 
     async function getAllStudent() {
@@ -56,6 +73,14 @@ const handleModal = () => {
         console.log("something is wrong");
       }
     }
+
+    const deleteItems = (index) => {
+        const updateditems = data.filter((elem) => {
+          return index !== elem.id;
+        });
+        setData(updateditems);
+        console.log("updateditems",updateditems)
+      };
     const delAlert=(id)=> {
       setModalOpen(true)
         setID(id)
@@ -99,6 +124,7 @@ const handleModal = () => {
                 id="fname"
                 name="name"
                 placeholder="Name"
+                onChange={(e) => handleChange(e)}
               />
              </div>
              <div className="col-md-6">
@@ -108,8 +134,9 @@ const handleModal = () => {
               <input
                 type="text"
                 id="fname"
-                name="name"
+                name="status"
                 placeholder="Status"
+                onChange={(e) => handleChange(e)}
               />
              </div>
          </div>
@@ -121,8 +148,9 @@ const handleModal = () => {
               <input
                 type="text"
                 id="fname"
-                name="name"
+                name="amount"
                 placeholder="Amount"
+                onChange={(e) => handleChange(e)}
               />
              </div>
              <div className="col-md-6">
@@ -144,7 +172,7 @@ const handleModal = () => {
          <div className="modalButton" style={{    textAlignLast: "right", marginTop:"10px"}}>
           <button type="button"  className="btn"
           style={{ backgroundColor: "#003366", color: "white" }}
-           type="submit" >Save</button><span>  </span>
+           type="submit" onClick={() =>handleSave()} >Save</button><span>  </span>
 		<button type="button"className="btn"
           style={{backgroundColor:" #717171", color:"white"}}
           type="submit"  onClick={()=> setIsOpen(false)} >Back</button>
@@ -176,24 +204,25 @@ const handleModal = () => {
               </div>
             </div>
           </div>
-          {student.map((students, i) => {
+          {data.map((students, i) => {
             return (
               <div class="milecontainer">
                 <div className="row mile-row" key={i}>
                   <div class="col">
-                    <p >{i + 1}</p>
+                    {/* <p >{i + 1}</p> */}
+                    <p>{students.name}</p>
                   </div>
                   <div class="col">
-                    <p>{students.username}</p>
+                    <p>{students.amount}</p>
                   </div>
                   <div class="col">
-                    <p>{students.userpassword}</p>
+                    <p>{students.status}</p>
                   </div>
                   <div class="col " >
                     <div>
                     <button
                       className="action_image"
-                      onClick={() => delAlert(students.id)}
+                      onClick={() => deleteItems(students.id)}
                     >
                       <img src="images/Del.png" alt="logo" />
                     </button>

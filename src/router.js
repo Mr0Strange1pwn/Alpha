@@ -11,7 +11,6 @@ import Home from "./components/pages/Home";
 import Dashboard from "./components/pages/dashboard";
 import Employee from "./components/pages/Employee";
 import Rolespermission from "./components/pages/Rolespermission";
-import Projects from "./components/pages/projects";
 import Settings from "./components/pages/settings";
 import View from "./components/pages/People/View";
 import Registration from "./components/pages/Employee/Registration";
