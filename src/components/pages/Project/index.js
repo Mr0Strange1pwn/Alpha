@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./createprojet.css";
 import Header from "../Header/Header";
-import { Link, useParams, useHistory } from "react-router-dom";
-import proimage from "./../../NewImages/ProImageiconone.png";
-import proimagePlus from "./../../NewImages/plusiconimage.png";
+import Task from "./Task"
+import MileStone from "./MileStone"
 
 const CreateProject = () => {
   const [projectInfo, setProjectInfo] = useState(false);
-  const [task, setTask] = useState(false);
-  const [InputData, setInputData] = useState("");
   const [Items, setItems] = useState([]);
   const [showError, SetError] = useState(false);
+  const [mileStone, setMileStone ] = useState(false)
+  const [task, setTask] =useState(false)
   const [projectDetails, setDetails] = useState({
     name: "",
     projectType: "",
@@ -26,21 +25,13 @@ const CreateProject = () => {
   };
   const handleProject = () => {
     setProjectInfo(!projectInfo);
-    setTask(false);
-  };
-  const handleTask = () => {
-    setTask(!task);
-    setProjectInfo(false);
-  };
-  const addItems = (e) => {
-    e.preventDefault();
-    if (!InputData) {
-    } else {
-      setItems([...Items, InputData]);
-      setInputData("");
-    }
+    // setTask(false);
   };
 
+  const handleMileStone = () => {
+    setMileStone(!mileStone);
+    setProjectInfo(false);
+  };
   const deleteItems = (id) => {
     console.log(id);
     const updateditems = Items.filter((elem, i) => {
@@ -48,7 +39,9 @@ const CreateProject = () => {
     });
     setItems(updateditems);
   };
-
+  const handleTask = () => {
+    setTask(!task)
+  }
   const handleCreate = () => {
     SetError(true);
     if (
@@ -313,114 +306,50 @@ const CreateProject = () => {
             ""
           )}
         </div>
-        <div>
-          <div class="project-container">
-            <div class="row">
-              <div className="col" style={{ display: "flex" }}>
-                <img
-                  src="images/Tasks.png"
-                  alt="Project-info-icon"
-                  style={{ padding: "8px" }}
-                />
-                <label
-                  class="form-check-label reg-lable"
-                  for="exampleCheck1"
-                  style={{ marginLeft: "10px", color: "white" }}
-                >
-                  Tasks
-                </label>
-              </div>
-              <div className="col" style={{ display: "contents" }}>
-                <img
-                  src={
-                    task == true
-                      ? "images/downicon.png"
-                      : "images/forwardicon.png"
-                  }
-                  onClick={handleTask}
-                  style={{ marginRight: "10px", padding: "8px" }}
-                  alt="Project-info-icon"
-                />
-              </div>
-            </div>
-          </div>
-          {task == true ? (
-            <div className="project-card">
-              <div className="card-body">
-                <form>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <label
-                        class="form-check-label reg-lable"
-                        for="exampleCheck1"
-                      >
-                        Name
-                      </label>
-                      <div style={{ display: "flex" }}>
-                        <input
-                          style={{ backgroundColor: "white" }}
-                          type="text"
-                          id="fname"
-                          name="firstname"
-                          placeholder="Name"
-                          value={InputData}
-                          onChange={(e) => setInputData(e.target.value)}
-                        />
-                        <button
-                          className="btn"
-                          className="changebtn"
-                          onClick={addItems}
-                          type="submit"
-                          style={{ backgroundColor: "#25344b" }}
-                        >
-                          Add
-                        </button>
-                      </div>
-                    </div>
-                  </div>
 
-                  <div className="row">
-                    <div className="ShowItems">
-                      <div className="labaddtwo">
-                        <label style={{ fontWeight: "700" }}>Tasks</label>
-                      </div>
-                      {Items.map((elem, i) => {
-                        return (
-                          <div class="doccontainernew">
-                            <div class="row" key={i}>
-                              <div class="col">
-                                <p
-                                  style={{
-                                    color: "black",
-                                    textAlign: "justify",
-                                  }}
-                                >
-                                  {elem}
-                                </p>
-                              </div>
+<div>
+  { projectDetails.category == "2" ? 
+    <div class="project-container">
+    <div class="row">
+      <div className="col" style={{ display: "flex" }}>
+        <img
+          src="images/Project-info-icon.png"
+          alt="Project-info-icon"
+          style={{ padding: "8px" }}
+        />
+        <label
+          class="form-check-label reg-lable"
+          for="exampleCheck1"
+          style={{
+            marginLeft: "10px",
+            color: "white",
+            marginRight: "10px",
+          }}
+        >
+         Project MileStone
+        </label>
+      </div>
+      <div className="col" style={{ display: "contents" }}>
+        <img
+          src={
+            mileStone == true
+              ? "images/downicon.png"
+              : "images/forwardicon.png"
+          }
+          onClick={handleMileStone}
+          style={{ marginRight: "10px", padding: "8px" }}
+          alt="Project-info-icon"
+        />
+      </div>
+    </div>
+  </div>  : null  
+}
 
-                              <div class="col">
-                                <button
-                                  className="dustbin_image"
-                                  onClick={() => deleteItems(i)}
-                                >
-                                  <img src={proimage} alt="logo" />
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
-
+{mileStone == true ?  <MileStone handleTask={handleTask}/>:null}
+</div>
+<div>
+  {task == true ? <Task/> :null}
+</div>
         <div className="d-grid gap-2 d-md-block">
           <div className="addrole_Button">
             <button
