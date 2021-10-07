@@ -19,7 +19,7 @@ const CreateProject = () => {
     weekelyhour: "",
     perhourcost: "",
   });
-  
+
   const handleChange = (e) => {
     setDetails({ ...projectDetails, [e.target.name]: e.target.value });
   };
@@ -311,9 +311,9 @@ const CreateProject = () => {
             <div class="row">
               <div className="col" style={{ display: "flex" }}>
                 <img
-                  src="images/Project-info-icon.png"
+                  src="images/mstone.png"
                   alt="Project-info-icon"
-                  style={{ padding: "8px",marginRight:"1%" }}
+                  style={{ padding: "3px",marginLeft:"1%" }}
                 />
                 <label
                   class="form-check-label reg-lable"

@@ -24,3 +24,48 @@
     background-color: #003366;
     border-color: #003366; /*set the color you want here*/
   }
+  .cardnewone{
+    margin-left: 20px;
+	color: #25344b;
+  font-weight: 700;
+  padding: 20px;
+  margin-top: 15px;
+  display: flex;
+}
+.cardnewoneImagebutton{
+    margin-left: 200px;
+    height: 32px;
+    border: none;
+    background-color: white;
+}
+.designbutton{
+    width: 250px;
+    background-color:yellow;
+}
+.designbuttonew{
+   margin: 10px;
+}
+.cardforprojectnew{
+    align-items: center;
+    margin-left: 50px;
+    display: flex;
+}
+.cardforprojectnewone{
+    padding: 20px;
+}
+.cardforprojectnewtwo{
+    padding: 20px;
+}
+/* .DesRow{
+
+} */
+.labuttonew{
+    margin-left: 60px;
+    margin-top: 20px;
+    margin-bottom: 5%;
+  }
+  .labuttonewupper{
+    margin-left: 60px;
+    margin-top: 120px;
+    margin-bottom: 5%;
+  }
