@@ -1,0 +1,26 @@
+.task-container {
+    margin-top:2% ;
+    margin-left: 5%;
+    width: 90%;
+}
+.addTask_Button {
+    display: flex;
+    float: left;
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
+  .addTask_Button > button {
+    width: 130px;
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    background-color: #717171;
+    border-spacing: 5px;
+    margin: 5px;
+    float: right;
+  }
+  .addTask_Button > button:hover {
+    color: #fff;
+    background-color: #003366;
+    border-color: #003366; /*set the color you want here*/
+  }

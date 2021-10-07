@@ -19,7 +19,7 @@ const CreateProject = () => {
     weekelyhour: "",
     perhourcost: "",
   });
-  console.log("projectDetails", projectDetails.category);
+  
   const handleChange = (e) => {
     setDetails({ ...projectDetails, [e.target.name]: e.target.value });
   };
@@ -33,10 +33,10 @@ const CreateProject = () => {
     setProjectInfo(false);
   };
 
-  const handleTask = () => {
-    setTask(!task)
-    setMileStone(!mileStone)
-  }
+  // const handleTask = () => {
+  //   setTask(!task)
+  //   setMileStone(!mileStone)
+  // }
   const handleCreate = () => {
     SetError(true);
     if (
@@ -59,7 +59,7 @@ const CreateProject = () => {
                 <img
                   src="images/Project-info-icon.png"
                   alt="Project-info-icon"
-                  style={{ padding: "8px" }}
+                  style={{ padding: "8px",marginLeft:"1%" }}
                 />
                 <label
                   class="form-check-label reg-lable"
@@ -81,7 +81,7 @@ const CreateProject = () => {
                       : "images/forwardicon.png"
                   }
                   onClick={handleProject}
-                  style={{ marginRight: "10px", padding: "8px" }}
+                  style={{ marginRight: "2%", padding: "10px" }}
                   alt="Project-info-icon"
                 />
               </div>
@@ -110,7 +110,7 @@ const CreateProject = () => {
                         }}
                         type="text"
                         class="form-control"
-                        placeholder="Name"
+                        placeholder="Enter Project Name"
                         name="name"
                         value={projectDetails.name}
                         onChange={(e) => handleChange(e)}
@@ -141,8 +141,8 @@ const CreateProject = () => {
                         onChange={(e) => handleChange(e)}
                       >
                         <option selected>Select Project Type</option>
-                        <option value="1">Billable Hour</option>
-                        <option value="2">Non Billable Hour</option>
+                        <option value="1">Billable</option>
+                        <option value="2">Non Billable</option>
                       </select>
                     </div>
                   </div>
@@ -168,6 +168,7 @@ const CreateProject = () => {
                         name="description"
                         value={projectDetails.description}
                         onChange={(e) => handleChange(e)}
+                        placeholder="Type here"
                       />
                     </div>
                   </div>
@@ -246,6 +247,7 @@ const CreateProject = () => {
                             for="exampleCheck1"
                           >
                             Per Hour Cost
+                            
                           </label>
 
                           <input
@@ -259,7 +261,7 @@ const CreateProject = () => {
                             }}
                             type="text"
                             class="form-control"
-                            placeholder="Per Hour Cost"
+                            placeholder="Per hour cost in INR"
                             name="perhourcost"
                             value={projectDetails.perhourcost}
                             onChange={(e) => handleChange(e)}
@@ -284,7 +286,7 @@ const CreateProject = () => {
                             }}
                             type="text"
                             class="form-control"
-                            placeholder="Weekely Hour"
+                            placeholder="Enter hour"
                             name="weekelyhour"
                             value={projectDetails.weekelyhour}
                             onChange={(e) => handleChange(e)}
@@ -302,48 +304,46 @@ const CreateProject = () => {
           )}
         </div>
 
+
 <div>
-  { projectDetails.category == "2" ? 
-    <div class="project-container">
-    <div class="row">
-      <div className="col" style={{ display: "flex" }}>
-        <img
-          src="images/Project-info-icon.png"
-          alt="Project-info-icon"
-          style={{ padding: "8px" }}
-        />
-        <label
-          class="form-check-label reg-lable"
-          for="exampleCheck1"
-          style={{
-            marginLeft: "10px",
-            color: "white",
-            marginRight: "10px",
-          }}
-        >
-         Project MileStone
-        </label>
-      </div>
-      <div className="col" style={{ display: "contents" }}>
-        <img
-          src={
-            mileStone == true
-              ? "images/downicon.png"
-              : "images/forwardicon.png"
-          }
-          onClick={handleMileStone}
-          style={{ marginRight: "10px", padding: "8px" }}
-          alt="Project-info-icon"
-        />
-      </div>
-    </div>
-  </div>  : null  
+  {projectDetails.category == "2"?
+  <div class="project-container">
+            <div class="row">
+              <div className="col" style={{ display: "flex" }}>
+                <img
+                  src="images/Project-info-icon.png"
+                  alt="Project-info-icon"
+                  style={{ padding: "8px",marginRight:"1%" }}
+                />
+                <label
+                  class="form-check-label reg-lable"
+                  for="exampleCheck1"
+                  style={{
+                    marginLeft: "10px",
+                    color: "white",
+                    marginRight: "10px",
+                  }}
+                >
+                  Project Milestone
+                </label>
+              </div>
+              <div className="col" style={{ display: "contents" }}>
+                <img
+                  src={
+                    mileStone == true
+                      ? "images/downicon.png"
+                      : "images/forwardicon.png"
+                  }
+                  onClick={handleMileStone}
+                  style={{  marginRight: "2%", padding: "10px" }}
+                  alt="Project-info-icon"
+                />
+              </div>
+            </div>
+          </div>  : null
 }
 
-{mileStone == true ?  <MileStone handleTask={handleTask}/>:null}
-</div>
-<div>
-  {task == true ? <Task/> :null}
+{mileStone == true ?  <MileStone />:null}
 </div>
         <div className="d-grid gap-2 d-md-block">
           <div className="addrole_Button">

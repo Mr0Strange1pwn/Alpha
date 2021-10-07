@@ -110,14 +110,14 @@ function Navbar() {
               className="image__logo"
               src={
                 pathname == "/Project"
-                  ? "images/Project-h.png"
+                  ?  "images/Project-h.png" : pathname == "/Task" ? "images/Project-h.png"
                   : "images/Projects.png"
               }
               alt="logo"
             />{" "}
             <a
               className="nav-link"
-              style={{ color: pathname == "/Project" ? "#f07238" : "white" }}
+              style={{ color: pathname == "/Project" ? "#f07238" : pathname == "/Task" ? "#f07238" :"white" }}
               href=""
             >
               Projects

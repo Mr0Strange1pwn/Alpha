@@ -20,6 +20,7 @@ import Payroll from "./components/pages/Employee/Registration/Payroll";
 import JobDetails from "./components/pages/Employee/Registration/JobDetails";
 import FirstStepper from "./components/pages/Stepper/Stepper";
 import CreateProject from "./components/pages/Project";
+import Task from "./components/pages/Project/Task"
 const Routes = () => {
   const { isLoggedIn, toggle } = useSelector((store) => store.auth);
   const Location = useLocation()
@@ -72,10 +73,11 @@ const Routes = () => {
               <Route path="/AddPeople">
               <FirstStepper />
               </Route>
+              <Route path="/Task">
+              <Task/>
+              </Route>
 
-              {/* <Route path="/Project">
-              <CreateProject />
-              </Route> */}
+             
              
               {/* <Route exact path="/">
                 <Home />
