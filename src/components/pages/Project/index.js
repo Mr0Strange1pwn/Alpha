@@ -97,7 +97,7 @@ const CreateProject = () => {
                         class="form-check-label reg-lable"
                         for="exampleCheck1"
                       >
-                        Name
+                        Project Name
                       </label>
                       <input
                         style={{
@@ -168,7 +168,7 @@ const CreateProject = () => {
                         name="description"
                         value={projectDetails.description}
                         onChange={(e) => handleChange(e)}
-                        placeholder="Type here"
+                        placeholder="Project description"
                       />
                     </div>
                   </div>
@@ -249,7 +249,7 @@ const CreateProject = () => {
                             Per Hour Cost
                             
                           </label>
-
+                        {/* <div style={{display:"flex"}}> */}
                           <input
                             style={{
                               backgroundColor: "white",
@@ -266,13 +266,15 @@ const CreateProject = () => {
                             value={projectDetails.perhourcost}
                             onChange={(e) => handleChange(e)}
                           />
+                          {/* <span class="input-group-text border-start-0"style={{backgroundColor:" white"}}>INR</span> */}
+                          {/* </div> */}
                         </div>
                         <div className="col-md-6">
                           <label
                             class="form-check-label reg-lable"
                             for="exampleCheck1"
                           >
-                            Weekely Hour
+                            Weekly Hour
                           </label>
 
                           <input

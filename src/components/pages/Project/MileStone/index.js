@@ -133,7 +133,7 @@ const editItems = (id, e) => {
 
   return (
     <div className="milestone-header">
-        <Alert open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>
+        <Alert message="Milestone" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>
      
         <div style={{marginTop:"5%"}}>
 
@@ -187,7 +187,7 @@ const editItems = (id, e) => {
           <Modal open={isOpenEdit} onClose={() => setIsOpenEdit(false)}>
                       <div style={{ marginTop: "5%" }}>
                 <div style={{ textAlignLast: "center" }}>
-                  <h4 style={{ fontWeight: "700"}}>Edit Task</h4>
+                  <h4 style={{ fontWeight: "700"}}>Edit Milestone</h4>
                 </div>
                 <div style={{ margin: "auto", width: "70%" }}>
                   <div className="row">
@@ -243,6 +243,23 @@ const editItems = (id, e) => {
                       placeholder="Enter Amount"
                       value={item.amount}
                       onChange={(e) => handleChange(e)}
+                    />
+                  </div>
+                  <div className="row">
+                    <label
+                      class="form-check-label reg-lable"
+                      for="exampleCheck1"
+                    >
+                      Release Date
+                    </label>
+                    <DatePicker
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                      peekNextMonth
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
+                      customInput={<ExampleCustomInput />}
                     />
                   </div>
                   <div

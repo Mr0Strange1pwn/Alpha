@@ -40,7 +40,7 @@ const footerbtnStyle = {
   cursor: "pointer"
 }
 
-export default function Alert({open ,onClose,children, setOpenModal,id,handleDelete}) {
+export default function Alert({open ,onClose,children, setOpenModal,id,handleDelete,message}) {
      if (!open) return null
     return (
         <>
@@ -55,13 +55,15 @@ export default function Alert({open ,onClose,children, setOpenModal,id,handleDel
             }}
           >
             <img
-                          src="images/close.png"
-                          alt="Project-info-icon"
-                        />
+                height="25px"
+                width="25px"
+                src="images/close.png"
+                alt="Project-info-icon"
+              />
           </button>
         </div>
-        <div >
-          <h1 style={{textAlign: "center"}}>Are you sure you want to delete this Employee?</h1>
+        <div style={{marginTop:"8%"}}>
+          <h3 style={{textAlign: "center",fontSize:"1.80rem"}}>Are you sure you want to delete the {message}?</h3>
         </div>
         <div style={{textAlignLast: "center"}}>
           <button

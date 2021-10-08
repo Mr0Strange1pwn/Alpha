@@ -30,7 +30,80 @@
     }
   ],
   "comments": [],
-  "profile": {
-    "name": "typicode"
-  }
+  "profile": [
+    {
+      "id":1,
+      "employee": "Nirvan",
+      "employ": "Arnab",
+      "emy": "lakhan"
+    
+    },
+    {
+      "id":2,
+      "employee": "Sumit",
+      "employ": "Sorav",
+      "emy": "Harrinder"
+    },
+    {
+      "id":3,
+      "employee": "pawan",
+      "employ": "Raja",
+      "emy": "Surrender"
+    },
+    {
+      "id":4,
+      "employee": "Ram",
+      "employ": "Nikeet",
+      "emy": "Sachin"
+    },
+    {
+      "id":5,
+      "employee": "sam",
+      "employ": "Karan",
+      "emy": "Viran"
+    },
+    {
+      "id":6,
+      "employee": "Rohan",
+      "employ": "suhail",
+      "emy": "Vaman"
+    },
+    {
+        "id":7,
+        "employee": "Arnab",
+        "employ": "Arnab",
+        "emy": "lakhan"
+      
+      },
+      {
+        "id":8,
+        "employee":"Sorav",
+        "employ": "Sorav",
+        "emy": "Harrinder"
+      },
+      {
+        "id":9,
+        "employee": "Raja",
+        "employ": "Raja",
+        "emy": "Surrender"
+      },
+      {
+        "id":10,
+        "employee": "Sachin",
+        "employ": "Nikeet",
+        "emy": "Sachin"
+      },
+      {
+        "id":11,
+        "employee": "Viran",
+        "employ": "Karan",
+        "emy": "Viran"
+      },
+      {
+        "id":12,
+        "employee": "suhail",
+        "employ": "suhail",
+        "emy": "Vaman"
+      }
+  ]
 }

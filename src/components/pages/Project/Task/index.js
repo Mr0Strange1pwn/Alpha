@@ -7,6 +7,7 @@ import { useHistory} from "react-router-dom"
 import axios from "axios";
 import Categories from "../Category/categories";
 import Categorytype from "../Category/categorytype";
+import Tickphoto from "../../../NewImages/Tick.png";
 
 
 const Task = () => {
@@ -60,6 +61,9 @@ const Task = () => {
   if (range) {
     sohme.display = "flex";
   }
+  const backphoto= {
+    backgroundImage: "url(" + Tickphoto + ")",
+   }
   const history =useHistory()
   const routeBack = () => {
     let path = './Project'
@@ -147,8 +151,8 @@ useEffect(() => {
 
   return (
     <div className="task-header">
-       <Header headerName="Create Project"/>
-       <Alert open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>
+       <Header headerName="Create Task"/>
+       <Alert message="Task" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>
       <Modal open={isOpen} onClose={() => setIsOpen(false)}>
       <div className="cardnewone"><h3>Select Employee</h3> <button className="cardnewoneImagebutton"
             onClick={() => 
@@ -162,8 +166,20 @@ useEffect(() => {
                         <div className="col-sm-6"><label style={{color:'darkBlue',fontWeight:'600'}}>Category</label></div>
                       </div>
                       <div className="row" style={hidme}>
-                        <div className="col-sm-6"><Categories /></div>
-                        <div className="col-sm-6"><Categorytype /></div>
+                        <div className="col-sm-6" style={{color:'black'}}>                      <div className="col-md-6">
+
+                        <select
+                          class="form-select"
+                          id="inputGroupSelect03"
+                          aria-label="Example select with button addon"
+                          name="category"
+                        >
+                          <option selected>Choose Category</option>
+                          <option value="1">HR</option>
+                          <option value="2">Non Retainer</option>
+                        </select>
+                      </div></div>
+                        <div className="col-sm-6"style={{color:'black'}}><Categorytype /></div>
                         <div style={{marginTop:'10px'}}><input style={{backgroundColor:'#25344b'}} 
                    type="checkbox" className="form-check-input" id="exampleCheck1" />
                    <span style={{color:'green',fontWeight:'600',marginLeft:'15px'}}>Select All</span></div>
@@ -188,30 +204,22 @@ useEffect(() => {
                    onChange={handleChange}
                    type="checkbox" className="form-check-input" id="exampleCheck1" />
                    <span style={{color:'green',fontWeight:'600',marginLeft:'15px'}}>Select All</span></div>
-               {
-                 employee.map( (result) => {
-                        return(
-                        
-                          <div className="row"  style={sohme}>
-                            <div className="col-sm-4" style={{padding:"4px"}}><input type="checkbox" 
+                   <div className="row"  style={sohme}>
+               {employee.map( (result) => {
+                   
+                   return(
+                   
+                   <div className="row" style={{position:"absolute",display:'contents'}}>
+                            <div className="col-sm-4" style={{padding:"4px"}}> <div style={{display:'flex'}}>
+                            <input type="checkbox" 
                             name={result.employee}
                             checked={result?.isChecked || false}
-                            onChange={handleChange} className="form-check-input" id="exampleCheck1" style={{backgroundColor:'lightBlue',marginLeft:'55px'}} value={result.employee}/><span style={{color:'darkBlue',fontWeight:'600',marginLeft:'15px'}}>{result.employee}</span><br/></div>
-                            <div className="col-sm-4"><input type="checkbox" 
-                            name={result.name}
-                            checked={result?.isChecked || false}
-                            onChange={handleChange}
-                            className="form-check-input" id="exampleCheck1"  style={{backgroundColor:'#f1f1f1',marginLeft:'25px'}} value={result.employ}/><span style={{color:'darkBlue',fontWeight:'600',marginLeft:'15px'}}>{result.employ}</span><br/></div>
-                            <div className="col-sm-4"><input type="checkbox" 
-                            name={result.name}
-                            checked={result?.isChecked || false}
-                            onChange={handleChange} className="form-check-input" id="exampleCheck1" style={{backgroundColor:'lightBlue'}}  value={result.emy}/><span style={{color:'darkBlue',fontWeight:'600',marginLeft:'15px'}}>{result.emy}</span><br/></div>
-                          </div>
-                      
-                        )
-                  
-                 })
-               }
+                            onChange={handleChange} className="follow" id="exampleCheck1" style={{ marginLeft:'55px' }} style={backphoto} value={result.employee} /><span style={{color:'black',fontWeight:'600',marginLeft:'15px' }}>{result.employee}</span></div></div></div>
+
+                            )
+                             } )
+                             }
+                             </div>
              
                </div>
                <div className="labuttonew" style={sohme}>
@@ -269,7 +277,7 @@ useEffect(() => {
                       type="submit"
                       onClick={() => setIsOpenEdit(false)}
                     >
-                      Back
+                      Cancel
                     </button>
                   </div>
                 </div>
@@ -290,7 +298,7 @@ useEffect(() => {
                       type="text"
                       id="fname"
                       name="firstname"
-                      placeholder="Enter Project name"
+                      placeholder="Enter task name"
                       value={addNewTask}
                       onChange={(e) => setNewTask(e.target.value)}
                     />
@@ -363,7 +371,7 @@ useEffect(() => {
                     );
                   })}
 
-  {Items.length > 0 ?
+ 
   <div className="addTask_Button">
           <button
             className="btn  float-left"
@@ -379,7 +387,7 @@ useEffect(() => {
           >
             Back
           </button>
-        </div>:null}
+        </div>
 
                 </div>
               </div>
