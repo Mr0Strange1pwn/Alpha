@@ -154,7 +154,9 @@ useEffect(() => {
        <Header headerName="Create Task"/>
        <Alert message="Task" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>
       <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-      <div className="cardnewone"><h3>Select Employee</h3> <button className="cardnewoneImagebutton"
+      <div className="cardnewone">
+        <h3>Select Employee</h3>
+        <button className="cardnewoneImagebutton"
             onClick={() => 
               setRange(!range)
             }><img src="images/Filter-popup.png" alt="logo" /></button></div>
@@ -166,31 +168,19 @@ useEffect(() => {
                         <div className="col-sm-6"><label style={{color:'darkBlue',fontWeight:'600'}}>Category</label></div>
                       </div>
                       <div className="row" style={hidme}>
-                        <div className="col-sm-6" style={{color:'black'}}>                      <div className="col-md-6">
-
-                        <select
-                          class="form-select"
-                          id="inputGroupSelect03"
-                          aria-label="Example select with button addon"
-                          name="category"
-                        >
-                          <option selected>Choose Category</option>
-                          <option value="1">HR</option>
-                          <option value="2">Non Retainer</option>
-                        </select>
-                      </div></div>
+                        <div className="col-sm-6" style={{color:'black'}}><Categories/></div>
                         <div className="col-sm-6"style={{color:'black'}}><Categorytype /></div>
-                        <div style={{marginTop:'10px'}}><input style={{backgroundColor:'#25344b'}} 
-                   type="checkbox" className="form-check-input" id="exampleCheck1" />
+                        <div style={{marginTop:'10px'}}><input  
+                          type="checkbox" className="form-check-input" id="exampleCheck1" />
                    <span style={{color:'green',fontWeight:'600',marginLeft:'15px'}}>Select All</span></div>
                       </div>
                </div>
 
                </div>
                <div className="labuttonewupper" style={hidme}>
-    <button type="button" className="labfour" className="btn btn-outline-success float-right"
+    <button type="button" className="labfour " 
      style={{ backgroundColor: "#25344b", color: "white" ,padding:'8px', width:'100px',marginRight:'8px'}}
-     type="submit"  className ="btn btn-info">Save</button><span>  </span>
+     type="submit"  >Save</button><span>  </span>
 		<button type="button"className="btn float-left"
     style={{backgroundColor:" #717171", color:"white",padding:'8px', width:'100px'}}
      type="submit"  onClick={()=> setIsOpen(false)} >Cancel</button>
@@ -198,23 +188,25 @@ useEffect(() => {
 			
                
                <div>
-                 <div style={{marginBottom:"30px"}}   style={sohme}> <input style={{backgroundColor:'#f1f1f1',marginLeft:'48px',marginBottom:'15px'}} 
+                 <div style={{marginBottom:"30px"}}  style={{...sohme, marginLeft:"6%"}}> <input  
                    checked={!employee.some((result) => result?.isChecked !== true)}
                    name="allSelect"
                    onChange={handleChange}
                    type="checkbox" className="form-check-input" id="exampleCheck1" />
                    <span style={{color:'green',fontWeight:'600',marginLeft:'15px'}}>Select All</span></div>
-                   <div className="row"  style={sohme}>
+                   <div className="row"  style={{...sohme, marginLeft:"5%"}}>
                {employee.map( (result) => {
                    
                    return(
                    
                    <div className="row" style={{position:"absolute",display:'contents'}}>
                             <div className="col-sm-4" style={{padding:"4px"}}> <div style={{display:'flex'}}>
-                            <input type="checkbox" 
+                            <input 
+                            type="checkbox" 
                             name={result.employee}
+                            className="form-check-input"
                             checked={result?.isChecked || false}
-                            onChange={handleChange} className="follow" id="exampleCheck1" style={{ marginLeft:'55px' }} style={backphoto} value={result.employee} /><span style={{color:'black',fontWeight:'600',marginLeft:'15px' }}>{result.employee}</span></div></div></div>
+                            onChange={handleChange}  id="exampleCheck1"  value={result.employee} /><span style={{color:'black',fontWeight:'600',marginLeft:'15px' }}>{result.employee}</span></div></div></div>
 
                             )
                              } )
