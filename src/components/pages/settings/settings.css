@@ -1,0 +1,120 @@
+.setting-container{
+    background-color: #f07238;
+    color: white;
+    font-weight: 700;
+    border-radius: 3px;
+    padding: 5px;
+    text-align: center;
+    margin-top: 2%;
+    margin-bottom: 1%;
+}
+.doccontainernew .row {
+    background-color:yellow;
+    border-collapse: separate;
+    /* border-spacing:15px; */
+    color:#25344b;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    /* --bs-gutter-x: snow!important; */
+}
+
+.doccontainernew{
+
+    color:white;
+    font-weight: 700;
+    border-radius: 3px;
+    /* padding: 5px; */
+    /* text-align: center; */
+    /* margin-top: 2%;
+    margin-bottom: 1%; */
+
+}
+.doccontainernew{
+    
+    font-weight: 700;
+    border-radius: 3px;
+    padding: 10px;
+    /* text-align: center; */
+
+}
+.labaddtwo{
+    color: #25344b;
+    font-weight: 600;
+    /* margin-bottom: 10px; */
+    margin-top: 30px;
+    display: flex;
+
+}
+.changebtn{
+    background-image: url("./../../NewImages/plusiconimage.png");
+    background-repeat: no-repeat;
+    width: 150px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    margin-left: 10px;
+    border: none;
+    background-position: 10px 10px;
+
+}
+.project-card-new{
+ position:sticky;
+}
+.cardnewone{
+    margin-left: 20px;
+	color: #25344b;
+  font-weight: 700;
+  padding: 20px;
+  margin-top: 15px;
+  display: flex;
+}
+.cardnewoneImagebutton{
+    margin-left: 200px;
+    height: 32px;
+    border: none;
+    background-color: white;
+}
+.designbutton{
+    width: 250px;
+    background-color:yellow;
+}
+.designbuttonew{
+   margin: 10px;
+}
+.cardforprojectnew{
+    align-items: center;
+    margin-left: 50px;
+    display: flex;
+}
+.cardforprojectnewone{
+    padding: 20px;
+}
+.cardforprojectnewtwo{
+    padding: 20px;
+}
+/* .DesRow{
+
+} */
+.labuttonew{
+    margin-left: 60px;
+    margin-top: 20px;
+  }
+  .labuttonewupper{
+    margin-left: 60px;
+    margin-top: 120px;
+  }
+
+  .list ul li  {
+    display: inline-block;
+    margin-left: 0px;
+    margin-right:8%;
+    margin-top: 10px;
+    margin-bottom:10px;  
+  }
+  .smain-container{
+    margin-top:2% ;
+    margin-left: 5%;
+    width: 90%;
+  }
