@@ -4,18 +4,25 @@ import Header from "../Header/Header";
 import Modal from "./../../common/Model";
 import Alert from "./../../common/Alert";
 
+
 const Setting = () => {
   const [projectInfo, setProjectInfo] = useState(false);
   const [task, setTask] = useState(false);
   const [InputData, setInputData] = useState("");
+  const [InputDataTwo, setInputDataTwo] = useState("");
   const [Items, setItems] = useState([]);
+  const [ItemsTwo, setItemsTwo] = useState([]);
   const [range, setRange] = useState(false);
   const [isEditItem, setIsEditItem] = useState();
+  const [isEditItemTwo, setIsEditItemTwo] = useState();
   const [addNewTask, setNewTask] = useState("");
+  const [addNewTaskTwo, setNewTaskTwo] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-  const [jobmodalOpen, setJobModalOpen] = useState(false);
+  const [modalOpenTwo, setModalOpenTwo] = useState(false);
   const [ids, setID] = useState();
+  const [idsNew, setIDNew] = useState();
   const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [isOpenEditTwo, setIsOpenEditTwo] = useState(false);
 
   const hidme = {
     display: "flex",
@@ -45,16 +52,28 @@ const Setting = () => {
       setNewTask("");
     }
   };
+  const addItemsNew = (e) => {
+    e.preventDefault();
+    if (!addNewTaskTwo) {
+      alert("please Fill Data");
+    } else {
+      const allInputData = {
+        id: new Date().getTime().toString(),
+        name: addNewTaskTwo,
+      };
+      setItemsTwo([...ItemsTwo, allInputData]);
+      setNewTaskTwo("");
+    }
+  };
   const delAlert = (id, e) => {
     e.preventDefault();
     setModalOpen(true);
     setID(id);
   };
-
-  const delJobAlert = (id, e) => {
+  const delAlertNew = (id, e) => {
     e.preventDefault();
-    setJobModalOpen(true);
-    setID(id);
+    setModalOpenTwo(true);
+    setIDNew(id);
   };
   const handleDelete = (index) => {
     const updateditems = Items.filter((elem) => {
@@ -63,13 +82,12 @@ const Setting = () => {
     setItems(updateditems);
     setModalOpen(false);
   };
-
-  const handleJobDelete = (index) => {
-    const updateditems = Items.filter((elem) => {
+  const handleDeleteNew = (index) => {
+    const updateditems = ItemsTwo.filter((elem) => {
       return index !== elem.id;
     });
-    setItems(updateditems);
-    setJobModalOpen(false);
+    setItemsTwo(updateditems);
+    setModalOpenTwo(false);
   };
   const handleSave = () => {
     setItems(
@@ -82,6 +100,17 @@ const Setting = () => {
     );
     setIsOpenEdit(false);
   };
+  const handleSaveTwo = () => {
+    setItemsTwo(
+      ItemsTwo.map((elem) => {
+        if (elem.id === isEditItemTwo) {
+          return { ...elem, name: InputDataTwo };
+        }
+        return elem;
+      })
+    );
+    setIsOpenEditTwo(false);
+  };
   const editItems = (id, e) => {
     e.preventDefault();
     setIsOpenEdit(true);
@@ -91,6 +120,16 @@ const Setting = () => {
     console.log(newEditItem);
     setInputData(newEditItem.name);
     setIsEditItem(id);
+  };
+  const editItemsTwo = (id, e) => {
+    e.preventDefault();
+    setIsOpenEditTwo(true);
+    let newEditItem = ItemsTwo.find((elem) => {
+      return elem.id === id;
+    });
+    console.log(newEditItem);
+    setInputDataTwo(newEditItem.name);
+    setIsEditItemTwo(id);
   };
 
   const handleProject = () => {
@@ -113,13 +152,13 @@ const Setting = () => {
         handleDelete={(id) => handleDelete(id)}
         id={ids}
       />
-       <Alert
-        message="Job Typen"
-        open={jobmodalOpen}
-        onClose={() => setJobModalOpen(false)}
-        setOpenModal={setJobModalOpen}
-        handleDelete={(id) => handleJobDelete(id)}
-        id={ids}
+      <Alert
+      message="Job Type"
+      open={modalOpenTwo}
+      onClose={() => setModalOpen(false)}
+      setOpenModal={setModalOpenTwo}
+      handleDelete={(id) => handleDeleteNew(id)}
+      id={idsNew}
       />
       <Modal open={isOpenEdit} onClose={() => setIsOpenEdit(false)}>
         <div style={{ marginTop: "4%" }}>
@@ -161,6 +200,53 @@ const Setting = () => {
                 style={{ backgroundColor: " #717171", color: "white" }}
                 type="submit"
                 onClick={() => setIsOpenEdit(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </Modal>
+      <Modal open={isOpenEditTwo} onClose={() => setIsOpenEditTwo(false)}>
+        <div style={{ marginTop: "4%" }}>
+          <div style={{ textAlignLast: "center" }}>
+            <h4 style={{ fontWeight: "700" }}>Edit Designation</h4>
+          </div>
+          <div style={{ margin: "auto", width: "70%" }}>
+            <div className="row">
+              <label class="form-check-label reg-lable" for="exampleCheck1">
+                Name
+              </label>
+              <input
+                type="text"
+                id="fname"
+                name="name"
+                placeholder="Enter Name"
+                value={InputDataTwo}
+                onChange={(e) => setInputDataTwo(e.target.value)}
+              />
+            </div>
+
+            <div
+              className="modalButton"
+              style={{ marginTop: "5%", marginBottom: "5%" }}
+            >
+              <button
+                type="button"
+                className="btn"
+                style={{ backgroundColor: "#003366", color: "white" }}
+                type="submit"
+                onClick={() => handleSaveTwo()}
+              >
+                Save
+              </button>
+              <span> </span>
+              <button
+                type="button"
+                className="btn"
+                style={{ backgroundColor: " #717171", color: "white" }}
+                type="submit"
+                onClick={() => setIsOpenEditTwo(false)}
               >
                 Cancel
               </button>
@@ -337,13 +423,13 @@ const Setting = () => {
                             id="fname"
                             name="firstname"
                             placeholder="Enter task name"
-                            value={addNewTask}
-                            onChange={(e) => setNewTask(e.target.value)}
+                            value={addNewTaskTwo}
+                            onChange={(e) => setNewTaskTwo(e.target.value)}
                           />
                           <button
                             className="btn"
                             className="changebtn"
-                            onClick={addItems}
+                            onClick={addItemsNew}
                             type="submit"
                             style={{ backgroundColor: "#25344b" }}
                           >
@@ -355,13 +441,13 @@ const Setting = () => {
 
                     <div className="row">
                       <div className="ShowItems">
-                        {Items.length > 0 ? (
+                        {ItemsTwo.length > 0 ? (
                           <div className="labaddtwo">
                             <label style={{ fontWeight: "700" }}>Tasks</label>
                           </div>
                         ) : null}
 
-                        {Items.map((elem) => {
+                        {ItemsTwo.map((elem) => {
                           return (
                             <div class="doccontainernew">
                               <div class="row" key={elem.id}>
@@ -382,14 +468,14 @@ const Setting = () => {
                                     // onClick={() => {
                                     //   deleteItems(elem.id);
                                     // }}
-                                    onClick={(e) => delJobAlert(elem.id, e)}
+                                    onClick={(e) => delAlertNew(elem.id, e)}
                                   >
                                     <img src="images/Del.png" alt="logo" />
                                   </button>
                                   <button
                                     className="action_image"
                                     onClick={(e) => {
-                                      editItems(elem.id, e);
+                                      editItemsTwo(elem.id, e);
                                     }}
                                   >
                                     <img src="images/Edit.png" alt="logo" />
