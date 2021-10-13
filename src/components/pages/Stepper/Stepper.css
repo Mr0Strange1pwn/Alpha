@@ -1,87 +1,106 @@
 .cen{
-    display:flex;
+  display:flex;
 }
 
 .frame {
-    /* width: 100px; */
-    height:100px;
-    border: 3px solid #ccc;
-    background:white;
-    margin: auto;
-    padding: 15px 0px;
-    background-image: url("./../../NewImages/Step1.png");
-    background-repeat: no-repeat;
-    align-items: center;
-    border-style: dashed;
-    display: flex;
-    border-radius: 10px;
-    background-position: center;
-    
-  }
+  /* width: 100px; */
+  height:100px;
+  border: 3px solid #ccc;
+  background:white;
+  margin: auto;
+  padding: 15px 0px;
+  background-image: url("./../../NewImages/Step1.png");
+  background-repeat: no-repeat;
+  align-items: center;
+  border-style: dashed;
+  display: flex;
+  border-radius: 10px;
+  background-position: center;
+  
+}
 
-  .gframe {
-    /* width: 100px; */
-    height:100px;
-    border: 3px solid #ccc;
-    background:white;
-    margin: auto;
-    padding: 15px 10px;
-    background-image: url("./../../NewImages/Step2.png");
-    background-repeat: no-repeat;
-    align-items: center;
-    border-style: dashed;
-    border-radius: 10px;
-    background-position: center;
-    
-  }
-  .hframe {
-    /* width: 100px; */
-    height:100px;
-    border: 3px solid #ccc;
-    background:white;
-    margin: auto;
-    padding: 15px 20px;
-    background-image: url("./../../NewImages/Step3.png");
-    background-repeat: no-repeat;
-    align-items: center;
-    border-style: dashed;
-    border-radius: 10px;
-    background-position: center;
-    
-  }
-  .iframe {
-    /* width: 100px; */
-    height:100px;
-    border: 3px solid #ccc;
-    background:white;
-    margin: auto;
-    padding: 15px 10px;
-    background-image: url("./../../NewImages/Step4.png");
-    background-repeat: no-repeat;
-    align-items: center;
-    border-style: dashed;
-    border-radius: 10px;
-    background-position: center;
-    
-  }
-  hr.new2 {
-    border-top: 3px dashed lightblue;
-    margin-top: 40px;
-    border-style: dashed;
-    margin-left: 0;
-    margin-right: 0;
-    width: 70%; 
-    color: white;
-  }
-  .stpstyle{
-      background-color: white;
-  }
-  .labrare{
-      margin-top: 160px;
-  }
-  .center-stepper{
-      margin-left: 10%;
-  }
+.gframe {
+  /* width: 100px; */
+  height:100px;
+  border: 3px solid #ccc;
+  background:white;
+  margin: auto;
+  padding: 15px 10px;
+  background-image: url("./../../NewImages/Step2.png");
+  background-repeat: no-repeat;
+  align-items: center;
+  border-style: dashed;
+  border-radius: 10px;
+  background-position: center;
+  
+}
+.hframe {
+  /* width: 100px; */
+  height:100px;
+  border: 3px solid #ccc;
+  background:white;
+  margin: auto;
+  padding: 15px 20px;
+  background-image: url("./../../NewImages/Step3.png");
+  background-repeat: no-repeat;
+  align-items: center;
+  border-style: dashed;
+  border-radius: 10px;
+  background-position: center;
+  
+}
+.iframe {
+  /* width: 100px; */
+  height:100px;
+  border: 3px solid #ccc;
+  background:white;
+  margin: auto;
+  padding: 15px 10px;
+  background-image: url("./../../NewImages/Step4.png");
+  background-repeat: no-repeat;
+  align-items: center;
+  border-style: dashed;
+  border-radius: 10px;
+  background-position: center;
+  
+}
+hr.new2 {
+  border-top: 3px dashed lightblue;
+  margin-top: 40px;
+  border-style: dashed;
+  margin-left: 0;
+  margin-right: 0;
+  width: 70%; 
+  color: white;
+}
+.stpstyle{
+    background-color: white;
+}
+.labrare{
+    margin-top: 160px;
+}
+.center-stepper{
+    margin-left: 10%;
+}
 .RFS-Label {
-  width: max-content;
+width: max-content;
+}
+@media screen and (max-width: 767px){
+.cen {
+  display: block;
+}
+.upload-image {
+justify-content: center;}
+form.registrstion-form .row {
+  display: block;
+}
+.addrole_Button > button{
+width: 100%;
+}
+.addrole_Button {
+display: block;
+}
+.cen hr {
+display: none;
+}
 }

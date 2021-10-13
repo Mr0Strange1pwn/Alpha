@@ -67,8 +67,8 @@ function Registration() {
   return (
     <div>
       {/* <Header headerName="Registration" /> */}
-      <div style={{ display: "flex", marginLeft: "8%", marginTop: "5%" }}>
-        <div
+      <div class="upload-image" style={{ display: "flex", marginLeft: "8%", marginTop: "5%" }}>
+        <div className="uploadImage"
           style={{
             backgroundColor: "#f1f1f1",
           }}
@@ -77,7 +77,7 @@ function Registration() {
         </div>
       </div>
       <div class="container">
-        <form>
+        <form class="registrstion-form">
           <div className="row">
             <div className="col">
               <label class="form-check-label reg-lable" for="exampleCheck1">

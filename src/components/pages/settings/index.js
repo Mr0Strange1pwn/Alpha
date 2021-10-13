@@ -13,6 +13,7 @@ const Setting = () => {
   const [isEditItem, setIsEditItem] = useState();
   const [addNewTask, setNewTask] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [jobmodalOpen, setJobModalOpen] = useState(false);
   const [ids, setID] = useState();
   const [isOpenEdit, setIsOpenEdit] = useState(false);
 
@@ -49,12 +50,26 @@ const Setting = () => {
     setModalOpen(true);
     setID(id);
   };
+
+  const delJobAlert = (id, e) => {
+    e.preventDefault();
+    setJobModalOpen(true);
+    setID(id);
+  };
   const handleDelete = (index) => {
     const updateditems = Items.filter((elem) => {
       return index !== elem.id;
     });
     setItems(updateditems);
     setModalOpen(false);
+  };
+
+  const handleJobDelete = (index) => {
+    const updateditems = Items.filter((elem) => {
+      return index !== elem.id;
+    });
+    setItems(updateditems);
+    setJobModalOpen(false);
   };
   const handleSave = () => {
     setItems(
@@ -96,6 +111,14 @@ const Setting = () => {
         onClose={() => setModalOpen(false)}
         setOpenModal={setModalOpen}
         handleDelete={(id) => handleDelete(id)}
+        id={ids}
+      />
+       <Alert
+        message="Job Typen"
+        open={jobmodalOpen}
+        onClose={() => setJobModalOpen(false)}
+        setOpenModal={setJobModalOpen}
+        handleDelete={(id) => handleJobDelete(id)}
         id={ids}
       />
       <Modal open={isOpenEdit} onClose={() => setIsOpenEdit(false)}>
@@ -359,7 +382,7 @@ const Setting = () => {
                                     // onClick={() => {
                                     //   deleteItems(elem.id);
                                     // }}
-                                    onClick={(e) => delAlert(elem.id, e)}
+                                    onClick={(e) => delJobAlert(elem.id, e)}
                                   >
                                     <img src="images/Del.png" alt="logo" />
                                   </button>

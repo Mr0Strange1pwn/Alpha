@@ -71,3 +71,29 @@
     border: none;
     
 }
+@media screen and (max-width: 1023px){
+    .main .row {
+        display: block;
+    }
+    .main .col-sm-6,.main .col-sm-5 {
+        width: 100%;
+    }
+    .pos {
+        display: block;
+        float: none;
+    }
+    .pos >button{
+        width: 100%;
+        margin:5px 0;
+    }
+}
+@media screen and (max-width: 767px){
+    .pos{
+        display: block;
+        float: none;
+      }
+      .pos >button{
+        width: 100%;
+        margin: 5px 0;
+      }
+    }

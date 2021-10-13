@@ -4,6 +4,7 @@ import { Link, useHistory, useParams  } from "react-router-dom";
 import axios from "axios";
 import Header from "../Header/Header";
 import AlertModel from "../../common/AlertModel.js"
+
 const Employee = () => {
   const { id } = useParams();
   const [student, setStudent] = useState([]);
@@ -134,106 +135,39 @@ const Employee = () => {
           </div>
         </div>
 
-        <div class="emp-container">
-          <div class="row" style={{marginLeft:"5px"}}>
-            <div class="col">
-              <p>
-                ID &nbsp;
-                <img
-                  className="filter_image"
-                  src="images/Sort.png"
-                  alt="logo"
-                />
-              </p>
-            </div>
-            <div class="col">
-              <p>
-                Name &nbsp;
-                <img
-                  className="filter_image"
-                  src="images/Sort.png"
-                  alt="logo"
-                />
-              </p>
-            </div>
-            <div class="col">
-              <p>
-                Email &nbsp;
-                <img
-                  className="filter_image"
-                  src="images/Sort.png"
-                  alt="logo"
-                />
-              </p>
-            </div>
-            <div class="col">
-              <p style={{marginLeft:"34%"}}>
-               Phone No 
-              </p>
-            </div>
-            <div class="col">
-              <p>
-               DOB 
-              </p>
-            </div>
-            <div class="col">
-              <p>
-               Role &nbsp;
-                <img
-                  className="filter_image"
-                  src="images/Sort.png"
-                  alt="logo"
-                />
-              </p>
-            </div>
-            <div class="col">
-              <p>Actions</p>
-            </div>
-          </div>
+        <div >
+        <table class="employee-header">
+            <tr>
+                <th>ID  <img  src="images/Sort.png"  alt="logo" /></th>
+                <th>Name <img  src="images/Sort.png"  alt="logo" /></th>
+                <th>Email <img  src="images/Sort.png"  alt="logo" /></th>
+                <th>Phone No </th>
+                <th>DOB</th>
+                <th>Role <img  src="images/Sort.png"  alt="logo" /></th>
+                <th>Action</th>
+            </tr>
+        </table>
         </div>
 
         {student.map((students, i) => {
           return (
-            <div class="empcontainer">
-              <div class="row" key={i}>
-                <div class="col">
-                  <p>{i + 1}</p>
-                </div>
-                <div class="col">
-                  <p>{students.username}</p>
-                </div>
-                <div class="col">
-                  <p style={{color:"#f07238"}}>{students.useremail}</p>
-                </div>
-                <div class="col">
-                  {/* <p>{students.userpassword}</p> */}
-                  <p>"8989898989"</p>
-                </div>
-                <div class="col">
-                  {/* <p>{students.userpassword}</p> */}
-                  <p>10/01/1990</p>
-                </div>
-                <div class="col">
-                  {/* <p>{students.userpassword}</p> */}
-                  <p>Developer</p>
-                </div>
-                <div class="col" >
-                  <button
-                    className="dustbin_image"
-                    onClick={() => delAlert(students.id)}
-                  >
-                    <img src="images/Del.png" alt="logo" />
-                  </button>
-                  <Link to={`/view/${students.id}`}>
-                    <img
-                      className="dustbin_image"
+<div>
+<table class="employee-detail">
+            <tr>
+                <td class="geeks">{i + 1}</td>
+                <td>{students.username}</td>
+                <td><a href="#" class="user-email">{students.useremail}</a></td>
+                <td>8989898989</td>
+                <td>10/01/1990</td>
+                <td>Developer</td>
+                <td><button> <img
                       src="images/Edit.png"
                       alt="logo"
-                    />
-                  </Link>
-                </div>
-              </div>
-            </div>
+                    /></button><button   onClick={() => delAlert(students.id)}><img src="images/Del.png" alt="logo" /></button>
+                
+                </td>
+            </tr></table>
+  </div>
           );
         })}
 <nav aria-label="Page navigation example">

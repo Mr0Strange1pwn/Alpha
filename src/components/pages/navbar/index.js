@@ -5,10 +5,30 @@ import { useSelector, useDispatch } from "react-redux";
 import { faToggleOff } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
 
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
+
 function Navbar() {
   const [change, setChange] = useState(false);
   const { toggle } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   useEffect(() => {}, [change]);
 
   const clickHandle = () => {
@@ -17,21 +37,25 @@ function Navbar() {
   const btnStyle = {
     width: "20%",
   };
-
-  if (change) {
-    btnStyle.width = "5%";
-  }
-
   const hideme = {
     display: "flex",
   };
 
+  if(windowDimensions.width<=800){
+    btnStyle.width = "15%";
+      hideme.display = "none";
+  }
+  if (change) {
+    btnStyle.width = "5%";
+  }
+
+  
   if (change) {
     hideme.display = "none";
   }
   const location = useLocation();
   const pathname = location.pathname;
-
+console.log("windowDimensions",windowDimensions)
   return (
     <div className="sidebar" style={btnStyle}>
       <nav class="nav flex-column">
@@ -147,9 +171,11 @@ function Navbar() {
       <button
         className="openbtn"
         value={clickHandle}
+        style={hideme}
         onClick={() => {
           setChange(!change);
           clickHandle();
+          
         }}
       >
         {">>"}

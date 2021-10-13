@@ -208,7 +208,8 @@ function ChangePassword() {
             ) : null}
           </form>
 
-          <button
+          <div class="update-password-btn">
+<button
             onClick={() => handleLogin()}
             type="button"
             class="btn btn-lg"
@@ -220,6 +221,7 @@ function ChangePassword() {
           >
             UPDATE PASSWORD
           </button>
+</div>
         </div>
       </div>
     </div>
