@@ -388,26 +388,8 @@ const MileStone = (props) => {
             </div>
           </Modal>
         </div>
-        <div>
-          {/* <div class="row">
-              <div class="col">
-                <p>Name &nbsp;
-                <img
-                  className="filter_image"
-                  src="images/Sort.png"
-                  alt="logo"
-                /></p>
-              </div>
-              <div class="col">
-                <p>Amount</p>
-              </div>
-              <div class="col">
-                <p>Status</p>
-              </div>
-              <div class="col">
-                <p style={{ marginLeft: "30%" }}>Actions</p>
-              </div>
-            </div> */}
+        
+          {}
           <table class="mile-header">
             <tr>
               <th>
@@ -417,57 +399,12 @@ const MileStone = (props) => {
               <th>Status</th>
               <th>Action</th>
             </tr>
-          </table>
-        </div>
+         
+        
         {data.map((students, i) => {
           return (
-            // <div class="milecontainer">
-            //   <div className="row mile-row" key={i}>
-            //     <div class="col">
-            //       {/* <p >{i + 1}</p> */}
-            //       <p>{students.name}</p>
-            //     </div>
-            //     <div class="col">
-            //       <p>{students.amount}</p>
-            //     </div>
-            //     <div class="col">
-            //       <p>{students.status}</p>
-            //     </div>
-            //     <div class="col ">
-            //       <div>
-            //         <button
-            //           className="action_image"
-            //           // onClick={() => deleteItems(students.id)}
-            //           onClick={() => delAlert(students.id)}
-            //         >
-            //           <img src="images/Del.png" alt="logo" />
-            //         </button>
-
-            //         <button
-            //         className="action_image"
-            //         onClick={(e) => { editItems(students.id, e);  }}>
-            //           <img
-            //             src="images/Edit.png"
-            //             alt="logo"
-            //           />
-            //         </button>
-            //         <button
-            //           className="action_image"
-            //           onClick={()=>handleRouteChange()}
-            //         >
-            //           <img
-            //             src="images/task.png"
-            //             alt="Project-info-icon"
-            //           />
-            //         </button>
-            //       </div>
-            //     </div>
-            //   </div>
-            // </div>
-            <div>
-              <table class="mile-detail">
                 <tr>
-                  <td >{students.amount}</td>
+                  <td >{students.name}</td>
                   <td>{students.amount}</td>
                   <td>{students.status}</td>
                   <td style={{ width: "197px" }}>
@@ -488,10 +425,10 @@ const MileStone = (props) => {
                     </button>
                   </td>
                 </tr>
-              </table>
-            </div>
+            
           );
         })}
+              </table>
       </div>
     </div>
   );

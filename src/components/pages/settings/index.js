@@ -326,7 +326,7 @@ const Setting = () => {
                       <div className="ShowItems">
                         {Items.length > 0 ? (
                           <div className="labaddtwo">
-                            <label style={{ fontWeight: "700" }}>Tasks</label>
+                            <label style={{ fontWeight: "700" }}>Designation</label>
                           </div>
                         ) : null}
 
@@ -445,7 +445,7 @@ const Setting = () => {
                       <div className="ShowItems">
                         {ItemsTwo.length > 0 ? (
                           <div className="labaddtwo">
-                            <label style={{ fontWeight: "700" }}>Tasks</label>
+                            <label style={{ fontWeight: "700" }}>Job Type</label>
                           </div>
                         ) : null}
 

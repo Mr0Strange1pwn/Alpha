@@ -4,6 +4,30 @@ import { Link, useHistory, useParams  } from "react-router-dom";
 import axios from "axios";
 import Header from "./../../Header/Header";
 import Alert from "../../../common/Alert"
+import Modal from  "../../../common/Model"
+import DatePicker from "react-datepicker";
+
+const ExampleCustomInput = ({ value, onClick }) => {
+  return (
+    <div>
+      <input
+        type="text"
+        id="lname"
+        className="example-custom-input"
+        onClick={(e) => onClick(e.preventDefault())}
+        value={value}
+        style={{
+          backgroundImage: "url(images/calendar.png)",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "right",
+          backgroundOrigin: "content-box",
+          padding: "10px",
+        }}
+      />
+    </div>
+  );
+};
+
 
 
 const ProjectList = () => {
@@ -14,6 +38,7 @@ const ProjectList = () => {
  const [modalOpen, setModalOpen] = useState(false);
  const [startDate, setStartDate] = useState(new Date());
  const [isOpen, setIsOpen] = useState(false);
+ const [isOpenEdit, setIsOpenEdit] = useState(false);
 
  const [ids,setID]=useState()
   const history = useHistory();
@@ -72,12 +97,129 @@ const ProjectList = () => {
   };
 
 
-
+  const editItems = (id, e) => {
+    e.preventDefault();
+    setIsOpenEdit(true);
+    // let newEditItem = data.find((elem) => {
+    //   return elem.id === id;
+    // });
+    // console.log(newEditItem);
+    // setItem(newEditItem);
+    // setIsEditItem(id);
+    // setToggleSubmit(false);
+   };
 
   return (
     <div className="header">
       <Alert message="Project" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>
       <Header headerName="Project List" />
+
+      <Modal open={isOpenEdit} onClose={() => setIsOpenEdit(false)}>
+                      <div style={{ marginTop: "5%" }}>
+                <div style={{ textAlignLast: "center" }}>
+                  <h4 style={{ fontWeight: "700"}}>Edit Project</h4>
+                </div>
+                <div style={{ margin: "auto", width: "70%" }}>
+                  <div className="row">
+                    <label
+                      class="form-check-label reg-lable"
+                      for="exampleCheck1"
+                    >
+                     Project Name 
+                    </label>
+                    <input
+                      type="text"
+                      id="fname"
+                      name="name"
+                      placeholder="Enter Name"
+                      // value={item.name}
+                      // onChange={(e) => handleChange(e)}
+                      // onChange={(e) => setInputData(e.target.value)}
+                    />
+                  </div>
+                  <div className="row">
+                    <label
+                      class="form-check-label reg-lable"
+                      for="exampleCheck1"
+                    >
+                      Project Type
+                    </label>
+                   
+                      <select
+                      class="form-select"
+                      id="inputGroupSelect03"
+                      aria-label="Example select with button addon"
+                      name="status"
+                      // value={item.status}
+                      // onChange={e => handleChange(e)}
+                    >
+                      <option selected>Select Status</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Completed">Completed</option>
+                     
+                    </select>
+                  </div>
+                  <div className="row">
+                    <label
+                      class="form-check-label reg-lable"
+                      for="exampleCheck1"
+                    >
+                      Assigned To
+                    </label>
+                    <input
+                      type="text"
+                      id="fname"
+                      name="amount"
+                      placeholder="Enter Amount"
+                      // value={item.amount}
+                      // onChange={(e) => handleChange(e)}
+                    />
+                  </div>
+                  <div className="row">
+                    <label
+                      class="form-check-label reg-lable"
+                      for="exampleCheck1"
+                    >
+                      Assigned on
+                    </label>
+                    <DatePicker
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                      peekNextMonth
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
+                      customInput={<ExampleCustomInput />}
+                    />
+                  </div>
+                  <div
+                    className="modalButton"
+                    style={{ marginTop: "5%", marginBottom:"10%" }}
+                  >
+                    <button
+                      type="button"
+                      className="btn"
+                      style={{ backgroundColor: "#003366", color: "white" }}
+                      type="submit"
+                      // onClick={() => handleEdit()}
+                     
+                    >
+                      Save
+                    </button>
+                    <span> </span>
+                    <button
+                      type="button"
+                      className="btn"
+                      style={{ backgroundColor: " #717171", color: "white" }}
+                      type="submit"
+                      onClick={() => setIsOpenEdit(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+      </Modal>
            <div className="main">
         <div style={{marginTop:"4%"}}>
           <div class="row">
@@ -163,7 +305,7 @@ const ProjectList = () => {
                 <td>{students.assignedto}</td>
                 <td>{students.addedOn}</td>
                 {/* <td>Developer</td> */}
-                <td><button> <img
+                <td><button onClick={(e) => { editItems(students.id, e);  }} > <img
                       src="images/Edit.png"
                       alt="logo"
                     /></button><button   onClick={() => delAlert(students.id)}><img src="images/Del.png" alt="logo" /></button>
