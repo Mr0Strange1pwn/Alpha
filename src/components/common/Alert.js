@@ -1,5 +1,5 @@
 import React from 'react'
-
+import "./alert.css"
 const MODAL_STYLES = {
     position: 'fixed',
     top: '50%',
@@ -8,7 +8,7 @@ const MODAL_STYLES = {
     background: 'white',
     zIndex: 1000,
     width: "40%",
-	height: "40%",
+	height: "300px",
     borderRadius : "30px"
 }
 
@@ -27,7 +27,7 @@ const clbtnStyle = {
   backgroundColor: "transparent",
   border: "none",
   cursor:" pointer",
-  padding: "10px"
+  padding: "16px 30px"
 }
 const footerbtnStyle = {
   width: "150px",
@@ -45,7 +45,7 @@ export default function Alert({open ,onClose,children, setOpenModal,id,handleDel
     return (
         <>
         <div style={OVERLAY_STYlES} /> 
-        <div style={MODAL_STYLES}>
+        <div class="modal-main" style={MODAL_STYLES}>
         <div style={{ display:" flex", justifyContent:" flex-end"}}>
    
           <button
@@ -66,7 +66,7 @@ export default function Alert({open ,onClose,children, setOpenModal,id,handleDel
           <h3 style={{textAlign: "center",fontSize:"1.80rem"}}>Are you sure you want to delete the {message}?</h3>
         </div>
         <div style={{textAlignLast: "center"}}>
-          <button
+          <button class="no-btn"
             style={{...footerbtnStyle,backgroundColor:"#f07238"}}
             onClick={() => {
               setOpenModal(false);
@@ -75,7 +75,7 @@ export default function Alert({open ,onClose,children, setOpenModal,id,handleDel
           >
            No
           </button>
-          <button  style={{...footerbtnStyle,backgroundColor:"#25344b"}} onClick={() => {
+          <button class="yes-btn"  style={{...footerbtnStyle,backgroundColor:"#25344b"}} onClick={() => {
             handleDelete(id)
             }}>Yes </button>
         </div>

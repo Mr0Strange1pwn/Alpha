@@ -4,106 +4,135 @@
       "useremail": "tester.mt@mechlin.com",
       "username": "tester",
       "userpassword": "98765",
-      "link":"link",
+      "link": "link",
       "id": 1
     },
     {
       "useremail": "tester.mt@mechlin.com",
       "username": "tester",
       "userpassword": "98765",
-      "link":"link",
+      "link": "link",
       "id": 2
     },
     {
       "useremail": "sester.mt@mechlin.com",
       "username": "tester",
       "userpassword": "98765",
-      "link":"link",
+      "link": "link",
       "id": 3
     },
     {
       "useremail": "sester.mt@mechlin.com",
       "username": "tester",
       "userpassword": "98765",
-      "link":"link",
+      "link": "link",
       "id": 4
     }
   ],
   "comments": [],
+  "projects": [
+    {
+      "id": 1,
+      "projectname": "Alpha",
+      "projecttype": "Adriod",
+      "assignedto": "Vaman",
+      "addedOn": "12/01/10"
+    },
+    {
+      "id": 2,
+      "projectname": "Datatrone",
+      "projecttype": "react",
+      "assignedto": "Vaman",
+      "addedOn": "12/01/10"
+    },
+    {
+      "id": 3,
+      "projectname": "DataSass",
+      "projecttype": "reactjs",
+      "assignedto": "Vaman",
+      "addedOn": "12/01/10"
+    },
+    {
+      "id": 4,
+      "projectname": "MrProject",
+      "projecttype": "reactjs",
+      "assignedto": "Vaman",
+      "addedOn": "12/01/10"
+    }
+
+  ],
   "profile": [
     {
-      "id":1,
+      "id": 1,
       "employee": "Nirvan",
       "employ": "Arnab",
       "emy": "lakhan"
-    
     },
     {
-      "id":2,
+      "id": 2,
       "employee": "Sumit",
       "employ": "Sorav",
       "emy": "Harrinder"
     },
     {
-      "id":3,
+      "id": 3,
       "employee": "pawan",
       "employ": "Raja",
       "emy": "Surrender"
     },
     {
-      "id":4,
+      "id": 4,
       "employee": "Ram",
       "employ": "Nikeet",
       "emy": "Sachin"
     },
     {
-      "id":5,
+      "id": 5,
       "employee": "sam",
       "employ": "Karan",
       "emy": "Viran"
     },
     {
-      "id":6,
+      "id": 6,
       "employee": "Rohan",
       "employ": "suhail",
       "emy": "Vaman"
     },
     {
-        "id":7,
-        "employee": "Arnab",
-        "employ": "Arnab",
-        "emy": "lakhan"
-      
-      },
-      {
-        "id":8,
-        "employee":"Sorav",
-        "employ": "Sorav",
-        "emy": "Harrinder"
-      },
-      {
-        "id":9,
-        "employee": "Raja",
-        "employ": "Raja",
-        "emy": "Surrender"
-      },
-      {
-        "id":10,
-        "employee": "Sachin",
-        "employ": "Nikeet",
-        "emy": "Sachin"
-      },
-      {
-        "id":11,
-        "employee": "Viran",
-        "employ": "Karan",
-        "emy": "Viran"
-      },
-      {
-        "id":12,
-        "employee": "suhail",
-        "employ": "suhail",
-        "emy": "Vaman"
-      }
+      "id": 7,
+      "employee": "Arnab",
+      "employ": "Arnab",
+      "emy": "lakhan"
+    },
+    {
+      "id": 8,
+      "employee": "Sorav",
+      "employ": "Sorav",
+      "emy": "Harrinder"
+    },
+    {
+      "id": 9,
+      "employee": "Raja",
+      "employ": "Raja",
+      "emy": "Surrender"
+    },
+    {
+      "id": 10,
+      "employee": "Sachin",
+      "employ": "Nikeet",
+      "emy": "Sachin"
+    },
+    {
+      "id": 11,
+      "employee": "Viran",
+      "employ": "Karan",
+      "emy": "Viran"
+    },
+    {
+      "id": 12,
+      "employee": "suhail",
+      "employ": "suhail",
+      "emy": "Vaman"
+    }
   ]
 }

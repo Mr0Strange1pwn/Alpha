@@ -40,10 +40,14 @@ function Navbar() {
   const hideme = {
     display: "flex",
   };
-
-  if(windowDimensions.width<=800){
+  const hidemedown = {
+    display: "flex",
+  };
+  if((windowDimensions.width>=768)  && (windowDimensions.width<=1023)){
+    btnStyle.width = "9%";
+    hidemedown.display = "none";
+  }else if(windowDimensions.width<700){
     btnStyle.width = "15%";
-      hideme.display = "none";
   }
   if (change) {
     btnStyle.width = "5%";
@@ -72,8 +76,8 @@ console.log("windowDimensions",windowDimensions)
             &#9776;
           </button>
         </div>
-        <div style={{ marginLeft: "15px",marginTop:"10%" }} >
-          <Link to="/">
+        <div class="nav-main-div" style={{ marginLeft: "15px",marginTop:"10%" }} >
+          <Link to="/" className="navBar-link">
             <img
               className="image__logo"
               src={
@@ -114,7 +118,7 @@ console.log("windowDimensions",windowDimensions)
               className="image__logo"
               src={
                 pathname == "/Rolespermission"
-                  ? "images/Role-H.png"
+                  ? "images/Role-H.png" :pathname == "/AddRole"? "images/Role-H.png"
                   : "images/Role.png"
               }
               alt="logo"
@@ -122,7 +126,7 @@ console.log("windowDimensions",windowDimensions)
             <a
               className="nav-link"
               style={{
-                color: pathname == "/Rolespermission" ? "#f07238" : "white",
+                color: pathname == "/Rolespermission" ? "#f07238" : pathname == "/AddRole"? "#f07238" : "white",
               }}
               href=""
             >
@@ -169,9 +173,9 @@ console.log("windowDimensions",windowDimensions)
       </nav>
 
       <button
+        style={hidemedown}
         className="openbtn"
         value={clickHandle}
-        style={hideme}
         onClick={() => {
           setChange(!change);
           clickHandle();

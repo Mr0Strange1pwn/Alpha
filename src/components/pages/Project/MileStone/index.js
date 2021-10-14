@@ -5,7 +5,7 @@ import { Link, useParams, useHistory } from "react-router-dom";
 import AlertModel from "../../../common/AlertModel.js";
 import Modal from "../../../common/Model";
 import DatePicker from "react-datepicker";
-import Alert from "../../../common/Alert"
+import Alert from "../../../common/Alert";
 
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
@@ -35,7 +35,7 @@ const MileStone = (props) => {
   const [ids, setID] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
-  const [search, setSearch] = useState(false)
+  const [search, setSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [data, setData] = useState([]);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
@@ -49,11 +49,11 @@ const MileStone = (props) => {
     amount: "",
   });
 
-  const history =useHistory()
+  const history = useHistory();
   const handleRouteChange = () => {
     let path = `./Task`;
-    history.push(path)
-  }
+    history.push(path);
+  };
   const handleChange = (e) => {
     setItem({
       ...item,
@@ -64,341 +64,332 @@ const MileStone = (props) => {
 
   const handleSave = () => {
     SetError(true);
-    if(item.name && item.status && item.amount){
-      console.log("item",item)
+    if (item.name && item.status && item.amount) {
+      console.log("item", item);
       const newData = {
         id: new Date().getTime().toString(),
         item,
       };
       setData([...data, item]);
       setIsOpen(false);
-      
     }
   };
-  const handleEdit = () =>{
-    let newArr =data;
-    let index = data.findIndex(x=>x.id==isEditItem)
-    
-    newArr.splice(index,1,item)
-   console.log("item",newArr)
-    setData(
-     newArr
-    );
-   setIsOpenEdit(false)
-}
-const editItems = (id, e) => {
- e.preventDefault();
- setIsOpenEdit(true);
- let newEditItem = data.find((elem) => {
-   return elem.id === id;
- });
- console.log(newEditItem);
- setItem(newEditItem);
- setIsEditItem(id);
- // setToggleSubmit(false);
-};
+  const handleEdit = () => {
+    let newArr = data;
+    let index = data.findIndex((x) => x.id == isEditItem);
+
+    newArr.splice(index, 1, item);
+    console.log("item", newArr);
+    setData(newArr);
+    setIsOpenEdit(false);
+  };
+  const editItems = (id, e) => {
+    e.preventDefault();
+    setIsOpenEdit(true);
+    let newEditItem = data.find((elem) => {
+      return elem.id === id;
+    });
+    console.log(newEditItem);
+    setItem(newEditItem);
+    setIsEditItem(id);
+    // setToggleSubmit(false);
+  };
 
   useEffect(() => {
     if (searchQuery.length > 0) {
-      searchHandler()
+      searchHandler();
     } else {
-      setSearch(false)
+      setSearch(false);
     }
-  }, [searchQuery])
+  }, [searchQuery]);
 
   const searchHandler = () => {
     let filterDAta = data.filter((newdata) =>
-       newdata.name.includes(searchQuery)
+      newdata.name.includes(searchQuery)
     );
     if (filterDAta.length > 0) {
-      setData(filterDAta)
+      setData(filterDAta);
     }
-    setSearch(true)
+    setSearch(true);
   };
-
 
   const handleDelete = (index) => {
     const updateditems = data.filter((elem) => {
       return index !== elem.id;
     });
     setData(updateditems);
-    setModalOpen(false)
+    setModalOpen(false);
   };
   const delAlert = (id) => {
     setModalOpen(true);
     setID(id);
   };
 
-
-
   return (
     <div className="milestone-header">
-        <Alert message="Milestone" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>
-     
-        <div style={{marginTop:"5%"}}>
+      <Alert
+        message="Milestone"
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        setOpenModal={setModalOpen}
+        handleDelete={(id) => handleDelete(id)}
+        id={ids}
+      />
 
-          <div style={{display:"flex",marginBottom:"2%"}}>
-          <img
-            src="images/milestone.png"
-            alt="Project-info-icon"
-          />
-          <h4 style={{alignSelf:"center",paddingLeft:"10px"}}> Milestone</h4>
-          </div>
+      <div style={{ marginTop: "5%" }}>
+        <div style={{ display: "flex", marginBottom: "2%" }}>
+          <img src="images/milestone.png" alt="Project-info-icon" />
+          <h4 style={{ alignSelf: "center", paddingLeft: "10px" }}>
+            {" "}
+            Milestone
+          </h4>
+        </div>
 
-          <div className="row">
-          <div class="col-sm-6" >
-              <div class="col-sm-5">
+        <div className="row">
+          <div class="col-sm-6">
+            <div class="col-sm-5">
               <div class="input-group">
                 <input
                   class="form-control  border"
                   type="search"
                   id="example-search-input"
                   placeholder="Search here.."
-                   value={searchQuery}
-                   onChange={(value) => setSearchQuery(value.target.value)}
+                  value={searchQuery}
+                  onChange={(value) => setSearchQuery(value.target.value)}
                   style={{
-                    backgroundImage:search==false? "url(images/Search.png)":"",
+                    backgroundImage:
+                      search == false ? "url(images/Search.png)" : "",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "right",
-                    backgroundOrigin:"content-box",
+                    backgroundOrigin: "content-box",
                     padding: "5px",
-                   backgroundColor:"#f1f1f1"
+                    backgroundColor: "#f1f1f1",
                   }}
                 />
-                </div>
               </div>
             </div>
-            <div class="col-sm-6" >
+          </div>
+          <div class="col-sm-6">
             <div style={{ textAlign: "-webkit-right" }}>
-            <button
-              className="btn btn-outline-success float-right"
-              style={{ backgroundColor: "#003366", color: "white" }}
-              type="submit"
-              onClick={() => setIsOpen(true)}
-            >
-              Add Milestone
-            </button>
-          </div>
+              <button
+                className="btn btn-outline-success float-right"
+                style={{ backgroundColor: "#003366", color: "white" }}
+                type="submit"
+                onClick={() => setIsOpen(true)}
+              >
+                Add Milestone
+              </button>
             </div>
           </div>
+        </div>
 
-         
-          <div>
+        <div>
           <Modal open={isOpenEdit} onClose={() => setIsOpenEdit(false)}>
-                      <div style={{ marginTop: "5%" }}>
-                <div style={{ textAlignLast: "center" }}>
-                  <h4 style={{ fontWeight: "700"}}>Edit Milestone</h4>
+            <div style={{ marginTop: "5%" }}>
+              <div style={{ textAlignLast: "center" }}>
+                <h4 style={{ fontWeight: "700" }}>Edit Milestone</h4>
+              </div>
+              <div style={{ margin: "auto", width: "70%" }}>
+                <div className="row">
+                  <label class="form-check-label reg-lable" for="exampleCheck1">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="fname"
+                    name="name"
+                    placeholder="Enter Name"
+                    value={item.name}
+                    onChange={(e) => handleChange(e)}
+                    // onChange={(e) => setInputData(e.target.value)}
+                  />
                 </div>
-                <div style={{ margin: "auto", width: "70%" }}>
-                  <div className="row">
-                    <label
-                      class="form-check-label reg-lable"
-                      for="exampleCheck1"
-                    >
-                     Name 
-                    </label>
-                    <input
-                      type="text"
-                      id="fname"
-                      name="name"
-                      placeholder="Enter Name"
-                      value={item.name}
-                      onChange={(e) => handleChange(e)}
-                      // onChange={(e) => setInputData(e.target.value)}
-                    />
-                  </div>
-                  <div className="row">
-                    <label
-                      class="form-check-label reg-lable"
-                      for="exampleCheck1"
-                    >
-                      Status
-                    </label>
-                   
-                      <select
-                      class="form-select"
-                      id="inputGroupSelect03"
-                      aria-label="Example select with button addon"
-                      name="status"
-                      value={item.status}
-                      onChange={e => handleChange(e)}
-                    >
-                      <option selected>Select Status</option>
-                      <option value="Pending">Pending</option>
-                      <option value="Completed">Completed</option>
-                     
-                    </select>
-                  </div>
-                  <div className="row">
-                    <label
-                      class="form-check-label reg-lable"
-                      for="exampleCheck1"
-                    >
-                      Amount
-                    </label>
-                    <input
-                      type="text"
-                      id="fname"
-                      name="amount"
-                      placeholder="Enter Amount"
-                      value={item.amount}
-                      onChange={(e) => handleChange(e)}
-                    />
-                  </div>
-                  <div className="row">
-                    <label
-                      class="form-check-label reg-lable"
-                      for="exampleCheck1"
-                    >
-                      Release Date
-                    </label>
-                    <DatePicker
-                      selected={startDate}
-                      onChange={(date) => setStartDate(date)}
-                      peekNextMonth
-                      showMonthDropdown
-                      showYearDropdown
-                      dropdownMode="select"
-                      customInput={<ExampleCustomInput />}
-                    />
-                  </div>
-                  <div
-                    className="modalButton"
-                    style={{ marginTop: "5%", marginBottom:"10%" }}
+                <div className="row">
+                  <label class="form-check-label reg-lable" for="exampleCheck1">
+                    Status
+                  </label>
+
+                  <select
+                    class="form-select"
+                    id="inputGroupSelect03"
+                    aria-label="Example select with button addon"
+                    name="status"
+                    value={item.status}
+                    onChange={(e) => handleChange(e)}
                   >
-                    <button
-                      type="button"
-                      className="btn"
-                      style={{ backgroundColor: "#003366", color: "white" }}
-                      type="submit"
-                      onClick={() => handleEdit()}
-                     
-                    >
-                      Save
-                    </button>
-                    <span> </span>
-                    <button
-                      type="button"
-                      className="btn"
-                      style={{ backgroundColor: " #717171", color: "white" }}
-                      type="submit"
-                      onClick={() => setIsOpenEdit(false)}
-                    >
-                      Cancel
-                    </button>
-                  </div>
+                    <option selected>Select Status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+                </div>
+                <div className="row">
+                  <label class="form-check-label reg-lable" for="exampleCheck1">
+                    Amount
+                  </label>
+                  <input
+                    type="text"
+                    id="fname"
+                    name="amount"
+                    placeholder="Enter Amount"
+                    value={item.amount}
+                    onChange={(e) => handleChange(e)}
+                  />
+                </div>
+                <div className="row">
+                  <label class="form-check-label reg-lable" for="exampleCheck1">
+                    Release Date
+                  </label>
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    peekNextMonth
+                    showMonthDropdown
+                    showYearDropdown
+                    dropdownMode="select"
+                    customInput={<ExampleCustomInput />}
+                  />
+                </div>
+                <div
+                  className="modalButton"
+                  style={{ marginTop: "5%", marginBottom: "10%" }}
+                >
+                  <button
+                    type="button"
+                    className="btn"
+                    style={{ backgroundColor: "#003366", color: "white" }}
+                    type="submit"
+                    onClick={() => handleEdit()}
+                  >
+                    Save
+                  </button>
+                  <span> </span>
+                  <button
+                    type="button"
+                    className="btn"
+                    style={{ backgroundColor: " #717171", color: "white" }}
+                    type="submit"
+                    onClick={() => setIsOpenEdit(false)}
+                  >
+                    Cancel
+                  </button>
                 </div>
               </div>
-      </Modal>
+            </div>
+          </Modal>
 
-            <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-              <div style={{ marginTop: "5%" }}>
-                <div style={{ textAlignLast: "center" }}>
-                  <h4 style={{ fontWeight: "700"}}>Add Milestone</h4>
+          <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+            <div style={{ marginTop: "5%" }}>
+              <div style={{ textAlignLast: "center" }}>
+                <h4 style={{ fontWeight: "700" }}>Add Milestone</h4>
+              </div>
+              <div style={{ margin: "auto", width: "70%" }}>
+                <div className="row">
+                  <label class="form-check-label reg-lable" for="exampleCheck1">
+                    Name
+                  </label>
+                  <input
+                    style={{
+                      border: showError
+                        ? item.name.length === 0
+                          ? " 1px solid red"
+                          : null
+                        : null,
+                    }}
+                    type="text"
+                    id="fname"
+                    name="name"
+                    placeholder="Enter Name"
+                    onChange={(e) => handleChange(e)}
+                  />
                 </div>
-                <div style={{ margin: "auto", width: "70%" }}>
-                  <div className="row">
-                    <label
-                      class="form-check-label reg-lable"
-                      for="exampleCheck1"
-                    >
-                     Name
-                    </label>
-                    <input
-                      style={{border: showError  ? item.name.length === 0 ? " 1px solid red"  : null : null, }}
-                      type="text"
-                      id="fname"
-                      name="name"
-                      placeholder="Enter Name"
-                      onChange={(e) => handleChange(e)}
-                    />
-                  </div>
-                  <div className="row">
-                    <label
-                      class="form-check-label reg-lable"
-                      for="exampleCheck1"
-                    >
-                      Status
-                    </label>
-                   
-                      <select
-                      style={{border: showError  ? item.status.length === 0 ? " 1px solid red"  : null : null, }}
-                      class="form-select"
-                      id="inputGroupSelect03"
-                      aria-label="Example select with button addon"
-                      name="status"
-                      onChange={e => handleChange(e)}
-                    >
-                      <option selected>Select Status</option>
-                      <option value="Pending">Pending</option>
-                      <option value="Completed">Completed</option>
-                     
-                    </select>
-                  </div>
-                  <div className="row">
-                    <label
-                      class="form-check-label reg-lable"
-                      for="exampleCheck1"
-                    >
-                      Amount
-                    </label>
-                    <input
-                      style={{border: showError  ? item.amount.length === 0 ? " 1px solid red"  : null : null, }}
-                      type="text"
-                      id="fname"
-                      name="amount"
-                      placeholder="Enter Amount"
-                      onChange={(e) => handleChange(e)}
-                    />
-                  </div>
-                  <div className="row">
-                    <label
-                      class="form-check-label reg-lable"
-                      for="exampleCheck1"
-                    >
-                      Release Date
-                    </label>
-                    <DatePicker
-                      selected={startDate}
-                      onChange={(date) => setStartDate(date)}
-                      peekNextMonth
-                      showMonthDropdown
-                      showYearDropdown
-                      dropdownMode="select"
-                      customInput={<ExampleCustomInput />}
-                    />
-                  </div>
+                <div className="row">
+                  <label class="form-check-label reg-lable" for="exampleCheck1">
+                    Status
+                  </label>
 
-                  <div
-                    className="modalButton"
-                    style={{ marginTop: "5%", marginBottom:"5%" }}
+                  <select
+                    style={{
+                      border: showError
+                        ? item.status.length === 0
+                          ? " 1px solid red"
+                          : null
+                        : null,
+                    }}
+                    class="form-select"
+                    id="inputGroupSelect03"
+                    aria-label="Example select with button addon"
+                    name="status"
+                    onChange={(e) => handleChange(e)}
                   >
-                    <button
-                      type="button"
-                      className="btn"
-                      style={{ backgroundColor: "#003366", color: "white" }}
-                      type="submit"
-                      onClick={() => handleSave()}
-                    >
-                      Save
-                    </button>
-                    <span> </span>
-                    <button
-                      type="button"
-                      className="btn"
-                      style={{ backgroundColor: " #717171", color: "white" }}
-                      type="submit"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Cancel
-                    </button>
-                  </div>
+                    <option selected>Select Status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+                </div>
+                <div className="row">
+                  <label class="form-check-label reg-lable" for="exampleCheck1">
+                    Amount
+                  </label>
+                  <input
+                    style={{
+                      border: showError
+                        ? item.amount.length === 0
+                          ? " 1px solid red"
+                          : null
+                        : null,
+                    }}
+                    type="text"
+                    id="fname"
+                    name="amount"
+                    placeholder="Enter Amount"
+                    onChange={(e) => handleChange(e)}
+                  />
+                </div>
+                <div className="row">
+                  <label class="form-check-label reg-lable" for="exampleCheck1">
+                    Release Date
+                  </label>
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    peekNextMonth
+                    showMonthDropdown
+                    showYearDropdown
+                    dropdownMode="select"
+                    customInput={<ExampleCustomInput />}
+                  />
+                </div>
+
+                <div
+                  className="modalButton"
+                  style={{ marginTop: "5%", marginBottom: "5%" }}
+                >
+                  <button
+                    type="button"
+                    className="btn"
+                    style={{ backgroundColor: "#003366", color: "white" }}
+                    type="submit"
+                    onClick={() => handleSave()}
+                  >
+                    Save
+                  </button>
+                  <span> </span>
+                  <button
+                    type="button"
+                    className="btn"
+                    style={{ backgroundColor: " #717171", color: "white" }}
+                    type="submit"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Cancel
+                  </button>
                 </div>
               </div>
-            </Modal>
-          </div>
-          <div class="milestone-container">
-            <div class="row">
+            </div>
+          </Modal>
+        </div>
+        <div>
+          {/* <div class="row">
               <div class="col">
                 <p>Name &nbsp;
                 <img
@@ -416,57 +407,92 @@ const editItems = (id, e) => {
               <div class="col">
                 <p style={{ marginLeft: "30%" }}>Actions</p>
               </div>
-            </div>
-          </div>
-          {data.map((students, i) => {
-            return (
-              <div class="milecontainer">
-                <div className="row mile-row" key={i}>
-                  <div class="col">
-                    {/* <p >{i + 1}</p> */}
-                    <p>{students.name}</p>
-                  </div>
-                  <div class="col">
-                    <p>{students.amount}</p>
-                  </div>
-                  <div class="col">
-                    <p>{students.status}</p>
-                  </div>
-                  <div class="col ">
-                    <div>
-                      <button
-                        className="action_image"
-                        // onClick={() => deleteItems(students.id)}
-                        onClick={() => delAlert(students.id)}
-                      >
-                        <img src="images/Del.png" alt="logo" />
-                      </button>
-
-                      <button 
-                      className="action_image"  
-                      onClick={(e) => { editItems(students.id, e);  }}>
-                        <img
-                          src="images/Edit.png"
-                          alt="logo"
-                        />
-                      </button>
-                      <button
-                        className="action_image"
-                        onClick={()=>handleRouteChange()}
-                      >
-                        <img
-                          src="images/task.png"
-                          alt="Project-info-icon"
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+            </div> */}
+          <table class="mile-header">
+            <tr>
+              <th>
+                Name <img src="images/Sort.png" alt="logo" />
+              </th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </table>
         </div>
-    
+        {data.map((students, i) => {
+          return (
+            // <div class="milecontainer">
+            //   <div className="row mile-row" key={i}>
+            //     <div class="col">
+            //       {/* <p >{i + 1}</p> */}
+            //       <p>{students.name}</p>
+            //     </div>
+            //     <div class="col">
+            //       <p>{students.amount}</p>
+            //     </div>
+            //     <div class="col">
+            //       <p>{students.status}</p>
+            //     </div>
+            //     <div class="col ">
+            //       <div>
+            //         <button
+            //           className="action_image"
+            //           // onClick={() => deleteItems(students.id)}
+            //           onClick={() => delAlert(students.id)}
+            //         >
+            //           <img src="images/Del.png" alt="logo" />
+            //         </button>
+
+            //         <button
+            //         className="action_image"
+            //         onClick={(e) => { editItems(students.id, e);  }}>
+            //           <img
+            //             src="images/Edit.png"
+            //             alt="logo"
+            //           />
+            //         </button>
+            //         <button
+            //           className="action_image"
+            //           onClick={()=>handleRouteChange()}
+            //         >
+            //           <img
+            //             src="images/task.png"
+            //             alt="Project-info-icon"
+            //           />
+            //         </button>
+            //       </div>
+            //     </div>
+            //   </div>
+            // </div>
+            <div>
+              <table class="mile-detail">
+                <tr>
+                  <td >{students.amount}</td>
+                  <td>{students.amount}</td>
+                  <td>{students.status}</td>
+                  <td style={{ width: "197px" }}>
+                    <button
+                      onClick={() => delAlert(students.id)}
+                    >
+                      <img src="images/Del.png" alt="logo" />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        editItems(students.id, e);
+                      }}
+                    >
+                      <img src="images/Edit.png" alt="logo" />
+                    </button>
+                    <button onClick={() => handleRouteChange()}>
+                      <img src="images/task.png" alt="logo" />
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

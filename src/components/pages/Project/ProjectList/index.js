@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from "react";
-import "./Employee.css";
+import "./ProjectList.css";
 import { Link, useHistory, useParams  } from "react-router-dom";
 import axios from "axios";
-import Header from "../Header/Header";
-import AlertModel from "../../common/AlertModel.js"
+import Header from "./../../Header/Header";
+import Alert from "../../../common/Alert"
 
-const Employee = () => {
+
+const ProjectList = () => {
   const { id } = useParams();
   const [student, setStudent] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [search, setSearch] = useState(false)
  const [modalOpen, setModalOpen] = useState(false);
+ const [startDate, setStartDate] = useState(new Date());
+ const [isOpen, setIsOpen] = useState(false);
+
  const [ids,setID]=useState()
   const history = useHistory();
   const routeChange = () =>{ 
-    let path = `./AddPeople`; 
+    let path = `./ProjectList`; 
     history.push(path);
   }
   useEffect(() => {
@@ -35,6 +39,8 @@ const Employee = () => {
       setID(id)
   }
 
+
+
   const searchHandler = () => {
     let filterDAta = student.filter((data) =>
   //  console.log("data",data)
@@ -48,7 +54,7 @@ const Employee = () => {
   };
   async function getAllStudent() {
     try {
-      const student = await axios.get("http://localhost:3003/posts");
+      const student = await axios.get("http://localhost:3003/projects");
       setStudent(student.data);
     } catch (error) {
       console.log("something is wrong");
@@ -56,7 +62,7 @@ const Employee = () => {
   }
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:3003/posts/${id}`);
+    await axios.delete(`http://localhost:3003/projects/${id}`);
     var newstudent = student.filter((item) => {
       return item.id !== id;
     });
@@ -65,10 +71,14 @@ const Employee = () => {
     
   };
 
+
+
+
   return (
     <div className="header">
-      <Header headerName="Employee List" />
-      {modalOpen ? <AlertModel setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>:      <div className="main">
+      <Alert message="Project" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>
+      <Header headerName="Project List" />
+           <div className="main">
         <div style={{marginTop:"4%"}}>
           <div class="row">
             <div class="col-sm-6" style={{marginTop: "5px"}}>
@@ -128,39 +138,31 @@ const Employee = () => {
                   type="submit"
                   onClick={routeChange}
                 >
-                  Add Employee
+                  Add Project
                 </button>
               </div>
             </div>
           </div>
         </div>
-        <table class="employee-header">
-       
-       
+        <table class="project-headers">
             <tr>
-                <th>ID  <img  src="images/Sort.png"  alt="logo" /></th>
-                <th>Name <img  src="images/Sort.png"  alt="logo" /></th>
-                <th>Email <img  src="images/Sort.png"  alt="logo" /></th>
-                <th>Phone No </th>
-                <th>DOB</th>
-                <th>Role <img  src="images/Sort.png"  alt="logo" /></th>
+                <th>S No  <img  src="images/Sort.png"  alt="logo" /></th>
+                <th>Project Name <img  src="images/Sort.png"  alt="logo" /></th>
+                <th>Project Type <img  src="images/Sort.png"  alt="logo" /></th>
+                <th>Assigned To </th>
+                <th>Added On</th>
                 <th>Action</th>
             </tr>
-       
-    
-    
+
         {student.map((students, i) => {
           return (
-
-
-  
             <tr>
                 <td class="geeks">{i + 1}</td>
-                <td>{students.username}</td>
-                <td><a href="#" class="user-email">{students.useremail}</a></td>
-                <td>8989898989</td>
-                <td>10/01/1990</td>
-                <td>Developer</td>
+                <td>{students.projectname}</td>
+                <td><a href="#" class="user-email">{students.projecttype}</a></td>
+                <td>{students.assignedto}</td>
+                <td>{students.addedOn}</td>
+                {/* <td>Developer</td> */}
                 <td><button> <img
                       src="images/Edit.png"
                       alt="logo"
@@ -168,11 +170,10 @@ const Employee = () => {
                 
                 </td>
             </tr>
- 
- 
+
           );
         })}
-         </table>
+       </table>
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-end">
     <li class="page-item disabled">
@@ -186,10 +187,11 @@ const Employee = () => {
     </li>
   </ul>
 </nav>
-      </div>}
+      </div>
 
     </div>
   );
 };
 
-export default Employee;
+export default ProjectList;
+

@@ -82,7 +82,7 @@ function AddRole() {
       
         <div className="addrole_Button">
           <button
-            className="btn  float-left"
+            className="btn  float-left save-btn"
             type="submit"
           >
             Save

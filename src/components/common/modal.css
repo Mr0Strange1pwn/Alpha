@@ -1,0 +1,12 @@
+@media screen and (max-width: 1023px){
+    .modal-main{
+        width: 75%!important;
+        left: 50%!important;
+    }
+    }
+@media screen and (max-width: 767px){
+.modal-main{
+    width: 75%!important;
+    left: 50%!important;
+}
+}

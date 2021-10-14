@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import Login from "./components/pages/Login";
 import ResetPassword from "./components/pages/ResetPassword";
@@ -21,11 +21,38 @@ import JobDetails from "./components/pages/Employee/Registration/JobDetails";
 import FirstStepper from "./components/pages/Stepper/Stepper";
 import CreateProject from "./components/pages/Project";
 import Task from "./components/pages/Project/Task"
+import ProjectList from "./components/pages/Project/ProjectList";
+
+
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
 const Routes = () => {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
   const { isLoggedIn, toggle } = useSelector((store) => store.auth);
   const Location = useLocation()
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const btnStyle = {
     marginLeft: '20%'
+  }
+  if((windowDimensions.width>=768)  && (windowDimensions.width<=1023)){
+    btnStyle.marginLeft = "9%";
+  }else if(windowDimensions.width<700){
+    btnStyle.marginLeft = "15%";
   }
   if (toggle) {
     btnStyle.marginLeft = '5%'
@@ -50,6 +77,9 @@ const Routes = () => {
                 <Rolespermission />
               </Route>
               <Route path="/Project">
+              <ProjectList />
+              </Route>
+              <Route path="/ProjectList">
               <CreateProject />
               </Route>
               <Route path="/settings">

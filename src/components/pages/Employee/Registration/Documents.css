@@ -17,6 +17,9 @@
     text-align: center;
 
 }
+select::-ms-expand {
+  display: none;
+}
 .doc-row {
     background-color:#f1f1f1;
     border-collapse: separate;

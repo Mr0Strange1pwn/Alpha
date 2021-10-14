@@ -280,11 +280,11 @@ useEffect(() => {
           <div >
             <form>
               <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-12">
                   <label class="form-check-label reg-lable" for="exampleCheck1">
                     Name
                   </label>
-                  <div style={{ display: "flex" }}>
+                  <div class="create-task-form" style={{ display: "flex" }}>
                     <input
                       style={{ backgroundColor: "white" }}
                       type="text"
@@ -316,19 +316,20 @@ useEffect(() => {
                   {Items.map((elem) => {
                     return (
                       <div class="doccontainernew">
-                        <div class="row" key={elem.id}>
-                          <div class="col">
-                            <p
+                        <table class="tasks-table" key={elem.id}>
+                          <tr>
+                          <td>
+                            <span
                               style={{
                                 color: "black",
                                 textAlign: "justify",
                               }}
                             >
                               {elem.name}
-                            </p>
-                          </div>
+                            </span>
+                          </td>
 
-                          <div class="col">
+                          <td>
                             <button
                               className="action_image"
                               onClick={(e) => handleModal(e)}
@@ -355,8 +356,8 @@ useEffect(() => {
                                 alt="logo"
                               />
                             </button>
-                          </div>
-                        </div>
+                          </td></tr>
+                        </table>
                       
                       </div>
                       

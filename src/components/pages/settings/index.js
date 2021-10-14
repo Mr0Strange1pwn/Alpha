@@ -259,7 +259,7 @@ const Setting = () => {
           <div className="setting-container">
             <div className="row">
               <div className="col" style={{ display: "flex" }}>
-                <img src="images/designation.png" alt="Project-info-icon" />
+                <img src="images/designation.png" alt="Project-info-icon" class="des-img" />
                 <label
                   class="form-check-label reg-lable"
                   for="exampleCheck1"
@@ -281,7 +281,7 @@ const Setting = () => {
                   }
                   onClick={handleProject}
                   style={{ marginRight: "10px" }}
-                  alt="Project-info-icon"
+                  alt="Project-info-icon" class="arrow-img"
                 />
               </div>
             </div>
@@ -292,14 +292,14 @@ const Setting = () => {
                 <div>
                   <form>
                     <div className="row">
-                      <div className="col-md-6">
+                      <div className="col-sm-12 col-md-12 col-lg-6">
                         <label
                           class="form-check-label reg-lable"
                           for="exampleCheck1"
                         >
                           Add Designation
                         </label>
-                        <div style={{ display: "flex" }}>
+                        <div class="add-des-form" style={{ display: "flex" }}>
                           <input
                             style={{ backgroundColor: "white" }}
                             type="text"
@@ -333,8 +333,9 @@ const Setting = () => {
                         {Items.map((elem) => {
                           return (
                             <div class="doccontainernew">
-                              <div class="row" key={elem.id}>
-                                <div class="col">
+                              <table class="task-des" key={elem.id}>
+                                <tr>
+                                <td>
                                   <p
                                     style={{
                                       color: "black",
@@ -343,9 +344,9 @@ const Setting = () => {
                                   >
                                     {elem.name}
                                   </p>
-                                </div>
+                                </td>
 
-                                <div class="col">
+                                <td>
                                   <button
                                     className="action_image"
                                     onClick={(e) => delAlert(elem.id, e)}
@@ -360,8 +361,9 @@ const Setting = () => {
                                   >
                                     <img src="images/Edit.png" alt="logo" />
                                   </button>
-                                </div>
-                              </div>
+                                </td>
+                                </tr>
+                              </table>
                             </div>
                           );
                         })}
@@ -380,7 +382,7 @@ const Setting = () => {
           <div class="setting-container">
             <div class="row">
               <div className="col" style={{ display: "flex" }}>
-                <img src="images/jobtype.png" alt="Project-info-icon" />
+                <img src="images/jobtype.png" alt="Project-info-icon" class="des-img"/>
                 <label
                   class="form-check-label reg-lable"
                   for="exampleCheck1"
@@ -399,7 +401,7 @@ const Setting = () => {
                   onClick={handleTask}
                   style={{ marginRight: "10px" }}
                   alt="Project-info-icon"
-                />
+                class="arrow-img" />
               </div>
             </div>
           </div>
@@ -409,14 +411,14 @@ const Setting = () => {
                 <div>
                   <form>
                     <div className="row">
-                      <div className="col-md-6">
+                      <div className="col-sm-12 col-md-12 col-lg-6">
                         <label
                           class="form-check-label reg-lable"
                           for="exampleCheck1"
                         >
                           Add Job Type
                         </label>
-                        <div style={{ display: "flex" }}>
+                        <div class="job-form" style={{ display: "flex" }}>
                           <input
                             style={{ backgroundColor: "white" }}
                             type="text"
@@ -450,8 +452,9 @@ const Setting = () => {
                         {ItemsTwo.map((elem) => {
                           return (
                             <div class="doccontainernew">
-                              <div class="row" key={elem.id}>
-                                <div class="col">
+                              <table class="task-des" key={elem.id}>
+                                <tr>
+                                <td>
                                   <p
                                     style={{
                                       color: "black",
@@ -460,9 +463,9 @@ const Setting = () => {
                                   >
                                     {elem.name}
                                   </p>
-                                </div>
+                                </td>
 
-                                <div class="col">
+                                <td>
                                   <button
                                     className="action_image"
                                     // onClick={() => {
@@ -480,8 +483,9 @@ const Setting = () => {
                                   >
                                     <img src="images/Edit.png" alt="logo" />
                                   </button>
-                                </div>
-                              </div>
+                                </td>
+                                </tr>
+                              </table>
                             </div>
                           );
                         })}

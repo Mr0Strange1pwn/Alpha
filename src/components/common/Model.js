@@ -1,5 +1,5 @@
 import React from 'react'
-
+import "./modal.css"
 const MODAL_STYLES = {
     position: 'fixed',
     top: '50%',
@@ -27,8 +27,8 @@ export default function Modal({open ,onClose,children}) {
     if (!open) return null
     return (
         <>
-        <div style={OVERLAY_STYlES} /> 
-        <div style={MODAL_STYLES}>
+        <div  style={OVERLAY_STYlES} /> 
+        <div className="modal-main" style={MODAL_STYLES}>
             {children}
         </div>
         </>

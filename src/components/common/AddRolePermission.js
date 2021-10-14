@@ -5,10 +5,10 @@ const AddRolePermission = (props) => {
  
   return (
     <div class="row">
-      <div className="col-3">
+      <div className="col-sm-12 col-md-3 col-lg-3">
         <h6>{props.title}</h6>
       </div>
-      <div class="col-3">
+      <div class="col-sm-12 col-md-3 col-lg-3">
         <input
           type="radio"
           id={props.title}
@@ -20,7 +20,7 @@ const AddRolePermission = (props) => {
           View Only
         </label>
       </div>
-      <div className="col-3">
+      <div className="col-sm-12 col-md-3 col-lg-3">
         <input
           type="radio"
           id={props.title}
@@ -32,7 +32,7 @@ const AddRolePermission = (props) => {
           No Access
         </label>
       </div>
-      <div className="col-3">
+      <div className="col-sm-12 col-md-3 col-lg-3">
         <input
           type="radio"
           id={props.title}

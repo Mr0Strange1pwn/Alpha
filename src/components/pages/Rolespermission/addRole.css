@@ -46,3 +46,32 @@
 .add-management{
   width: 95%;
 }
+.save-btn {
+  background: rgb(37, 52, 75)!important;
+}
+@media screen and (max-width: 1023px) {
+
+}
+@media screen and (max-width: 767px) {
+  .add-management {
+    width: 95%;
+}
+.col-3 {
+  flex: 0 0 auto;
+  width: 52%;
+}
+.role {
+  background-color: #f1f1f1;
+  width: 95% !important;
+  margin-top: 1%;
+}
+.card-body h6 {
+  font-size: 14px;
+}
+}
+@media screen and (max-width: 320px) {
+  .col-3 {
+    flex: 0 0 auto;
+    width: 67%;
+  }
+}

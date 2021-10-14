@@ -82,11 +82,13 @@
 table {
     border-collapse: collapse;
 }
-
-.employee-header th {
+table.project-headers button {
+    border: none;
+}
+.project-headers th {
     background-color:#f07238!important;
     color:white;
-    padding: 15px 10px;
+    padding:10px;
     text-align: left;
 }
 th, td {
@@ -95,23 +97,20 @@ th, td {
     padding:5px
   
 }
-.employee-header tr th:first-child,.employee-header tr td:first-child{
+.project-headers tr th:first-child ,.project-headers tr td:first-child{
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
 }
-.employee-header tr th:last-child,.employee-header tr td:last-child{
+.project-headers tr th:last-child,.project-headerstr td:last-child{
 border-top-right-radius: 4px;
 border-bottom-right-radius: 4px;
 }
-.employee-header {
+.project-headers {
     margin-bottom: 2px;
     margin-top: 10px;
-    border-collapse: separate;
-    border-spacing: 0 15px;
+    border-collapse:separate;
+    border-spacing:0 5px;
     width: 100%;
-}
-.employee-header button {
-    border: none;
 }
 a.user-email {
     color: #f07238;
@@ -120,23 +119,25 @@ a.user-email {
 .geeks {
     border-right:hidden;
 }
-.employee-header tr td {
-    background: #f1f1f1;
-    padding: 10px;
-    text-align: left;
-    font-weight: 500;
-}
 
+.project-headers tr td {
+background: #f1f1f1;
+padding: 10px;
+text-align: left;
+}
+.form-check-label {
+    margin-top: 9px;
+}
 @media screen and (max-width: 1024px){
-    .employee-detail tr td{
-        padding:10px 5px;
+    .project-headers tr td{
+        padding:25px 15px;
     }
 }
 @media screen and (max-width: 1023px){
-    .employee-detail tr td{
+    .project-headers tr td{
         font-size: 15px;
     }
-    .employee-header,.employee-detail{
+    .project-headers{
         display: block;
     max-width: -moz-fit-content;
     max-width: fit-content;
@@ -145,14 +146,23 @@ a.user-email {
     }
 }
 @media screen and (max-width: 767px){
-    .employee-detail tr td{
-        padding:10px 5px;
+    .project-detail tr td{
+        padding:20px 15px;
     }
-    .employee-header,.employee-detail{
+    .project-headers{
         display: block;
     max-width: -moz-fit-content;
     max-width: fit-content;
     overflow-x: auto;
     white-space: nowrap;
+    }
+    .pos >button{
+        margin: 5px 0;
+    }
+    .card-body form .row {
+        display: block;
+    }
+    .addrole_Button button {
+        margin: 5px 0;
     }
 }
