@@ -82,7 +82,6 @@ const Employee = () => {
                   //value={searchQuery}
                   onChange={(value) => setSearchQuery(value.target.value)}
                   style={{
-                   
                     backgroundImage:search==false? "url(images/Search.png)":"",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "right",

@@ -87,7 +87,7 @@ table {
     background-color:#f07238!important;
     color:white;
     padding: 15px 10px;
-    text-align: left;
+    text-align: center;
 }
 th, td {
     text-align:center;
@@ -123,7 +123,7 @@ a.user-email {
 .employee-header tr td {
     background: #f1f1f1;
     padding: 10px;
-    text-align: left;
+    text-align: center;
     font-weight: 500;
 }
 

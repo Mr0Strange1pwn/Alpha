@@ -3,6 +3,7 @@ import "./createprojet.css";
 import Header from "../Header/Header";
 import Task from "./Task"
 import MileStone from "./MileStone"
+import {  useHistory} from "react-router-dom";
 
 const CreateProject = () => {
   const [projectInfo, setProjectInfo] = useState(false);
@@ -19,7 +20,8 @@ const CreateProject = () => {
     weekelyhour: "",
     perhourcost: "",
   });
-
+  const history = useHistory();
+ 
   const handleChange = (e) => {
     setDetails({ ...projectDetails, [e.target.name]: e.target.value });
   };
@@ -33,10 +35,12 @@ const CreateProject = () => {
     setProjectInfo(false);
   };
 
-  // const handleTask = () => {
-  //   setTask(!task)
-  //   setMileStone(!mileStone)
-  // }
+  const handleTask = () => {
+    setTask(!task)
+    setProjectInfo(false)
+    let path = `./Task`; 
+    history.push(path);
+  }
   const handleCreate = () => {
     SetError(true);
     if (
@@ -304,6 +308,7 @@ const CreateProject = () => {
           ) : (
             ""
           )}
+        
         </div>
 
 
@@ -343,9 +348,49 @@ const CreateProject = () => {
               </div>
             </div>
           </div>  : null
+          
 }
 
 {mileStone == true ?  <MileStone />:null}
+
+{projectDetails.projectType == "2"?
+  <div class="project-container">
+  <div class="row">
+    <div className="col" style={{ display: "flex" }}>
+      <img
+        src="images/Tasks.png"
+        alt="Project-info-icon"
+        style={{ padding: "8px",marginLeft:"1%" }}
+      />
+      <label
+        class="form-check-label reg-lable"
+        for="exampleCheck1"
+        style={{
+          marginLeft: "10px",
+          color: "white",
+          marginRight: "10px",
+        }}
+      >
+        Task
+      </label>
+    </div>
+    <div className="col" style={{ display: "contents" }}>
+      <img
+        src={
+          task == true
+            ? "images/downicon.png"
+            : "images/forwardicon.png"
+        }
+        onClick={handleTask}
+        style={{ marginRight: "2%", padding: "10px" }}
+        alt="Project-info-icon"
+      />
+    </div>
+  </div>
+  </div>:null
+}
+
+{/* {task==true?<Task task={true}/>:null} */}
 </div>
         <div className="d-grid gap-2 d-md-block">
           <div className="addrole_Button">
@@ -366,5 +411,7 @@ const CreateProject = () => {
     </div>
   );
 };
+
+
 
 export default CreateProject;

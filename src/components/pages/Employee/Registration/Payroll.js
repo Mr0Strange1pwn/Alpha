@@ -67,7 +67,7 @@ function Payroll() {
               </label>
               <div className="col-12" style={{ display: "flex" }}>
                 <div
-                  className="col-6"
+                  className="col-sm-12 col-md-6 col-lg-6"
                   // style={{ width: "48%", margin: "auto" }}
                 >
                   {/* <NumberInput placeholder="Lakh"/> */}
@@ -81,7 +81,7 @@ function Payroll() {
                   />
                 </div>
 
-                <div className="col-6">
+                <div className="col-sm-12 col-md-6 col-lg-6">
                 {/* <NumberInput placeholder="Thousands"/> */}
                 <input
                     name="annualCtcThou"
@@ -95,7 +95,7 @@ function Payroll() {
                 </div>
               </div>
             </div>
-            <div className="col">
+            <div className="col-sm-12 col-md-6 col-lg-6">
               <label class="form-check-label reg-lable" for="exampleCheck1">
                 Per Day Cost
               </label>
@@ -113,13 +113,13 @@ function Payroll() {
             </div>
           </div>
           <div className="row">
-          <div className="col">
+          <div className="col-sm-12 col-md-6 col-lg-6">
               <label class="form-check-label reg-lable" for="exampleCheck1">
                Total Annual Leaves
               </label>
               <div className="col-12" style={{ display: "flex" }}>
                 <div
-                  className="col-6 ytnStyle"
+                  className="col-sm-12 col-md-6 col-lg-6 ytnStyle"
                   style={{ width: "48%", margin: "auto" }}
                 >
                   <input
@@ -132,7 +132,7 @@ function Payroll() {
                   />
                 </div>
 
-                <div className="col-6">
+                <div className="col-sm-12 col-md-6 col-lg-6">
                 {/* <NumberInput placeholder="SL" /> */}
                 <input
                     style={{...payrollInputStyle, border: showerror ? details.totalLeaveSL.length === 0 ? " 1px solid red ": null : null}}
@@ -146,7 +146,7 @@ function Payroll() {
               </div>
             </div>
 
-            <div className="col">
+            <div className="col-sm-12 col-md-6 col-lg-6">
               <label class="form-check-label reg-lable" for="exampleCheck1">
                Date of Joining
                 <i class="fas fa-calendar-week" style={{ color: "black" }} />

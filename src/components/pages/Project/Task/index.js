@@ -280,7 +280,7 @@ useEffect(() => {
           <div >
             <form>
               <div className="row">
-                <div className="col-md-12">
+                <div className="col-sm-12 col-md-6 col-lg-6">
                   <label class="form-check-label reg-lable" for="exampleCheck1">
                     Name
                   </label>

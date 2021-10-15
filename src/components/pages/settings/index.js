@@ -210,7 +210,7 @@ const Setting = () => {
       <Modal open={isOpenEditTwo} onClose={() => setIsOpenEditTwo(false)}>
         <div style={{ marginTop: "4%" }}>
           <div style={{ textAlignLast: "center" }}>
-            <h4 style={{ fontWeight: "700" }}>Edit Designation</h4>
+            <h4 style={{ fontWeight: "700" }}>Edit JobType</h4>
           </div>
           <div style={{ margin: "auto", width: "70%" }}>
             <div className="row">
@@ -305,7 +305,7 @@ const Setting = () => {
                             type="text"
                             id="fname"
                             name="firstname"
-                            placeholder="Enter task name"
+                            placeholder="Add designation"
                             value={addNewTask}
                             onChange={(e) => setNewTask(e.target.value)}
                           />
@@ -424,7 +424,7 @@ const Setting = () => {
                             type="text"
                             id="fname"
                             name="firstname"
-                            placeholder="Enter task name"
+                            placeholder="Add job type"
                             value={addNewTaskTwo}
                             onChange={(e) => setNewTaskTwo(e.target.value)}
                           />

@@ -37,7 +37,7 @@ function JobDetails() {
       <div class="container">
         <form>
         <div className="row">
-            <div className="col">
+            <div className="col-sm-12 col-md-6 col-lg-6">
               <label class="form-check-label reg-lable" for="exampleCheck1">
                Job Type
               </label>
@@ -57,7 +57,7 @@ function JobDetails() {
               </select>
             </div>
 
-            <div className="col">
+            <div className="col-sm-12 col-md-6 col-lg-6">
               <label class="form-check-label reg-lable" for="exampleCheck1">
                 Shift Timing
               </label>
@@ -75,7 +75,7 @@ function JobDetails() {
             </div>
           </div>
           <div className="row">
-            <div className="col">
+            <div className="col-sm-12 col-md-6 col-lg-6">
               <label class="form-check-label reg-lable" for="exampleCheck1">
                 Weekely Holidays
               </label>
@@ -96,7 +96,7 @@ function JobDetails() {
               </select>
             </div>
 
-            <div className="col">
+            <div className="col-sm-12 col-md-6 col-lg-6">
               <label class="form-check-label reg-lable" for="exampleCheck1">
                 Probation Period(No of Months)
               </label>

@@ -88,8 +88,8 @@ table.project-headers button {
 .project-headers th {
     background-color:#f07238!important;
     color:white;
-    padding:10px;
-    text-align: left;
+    padding:15px 10px;
+    text-align: center;
 }
 th, td {
     text-align:center;
@@ -123,7 +123,7 @@ a.user-email {
 .project-headers tr td {
 background: #f1f1f1;
 padding: 10px;
-text-align: left;
+text-align: center;
 }
 .form-check-label {
     margin-top: 9px;

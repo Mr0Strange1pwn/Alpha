@@ -3,7 +3,7 @@ import React from 'react'
 const MODAL_STYLES = {
     position: 'fixed',
     top: '50%',
-    left: '60%',
+    left: '50%',
     transform: 'translate(-50% ,-50%)',
     background: 'white',
     // padding: '50px',
@@ -28,7 +28,7 @@ export default function Modal({open ,onClose,children}) {
     return (
         <>
         <div style={OVERLAY_STYlES} /> 
-        <div style={MODAL_STYLES}>
+        <div class="upload-modal" style={MODAL_STYLES}>
             {children}
             {/* <button onClick={onClose}>Close modal</button> */}
         </div>

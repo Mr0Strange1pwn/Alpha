@@ -170,7 +170,7 @@ const ProjectList = () => {
                       type="text"
                       id="fname"
                       name="amount"
-                      placeholder="Enter Amount"
+                      placeholder="Assignee name"
                       // value={item.amount}
                       // onChange={(e) => handleChange(e)}
                     />
@@ -280,7 +280,7 @@ const ProjectList = () => {
                   type="submit"
                   onClick={routeChange}
                 >
-                  Add Project
+                  Create Project
                 </button>
               </div>
             </div>

@@ -78,7 +78,7 @@ table {
   background-color: #f07238 !important;
   color: white;
   padding: 15px 10px;
-  text-align: left;
+  text-align: center;
 }
 th,
 td {
@@ -104,7 +104,7 @@ td {
 table.role-header tr td {
   background: #f1f1f1;
   padding: 10px;
-  text-align: left;
+  text-align: center;
   font-weight: 500;
 }
 .role-header tr td button{
