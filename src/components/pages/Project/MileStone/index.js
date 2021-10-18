@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./milestone.css";
 import axios from "axios";
 import { Link, useParams, useHistory } from "react-router-dom";
-import AlertModel from "../../../common/AlertModel.js";
 import Modal from "../../../common/Model";
 import DatePicker from "react-datepicker";
 import Alert from "../../../common/Alert";

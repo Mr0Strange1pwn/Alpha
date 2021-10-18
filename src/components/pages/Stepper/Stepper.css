@@ -9,7 +9,6 @@
   background:white;
   margin: auto;
   padding: 15px 0px;
-  background-image: url("./../../NewImages/Step1.png");
   background-repeat: no-repeat;
   align-items: center;
   border-style: dashed;
@@ -26,7 +25,6 @@
   background:white;
   margin: auto;
   padding: 15px 10px;
-  background-image: url("./../../NewImages/Step2.png");
   background-repeat: no-repeat;
   align-items: center;
   border-style: dashed;
@@ -40,7 +38,6 @@
   background:white;
   margin: auto;
   padding: 15px 20px;
-  background-image: url("./../../NewImages/Step3.png");
   background-repeat: no-repeat;
   align-items: center;
   border-style: dashed;
@@ -53,8 +50,9 @@
   border: 3px solid #ccc;
   background:white;
   margin: auto;
-  padding: 15px 10px;
-  background-image: url("./../../NewImages/Step4.png");
+  /* padding: 15px 10px;
+  background-image: url("../../../../public/images/Step4.png");; */
+  /* background-image: url("./../../NewImages/Step4.png"); */
   background-repeat: no-repeat;
   align-items: center;
   border-style: dashed;

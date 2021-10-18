@@ -3,10 +3,9 @@ import "./Documents.css";
 import { Link, useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import Header from "../../Header/Header";
-import AlertModel from "../../../common/AlertModel.js";
 import { Multistepcontext } from "../../../../StepContext";
-import Modal from "./Modal";
-import ImgUpload from "./../../../NewImages/upload-graphics.png";
+import Modal from "../../../common/Model";
+import Alert from "../../../common/Alert"
 
 const Documents = () => {
   const { id } = useParams();
@@ -84,7 +83,7 @@ const Documents = () => {
          <div className="cardnew"><h4>Upload File</h4></div>
              <div className="card">
 			<div className="card3">
-			<img src={ImgUpload} alt="logo" width="300px" height="220px" />
+			<img src="images/upload-graphics.png" alt="logo" width="300px" height="220px" />
 			<div className="labone"><label id="l1" >Drag and drop your file here</label></div>
 			<div className="labtwo"><label id="l2" >or</label><br/></div>
 		  <div className="givespace" ><button className="labthree">Browse File</button></div>
@@ -101,13 +100,8 @@ const Documents = () => {
     </div>
 	
          </Modal>
-      {modalOpen ? (
-        <AlertModel
-          setOpenModal={setModalOpen}
-          handleDelete={(id) => handleDelete(id)}
-          id={ids}
-        />
-      ) : (
+         <Alert message="Document" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>
+   
         <div className="main">
           <div style={{ marginTop: "4%" }}>
             <div class="row ">
@@ -253,7 +247,7 @@ const Documents = () => {
             </ul>
           </nav>
         </div>
-      )}
+    
     </div>
   );
 };

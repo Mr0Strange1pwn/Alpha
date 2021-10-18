@@ -87,6 +87,9 @@ table.tasks-table tr td:last-child{
 .doccontainernew{
   padding:10px 0;
 }
+table.tasks-table {
+  width: 100%;
+}
   @media screen and (max-width: 767px){
     .create-task-form {
       display: block!important;

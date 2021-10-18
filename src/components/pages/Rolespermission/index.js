@@ -4,7 +4,9 @@ import axios from "axios";
 import Header from "../Header/Header";
 import AddRole from "./addRole";
 import { Link, useParams, useHistory } from "react-router-dom";
-import AlertModel from "../../common/AlertModel.js";
+import Alert from "../../common/Alert";
+
+
 const Rolespermission = () => {
   const { id } = useParams();
   const [student, setStudent] = useState([]);
@@ -12,6 +14,7 @@ const Rolespermission = () => {
   const [search, setSearch] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [ids, setID] = useState();
+  
   useEffect(() => {
     getAllStudent();
   }, []);
@@ -64,14 +67,8 @@ const Rolespermission = () => {
 
   return (
     <div >
+      <Alert message="Role and Permission" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>
       <Header headerName="Role and Permissions" />
-      {modalOpen ? (
-        <AlertModel
-          setOpenModal={setModalOpen}
-          handleDelete={(id) => handleDelete(id)}
-          id={ids}
-        />
-      ) : (
         <div className="main">
           <div style={{ marginTop: "4%" }}>
             <div class="row">
@@ -208,7 +205,7 @@ const Rolespermission = () => {
             </ul>
           </nav>
         </div>
-      )}
+   
     </div>
   );
 };

@@ -69,6 +69,12 @@
     .nav-main-div {
       margin-left: 12px!important;
     }
+    .logo-main {
+      max-height: 111px;
+  }
+  .sidebar a {
+    max-height: 55px;
+  }
   }
   @media screen and (max-width: 767px) {
     .sidebar a {float: left;}
@@ -78,8 +84,14 @@
     width: 60px;
     height: 60px;
 }
+.logo-main {
+  max-height: 111px;
+}
 .nav-main-div {
   margin-left: 6px!important;
+}
+.sidebar a {
+  max-height: 55px;
 }
   }
 

@@ -3,7 +3,7 @@ import "./Employee.css";
 import { Link, useHistory, useParams  } from "react-router-dom";
 import axios from "axios";
 import Header from "../Header/Header";
-import AlertModel from "../../common/AlertModel.js"
+import Alert from  "../../common/Alert"
 
 const Employee = () => {
   const { id } = useParams();
@@ -67,8 +67,9 @@ const Employee = () => {
 
   return (
     <div className="header">
+      <Alert message="Employee" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>
       <Header headerName="Employee List" />
-      {modalOpen ? <AlertModel setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>:      <div className="main">
+      <div className="main">
         <div style={{marginTop:"4%"}}>
           <div class="row">
             <div class="col-sm-6" style={{marginTop: "5px"}}>
@@ -185,7 +186,7 @@ const Employee = () => {
     </li>
   </ul>
 </nav>
-      </div>}
+      </div>
 
     </div>
   );

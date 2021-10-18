@@ -314,7 +314,15 @@ const Setting = () => {
                             className="changebtn"
                             onClick={addItems}
                             type="submit"
-                            style={{ backgroundColor: "#25344b" }}
+                            // style={{ backgroundColor:  }}
+                            style={{
+                              backgroundImage: "url(images/plusiconimage.png)",
+                              backgroundRepeat: "no-repeat",
+                              backgroundPosition:"10px 10px",
+                              backgroundPosition: "left",
+                              backgroundOrigin: "content-box",
+                              backgroundColor:"#25344b",
+                            }}
                           >
                             Add
                           </button>
@@ -433,7 +441,14 @@ const Setting = () => {
                             className="changebtn"
                             onClick={addItemsNew}
                             type="submit"
-                            style={{ backgroundColor: "#25344b" }}
+                            style={{
+                              backgroundImage: "url(images/plusiconimage.png)",
+                              backgroundRepeat: "no-repeat",
+                              backgroundPosition:"10px 10px",
+                              backgroundPosition: "left",
+                              backgroundOrigin: "content-box",
+                              backgroundColor:"#25344b",
+                            }}
                           >
                             Add
                           </button>

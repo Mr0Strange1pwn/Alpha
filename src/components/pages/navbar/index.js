@@ -63,7 +63,7 @@ console.log("windowDimensions",windowDimensions)
   return (
     <div className="sidebar" style={btnStyle}>
       <nav class="nav flex-column">
-        <div>
+        <div class="logo-main">
           <img className="login__logo" src="images/logo.png" alt="logo" />{" "}
           <button
             class="openbtn"

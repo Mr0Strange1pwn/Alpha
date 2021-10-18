@@ -160,6 +160,7 @@ function Registration() {
                 <option value="2">Tester</option>
                 <option value="3">Designer</option>
               </select>
+              
             </div>
 
             <div className="col">
