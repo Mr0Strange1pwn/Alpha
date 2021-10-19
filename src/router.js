@@ -50,9 +50,9 @@ const Routes = () => {
     marginLeft: '20%'
   }
   if((windowDimensions.width>=768)  && (windowDimensions.width<=1023)){
-    btnStyle.marginLeft = "9%";
+    btnStyle.marginLeft = "7%";
   }else if(windowDimensions.width<700){
-    btnStyle.marginLeft = "15%";
+    btnStyle.marginLeft = "13%";
   }
   if (toggle) {
     btnStyle.marginLeft = '5%'

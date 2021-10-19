@@ -44,10 +44,10 @@ function Navbar() {
     display: "flex",
   };
   if((windowDimensions.width>=768)  && (windowDimensions.width<=1023)){
-    btnStyle.width = "9%";
+    btnStyle.width = "7%";
     hidemedown.display = "none";
   }else if(windowDimensions.width<700){
-    btnStyle.width = "15%";
+    btnStyle.width = "13%";
   }
   if (change) {
     btnStyle.width = "5%";
@@ -76,7 +76,7 @@ console.log("windowDimensions",windowDimensions)
             &#9776;
           </button>
         </div>
-        <div class="nav-main-div" style={{ marginLeft: "15px",marginTop:"10%" }} >
+        <div class="nav-main-div" style={{marginTop:"10%" }} >
           <Link to="/" className="navBar-link">
             <img
               className="image__logo"

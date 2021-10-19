@@ -125,9 +125,7 @@ background: #f1f1f1;
 padding: 10px;
 text-align: center;
 }
-.form-check-label {
-    margin-top: 9px;
-}
+
 @media screen and (max-width: 1024px){
     .project-headers tr td{
         padding:25px 15px;

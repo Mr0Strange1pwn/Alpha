@@ -103,7 +103,7 @@ width: 100%;
   width: 100%;
   }
   .addrole_Button {
-  display: block;
+  display: flex;
   }
   .cen hr {
   display: none;
