@@ -156,3 +156,40 @@ a.user-email {
     white-space: nowrap;
     }
 }
+
+.pageNumbers{
+    list-style: none;
+    display: flex;
+   
+    float: right;
+
+}
+.pageNumbers li {
+    /* padding: 10px; */
+    /* border: 1px solid darkblue; */
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 3px;
+
+}
+.pageNumbers li.active {
+    background-color:darkblue;
+    color:white;
+  }
+  .pageNumbers li button {
+    /* background-color: transparent; */
+    border: none;
+    color:darkblue;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: underline;
+    background-color: white;
+  }
+  .pageNumbers li button:hover {
+    background-color: white;
+    color:darkblue;
+  }
+  .pageNumbers li button:focus {
+    outline: none;
+  }

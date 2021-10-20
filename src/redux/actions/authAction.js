@@ -23,7 +23,6 @@ export const signUp = (data) => {
 }
 
 export const logOut = () => {
-
     return dispatch => {
         return dispatch({
             type: LOG_OUT,

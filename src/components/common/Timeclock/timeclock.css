@@ -1,0 +1,35 @@
+.divbox{
+    width: 100%;
+    border: 1px solid #ced4da;
+    padding: .375rem .75rem .375rem .75rem;
+    border-radius: 5px;
+    background-color: #fff;
+    line-height: 2.2;
+}
+.css-upwegn-TopBar {
+    background: var(--top-bg,white);
+    padding: 0px 0px!important;
+    border-radius: 3px 3px 0 0;
+    position: relative;
+}
+.css-1lmy46j-ClockWrapper {
+    text-align: center;
+    padding: 2px 0 1px!important;
+    background: var(--clock-wrapper-bg,#f4f4f4);
+}
+/* .clockimg{
+    background-color: lightblue;
+    
+} */
+.divbutton{
+    border: none;
+    float: right;
+    background-color: transparent;
+}
+.Timekeeperimage{
+    position:absolute;
+    z-index: 99999;
+}
+.divcolor{
+    color:black;
+}

@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-input-2/lib/style.css";
 import TimePicker from "../../../common/TimePicker";
 import {Multistepcontext} from '../../../../StepContext';
+import Timeclock from "../../../common/Timeclock";
  
 
 function JobDetails() {
@@ -61,8 +62,9 @@ function JobDetails() {
               <label class="form-check-label reg-lable" for="exampleCheck1">
                 Shift Timing
               </label>
+              <Timeclock />
               {/* <TimePicker/> */}
-              <input
+              {/* <input
                 style={{...inputStyle, border: showError ? details.shiftTime.length === 0 ? " 1px solid red" : null : null }}
                 // defaultValue="04:20"
                 type="time"
@@ -70,7 +72,7 @@ function JobDetails() {
                 value={details.shiftTime}
                 onChange={e => handleChange(e)}
 
-	            />
+	            /> */}
 
             </div>
           </div>

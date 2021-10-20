@@ -8,7 +8,15 @@ input[type=text], select, textarea{
   resize: vertical;
   /* background-color: #f1f1f1; */
 }
-
+input[type="number"] {
+  border: 1px solid #ced4da;
+  padding: .375rem 2.25rem .375rem .75rem;
+  border-radius: 5px;
+  background-color: #fff;
+  line-height: 2.2;
+  font-size: 1rem;
+  height:auto!important;
+}
 /* Style the label to display next to the inputs */
 .reg-lable {
   padding: 12px 12px 12px 0;
