@@ -39,6 +39,73 @@ const ProjectList = () => {
   const [isOpenEdit, setIsOpenEdit] = useState(false);
 
   const [ids, setID] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemPerPage] = useState(5);
+  const [pageNumberLimit, setpageNumberLimit] = useState(5);
+  const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
+  const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
+
+  const pages = [];
+  for (let i = 1; i <= Math.ceil(student.length / itemsPerPage); i++) {
+    pages.push(i);
+  }
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  //  1  X 15 = 15 and 2 X 10 = 30
+  const indexOfFistItem = indexOfLastItem - itemsPerPage;
+  //   30 -15 = 15 and 15 -15 = 0
+  const currentItem = student.slice(indexOfFistItem, indexOfLastItem);
+
+  const handleNewClick = (event) => {
+    setCurrentPage(Number(event.target.id));
+  };
+  const renderPageNumbers = pages.map((number) => {
+    if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
+      return (
+        <li
+          key={number}
+          id={number}
+          onClick={handleNewClick}
+          className={currentPage == number ? "active" : null}
+        >
+          {number}
+        </li>
+      );
+    } else {
+      return null;
+    }
+  });
+
+  const handleNextbtn = () => {
+    setCurrentPage(currentPage + 1);
+
+    if (currentPage + 1 > maxPageNumberLimit) {
+      setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+      setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+    }
+  };
+
+  const handlePrevbtn = () => {
+    setCurrentPage(currentPage - 1);
+
+    if ((currentPage - 1) % pageNumberLimit == 0) {
+      setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+      setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+    }
+  };
+
+  let pageIncrementBtn = null;
+  if (pages.length > maxPageNumberLimit) {
+    pageIncrementBtn = <li onClick={handleNextbtn}> &hellip; </li>;
+  }
+
+  let pageDecrementBtn = null;
+  if (minPageNumberLimit >= 1) {
+    pageDecrementBtn = <li onClick={handlePrevbtn}> &hellip; </li>;
+  }
+  //  className={currentPage == number ? "active" : null}
+
+
   const history = useHistory();
   const routeChange = () => {
     let path = `./ProjectList`;
@@ -286,7 +353,7 @@ const ProjectList = () => {
             <th>Action</th>
           </tr>
 
-          {student.map((students, i) => {
+          {currentItem.map((students, i) => {
             return (
               <tr>
                 <td class="geeks">{i + 1}</td>
@@ -317,36 +384,26 @@ const ProjectList = () => {
           })}
         </table>
         <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-end">
-            <li class="page-item disabled">
-              <a
-                class="page-link text-decoration-underline border-0"
-                href="#"
-                tabindex="-1"
-                aria-disabled="true"
+          <ul className="pageNumbers">
+            <li>
+              <button
+                onClick={handlePrevbtn}
+                disabled={currentPage == pages[0] ? true : false}
               >
                 Previous
-              </a>
+              </button>
             </li>
-            <li class="page-item">
-              <a class="page-link  border-0" href="#">
-                1
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link  border-0" href="#">
-                2
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link  border-0" href="#">
-                3
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link text-decoration-underline border-0" href="#">
+            {pageDecrementBtn}
+            {renderPageNumbers}
+            {pageIncrementBtn}
+
+            <li>
+              <button
+                onClick={handleNextbtn}
+                disabled={currentPage == pages[pages.length - 1] ? true : false}
+              >
                 Next
-              </a>
+              </button>
             </li>
           </ul>
         </nav>
