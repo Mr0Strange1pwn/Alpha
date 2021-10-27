@@ -126,37 +126,6 @@ a.user-email {
     text-align: center;
     font-weight: 500;
 }
-
-@media screen and (max-width: 1024px){
-    .employee-detail tr td{
-        padding:10px 5px;
-    }
-}
-@media screen and (max-width: 1023px){
-    .employee-detail tr td{
-        font-size: 15px;
-    }
-    .employee-header,.employee-detail{
-        display: block;
-    max-width: -moz-fit-content;
-    max-width: fit-content;
-    overflow-x: auto;
-    white-space: nowrap;
-    }
-}
-@media screen and (max-width: 767px){
-    .employee-detail tr td{
-        padding:10px 5px;
-    }
-    .employee-header,.employee-detail{
-        display: block;
-    max-width: -moz-fit-content;
-    max-width: fit-content;
-    overflow-x: auto;
-    white-space: nowrap;
-    }
-}
-
 .pageNumbers{
     list-style: none;
     display: flex;
@@ -193,3 +162,64 @@ a.user-email {
   .pageNumbers li button:focus {
     outline: none;
   }
+  button.loadmorebuttonone img, .loadmorebuttontwo img {
+    width: 8px;
+}
+.divboxnew {
+    display: flex;
+}
+.loadmorebuttontwo,.loadmorebuttonone{
+    background: #c7c7c7;
+    border-color: #c7c7c7;
+    padding: 3px 5px;
+}
+.divboxnew input {
+    padding: 0 7px; 
+    font-weight: 600;
+    border: 1px solid #c7c7c7;
+    width: 20%;
+}
+.main nav{
+    display: flex;
+    justify-content: space-between;
+}
+.divboxnew h6 {
+    margin-top: 7px;
+    margin-left: 6px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.loadmorebuttontwo img {
+    position: relative;
+    top: -5px;
+}
+@media screen and (max-width: 1024px){
+    .employee-detail tr td{
+        padding:10px 5px;
+    }
+}
+@media screen and (max-width: 1023px){
+    .employee-detail tr td{
+        font-size: 15px;
+    }
+    .employee-header,.employee-detail{
+        display: block;
+    max-width: -moz-fit-content;
+    max-width: fit-content;
+    overflow-x: auto;
+    white-space: nowrap;
+    }
+}
+@media screen and (max-width: 767px){
+    .employee-detail tr td{
+        padding:10px 5px;
+    }
+    .employee-header,.employee-detail{
+        display: block;
+    max-width: -moz-fit-content;
+    max-width: fit-content;
+    overflow-x: auto;
+    white-space: nowrap;
+    }
+}
+

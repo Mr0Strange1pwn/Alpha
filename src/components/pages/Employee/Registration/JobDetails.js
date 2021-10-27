@@ -59,10 +59,23 @@ function JobDetails() {
             </div>
 
             <div className="col-sm-12 col-md-6 col-lg-6">
-              <label class="form-check-label reg-lable" for="exampleCheck1">
+              {/* <label class="form-check-label reg-lable" for="exampleCheck1">
                 Shift Timing
+              </label> */}
+              <div style={{display:"flex"}}>
+              <div className="col-sm-12 col-md-6 col-lg-6" >
+              <label class="form-check-label reg-lable" for="exampleCheck1">
+                Shift Timing From
               </label>
               <Timeclock />
+              </div>
+              <div className="col-sm-12 col-md-6 col-lg-6">
+              <label class="form-check-label reg-lable" for="exampleCheck1">
+                Shift Timing To
+              </label>
+              <Timeclock />
+              </div>
+              </div>
               {/* <TimePicker/> */}
               {/* <input
                 style={{...inputStyle, border: showError ? details.shiftTime.length === 0 ? " 1px solid red" : null : null }}

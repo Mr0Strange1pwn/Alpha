@@ -280,7 +280,7 @@ const Documents = () => {
               </button>
             </div>
           </div>
-          <nav aria-label="Page navigation example">
+          <nav aria-label="Page navigation example" style={{display:"unset"}} >
           <ul className="pageNumbers">
             <li>
               <button

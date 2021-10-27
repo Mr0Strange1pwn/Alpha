@@ -49,6 +49,15 @@ const Employee = () => {
     }
   });
 
+  const handleLoadMoreMethod = () =>{
+    setItemPerPage(itemsPerPage +5);
+   }
+   
+   const handleLoadMoreMethoddec = () =>{
+    if(itemsPerPage>5){
+      setItemPerPage(itemsPerPage -5);
+     }
+   }
   const handleNextbtn = () => {
     setCurrentPage(currentPage + 1);
 
@@ -251,7 +260,24 @@ const Employee = () => {
           })}
         </table>
 
+    
+
         <nav aria-label="Page navigation example">
+        <div className="col-sm-12 col-md-6 col-lg-6">
+            
+            <div className="divboxnew">
+              <span><h6>Showing&nbsp;&nbsp;&nbsp;</h6></span>
+              <input
+                   value={itemsPerPage}
+                   className="payrollInputStylenew"
+                 />
+                 <div className="load"><button onClick={handleLoadMoreMethod} className="loadmorebuttonone" ><img src="images/up.png" className="loadmoreone" alt="logo" /> </button>
+                 <button onClick={handleLoadMoreMethoddec} className="loadmorebuttontwo" ><img src="images/down.png" className="loadmoretwo" alt="logo" /></button></div>
+                 <h6 style={{display:"flex"}}>of {student.length}</h6>
+
+            </div>
+            </div>
+
           <ul className="pageNumbers">
             <li>
               <button

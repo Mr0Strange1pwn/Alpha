@@ -26,7 +26,16 @@ const Rolespermission = () => {
   for (let i = 1; i <= Math.ceil(student.length / itemsPerPage); i++) {
     pages.push(i);
   }
-
+  const handleLoadMoreMethod = () =>{
+    setItemPerPage(itemsPerPage +5);
+   }
+   
+   const handleLoadMoreMethoddec = () =>{
+     if(itemsPerPage>5){
+      setItemPerPage(itemsPerPage -5);
+     }
+   
+   }
   const indexOfLastItem = currentPage * itemsPerPage;
   //  1  X 15 = 15 and 2 X 10 = 30
   const indexOfFistItem = indexOfLastItem - itemsPerPage;
@@ -235,6 +244,21 @@ const Rolespermission = () => {
           })}
           </table>
           <nav aria-label="Page navigation example">
+          <div className="col-sm-12 col-md-6 col-lg-6">
+            
+            <div className="divboxnew">
+              <span><h6>Showing&nbsp;&nbsp;&nbsp;</h6></span>
+              <input
+                   value={itemsPerPage}
+                   className="payrollInputStylenew"
+                 />
+                 <div className="load"><button onClick={handleLoadMoreMethod} className="loadmorebuttonone" ><img src="images/up.png" className="loadmoreone" alt="logo" /> </button>
+                 <button onClick={handleLoadMoreMethoddec} className="loadmorebuttontwo" ><img src="images/down.png" className="loadmoretwo" alt="logo" /></button></div>
+                 <h6 style={{display:"flex"}}>of {student.length}</h6>
+
+            </div>
+            </div>
+            
           <ul className="pageNumbers">
             <li>
               <button
