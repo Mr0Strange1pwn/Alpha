@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 import "./resetPassword.css";
-import { useHistory } from "react-router-dom";
+import { useHistory,useLocation } from "react-router-dom";
 import { Post } from "../../../Utils/JSONUtils";
-import { logIn } from "../../../redux/actions/authAction";
+import {  reset } from "../../../redux/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
+
 import {
   emailValidator,
   passwordValidator,
 } from "../../../Utils/fieldValidator";
 
 function ResetPassword() {
+  const location = useLocation();
+  const { useremail } = location.state
   const [values, setValues] = useState({
     password: "",
     newpassword: "",
     showPassword: false,
     newshowPassword: false,
   });
+  console.log("location", useremail)
   const { push } = useHistory();
   const auth = useSelector((store) => store);
   const dispatch = useDispatch();
@@ -43,20 +47,27 @@ function ResetPassword() {
     setValues({ ...values, [prop]: event.target.value });
   };
   const handleLogin = () => {
+    const resData = {
+      email: useremail,
+      password: values.password,
+      confirmPassword: values.newpassword
+    }
     if (!values.password.length > 0) {
       setErrors(true);
     }
 
-    // if ( values.password.length > 0  && ispasswordValid) {
-    //   dispatch(logIn({  password: values.password }))
-    // }
-    if (values.password.length > 0) {
-      if (values.password == values.newpassword) {
-        alert("Correct password");
-      } else {
-        alert("Password does not match");
+    if ( values.password.length > 0  && ispasswordValid) {
+      // dispatch(logIn({  password: values.password }))
+      if (values.password.length > 0) {
+        if (values.password == values.newpassword) {
+          dispatch(reset(resData))
+        } else {
+          setErrors(true);
+        
+        }
       }
     }
+    
   };
 
   return (
@@ -114,6 +125,7 @@ function ResetPassword() {
                 <p style={{ color: "red" }}>Password is required</p>
               ) : null
             ) : null}
+              
             {/* {!ispasswordValid ? <p style={{ color: "red" }}>password must contain atlest 1 chapital letter and spacial characters </p> : null} */}
 
             {/* New Password */}
@@ -166,6 +178,11 @@ function ResetPassword() {
                 Password should contain at least 1 Uppercase,1 Special
                 Character,1 Digit, and min 8 Characters.{" "}
               </p>
+            ) : null}
+            {errors ? (
+              values.password  !== values.newpassword ? (
+                <p style={{ color: "red" }}>Incorrect password</p>
+              ) : null
             ) : null}
           </form>
 

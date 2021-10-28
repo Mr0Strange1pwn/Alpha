@@ -1,10 +1,10 @@
-import { LOG_IN, SIGN_UP, LOG_OUT } from "../actions/authAction"
+import { LOG_IN,  LOG_OUT , FORGOT_PASS, RESET_PASS ,CHANGE_PASS } from "../actions/authAction"
 
 const InitialState = {
-    // isLoggedIn: false,
-    isLoggedIn: true,
+    isLoggedIn: false,
     userInfo: {},
     toggle: false,
+    linkSend:false
 }
 
 const authReduser = (state = InitialState, action) => {
@@ -12,7 +12,7 @@ const authReduser = (state = InitialState, action) => {
         case LOG_IN: {
             return {
                 ...state,
-                isLoggedIn: true,
+                isLoggedIn: false,
                 userInfo: action.payload
             }
         }
@@ -20,6 +20,28 @@ const authReduser = (state = InitialState, action) => {
             return {
                 ...state,
                 isLoggedIn: false
+            }
+        }
+        case FORGOT_PASS : {
+            return{
+                ...state,
+                isLoggedIn:false,
+                userInfo: action.payload,
+                linkSend:true
+            }
+        }
+        case RESET_PASS : {
+           return {
+            ...state,
+            isLoggedIn:false,
+            userInfo:action.payload
+           }
+        }
+        case CHANGE_PASS : {
+            return {
+                ...state,
+                isLoggedIn:false,
+                userInfo:action.payload
             }
         }
         case "ON" : {

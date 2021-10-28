@@ -275,7 +275,7 @@ const Setting = () => {
               <div className="col" style={{ display: "contents" }}>
                 <img
                   src={
-                    projectInfo == true
+                    projectInfo === true
                       ? "images/downicon.png"
                       : "images/forwardicon.png"
                   }
@@ -286,7 +286,7 @@ const Setting = () => {
               </div>
             </div>
           </div>
-          {projectInfo == true ? (
+          {projectInfo === true ? (
             <div class="smain-container">
               <div className="project-card">
                 <div>
@@ -402,7 +402,7 @@ const Setting = () => {
               <div className="col" style={{ display: "contents" }}>
                 <img
                   src={
-                    task == true
+                    task === true
                       ? "images/downicon.png"
                       : "images/forwardicon.png"
                   }
@@ -413,7 +413,7 @@ const Setting = () => {
               </div>
             </div>
           </div>
-          {task == true ? (
+          {task === true ? (
             <div class="smain-container">
               <div className="project-card">
                 <div>

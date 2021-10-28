@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./changePassword.css";
 import { useHistory } from "react-router-dom";
 import { Post } from "../../../Utils/JSONUtils";
-import { logIn } from "../../../redux/actions/authAction";
+import { change } from "../../../redux/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
 import {
   emailValidator,
@@ -21,11 +21,18 @@ function ChangePassword() {
   const { push } = useHistory();
   const auth = useSelector((store) => store);
   const dispatch = useDispatch();
-  console.log("store", auth);
+  console.log("storeuser@example.comuser@example.com", auth);
   const [errors, setErrors] = useState(false);
   const [userEmail, setuserEmail] = useState("");
   const [isEmailvalid, setIsEmailvalid] = useState(true);
   const [ispasswordValid, setisPasswordValid] = useState(true);
+  const [loginmail, setLoginmail] =useState()
+  console.log("loginmail",loginmail)
+  useEffect(() => {
+    let data = JSON.parse(localStorage.getItem("userData"))
+    setLoginmail(data.email)
+    console.log(data.email)
+  }, [])
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
@@ -47,12 +54,18 @@ function ChangePassword() {
     setValues({ ...values, [prop]: event.target.value });
   };
   const handleLogin = () => {
+    const changeData = {
+        email: loginmail,
+        currentPassword:values.currentpassword,
+        password: values.newpassword,
+        confirmPassword: values.password
+    }
     if (!values.password.length > 0) {
       setErrors(true);
     }
 
     if (values.password.length > 0 && ispasswordValid) {
-      dispatch(logIn({ password: values.password }));
+      dispatch(change(changeData));
     }
   };
 
@@ -101,7 +114,7 @@ function ChangePassword() {
               </button>
             </div>
             {errors ? (
-              !values.oldpassword ? (
+              !values.currentpassword ? (
                 <p style={{ color: "red" }}>Password is required</p>
               ) : null
             ) : null}

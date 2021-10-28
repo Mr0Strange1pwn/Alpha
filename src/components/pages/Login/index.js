@@ -3,6 +3,8 @@ import "./Login.css";
 import { Link, useHistory } from "react-router-dom";
 import { logIn } from "../../../redux/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
+import { Axios } from "../../../Utils/axios";
+
 import {
   emailValidator,
   passwordValidator,
@@ -21,6 +23,7 @@ function Login() {
   const [userEmail, setuserEmail] = useState("");
   const [isEmailvalid, setIsEmailvalid] = useState(true);
   const [ispasswordValid, setisPasswordValid] = useState(true);
+  const [rember, setRember] = useState(false);
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
@@ -32,15 +35,12 @@ function Login() {
   };
 
   const handleLogin = () => {
-    // if (!userEmail.userEmail) {
-    //   setErrors((prev) => {
-    //     return { ...prev, userEmail: "Plase enter userEmail" };
-    //   });
-    //   console.log("error", errors);
-    // } else {
-    //   console.log("data");
-    // }
-
+    const userInfo = {
+      email: userEmail,
+      password: values.password,
+      rememberMe: rember,
+    };
+    console.log("userInfo", userInfo);
     if (!userEmail.length > 0) {
       setErrors(true);
     }
@@ -54,7 +54,30 @@ function Login() {
       isEmailvalid &&
       ispasswordValid
     ) {
-      dispatch(logIn({ userEmail, password: values.password }));
+      // Axios.post("/login", userInfo)
+      //   .then((res) => {
+      //     console.log("ressss", res);
+      //     // if (res.data.status) {
+      //     //   window.localStorage.setItem(
+      //     //     "authUser",
+      //     //     JSON.stringify(res.data.data)
+      //     //   );
+      //     //   Axios.defaults.headers.common = {
+      //     //     Authorization: `Bearer ${res.data.data.token}`,
+      //     //   };
+      //     //   login(res.data.data);
+      //     //   history.replace("/dashboard");
+      //     // } else if (res.data.status === false) {
+      //     //   setError(true);
+      //     //   setErrorMessage(res.data.message);
+      //     // }
+      //   })
+      //   .catch((err) => {
+      //     console.log("error from api ");
+      //     // setError(true);
+      //   });
+        dispatch(logIn(userInfo));
+      // dispatch(logIn({ userEmail, password: values.password }));
     }
   };
 
@@ -160,6 +183,8 @@ function Login() {
                 type="checkbox"
                 class="form-check-input"
                 id="exampleCheck1"
+                vlaue={rember}
+                onChange={(value) => setRember(!rember)}
               />
               <label class="form-check-label" for="exampleCheck1">
                 Remember me

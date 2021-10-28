@@ -24,9 +24,8 @@ import './upload.css';
 					</div>
 					<input type="file" accept="image/*" name="image-upload" id="imageinput" onChange={this.imageHandler} />
 					<div className="imagelabel">
-          <label className="image-upload" htmlFor="imageinput">
-						{/* <i className="material-icons">add_photo_alternate</i>
-						Choose your Photo */}
+          {/* <label className="image-upload" htmlFor="imageinput"> */}
+		  <label className="image-upload" >
                         Upload Image
 					</label>
           </div>
