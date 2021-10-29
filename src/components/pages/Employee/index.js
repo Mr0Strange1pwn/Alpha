@@ -143,7 +143,7 @@ const Employee = () => {
   return (
     <div className="header">
       <Alert
-        message="Employee"
+        message="delete the Employee"
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         setOpenModal={setModalOpen}

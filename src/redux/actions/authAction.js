@@ -39,7 +39,7 @@ export const reset = (resData) => {
     await Axios.post("/resetpassword", resData).then((res) => {
       console.log("resetres", res.data);
       if (res.data.result === true) {
-        toast.success(res.data.message);
+        toast.success(res.data.response);
         dispatch({ type: RESET_PASS, payload: res.data });
       }
     });

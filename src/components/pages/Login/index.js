@@ -210,21 +210,16 @@ function Login() {
           >
             LOGIN
           </button>
-
+{/* 
           <div className="signup_link">
-            {/* <p>
-              Don't have an account?{" "}
-              <b>
-                <Link className="linUrl" to="/resetPassword">Signup here</Link>
-              </b>
-            </p> */}
+            
             <label class="form-check-label" for="exampleCheck1">
               Don't have an account?{"   "}
             </label>
             <Link className="linUrl" to="/resetPassword">
               Signup here
             </Link>{" "}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

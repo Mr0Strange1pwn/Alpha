@@ -12,7 +12,7 @@ const authReduser = (state = InitialState, action) => {
         case LOG_IN: {
             return {
                 ...state,
-                isLoggedIn: false,
+                isLoggedIn: true,
                 userInfo: action.payload
             }
         }

@@ -182,7 +182,7 @@ const ProjectList = () => {
   return (
     <div className="header">
       <Alert
-        message="Project"
+        message="delete the Project"
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         setOpenModal={setModalOpen}

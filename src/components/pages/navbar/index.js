@@ -4,6 +4,8 @@ import "./navbar.css";
 import { useSelector, useDispatch } from "react-redux";
 import { faToggleOff } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
+import { logOut } from "../../../redux/actions/authAction";
+import Alert from "../../common/Alert";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -19,7 +21,17 @@ function Navbar() {
   const { toggle } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  const { isLoggedIn, userInfo } = useSelector(store => store.auth)
+  const [modalOpen, setModalOpen] = useState(false);
 
+  const delAlert = () => {
+    setModalOpen(true);
+  };
+  const handleDelete = async () => {
+    dispatch(logOut())
+    setModalOpen(false);
+
+  };
   useEffect(() => {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
@@ -29,7 +41,7 @@ function Navbar() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => {}, [change]);
+  useEffect(() => { }, [change]);
 
   const clickHandle = () => {
     toggle ? dispatch({ type: "OFF" }) : dispatch({ type: "ON" });
@@ -43,25 +55,26 @@ function Navbar() {
   const hidemedown = {
     display: "flex",
   };
-  if((windowDimensions.width>=768)  && (windowDimensions.width<=1023)){
+  if ((windowDimensions.width >= 768) && (windowDimensions.width <= 1023)) {
     btnStyle.width = "7%";
     hidemedown.display = "none";
-  }else if(windowDimensions.width<700){
+  } else if (windowDimensions.width < 700) {
     btnStyle.width = "13%";
   }
   if (change) {
     btnStyle.width = "5%";
   }
 
-  
+
   if (change) {
     hideme.display = "none";
   }
   const location = useLocation();
   const pathname = location.pathname;
-console.log("windowDimensions",windowDimensions)
+  console.log("windowDimensions", windowDimensions)
   return (
     <div className="sidebar" style={btnStyle}>
+      <Alert message="Logout" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={handleDelete} />
       <nav class="nav flex-column">
         <div class="logo-main">
           <img className="login__logo" src="images/logo.png" alt="logo" />{" "}
@@ -76,7 +89,7 @@ console.log("windowDimensions",windowDimensions)
             &#9776;
           </button>
         </div>
-        <div class="nav-main-div" style={{marginTop:"10%" }} >
+        <div class="nav-main-div" style={{ marginTop: "10%" }} >
           <Link to="/" className="navBar-link">
             <img
               className="image__logo"
@@ -101,13 +114,13 @@ console.log("windowDimensions",windowDimensions)
               src={
                 pathname == "/Employee"
                   ? "images/Employees-h.png" : pathname == "/AddPeople" ? "images/Employees-h.png"
-                  : "images/Employee.png"
+                    : "images/Employee.png"
               }
               alt="logo"
             />{" "}
             <a
               className="nav-link"
-              style={{ color: pathname == "/Employee" ? "#f07238" : pathname == "/AddPeople" ?  "#f07238":"white" }}
+              style={{ color: pathname == "/Employee" ? "#f07238" : pathname == "/AddPeople" ? "#f07238" : "white" }}
               href=""
             >
               Employees
@@ -118,15 +131,15 @@ console.log("windowDimensions",windowDimensions)
               className="image__logo"
               src={
                 pathname == "/Rolespermission"
-                  ? "images/Role-H.png" :pathname == "/AddRole"? "images/Role-H.png"
-                  : "images/Role.png"
+                  ? "images/Role-H.png" : pathname == "/AddRole" ? "images/Role-H.png"
+                    : "images/Role.png"
               }
               alt="logo"
             />{" "}
             <a
               className="nav-link"
               style={{
-                color: pathname == "/Rolespermission" ? "#f07238" : pathname == "/AddRole"? "#f07238" : "white",
+                color: pathname == "/Rolespermission" ? "#f07238" : pathname == "/AddRole" ? "#f07238" : "white",
               }}
               href=""
             >
@@ -138,14 +151,14 @@ console.log("windowDimensions",windowDimensions)
               className="image__logo"
               src={
                 pathname == "/Project"
-                  ?  "images/Project-h.png" : pathname == "/Task" ? "images/Project-h.png"
-                  : "images/Projects.png"
+                  ? "images/Project-h.png" : pathname == "/Task" ? "images/Project-h.png"
+                    : "images/Projects.png"
               }
               alt="logo"
             />{" "}
             <a
               className="nav-link"
-              style={{ color: pathname == "/Project" ? "#f07238" : pathname == "/Task" ? "#f07238" :"white" }}
+              style={{ color: pathname == "/Project" ? "#f07238" : pathname == "/Task" ? "#f07238" : "white" }}
               href=""
             >
               Projects
@@ -169,6 +182,8 @@ console.log("windowDimensions",windowDimensions)
               Settings
             </a>
           </Link>
+
+
         </div>
       </nav>
 
@@ -179,11 +194,29 @@ console.log("windowDimensions",windowDimensions)
         onClick={() => {
           setChange(!change);
           clickHandle();
-          
+
         }}
       >
         {">>"}
       </button>
+      <div>
+      <div class="logout-btn" style={{ display: "flex" }}>
+        <img
+          className="image__logo"
+          src={"images/logout-icon.png"}
+          alt="logo"
+          onClick={() => delAlert()}
+        />
+
+        <a
+          className="nav-link"
+          style={{ color: "#fff" }}
+          onClick={() => delAlert()}
+        >
+          Logout
+        </a>
+        </div>
+      </div>
     </div>
   );
 }

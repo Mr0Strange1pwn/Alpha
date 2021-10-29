@@ -127,7 +127,7 @@ const MileStone = (props) => {
   return (
     <div className="milestone-header">
       <Alert
-        message="Milestone"
+        message="delete the Milestone"
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         setOpenModal={setModalOpen}

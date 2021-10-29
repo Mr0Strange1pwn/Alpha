@@ -19,11 +19,10 @@ function ResetPassword() {
     showPassword: false,
     newshowPassword: false,
   });
-  console.log("location", useremail)
+
   const { push } = useHistory();
   const auth = useSelector((store) => store);
   const dispatch = useDispatch();
-  console.log("store", auth);
   const [errors, setErrors] = useState(false);
   const [userEmail, setuserEmail] = useState("");
   const [isEmailvalid, setIsEmailvalid] = useState(true);
@@ -57,7 +56,6 @@ function ResetPassword() {
     }
 
     if ( values.password.length > 0  && ispasswordValid) {
-      // dispatch(logIn({  password: values.password }))
       if (values.password.length > 0) {
         if (values.password == values.newpassword) {
           dispatch(reset(resData))

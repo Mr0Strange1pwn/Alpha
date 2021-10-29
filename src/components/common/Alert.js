@@ -63,7 +63,7 @@ export default function Alert({open ,onClose,children, setOpenModal,id,handleDel
           </button>
         </div>
         <div style={{marginTop:"8%"}}>
-          <h3 style={{textAlign: "center",fontSize:"1.80rem"}}>Are you sure you want to delete the {message}?</h3>
+          <h3 style={{textAlign: "center",fontSize:"1.80rem"}}>Are you sure you want to  {message}?</h3>
         </div>
         <div style={{textAlignLast: "center"}}>
           <button class="no-btn"

@@ -143,7 +143,7 @@ const Rolespermission = () => {
 
   return (
     <div >
-      <Alert message="Role and Permission" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>
+      <Alert message="delete the Role and Permission" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>
       <Header headerName="Role and Permissions" />
         <div className="main">
           <div style={{ marginTop: "4%" }}>

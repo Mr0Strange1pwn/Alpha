@@ -145,7 +145,7 @@ const Setting = () => {
     <div className="project-header">
       <Header headerName="Settings" />
       <Alert
-        message="Designation"
+        message="delete the Designation"
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         setOpenModal={setModalOpen}
@@ -153,7 +153,7 @@ const Setting = () => {
         id={ids}
       />
       <Alert
-      message="Job Type"
+      message="delete the Job Type"
       open={modalOpenTwo}
       onClose={() => setModalOpen(false)}
       setOpenModal={setModalOpenTwo}

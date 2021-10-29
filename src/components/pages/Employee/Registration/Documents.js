@@ -171,7 +171,7 @@ const Documents = () => {
     </div>
 	
          </Modal>
-         <Alert message="Document" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>
+         <Alert message="delete the Document" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id)=>handleDelete(id)} id={ids}/>
    
         <div className="main">
           <div style={{ marginTop: "4%" }}>

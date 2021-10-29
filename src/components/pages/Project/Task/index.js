@@ -123,7 +123,7 @@ const Task = () => {
     <div className="task-header">
       <Header headerName="Create Task" />
       <Alert
-        message="Task"
+        message="delete the Task"
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         setOpenModal={setModalOpen}
