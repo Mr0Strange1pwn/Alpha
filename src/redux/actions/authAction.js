@@ -17,27 +17,27 @@ export const CHANGE_PASS = "CHANGE_PASS";
 // }
 
 export const change = (changeData) => {
-    return async (dispatch) => {
-   await Axios.post('/changepassword', changeData)
-   .then((res)=>{
-       console.log("changeres",res)
-       if (res.data.result === false) {
-        toast.error(res.data.response);
-        dispatch({ type: CHANGE_PASS, payload: res.data });
-      }
-       if (res.data.result === true) {
-        toast.success(res.data.response);
-        dispatch({ type: CHANGE_PASS, payload: res.data });
-      }
-      if (res.status === 400) {
-        toast.success("The password and confirmation password do not match.");
-        dispatch({ type: CHANGE_PASS, payload: res.data });
-      }
-   })
-   .catch((err) => {
-    console.log(err);
-    toast.error("The password and confirmation password do not match.");
-  });
+  return async (dispatch) => {
+    await Axios.post('/changepassword', changeData)
+      .then((res) => {
+        console.log("changeres", res)
+        if (res.data.result === false) {
+          toast.error(res.data.response);
+          dispatch({ type: CHANGE_PASS, payload: res.data });
+        }
+        if (res.data.result === true) {
+          toast.success(res.data.response);
+          dispatch({ type: CHANGE_PASS, payload: res.data });
+        }
+        if (res.status === 400) {
+          toast.success("The password and confirmation password do not match.");
+          dispatch({ type: CHANGE_PASS, payload: res.data });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("The password and confirmation password do not match.");
+      });
   };
 };
 export const reset = (resData) => {
@@ -71,7 +71,7 @@ export const forgot = (useremail) => {
 };
 
 export const logIn = (userInfo) => {
-  
+
   return async (dispatch) => {
     await Axios.post("/login", userInfo)
       .then((res) => {
@@ -83,26 +83,26 @@ export const logIn = (userInfo) => {
           toast.warn("password not matched");
         }
         if (res.data.message === "Invalid login attempt or email not validated! Please try again.") {
-          alert("asf")
-          toast.error("Login failed");
-          dispatch({ type: LOG_IN, payload: res.data });
-          
+          // alert("asf")
+          // toast.error("Invalid login attempt or email not validated! Please try again.");
+          dispatch({ type: "SET_ERROR_MSG", payload: "Invalid login attempt or email not validated! Please try again." });
+
         }
         if (res.data.message === "User logged in successfully!") {
           toast.success("Login Success");
-              localStorage.setItem("userData", JSON.stringify(res.data));
-              if(userInfo.rememberMe===true){
-                localStorage.setItem("userInfo",JSON.stringify(userInfo));
-              }else{
-              localStorage.removeItem("userInfo");
-              }
-             
+          localStorage.setItem("userData", JSON.stringify(res.data));
+          if (userInfo.rememberMe === true) {
+            localStorage.setItem("userInfo", JSON.stringify(userInfo));
+          } else {
+            localStorage.removeItem("userInfo");
+          }
+
           dispatch({ type: LOG_IN, payload: res.data });
         }
       })
       .catch((err) => {
         // toast.error("Login failed");
-         dispatch({ type: LOG_IN, payload:"Login Failed" });
+        dispatch({ type: "SET_ERROR_MSG", payload: "Login Failed" });
       });
   };
 };

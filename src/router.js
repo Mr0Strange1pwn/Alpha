@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import Login from "./components/pages/Login";
 import ResetPassword from "./components/pages/ResetPassword";
@@ -6,7 +6,7 @@ import ChangePassword from "./components/pages/changePassword";
 import Navbar from "./components/pages/navbar";
 import Error from "./components/pages/error";
 import Forgetpassword from "./components/pages/forgotpassword";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Home from "./components/pages/Home";
 import Dashboard from "./components/pages/dashboard";
 import Employee from "./components/pages/Employee";
@@ -36,6 +36,7 @@ const Routes = () => {
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
   const { isLoggedIn, toggle } = useSelector((store) => store.auth);
   const Location = useLocation()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     function handleResize() {
@@ -46,12 +47,23 @@ const Routes = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+
+
+  useEffect(() => {
+    let userData = JSON.parse(localStorage.getItem("userData"))
+    console.log("userData", userData)
+    if (userData) {
+      dispatch({ type: "LOG_IN", payload: userData });
+    }
+    //
+  }, [])
+
   const btnStyle = {
     marginLeft: '20%'
   }
-  if((windowDimensions.width>=768)  && (windowDimensions.width<=1023)){
+  if ((windowDimensions.width >= 768) && (windowDimensions.width <= 1023)) {
     btnStyle.marginLeft = "7%";
-  }else if(windowDimensions.width<700){
+  } else if (windowDimensions.width < 700) {
     btnStyle.marginLeft = "13%";
   }
   if (toggle) {
@@ -77,10 +89,10 @@ const Routes = () => {
                 <Rolespermission />
               </Route>
               <Route path="/Project">
-              <ProjectList />
+                <ProjectList />
               </Route>
               <Route path="/ProjectList">
-              <CreateProject />
+                <CreateProject />
               </Route>
               <Route path="/settings">
                 <Settings />
@@ -101,14 +113,14 @@ const Routes = () => {
                 <JobDetails />
               </Route>
               <Route path="/AddPeople">
-              <FirstStepper />
+                <FirstStepper />
               </Route>
               <Route path="/Task">
-              <Task/>
+                <Task />
               </Route>
 
-             
-             
+
+
               {/* <Route exact path="/">
                 <Home />
               </Route> */}
@@ -130,9 +142,9 @@ const Routes = () => {
           <Route path="/changepassword">
             <ChangePassword />
           </Route>
-          <Route path = "/View/:id">
-                <View />
-                </Route>
+          <Route path="/View/:id">
+            <View />
+          </Route>
 
           {/* <Route exact path ="/Post/:category" component={Post} />
     <Route component={Error}/ > */}

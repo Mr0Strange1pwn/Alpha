@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./Login.css";
 import { Link, useHistory } from "react-router-dom";
 import { logIn } from "../../../redux/actions/authAction";
@@ -19,32 +19,36 @@ function Login() {
   const [userEmail, setuserEmail] = useState("");
   const [isEmailvalid, setIsEmailvalid] = useState(true);
   const [ispasswordValid, setisPasswordValid] = useState(true);
-   const [rember, setRember] = useState(true);
+  const [rember, setRember] = useState(true);
   const [values, setValues] = useState({
-    email:"",
+    email: "",
     password: "",
     showPassword: false,
-    rember:true
+    rember: true
   });
 
   useEffect(() => {
     let data = JSON.parse(localStorage.getItem("userInfo"))
-    if(data !==null){
-      setValues({...values, email:data.email ,password:data.password, rember: data.rememberMe  })
+    if (data !== null) {
+      setValues({ ...values, email: data.email, password: data.password, rember: data.rememberMe })
     }
   }, [])
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
-const handlePasswordChange = (prop) => (event) => {
+  const handlePasswordChange = (prop) => (event) => {
     setisPasswordValid(passwordValidator(event.target.value));
     setValues({ ...values, [prop]: event.target.value });
   };
- 
+
+  if (auth.auth.errorMessage.length > 0) {
+    setTimeout(() => dispatch({ type: "SET_ERROR_MSG", payload: "" }), 5000)
+  }
+
   const handleLogin = () => {
-     if( auth.auth.userInfo === "Login Failed" ) {
-      setErrors(true)
-    }
+    //  if( auth.auth. === "Login Failed" ) {
+    //   setErrors(true)
+    // }
     const userInfo = {
       // email: userEmail,
       email: values.email,
@@ -65,14 +69,14 @@ const handlePasswordChange = (prop) => (event) => {
       isEmailvalid &&
       ispasswordValid
     ) {
-        dispatch(logIn(userInfo));
+      dispatch(logIn(userInfo));
     }
   };
 
   const onChangeData = ({ name, value }) => {
-     setIsEmailvalid(emailValidator(value.target.value));
+    setIsEmailvalid(emailValidator(value.target.value));
     // setuserEmail(value.target.value);
-    setValues({...values, email:value.target.value})
+    setValues({ ...values, email: value.target.value })
   };
   return (
     <div>
@@ -161,11 +165,11 @@ const handlePasswordChange = (prop) => (event) => {
                 <p style={{ color: "red" }}>Password is required</p>
               ) : null
             ) : null}
-             {errors ? (
-               auth.auth.userInfo === "Login Failed" ? (
-                <p style={{ color: "red" }}>Invalid Login Credentials </p>
+            {
+              auth.auth.errorMessage.length > 0 ? (
+                <p style={{ color: "red" }}>{auth.auth.errorMessage}</p>
               ) : null
-            ) : null}
+            }
             {!ispasswordValid ? (
               <p style={{ color: "red" }}>
                 Password should contain at least 1 Uppercase,1 Special
@@ -174,11 +178,11 @@ const handlePasswordChange = (prop) => (event) => {
             ) : null}
             <div class="form-group form-check">
               <input
-                 checked={values.rember}
-                 class="form-check-input" type="checkbox"
-                 id="flexCheckChecked"
+                checked={values.rember}
+                class="form-check-input" type="checkbox"
+                id="flexCheckChecked"
                 value={values.rember}
-                onChange={(value) => setValues({...values,rember: !values.rember})}
+                onChange={(value) => setValues({ ...values, rember: !values.rember })}
               />
               <label class="form-check-label" for="exampleCheck1" >
                 Remember me
@@ -204,7 +208,7 @@ const handlePasswordChange = (prop) => (event) => {
           >
             LOGIN
           </button>
-{/* 
+          {/* 
           <div className="signup_link">
             
             <label class="form-check-label" for="exampleCheck1">

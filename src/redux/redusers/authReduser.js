@@ -1,10 +1,11 @@
-import { LOG_IN,  LOG_OUT , FORGOT_PASS, RESET_PASS ,CHANGE_PASS } from "../actions/authAction"
+import { LOG_IN, LOG_OUT, FORGOT_PASS, RESET_PASS, CHANGE_PASS } from "../actions/authAction"
 
 const InitialState = {
     isLoggedIn: false,
     userInfo: {},
     toggle: false,
-    linkSend:false
+    linkSend: false,
+    errorMessage: ""
 }
 
 const authReduser = (state = InitialState, action) => {
@@ -22,37 +23,42 @@ const authReduser = (state = InitialState, action) => {
                 isLoggedIn: false
             }
         }
-        case FORGOT_PASS : {
-            return{
+        case FORGOT_PASS: {
+            return {
                 ...state,
-                isLoggedIn:false,
+                isLoggedIn: false,
                 userInfo: action.payload,
-                linkSend:true
+                linkSend: true
             }
         }
-        case RESET_PASS : {
-           return {
-            ...state,
-            isLoggedIn:false,
-            userInfo:action.payload
-           }
-        }
-        case CHANGE_PASS : {
+        case RESET_PASS: {
             return {
                 ...state,
-                isLoggedIn:false,
-                userInfo:action.payload
+                isLoggedIn: false,
+                userInfo: action.payload
             }
         }
-        case "ON" : {
+        case CHANGE_PASS: {
             return {
-                ...state, toggle : true
+                ...state,
+                isLoggedIn: false,
+                userInfo: action.payload
             }
         }
-        case "OFF" : {
-                return {
-                    ...state, toggle : false
-                }
+        case "ON": {
+            return {
+                ...state, toggle: true
+            }
+        }
+        case "OFF": {
+            return {
+                ...state, toggle: false
+            }
+        }
+        case "SET_ERROR_MSG": {
+            return {
+                ...state, errorMessage: action.payload
+            }
         }
         default: return { ...state }
     }

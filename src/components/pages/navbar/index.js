@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./navbar.css";
 import { useSelector, useDispatch } from "react-redux";
 import { faToggleOff } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +23,7 @@ function Navbar() {
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
   const { isLoggedIn, userInfo } = useSelector(store => store.auth)
   const [modalOpen, setModalOpen] = useState(false);
+  const History = useHistory()
 
   const delAlert = () => {
     setModalOpen(true);
@@ -30,6 +31,7 @@ function Navbar() {
   const handleDelete = async () => {
     dispatch(logOut())
     setModalOpen(false);
+    History.push("/")
 
   };
   useEffect(() => {
@@ -200,21 +202,21 @@ function Navbar() {
         {">>"}
       </button>
       <div>
-      <div class="logout-btn" style={{ display: "flex" }}>
-        <img
-          className="image__logo"
-          src={"images/logout-icon.png"}
-          alt="logo"
-          onClick={() => delAlert()}
-        />
+        <div class="logout-btn" style={{ display: "flex" }}>
+          <img
+            className="image__logo"
+            src={"images/logout-icon.png"}
+            alt="logo"
+            onClick={() => delAlert()}
+          />
 
-        <a
-          className="nav-link"
-          style={{ color: "#fff" }}
-          onClick={() => delAlert()}
-        >
-          Logout
-        </a>
+          <a
+            className="nav-link"
+            style={{ color: "#fff" }}
+            onClick={() => delAlert()}
+          >
+            Logout
+          </a>
         </div>
       </div>
     </div>
