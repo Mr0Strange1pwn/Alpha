@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./Login.css";
 import { Link, useHistory } from "react-router-dom";
 import { logIn } from "../../../redux/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
-import { Axios } from "../../../Utils/axios";
 
 import {
   emailValidator,
@@ -11,37 +10,48 @@ import {
 } from "../../../Utils/fieldValidator";
 
 function Login() {
-  const [values, setValues] = useState({
-    password: "",
-    showPassword: false,
-  });
   const { push } = useHistory();
   const auth = useSelector((store) => store);
   const dispatch = useDispatch();
-  console.log("store", auth);
+
+  console.log("store", auth.auth);
   const [errors, setErrors] = useState(false);
   const [userEmail, setuserEmail] = useState("");
   const [isEmailvalid, setIsEmailvalid] = useState(true);
   const [ispasswordValid, setisPasswordValid] = useState(true);
-  const [rember, setRember] = useState(false);
+   const [rember, setRember] = useState(true);
+  const [values, setValues] = useState({
+    email:"",
+    password: "",
+    showPassword: false,
+    rember:true
+  });
 
+  useEffect(() => {
+    let data = JSON.parse(localStorage.getItem("userInfo"))
+    if(data !==null){
+      setValues({...values, email:data.email ,password:data.password, rember: data.rememberMe  })
+    }
+  }, [])
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
-
-  const handlePasswordChange = (prop) => (event) => {
+const handlePasswordChange = (prop) => (event) => {
     setisPasswordValid(passwordValidator(event.target.value));
     setValues({ ...values, [prop]: event.target.value });
   };
-
+ 
   const handleLogin = () => {
+     if( auth.auth.userInfo === "Login Failed" ) {
+      setErrors(true)
+    }
     const userInfo = {
-      email: userEmail,
+      // email: userEmail,
+      email: values.email,
       password: values.password,
-      rememberMe: rember,
+      rememberMe: values.rember,
     };
-    console.log("userInfo", userInfo);
-    if (!userEmail.length > 0) {
+    if (!values.email.length > 0) {
       setErrors(true);
     }
     if (!values.password.length > 0) {
@@ -49,42 +59,20 @@ function Login() {
     }
 
     if (
-      userEmail.length > 0 &&
+      // userEmail.length > 0 &&
+      values.email.length > 0 &&
       values.password.length > 0 &&
       isEmailvalid &&
       ispasswordValid
     ) {
-      // Axios.post("/login", userInfo)
-      //   .then((res) => {
-      //     console.log("ressss", res);
-      //     // if (res.data.status) {
-      //     //   window.localStorage.setItem(
-      //     //     "authUser",
-      //     //     JSON.stringify(res.data.data)
-      //     //   );
-      //     //   Axios.defaults.headers.common = {
-      //     //     Authorization: `Bearer ${res.data.data.token}`,
-      //     //   };
-      //     //   login(res.data.data);
-      //     //   history.replace("/dashboard");
-      //     // } else if (res.data.status === false) {
-      //     //   setError(true);
-      //     //   setErrorMessage(res.data.message);
-      //     // }
-      //   })
-      //   .catch((err) => {
-      //     console.log("error from api ");
-      //     // setError(true);
-      //   });
         dispatch(logIn(userInfo));
-      // dispatch(logIn({ userEmail, password: values.password }));
     }
   };
 
   const onChangeData = ({ name, value }) => {
-    setIsEmailvalid(emailValidator(value.target.value));
-
-    setuserEmail(value.target.value);
+     setIsEmailvalid(emailValidator(value.target.value));
+    // setuserEmail(value.target.value);
+    setValues({...values, email:value.target.value})
   };
   return (
     <div>
@@ -112,15 +100,16 @@ function Login() {
                   width: "100%",
                   border: "none",
                 }}
-                vlaue={userEmail}
+                value={values.email}
                 // onChange={(event) => setUserEmail(event.target.value)}
-                onChange={(value) => onChangeData({ name: "userEmail", value })}
+                // onChange={(value) => onChangeData({ name: "userEmail", value })}
+                onChange={(value) => onChangeData({ name: "email", value })}
                 placeholder="Email"
                 type="email"
               />
             </div>
             {errors ? (
-              !userEmail ? (
+              !values.email ? (
                 <p style={{ color: "red" }}>Email is required</p>
               ) : null
             ) : null}
@@ -172,6 +161,11 @@ function Login() {
                 <p style={{ color: "red" }}>Password is required</p>
               ) : null
             ) : null}
+             {errors ? (
+               auth.auth.userInfo === "Login Failed" ? (
+                <p style={{ color: "red" }}>Invalid Login Credentials </p>
+              ) : null
+            ) : null}
             {!ispasswordValid ? (
               <p style={{ color: "red" }}>
                 Password should contain at least 1 Uppercase,1 Special
@@ -180,13 +174,13 @@ function Login() {
             ) : null}
             <div class="form-group form-check">
               <input
-                type="checkbox"
-                class="form-check-input"
-                id="exampleCheck1"
-                vlaue={rember}
-                onChange={(value) => setRember(!rember)}
+                 checked={values.rember}
+                 class="form-check-input" type="checkbox"
+                 id="flexCheckChecked"
+                value={values.rember}
+                onChange={(value) => setValues({...values,rember: !values.rember})}
               />
-              <label class="form-check-label" for="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1" >
                 Remember me
               </label>
 

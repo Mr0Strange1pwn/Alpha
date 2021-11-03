@@ -6,15 +6,26 @@ import Header from "../Header/Header";
 function AddRole() {
   const [roleName, setRoleName] = useState();
   const [selectedValue, setValue] = useState({
-    "Create Role": "",
-    "Manage Role": "",
-    "Create Employee": "",
-    "Manage Employee": "",
-    "Create Project": "",
-    "Create Task": "",
-    "Create Project Board": "",
-    "Assign Task": "",
-    Reports: "",
+    // "Create Role": "",
+    // "Manage Role": "",
+    // "Create Employee": "",
+    // "Manage Employee": "",
+    // "Create Project": "",
+    // "Create Task": "",
+    // "Create Project Board": "",
+    // "Assign Task": "",
+    //  Reports: "",
+   
+  roleName: "",
+  createRole: "",
+  manageRole: "",
+  createEmployee: "",
+  manageEmployee: "",
+  createProject: "",
+  createTask: "",
+  assignTask: "",
+  createProjectBoard: "",
+  reports: ""
   });
 
   const handleChange = (e) => {
@@ -22,7 +33,7 @@ function AddRole() {
     setValue({ ...selectedValue, [name]: value });
   };
   const handleSubmit = () => {
-    console.log("roleName", roleName);
+    console.log("roleName", selectedValue);
   };
   return (
     <div className="conatiner">
@@ -35,8 +46,11 @@ function AddRole() {
           <input
             type="text"
             class="form-control role"
-            id="exampleFormControlInput1"
-            onChange={(event) => setRoleName(event.target.value)}
+            id="roleName"
+            name="roleName"
+            // onChange={(event) => setRoleName(event.target.value)}
+            onChange={handleChange}
+            
             placeholder="Enter role name"
           />
         </div>
@@ -47,13 +61,15 @@ function AddRole() {
           <div className="add-management">
             <div className="card-body">
               <h5 className="card-title">User Management</h5>
-              <AddRolePermission title="Create Role" onChange={handleChange} />
-              <AddRolePermission title="Manage Role" onChange={handleChange} />
+              <AddRolePermission name="createRole" title="Create Role" onChange={handleChange} />
+              <AddRolePermission name="manageRole" title="Manage Role" onChange={handleChange} />
               <AddRolePermission
+                name="createEmployee"
                 title="Create Employee"
                 onChange={handleChange}
               />
               <AddRolePermission
+                name="manageEmployee"
                 title="Manage Employee"
                 onChange={handleChange}
               />
@@ -68,13 +84,14 @@ function AddRole() {
               <h5 className="card-title">Task Management</h5>
 
               <AddRolePermission
+                name="createProject"
                 title="Create Project"
                 onChange={handleChange}
               />
-              <AddRolePermission title="Create Task" onChange={handleChange} />
-              <AddRolePermission title="Assign Task" onChange={handleChange} />
-              <AddRolePermission title="Create Project Board" />
-              <AddRolePermission title="Reports" onChange={handleChange} />
+              <AddRolePermission name="createTask" title="Create Task" onChange={handleChange} />
+              <AddRolePermission name="assignTask" title="Assign Task" onChange={handleChange} />
+              <AddRolePermission  name="createProjectBoard" title="Create Project Board" />
+              <AddRolePermission  name="reports" title="Reports" onChange={handleChange} />
             </div>
           </div>
         
@@ -84,6 +101,7 @@ function AddRole() {
           <button
             className="btn  float-left save-btn"
             type="submit"
+            onClick={handleSubmit}
           >
             Save
           </button>

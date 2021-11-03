@@ -5,6 +5,8 @@ import Header from "../Header/Header";
 import AddRole from "./addRole";
 import { Link, useParams, useHistory } from "react-router-dom";
 import Alert from "../../common/Alert";
+import { roleLIst } from "../../../redux/actions/roleAction";
+import { useSelector, useDispatch } from "react-redux";
 
 
 const Rolespermission = () => {
@@ -15,13 +17,26 @@ const Rolespermission = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [ids, setID] = useState();
 
-
+  const role = useSelector((store) => store);
+  const dispatch = useDispatch();
+console.log("role",role.role.userInfo)
+console.log("student",student)
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemPerPage] = useState(5);
   const [pageNumberLimit, setpageNumberLimit] = useState(5);
   const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
 
+useEffect(() => {
+  roleData()
+
+  
+},[])
+
+const roleData = () => {
+  dispatch(roleLIst());
+  setStudent(role.role.userInfo)
+}
   const pages = [];
   for (let i = 1; i <= Math.ceil(student.length / itemsPerPage); i++) {
     pages.push(i);
@@ -40,7 +55,7 @@ const Rolespermission = () => {
   //  1  X 15 = 15 and 2 X 10 = 30
   const indexOfFistItem = indexOfLastItem - itemsPerPage;
   //   30 -15 = 15 and 15 -15 = 0
-  const currentItem = student.slice(indexOfFistItem, indexOfLastItem);
+    const currentItem = student.slice(indexOfFistItem, indexOfLastItem);
 
   const handleNewClick = (event) => {
     setCurrentPage(Number(event.target.id));
@@ -99,7 +114,7 @@ const Rolespermission = () => {
     if (searchQuery.length > 0) {
       searchHandler();
     } else {
-      getAllStudent();
+      roleData();
     }
   }, [searchQuery]);
 
@@ -110,7 +125,7 @@ const Rolespermission = () => {
   };
   const searchHandler = () => {
     let filterDAta = student.filter((data) =>
-      data.useremail.includes(searchQuery)
+      data.RoleName.includes(searchQuery)
     );
     if (filterDAta.length > 0) {
       console.log("filterDAta", filterDAta);
@@ -227,8 +242,8 @@ const Rolespermission = () => {
             return (
                   <tr>
                     <td class="geeks">{i + 1}</td>
-                    <td>{students.username}</td>
-                    <td>{students.userpassword}</td>
+                    <td>{students.RoleName}</td>
+                    <td>{students.UserCount}</td>
                     <td >
                       <button>
                         {" "}
@@ -268,9 +283,9 @@ const Rolespermission = () => {
                 Previous
               </button>
             </li>
-            {pageDecrementBtn}
+            {/* {pageDecrementBtn}
             {renderPageNumbers}
-            {pageIncrementBtn}
+            {pageIncrementBtn} */}
 
             <li>
               <button

@@ -12,7 +12,7 @@ const AddRolePermission = (props) => {
         <input
           type="radio"
           id={props.title}
-          name={props.title}
+          name={props.name}
           value="1"
           onChange={props.onChange}
         />
@@ -24,7 +24,7 @@ const AddRolePermission = (props) => {
         <input
           type="radio"
           id={props.title}
-          name={props.title}
+          name={props.name}
           value="2"
           onChange={props.onChange}
         />
@@ -36,7 +36,7 @@ const AddRolePermission = (props) => {
         <input
           type="radio"
           id={props.title}
-          name={props.title}
+          name={props.name}
           value="3"
           onChange={props.onChange}
         />
