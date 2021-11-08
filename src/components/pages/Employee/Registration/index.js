@@ -37,7 +37,7 @@ function Registration() {
     name: "",
     email: "",
     designation: "",
-    role: "",
+    role: [],
     manager: "",
     screenshot:""
   });
@@ -53,10 +53,29 @@ function Registration() {
     backgroundImage: "linear-gradient(45deg, black, transparent)",
   };
 
-  const handleValueChange = (e) => {
+  const handleValueChange = (e) => {   
     setDetails({ ...details, [e.target.name]: e.target.value })
   }
 
+  const handleRoleChange =(e)=> {
+      if( e.target.value === "SA"){
+        if(details.role.includes("SA")){
+          setDetails({ ...details, role: [] })
+        }else{
+          setDetails({ ...details, role: ["SA","1","2","3"] })
+        }      
+      } else{
+        if(details.role.includes(e.target.value)){
+          let role = details.role
+          let ind = role.indexOf(e.target.value)
+          role.splice(ind,1)
+          setDetails({ ...details, role: role })
+        }else{
+          setDetails({ ...details, role: [...details.role ,e.target.value ] })
+        } 
+      }
+  }
+console.log("role, ", details.role)
   const handleNext = () => {
     setShowError(true)
     if (details.name && details.designation && emailValidator(details.email) && details.role && details.manager && details.screenshot) {
@@ -162,12 +181,10 @@ function Registration() {
               </select>
               
             </div>
-
             <div className="col">
               <label class="form-check-label reg-lable" for="exampleCheck1">
                 Role
               </label>
-
               <select
                 style={{ border: showError ? details.role.length === 0 ? " 1px solid red" : null : null }}
                 class="form-select"
@@ -175,12 +192,13 @@ function Registration() {
                 aria-label="Example select with button addon"
                 name="role"
                 value={details.role}
-                onChange={e => handleValueChange(e)}
-              >
+                onChange={e => handleRoleChange(e)}
+              >         
                 <option selected>Choose Role</option>
-                <option value="1">Lead</option>
-                <option value="2">QA Lead</option>
-                <option value="3">Fresher</option>
+                <option value="SA" style={{color: details.role.includes("SA") ? "blue" : null}}>Select all</option>
+                <option value="1" style={{color: details.role.includes("1") ? "blue" : null}}>Lead</option>
+                <option value="2" style={{color: details.role.includes("2") ? "blue" : null}}>QA Lead</option>
+                <option value="3" style={{color: details.role.includes("3") ? "blue" : null}}>Fresher</option>
               </select>
             </div>
           </div>
@@ -213,7 +231,7 @@ function Registration() {
                 value={details.manager}
                 onChange={e => handleValueChange(e)}
               >
-                <option selected>Choose Manager</option>
+                <option selected> Choose Manager</option>
                 <option value="1">Manager</option>
                 <option value="2">Assistant Manager</option>
                 <option value="3">Juniar Manager</option>

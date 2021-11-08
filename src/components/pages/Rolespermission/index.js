@@ -7,7 +7,7 @@ import { Link, useParams, useHistory } from "react-router-dom";
 import Alert from "../../common/Alert";
 import { roleLIst } from "../../../redux/actions/roleAction";
 import { useSelector, useDispatch } from "react-redux";
-import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+import { CSVLink } from "react-csv";
 
 const Rolespermission = () => {
   const { id } = useParams();
@@ -92,7 +92,7 @@ const Rolespermission = () => {
     let stu =  student
     console.log("stu ",stu)
   
-   stu.sort((a, b) => (a.RoleName.toLowerCase() > b.RoleName.toLowerCase()) ? 1 : -1)
+   stu.sort((a, b) => (a.RoleName.toLowerCase() > b.RoleName.toLowerCase()) ? -1 : 1)
    console.log("stu filtered ",stu)
    }
  
@@ -281,14 +281,7 @@ const Rolespermission = () => {
                   className="btn btn-outline-success float-right"
                   type="submit"
                 > */}
-                  <ReactHTMLTableToExcel
-                    id="test-table-xls-button"
-                    className="btn float-right"
-                    table="table-to-xls"
-                    filename="tablexls"
-                    sheet="tablexls"
-                    buttonText="Export"/>
-                {/* </button> */}
+                <CSVLink data={student.length > 0 ? student: []} filename={"my-saved.csv"}  className="btn btn-outline-success float-right">Export</CSVLink>
                 <button
                   className="btn btn-outline-success float-right"
                   type="submit"
