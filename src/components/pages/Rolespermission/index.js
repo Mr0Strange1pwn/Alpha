@@ -81,6 +81,38 @@ const Rolespermission = () => {
     }
   };
 
+ const applyshortRoleName = ()=>{
+   if(searchQuery.length > 0 ){
+    let stu =  filteredData
+    console.log("stu ",stu)
+  
+   stu.sort((a, b) => (a.RoleName.toLowerCase() > b.RoleName.toLowerCase()) ? 1 : -1)
+   console.log("stu filtered ",stu)
+   }else{
+    let stu =  student
+    console.log("stu ",stu)
+  
+   stu.sort((a, b) => (a.RoleName.toLowerCase() > b.RoleName.toLowerCase()) ? 1 : -1)
+   console.log("stu filtered ",stu)
+   }
+ 
+ }
+ 
+ const applyshortUserCount = ()=>{
+ if(searchQuery.length > 0 ){
+  let stu =  filteredData
+  console.log("stu ",stu)
+
+  stu.sort((a, b) => (a.UserCount > b.UserCount) ? 1 : -1)
+ console.log("stu filtered ",stu)
+ }else{
+  let stu =  student
+  console.log("stu ",stu)
+
+  stu.sort((a, b) => (a.UserCount > b.UserCount) ? 1 : -1)
+ console.log("stu filtered ",stu)
+ }
+}
 
   const pages = [];
   for (let i = 1; i <= Math.ceil(student.length / itemsPerPage); i++) {
@@ -180,7 +212,7 @@ const Rolespermission = () => {
   };
   const searchHandler = () => {
     let filterDAta = student.filter((data) =>
-      data.RoleName.includes(searchQuery)
+      data.RoleName.toLowerCase().includes(searchQuery.toLowerCase())
     );
     if (filterDAta.length > 0) {
       console.log("filterDAta", filterDAta);
@@ -289,10 +321,10 @@ const Rolespermission = () => {
               ID <img src="images/Sort.png" alt="logo" />
             </th>
             <th>
-              Role Name <img onClick={sortString()} src="images/Sort.png" alt="logo" />
+              Role Name <img onClick={applyshortRoleName} src="images/Sort.png" alt="logo" />
             </th>
             <th>
-              User Count <img src="images/Sort.png" alt="logo" />
+              User Count <img onClick={applyshortUserCount} src="images/Sort.png" alt="logo" />
             </th>
             <th>Action</th>
           </tr>
