@@ -7,7 +7,7 @@ import { Link, useParams, useHistory } from "react-router-dom";
 import Alert from "../../common/Alert";
 import { roleLIst } from "../../../redux/actions/roleAction";
 import { useSelector, useDispatch } from "react-redux";
-
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 const Rolespermission = () => {
   const { id } = useParams();
@@ -17,6 +17,7 @@ const Rolespermission = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [ids, setID] = useState();
   const student = useSelector((store) => store.role.userInfo);
+  const [order , setOrder] = useState("ASC")
   // const [student, setStudent] = useState(studentInfo)
 
   const dispatch = useDispatch();
@@ -37,6 +38,49 @@ const Rolespermission = () => {
     dispatch(roleLIst());
 
   }
+ const sorting = (col) => {
+   if(order === "ASC") {
+     const sorted = [...student].sort((a,b) => 
+       a[col].toLowerCase() > b[col].toLowerCase ? 1 : -1 
+       
+       );
+       setFilteredData(sorted)
+       setOrder("DSC")
+   }
+   if(order === "ASC") {
+    const sorted = [...student].sort((a,b) => 
+      a[col].toLowerCase() > b[col].toLowerCase ? 1 : -1 
+      
+      );
+      setFilteredData(sorted)
+      setOrder("DSC")
+  }
+ }
+
+  const sortString = (str1, str2) => {
+    let s1 = "",
+      s2 = "";
+    if (str1 === str2) {
+      return true;
+    }
+    if (str1.length > str2.length) {
+      s1 = str1;
+      s2 = str2;
+    } else {
+      s1 = str2;
+      s2 = str1;
+    }
+    let i = 0;
+    while (s1.charCodeAt(i) === s2.charCodeAt(i) && i < s1.length) i++;
+    if (str1.length > str2.length) {
+      return s1.charCodeAt(i) - s2.charCodeAt(i);
+    } else if (i < s2.length) {
+      return s2.charCodeAt(i) - s1.charCodeAt(i);
+    } else {
+      return true;
+    }
+  };
+
 
   const pages = [];
   for (let i = 1; i <= Math.ceil(student.length / itemsPerPage); i++) {
@@ -169,6 +213,7 @@ const Rolespermission = () => {
     // setStudent(newstudent);
   };
 
+
   return (
     <div >
       <Alert message="delete the Role and Permission" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id) => handleDelete(id)} id={ids} />
@@ -200,19 +245,18 @@ const Rolespermission = () => {
             </div>
             <div class="col-sm-6">
               <div className="pos">
-                <button
+                {/* <button
                   className="btn btn-outline-success float-right"
                   type="submit"
-                >
-                  <Link to="/">
-                    <img
-                      className="export_image"
-                      src="images/Export.png"
-                      alt="logo"
-                    />
-                  </Link>
-                  Export
-                </button>
+                > */}
+                  <ReactHTMLTableToExcel
+                    id="test-table-xls-button"
+                    className="btn float-right"
+                    table="table-to-xls"
+                    filename="tablexls"
+                    sheet="tablexls"
+                    buttonText="Export"/>
+                {/* </button> */}
                 <button
                   className="btn btn-outline-success float-right"
                   type="submit"
@@ -238,13 +282,14 @@ const Rolespermission = () => {
             </div>
           </div>
         </div>
-        <table class="role-header">
+
+        <table class="role-header"  id="table-to-xls">
           <tr>
             <th>
               ID <img src="images/Sort.png" alt="logo" />
             </th>
             <th>
-              Role Name <img src="images/Sort.png" alt="logo" />
+              Role Name <img onClick={sortString()} src="images/Sort.png" alt="logo" />
             </th>
             <th>
               User Count <img src="images/Sort.png" alt="logo" />
@@ -254,7 +299,7 @@ const Rolespermission = () => {
           {searchQuery.length > 0 ? filteredData.map((students, i) => {
             return (
               <tr>
-                <td class="geeks">{i + 1}</td>
+                <td class="geeks">{students.Id}</td>
                 <td>{students.RoleName}</td>
                 <td>{students.UserCount}</td>
                 <td >
@@ -272,7 +317,7 @@ const Rolespermission = () => {
           }) : currentItem.map((students, i) => {
             return (
               <tr>
-                <td class="geeks">{i + 1}</td>
+                <td class="geeks">{students.Id}</td>
                 <td>{students.RoleName}</td>
                 <td>{students.UserCount}</td>
                 <td >

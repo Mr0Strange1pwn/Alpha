@@ -2,20 +2,12 @@ import React, { useState } from "react";
 import "./addRole.css";
 import AddRolePermission from "../../common/AddRolePermission";
 import Header from "../Header/Header";
+import { AddRoleAPI } from "../../../redux/actions/roleAction";
+import { useSelector, useDispatch } from "react-redux";
 
 function AddRole() {
   const [roleName, setRoleName] = useState();
   const [selectedValue, setValue] = useState({
-    // "Create Role": "",
-    // "Manage Role": "",
-    // "Create Employee": "",
-    // "Manage Employee": "",
-    // "Create Project": "",
-    // "Create Task": "",
-    // "Create Project Board": "",
-    // "Assign Task": "",
-    //  Reports: "",
-   
   roleName: "",
   createRole: "",
   manageRole: "",
@@ -27,13 +19,16 @@ function AddRole() {
   createProjectBoard: "",
   reports: ""
   });
-
+  const dispatch = useDispatch();
+  const auth = useSelector((store) => store);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValue({ ...selectedValue, [name]: value });
   };
   const handleSubmit = () => {
     console.log("roleName", selectedValue);
+    dispatch(AddRoleAPI(selectedValue));
+
   };
   return (
     <div className="conatiner">
@@ -50,7 +45,6 @@ function AddRole() {
             name="roleName"
             // onChange={(event) => setRoleName(event.target.value)}
             onChange={handleChange}
-            
             placeholder="Enter role name"
           />
         </div>
