@@ -20,11 +20,11 @@ const ExampleCustomInput = ({ value, onClick }) => {
         onClick={(e) => onClick(e.preventDefault())}
         value={value}
         style={{
-          backgroundImage: "url(images/calendar.png)",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "right",
-          backgroundOrigin: "content-box",
-          padding: "10px",
+              backgroundImage: "url(images/calendar.png)",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "right",
+              backgroundOrigin: "content-box",
+              padding: "10px",
         }}
       />
     </div>
@@ -175,7 +175,11 @@ console.log("role, ", details.role)
                 onChange={e => handleValueChange(e)}
               >
                 <option selected>Choose Designation</option>
-                <option value="1">Developer</option>
+                <option value="1" ><div><input
+                class="form-check-input" type="checkbox"
+                id="flexCheckChecked"
+              
+              /></div> </option>
                 <option value="2">Tester</option>
                 <option value="3">Designer</option>
               </select>

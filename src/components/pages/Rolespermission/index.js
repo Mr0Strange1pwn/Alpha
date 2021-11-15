@@ -8,6 +8,7 @@ import Alert from "../../common/Alert";
 import { roleLIst } from "../../../redux/actions/roleAction";
 import { useSelector, useDispatch } from "react-redux";
 import { CSVLink } from "react-csv";
+import Modal from "./../../common/Model";
 
 const Rolespermission = () => {
   const { id } = useParams();
@@ -16,19 +17,15 @@ const Rolespermission = () => {
   const [search, setSearch] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [ids, setID] = useState();
-  const student = useSelector((store) => store.role.userInfo);
-  const [order , setOrder] = useState("ASC")
-  // const [student, setStudent] = useState(studentInfo)
-
-  const dispatch = useDispatch();
-
-  console.log("student", student)
+  const student = useSelector((store) => store.role.userInfo); 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemPerPage] = useState(5);
   const [pageNumberLimit, setpageNumberLimit] = useState(5);
   const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
   const [filteredData, setFilteredData] = useState([])
+  const [isOpenFilter, setIsOpenFilter] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     roleData()
@@ -38,48 +35,6 @@ const Rolespermission = () => {
     dispatch(roleLIst());
 
   }
- const sorting = (col) => {
-   if(order === "ASC") {
-     const sorted = [...student].sort((a,b) => 
-       a[col].toLowerCase() > b[col].toLowerCase ? 1 : -1 
-       
-       );
-       setFilteredData(sorted)
-       setOrder("DSC")
-   }
-   if(order === "ASC") {
-    const sorted = [...student].sort((a,b) => 
-      a[col].toLowerCase() > b[col].toLowerCase ? 1 : -1 
-      
-      );
-      setFilteredData(sorted)
-      setOrder("DSC")
-  }
- }
-
-  const sortString = (str1, str2) => {
-    let s1 = "",
-      s2 = "";
-    if (str1 === str2) {
-      return true;
-    }
-    if (str1.length > str2.length) {
-      s1 = str1;
-      s2 = str2;
-    } else {
-      s1 = str2;
-      s2 = str1;
-    }
-    let i = 0;
-    while (s1.charCodeAt(i) === s2.charCodeAt(i) && i < s1.length) i++;
-    if (str1.length > str2.length) {
-      return s1.charCodeAt(i) - s2.charCodeAt(i);
-    } else if (i < s2.length) {
-      return s2.charCodeAt(i) - s1.charCodeAt(i);
-    } else {
-      return true;
-    }
-  };
 
  const applyshortRoleName = ()=>{
    if(searchQuery.length > 0 ){
@@ -191,11 +146,7 @@ const Rolespermission = () => {
   if (minPageNumberLimit >= 1) {
     pageDecrementBtn = <li onClick={handlePrevbtn}> &hellip; </li>;
   }
-  //  className={currentPage == number ? "active" : null}
 
-  // useEffect(() => {
-  //   getAllStudent();
-  // }, []);
 
   useEffect(() => {
     if (searchQuery.length > 0) {
@@ -249,6 +200,79 @@ const Rolespermission = () => {
   return (
     <div >
       <Alert message="delete the Role and Permission" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id) => handleDelete(id)} id={ids} />
+      <Modal open={isOpenFilter} onClose={() => setIsOpenFilter(false)}>
+        <div style={{ marginTop: "4%" }}>
+          <div style={{ textAlignLast: "center" }}>
+            <h4 style={{ fontWeight: "700" }}>Edit Designation</h4>
+          </div>
+          <div style={{ margin: "auto", width: "70%" }}>
+          <div className="row">
+            <div className="col">
+              <label class="form-check-label reg-lable" for="exampleCheck1">
+                Role Name
+              </label>
+
+              <select
+                class="form-select"
+                id="inputGroupSelect03"
+                aria-label="Example select with button addon"
+                name="manager"
+              >
+                <option selected>Choose Role Name</option>
+                <option value="1">Manager</option>
+                <option value="2">Assistant Manager</option>
+                <option value="3">Developer</option>
+                <option value="2">Tester</option>
+                <option value="3">Designer</option>
+              </select>
+            </div>
+
+            <div className="col">
+              <label class="form-check-label reg-lable" for="exampleCheck1">
+                Screenshot Recurrence(in Min)
+              </label>
+              <select
+                class="form-select"
+                id="inputGroupSelect03"
+                aria-label="Example select with button addon"
+                name="screenshot"
+                // value={details.screenshot}
+                // onChange={e => handleValueChange(e)}
+              >
+                <option selected>Choose ScreenShot</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+          </div>
+
+            <div
+              className="modalButton"
+              style={{ marginTop: "5%", marginBottom: "5%" }}
+            >
+              <button
+                type="button"
+                className="btn"
+                style={{ backgroundColor: "#003366", color: "white" }}
+                type="submit"
+              >
+                Save
+              </button>
+              <span> </span>
+              <button
+                type="button"
+                className="btn"
+                style={{ backgroundColor: " #717171", color: "white" }}
+                type="submit"
+                onClick={() => setIsOpenFilter(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </Modal>
       <Header headerName="Role and Permissions" />
       <div className="main">
         <div style={{ marginTop: "4%" }}>
@@ -277,16 +301,19 @@ const Rolespermission = () => {
             </div>
             <div class="col-sm-6">
               <div className="pos">
-                {/* <button
-                  className="btn btn-outline-success float-right"
+                <button
+                  className="btn float-right"
                   type="submit"
-                > */}
-                <CSVLink data={student.length > 0 ? student: []} filename={"my-saved.csv"}  className="btn btn-outline-success float-right">Export</CSVLink>
+                  style={{textDecoration:"none!important"}}
+                >
+                <CSVLink data={student.length > 0 ? currentItem: []} filename={"my-saved.csv"}  className="btn">Export</CSVLink>
+                </button>
                 <button
                   className="btn btn-outline-success float-right"
                   type="submit"
+                  onClick={() =>setIsOpenFilter(!isOpenFilter)}
                 >
-                  <Link to="/">
+                  <Link >
                     <img
                       className="filter_image"
                       src="images/Filter.png"
@@ -294,6 +321,7 @@ const Rolespermission = () => {
                     />
                   </Link>
                   Filter
+
                 </button>
                 <button
                   className="btn btn-outline-success float-right"
