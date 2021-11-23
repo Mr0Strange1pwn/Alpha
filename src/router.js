@@ -55,7 +55,6 @@ const Routes = () => {
     if (userData) {
       dispatch({ type: "LOG_IN", payload: userData });
     }
-    //
   }, [])
 
   const btnStyle = {
@@ -133,7 +132,7 @@ const Routes = () => {
           <Route exact path="/">
             <Login />
           </Route>
-          <Route exact path="/resetPassword">
+          <Route exact path="/resetPassword/:token">
             <ResetPassword />
           </Route>
           <Route path="/forgetpassword">

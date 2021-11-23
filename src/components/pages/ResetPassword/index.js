@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./resetPassword.css";
-import { useHistory,useLocation } from "react-router-dom";
+import { useHistory,useLocation, useParams } from "react-router-dom";
 import { Post } from "../../../Utils/JSONUtils";
 import {  reset } from "../../../redux/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,19 +12,20 @@ import {
 
 function ResetPassword() {
   const location = useLocation();
-  const { useremail } = location.state
+  // const { useremail } = location.state
   const [values, setValues] = useState({
     password: "",
     newpassword: "",
     showPassword: false,
     newshowPassword: false,
   });
-
+const { token } =useParams();
+console.log(token)
   const { push } = useHistory();
   const auth = useSelector((store) => store);
   const dispatch = useDispatch();
   const [errors, setErrors] = useState(false);
-  const [userEmail, setuserEmail] = useState("");
+  // const [userEmail, setuserEmail] = useState("");
   const [isEmailvalid, setIsEmailvalid] = useState(true);
   const [ispasswordValid, setisPasswordValid] = useState(true);
 
@@ -47,7 +48,7 @@ function ResetPassword() {
   };
   const handleLogin = () => {
     const resData = {
-      email: useremail,
+      // email: useremail,
       password: values.password,
       confirmPassword: values.newpassword
     }
