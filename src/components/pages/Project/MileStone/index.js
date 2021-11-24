@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./milestone.css";
-import axios from "axios";
-import { Link, useParams, useHistory } from "react-router-dom";
+import {  useParams, useHistory } from "react-router-dom";
 import Modal from "../../../common/Model";
 import DatePicker from "react-datepicker";
 import Alert from "../../../common/Alert";
@@ -28,8 +27,7 @@ const ExampleCustomInput = ({ value, onClick }) => {
 };
 
 const MileStone = (props) => {
-  const { id } = useParams();
-  const [student, setStudent] = useState([]);
+
   const [modalOpen, setModalOpen] = useState(false);
   const [ids, setID] = useState();
   const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +37,6 @@ const MileStone = (props) => {
   const [data, setData] = useState([]);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [isEditItem, setIsEditItem] = useState();
-  const [inputData, setInputData] = useState("");
   const [showError, SetError] = useState(false);
   const [item, setItem] = useState({
     id: "",
@@ -64,18 +61,17 @@ const MileStone = (props) => {
   const handleSave = () => {
     SetError(true);
     if (item.name && item.status && item.amount) {
-      console.log("item", item);
-      const newData = {
-        id: new Date().getTime().toString(),
-        item,
-      };
+      // const newData = {
+      //   id: new Date().getTime().toString(),
+      //   item,
+      // };
       setData([...data, item]);
       setIsOpen(false);
     }
   };
   const handleEdit = () => {
     let newArr = data;
-    let index = data.findIndex((x) => x.id == isEditItem);
+    let index = data.findIndex((x) => x.id === isEditItem);
 
     newArr.splice(index, 1, item);
     console.log("item", newArr);
@@ -157,7 +153,7 @@ const MileStone = (props) => {
                   onChange={(value) => setSearchQuery(value.target.value)}
                   style={{
                     backgroundImage:
-                      search == false ? "url(images/Search.png)" : "",
+                      search === false ? "url(images/Search.png)" : "",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "right",
                     backgroundOrigin: "content-box",
@@ -256,7 +252,6 @@ const MileStone = (props) => {
                     type="button"
                     className="btn"
                     style={{ backgroundColor: "#003366", color: "white" }}
-                    type="submit"
                     onClick={() => handleEdit()}
                   >
                     Save
@@ -266,7 +261,6 @@ const MileStone = (props) => {
                     type="button"
                     className="btn"
                     style={{ backgroundColor: " #717171", color: "white" }}
-                    type="submit"
                     onClick={() => setIsOpenEdit(false)}
                   >
                     Cancel
@@ -367,7 +361,6 @@ const MileStone = (props) => {
                     type="button"
                     className="btn"
                     style={{ backgroundColor: "#003366", color: "white" }}
-                    type="submit"
                     onClick={() => handleSave()}
                   >
                     Save
@@ -377,7 +370,6 @@ const MileStone = (props) => {
                     type="button"
                     className="btn"
                     style={{ backgroundColor: " #717171", color: "white" }}
-                    type="submit"
                     onClick={() => setIsOpen(false)}
                   >
                     Cancel
@@ -387,8 +379,7 @@ const MileStone = (props) => {
             </div>
           </Modal>
         </div>
-        
-          {}
+   
           <table class="mile-header">
             <tr>
               <th>

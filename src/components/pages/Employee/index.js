@@ -39,7 +39,7 @@ const Employee = () => {
           key={number}
           id={number}
           onClick={handleNewClick}
-          className={currentPage == number ? "active" : null}
+          className={currentPage === number ? "active" : null}
         >
           {number}
         </li>
@@ -70,7 +70,7 @@ const Employee = () => {
   const handlePrevbtn = () => {
     setCurrentPage(currentPage - 1);
 
-    if ((currentPage - 1) % pageNumberLimit == 0) {
+    if ((currentPage - 1) % pageNumberLimit === 0) {
       setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
       setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
     }
@@ -166,7 +166,7 @@ const Employee = () => {
                     onChange={(value) => setSearchQuery(value.target.value)}
                     style={{
                       backgroundImage:
-                        search == false ? "url(images/Search.png)" : "",
+                        search === false ? "url(images/Search.png)" : "",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "right",
                       backgroundOrigin: "content-box",
@@ -282,7 +282,7 @@ const Employee = () => {
             <li>
               <button
                 onClick={handlePrevbtn}
-                disabled={currentPage == pages[0] ? true : false}
+                disabled={currentPage === pages[0] ? true : false}
               >
                 Previous
               </button>
@@ -294,7 +294,7 @@ const Employee = () => {
             <li>
               <button
                 onClick={handleNextbtn}
-                disabled={currentPage == pages[pages.length - 1] ? true : false}
+                disabled={currentPage === pages[pages.length - 1] ? true : false}
               >
                 Next
               </button>

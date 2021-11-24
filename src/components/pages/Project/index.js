@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./createprojet.css";
 import Header from "../Header/Header";
-import Task from "./Task"
-import MileStone from "./MileStone"
-import {  useHistory} from "react-router-dom";
+import Task from "./Task";
+import MileStone from "./MileStone";
+import { useHistory } from "react-router-dom";
 
 const CreateProject = () => {
   const [projectInfo, setProjectInfo] = useState(false);
   const [Items, setItems] = useState([]);
   const [showError, SetError] = useState(false);
-  const [mileStone, setMileStone ] = useState(false)
-  const [task, setTask] =useState(false)
+  const [mileStone, setMileStone] = useState(false);
+  const [task, setTask] = useState(false);
   const [projectDetails, setDetails] = useState({
     name: "",
     projectType: "",
@@ -21,7 +21,7 @@ const CreateProject = () => {
     perhourcost: "",
   });
   const history = useHistory();
- 
+
   const handleChange = (e) => {
     setDetails({ ...projectDetails, [e.target.name]: e.target.value });
   };
@@ -36,11 +36,11 @@ const CreateProject = () => {
   };
 
   const handleTask = () => {
-    setTask(!task)
-    setProjectInfo(false)
-    let path = `./Task`; 
+    setTask(!task);
+    setProjectInfo(false);
+    let path = `./Task`;
     history.push(path);
-  }
+  };
   const handleCreate = () => {
     SetError(true);
     if (
@@ -57,16 +57,16 @@ const CreateProject = () => {
       <Header headerName="Create Project" />
       <div className="main">
         <div>
-          <div class="project-container">
-            <div class="row">
+          <div className="project-container">
+            <div className="row">
               <div className="col" style={{ display: "flex" }}>
                 <img
                   src="images/Project-info-icon.png"
                   alt="Project-info-icon"
-                  style={{ padding: "8px",marginLeft:"1%" }}
+                  style={{ padding: "8px", marginLeft: "1%" }}
                 />
                 <label
-                  class="form-check-label reg-lable"
+                  className="form-check-label reg-lable"
                   for="exampleCheck1"
                   style={{
                     marginLeft: "10px",
@@ -80,7 +80,7 @@ const CreateProject = () => {
               <div className="col" style={{ display: "contents" }}>
                 <img
                   src={
-                    projectInfo == true
+                    projectInfo === true
                       ? "images/downicon.png"
                       : "images/forwardicon.png"
                   }
@@ -91,14 +91,14 @@ const CreateProject = () => {
               </div>
             </div>
           </div>
-          {projectInfo == true ? (
+          {projectInfo === true ? (
             <div className="project-card">
               <div className="card-body">
                 <form>
                   <div className="row">
                     <div className="col">
                       <label
-                        class="form-check-label reg-lable"
+                        className="form-check-label reg-lable"
                         for="exampleCheck1"
                       >
                         Project Name
@@ -113,7 +113,7 @@ const CreateProject = () => {
                             : null,
                         }}
                         type="text"
-                        class="form-control"
+                        className="form-control"
                         placeholder="Enter Project Name"
                         name="name"
                         value={projectDetails.name}
@@ -123,7 +123,7 @@ const CreateProject = () => {
 
                     <div className="col">
                       <label
-                        class="form-check-label reg-lable"
+                        className="form-check-label reg-lable"
                         for="exampleCheck1"
                       >
                         Project Type
@@ -137,7 +137,7 @@ const CreateProject = () => {
                               : null
                             : null,
                         }}
-                        class="form-select"
+                        className="form-select"
                         id="inputGroupSelect03"
                         aria-label="Example select with button addon"
                         name="projectType"
@@ -152,9 +152,9 @@ const CreateProject = () => {
                   </div>
 
                   <div className="row">
-                    <div class="form-group">
+                    <div className="form-group">
                       <label
-                        class="form-check-label reg-lable"
+                        className="form-check-label reg-lable"
                         for="exampleCheck1"
                       >
                         Project Description
@@ -167,7 +167,7 @@ const CreateProject = () => {
                               : null
                             : null,
                         }}
-                        class="form-control"
+                        className="form-control"
                         rows="3"
                         name="description"
                         value={projectDetails.description}
@@ -179,7 +179,7 @@ const CreateProject = () => {
                   <div className="row">
                     <div className="col-md-6">
                       <label
-                        class="form-check-label reg-lable"
+                        className="form-check-label reg-lable"
                         for="exampleCheck1"
                       >
                         Assigned To
@@ -194,7 +194,7 @@ const CreateProject = () => {
                               : null
                             : null,
                         }}
-                        class="form-select"
+                        className="form-select"
                         id="inputGroupSelect03"
                         aria-label="Example select with button addon"
                         name="assignedTo"
@@ -208,10 +208,10 @@ const CreateProject = () => {
                       </select>
                     </div>
 
-                    {projectDetails.projectType == "1" ? (
+                    {projectDetails.projectType === "1" ? (
                       <div className="col-md-6">
                         <label
-                          class="form-check-label reg-lable"
+                          className="form-check-label reg-lable"
                           for="exampleCheck1"
                         >
                           Project Category
@@ -226,7 +226,7 @@ const CreateProject = () => {
                                 : null
                               : null,
                           }}
-                          class="form-select"
+                          className="form-select"
                           id="inputGroupSelect03"
                           aria-label="Example select with button addon"
                           name="category"
@@ -239,21 +239,19 @@ const CreateProject = () => {
                         </select>
                       </div>
                     ) : null}
-                    
                   </div>
 
-                  {projectDetails.projectType == "1" ? (
-                    projectDetails.category == "1" ? (
+                  {projectDetails.projectType === "1" ? (
+                    projectDetails.category === "1" ? (
                       <div className="row">
                         <div className="col-md-6">
                           <label
-                            class="form-check-label reg-lable"
+                            className="form-check-label reg-lable"
                             for="exampleCheck1"
                           >
                             Per Hour Cost
-                            
                           </label>
-                        {/* <div style={{display:"flex"}}> */}
+                          {/* <div style={{display:"flex"}}> */}
                           <input
                             style={{
                               backgroundColor: "white",
@@ -264,7 +262,7 @@ const CreateProject = () => {
                                 : null,
                             }}
                             type="text"
-                            class="form-control"
+                            className="form-control"
                             placeholder="Per hour cost in INR"
                             name="perhourcost"
                             value={projectDetails.perhourcost}
@@ -275,7 +273,7 @@ const CreateProject = () => {
                         </div>
                         <div className="col-md-6">
                           <label
-                            class="form-check-label reg-lable"
+                            className="form-check-label reg-lable"
                             for="exampleCheck1"
                           >
                             Weekly Hour
@@ -291,7 +289,7 @@ const CreateProject = () => {
                                 : null,
                             }}
                             type="text"
-                            class="form-control"
+                            className="form-control"
                             placeholder="Enter hour"
                             name="weekelyhour"
                             value={projectDetails.weekelyhour}
@@ -301,97 +299,93 @@ const CreateProject = () => {
                       </div>
                     ) : null
                   ) : null}
-
                 </form>
               </div>
             </div>
           ) : (
             ""
           )}
-        
         </div>
 
-
-<div>
-  {projectDetails.category == "2"?
-  <div class="project-container">
-            <div class="row">
-              <div className="col" style={{ display: "flex" }}>
-                <img
-                  src="images/mstone.png"
-                  alt="Project-info-icon"
-                  style={{ padding: "3px",marginLeft:"1%" }}
-                />
-                <label
-                  class="form-check-label reg-lable"
-                  for="exampleCheck1"
-                  style={{
-                    marginLeft: "10px",
-                    color: "white",
-                    marginRight: "10px",
-                  }}
-                >
-                  Project Milestone
-                </label>
-              </div>
-              <div className="col" style={{ display: "contents" }}>
-                <img
-                  src={
-                    mileStone == true
-                      ? "images/downicon.png"
-                      : "images/forwardicon.png"
-                  }
-                  onClick={handleMileStone}
-                  style={{  marginRight: "2%", padding: "10px" }}
-                  alt="Project-info-icon"
-                />
+        <div>
+          {projectDetails.category === "2" ? (
+            <div className="project-container">
+              <div className="row">
+                <div className="col" style={{ display: "flex" }}>
+                  <img
+                    src="images/mstone.png"
+                    alt="Project-info-icon"
+                    style={{ padding: "3px", marginLeft: "1%" }}
+                  />
+                  <label
+                    className="form-check-label reg-lable"
+                    for="exampleCheck1"
+                    style={{
+                      marginLeft: "10px",
+                      color: "white",
+                      marginRight: "10px",
+                    }}
+                  >
+                    Project Milestone
+                  </label>
+                </div>
+                <div className="col" style={{ display: "contents" }}>
+                  <img
+                    src={
+                      mileStone == true
+                        ? "images/downicon.png"
+                        : "images/forwardicon.png"
+                    }
+                    onClick={handleMileStone}
+                    style={{ marginRight: "2%", padding: "10px" }}
+                    alt="Project-info-icon"
+                  />
+                </div>
               </div>
             </div>
-          </div>  : null
-          
-}
+          ) : null}
 
-{mileStone == true ?  <MileStone />:null}
+          {mileStone === true ? <MileStone /> : null}
 
-{projectDetails.projectType == "2"?
-  <div class="project-container">
-  <div class="row">
-    <div className="col" style={{ display: "flex" }}>
-      <img
-        src="images/Tasks.png"
-        alt="Project-info-icon"
-        style={{ padding: "8px",marginLeft:"1%" }}
-      />
-      <label
-        class="form-check-label reg-lable"
-        for="exampleCheck1"
-        style={{
-          marginLeft: "10px",
-          color: "white",
-          marginRight: "10px",
-        }}
-      >
-        Task
-      </label>
-    </div>
-    <div className="col" style={{ display: "contents" }}>
-      <img
-        src={
-          task == true
-            ? "images/downicon.png"
-            : "images/forwardicon.png"
-        }
-        onClick={handleTask}
-        style={{ marginRight: "2%", padding: "10px" }}
-        alt="Project-info-icon"
-      />
-    </div>
-  </div>
-  </div>:null
-}
+          {projectDetails.projectType === "2" ? (
+            <div className="project-container">
+              <div className="row">
+                <div className="col" style={{ display: "flex" }}>
+                  <img
+                    src="images/Tasks.png"
+                    alt="Project-info-icon"
+                    style={{ padding: "8px", marginLeft: "1%" }}
+                  />
+                  <label
+                    className="form-check-label reg-lable"
+                    for="exampleCheck1"
+                    style={{
+                      marginLeft: "10px",
+                      color: "white",
+                      marginRight: "10px",
+                    }}
+                  >
+                    Task
+                  </label>
+                </div>
+                <div className="col" style={{ display: "contents" }}>
+                  <img
+                    src={
+                      task === true
+                        ? "images/downicon.png"
+                        : "images/forwardicon.png"
+                    }
+                    onClick={handleTask}
+                    style={{ marginRight: "2%", padding: "10px" }}
+                    alt="Project-info-icon"
+                  />
+                </div>
+              </div>
+            </div>
+          ) : null}
 
-{/* {task==true?<Task task={true}/>:null} */}
-</div>
+          {/* {task==true?<Task task={true}/>:null} */}
+        </div>
         <div className="d-grid gap-2 d-md-block">
           <div className="addrole_Button">
             <button
@@ -411,7 +405,5 @@ const CreateProject = () => {
     </div>
   );
 };
-
-
 
 export default CreateProject;

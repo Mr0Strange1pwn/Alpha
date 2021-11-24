@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import "./Registration.css";
-import Header from "../../Header/Header";
 import Upload from "./Upload";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -42,17 +41,13 @@ function Registration() {
     screenshot:""
   });
   const [showError, setShowError] = useState(false)
-  const { page, backpackClick, userData, currentStep, setUserData, setFinalData, setCurrentStep } = useContext(Multistepcontext)
+  const { backpackClick, setCurrentStep } = useContext(Multistepcontext)
   const history = useHistory();
   const routeChange = () => {
     let path = `./Employee`;
     history.push(path);
   }
-  const ytnStyle = {
-    backgroundColor: "blue",
-    backgroundImage: "linear-gradient(45deg, black, transparent)",
-  };
-
+ 
   const handleValueChange = (e) => {   
     setDetails({ ...details, [e.target.name]: e.target.value })
   }

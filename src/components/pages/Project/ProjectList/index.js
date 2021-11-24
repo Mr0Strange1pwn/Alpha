@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ProjectList.css";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import Header from "./../../Header/Header";
 import Alert from "../../../common/Alert";
@@ -29,15 +29,13 @@ const ExampleCustomInput = ({ value, onClick }) => {
 };
 
 const ProjectList = () => {
-  const { id } = useParams();
+
   const [student, setStudent] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [search, setSearch] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
-  const [isOpen, setIsOpen] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
-
   const [ids, setID] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemPerPage] = useState(5);
@@ -75,7 +73,7 @@ const ProjectList = () => {
           key={number}
           id={number}
           onClick={handleNewClick}
-          className={currentPage == number ? "active" : null}
+          className={currentPage === number ? "active" : null}
         >
           {number}
         </li>
@@ -97,7 +95,7 @@ const ProjectList = () => {
   const handlePrevbtn = () => {
     setCurrentPage(currentPage - 1);
 
-    if ((currentPage - 1) % pageNumberLimit == 0) {
+    if ((currentPage - 1) % pageNumberLimit === 0) {
       setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
       setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
     }
@@ -167,17 +165,17 @@ const ProjectList = () => {
     setModalOpen(false);
   };
 
-  const editItems = (id, e) => {
-    e.preventDefault();
-    setIsOpenEdit(true);
-    // let newEditItem = data.find((elem) => {
-    //   return elem.id === id;
-    // });
-    // console.log(newEditItem);
-    // setItem(newEditItem);
-    // setIsEditItem(id);
-    // setToggleSubmit(false);
-  };
+  // const editItems = (id, e) => {
+  //   e.preventDefault();
+  //   setIsOpenEdit(true);
+  //   // let newEditItem = data.find((elem) => {
+  //   //   return elem.id === id;
+  //   // });
+  //   // console.log(newEditItem);
+  //   // setItem(newEditItem);
+  //   // setIsEditItem(id);
+  //   // setToggleSubmit(false);
+  // };
 
   return (
     <div className="header">
@@ -264,8 +262,6 @@ const ProjectList = () => {
                 type="button"
                 className="btn"
                 style={{ backgroundColor: "#003366", color: "white" }}
-                type="submit"
-                // onClick={() => handleEdit()}
               >
                 Save
               </button>
@@ -274,7 +270,6 @@ const ProjectList = () => {
                 type="button"
                 className="btn"
                 style={{ backgroundColor: " #717171", color: "white" }}
-                type="submit"
                 onClick={() => setIsOpenEdit(false)}
               >
                 Cancel
@@ -298,7 +293,7 @@ const ProjectList = () => {
                     onChange={(value) => setSearchQuery(value.target.value)}
                     style={{
                       backgroundImage:
-                        search == false ? "url(images/Search.png)" : "",
+                        search === false ? "url(images/Search.png)" : "",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "right",
                       backgroundOrigin: "content-box",
@@ -411,7 +406,7 @@ const ProjectList = () => {
             <li>
               <button
                 onClick={handlePrevbtn}
-                disabled={currentPage == pages[0] ? true : false}
+                disabled={currentPage === pages[0] ? true : false}
               >
                 Previous
               </button>
@@ -423,7 +418,7 @@ const ProjectList = () => {
             <li>
               <button
                 onClick={handleNextbtn}
-                disabled={currentPage == pages[pages.length - 1] ? true : false}
+                disabled={currentPage === pages[pages.length - 1] ? true : false}
               >
                 Next
               </button>

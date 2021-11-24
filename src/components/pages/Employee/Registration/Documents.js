@@ -49,7 +49,7 @@ const Documents = () => {
           key={number}
           id={number}
           onClick={handleNewClick}
-          className={currentPage == number ? "active" : null}
+          className={currentPage === number ? "active" : null}
         >
           {number}
         </li>
@@ -219,36 +219,6 @@ const Documents = () => {
 
           {currentItem.map((items, i) => {
             return (
-              // <div class="doccontainer">
-              //   <div class="row role-row" key={i}>
-              //     <div class="col">
-              //       <p>File-{items.id}.pdf</p>
-              //     </div>
-              //     <div class="col">
-              //       <p
-              //         style={{ color: "#f07238", textDecoration: "underline" }}
-              //       >
-              //         Link
-              //       </p>
-              //     </div>
-
-              //     <div class="col">
-              //       <button
-              //         className="dustbin_image"
-              //         onClick={() => delAlert(items.id)}
-              //       >
-              //         <img src="images/Del.png" alt="logo" />
-              //       </button>
-              //       <Link to={`/view/${items.id}`}>
-              //         <img
-              //           className="dustbin_image"
-              //           src="images/Edit.png"
-              //           alt="logo"
-              //         />
-              //       </Link>
-              //     </div>
-              //   </div>
-              // </div>
               <tr>
                 <td class="geeks">File-{items.id}.pdf</td>
                 <td> Link</td>
@@ -285,7 +255,7 @@ const Documents = () => {
             <li>
               <button
                 onClick={handlePrevbtn}
-                disabled={currentPage == pages[0] ? true : false}
+                disabled={currentPage === pages[0] ? true : false}
               >
                 Previous
               </button>

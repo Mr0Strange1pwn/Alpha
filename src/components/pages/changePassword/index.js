@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./changePassword.css";
-import { useHistory } from "react-router-dom";
-import { Post } from "../../../Utils/JSONUtils";
+import { useHistory } from "react-router-dom"
 import { change } from "../../../redux/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  emailValidator,
   passwordValidator,
 } from "../../../Utils/fieldValidator";
 
@@ -18,16 +16,12 @@ function ChangePassword() {
     newshowPassword: false,
     showCurrentPassword: false,
   });
-  const { push } = useHistory();
+
   const auth = useSelector((store) => store);
   const dispatch = useDispatch();
-  console.log("storeuser@example.comuser@example.com", auth);
   const [errors, setErrors] = useState(false);
-  const [userEmail, setuserEmail] = useState("");
-  const [isEmailvalid, setIsEmailvalid] = useState(true);
   const [ispasswordValid, setisPasswordValid] = useState(true);
   const [loginmail, setLoginmail] =useState()
-  console.log("loginmail",loginmail)
   useEffect(() => {
     let data = JSON.parse(localStorage.getItem("userData"))
     setLoginmail(data.email)
@@ -79,7 +73,7 @@ function ChangePassword() {
           <img className="logo" src="images/logo.png" alt="logo" />
           <h4>CHANGE PASSWORD</h4>
           <form style={{ marginTop: "8%" }}>
-            <label class="form-check-label" for="exampleCheck1">
+            <label className="form-check-label" for="exampleCheck1">
               Current Password
             </label>
             <div
@@ -105,11 +99,12 @@ function ChangePassword() {
               <button onClick={() => handleClickShowCurrentPassword()} type="button" style={{ border: "none", backgroundColor: "transparent" }}>
                 <img
                   src={
-                    values.showCurrentPassword == true
+                    values.showCurrentPassword === true
                       ? "images/Eye.png"
                       : "images/Eye-blue.png"
                   }
                   style={{ marginRight: "2px" }}
+                  alt="logo"
                 />
               </button>
             </div>
@@ -121,7 +116,7 @@ function ChangePassword() {
 
             {/* New Passwor */}
 
-            <label class="form-check-label" for="exampleCheck1">
+            <label className="form-check-label" for="exampleCheck1">
               New Password
             </label>
             <div
@@ -152,7 +147,7 @@ function ChangePassword() {
               >
                 <img
                   src={
-                    values.newshowPassword == true
+                    values.newshowPassword === true
                       ? "images/Eye.png"
                       : "images/Eye-blue.png"
                   }
@@ -169,7 +164,7 @@ function ChangePassword() {
             {/* {!ispasswordValid ? <p style={{ color: "red" }}>password must contain atlest 1 chapital letter and spacial characters </p> : null} */}
 
             {/* New Password */}
-            <label class="form-check-label" for="exampleCheck1">
+            <label className="form-check-label" for="exampleCheck1">
               Confirm Password
             </label>
             <div
@@ -200,7 +195,7 @@ function ChangePassword() {
               >
                 <img
                   src={
-                    values.showPassword == true
+                    values.showPassword === true
                       ? "images/Eye.png"
                       : "images/Eye-blue.png"
                   }
@@ -221,11 +216,11 @@ function ChangePassword() {
             ) : null}
           </form>
 
-          <div class="update-password-btn">
+          <div className="update-password-btn">
 <button
             onClick={() => handleLogin()}
             type="button"
-            class="btn btn-lg"
+            className="btn btn-lg"
             style={{
               backgroundColor: "#003366",
               color: "white",

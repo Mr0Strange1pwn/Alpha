@@ -1,16 +1,15 @@
-import React, { useState, useContext } from "react";
-import { Stepper, Step, stepClassName } from "react-form-stepper";
+import React, { useContext } from "react";
+import { Stepper, Step } from "react-form-stepper";
 import { Multistepcontext } from "./../../../StepContext";
 import Documents from "./../Employee/Registration/Documents";
 import Registration from "./../Employee/Registration";
-import Employee from "./../Employee";
 import Header from "./../Header/Header";
 import "./Stepper.css";
 import Payroll from "../Employee/Registration/Payroll";
 import JobDetails from "../Employee/Registration/JobDetails";
 
 const FirstStepper = () => {
-  const { page, currentStep, finalData, setCurrentStep } =
+  const { page, currentStep} =
     useContext(Multistepcontext);
 
   const boxstyle = {
@@ -21,9 +20,6 @@ const FirstStepper = () => {
   const boxstylehr = {
     borderTop: "3px solid #f07238",
     borderStyle: "dashed",
-  };
-  const MakeInv = {
-    display: "none",
   };
 
   const boxstyletwo = {
@@ -86,7 +82,7 @@ const FirstStepper = () => {
                     <Step
                       style={ststyle}
                       label={
-                        currentStep == 1 ? (
+                        currentStep === 1 ? (
                           <span style={{ color: "red" }}>
                             1.General Details
                           </span>
@@ -101,7 +97,6 @@ const FirstStepper = () => {
                     <div className="setper-two" style={{
                       backgroundImage: "url(images/Step2.png)",
                       backgroundRepeat: "no-repeat",
-                      backgroundPosition:"10px 10px",
                       backgroundOrigin: "content-box",
                       alignItems: "center",
                       backgroundPosition: "center"}}></div>
@@ -112,7 +107,6 @@ const FirstStepper = () => {
                     <div className="setper-three"  style={{
                       backgroundImage: "url(images/Step3.png)",
                       backgroundRepeat: "no-repeat",
-                      backgroundPosition:"10px 10px",
                       backgroundOrigin: "content-box",
                       alignItems: "center",
                       backgroundPosition: "center"}}></div>
@@ -123,7 +117,6 @@ const FirstStepper = () => {
                     <div className="setper-four"  style={{
                       backgroundImage: "url(images/Step4.png)",
                       backgroundRepeat: "no-repeat",
-                      backgroundPosition:"10px 10px",
                       backgroundOrigin: "content-box",
                       alignItems: "center",
                       backgroundPosition: "center"}} ></div>
@@ -151,7 +144,7 @@ const FirstStepper = () => {
                     <Step
                       style={ststyle}
                       label={
-                        currentStep == 2 ? (
+                        currentStep === 2 ? (
                           <span style={{ color: "red" }}>
                             1.General Details
                           </span>
@@ -167,7 +160,7 @@ const FirstStepper = () => {
                     <Step
                       style={stpstyle}
                       label={
-                        currentStep == 2 ? (
+                        currentStep === 2 ? (
                           <span style={{ color: "red" }}>2.Documents</span>
                         ) : (
                           ""
@@ -191,7 +184,6 @@ const FirstStepper = () => {
                     <div className="setper-four"  style={{
                       backgroundImage: "url(images/Step4.png)",
                       backgroundRepeat: "no-repeat",
-                      backgroundPosition:"10px 10px",
                       backgroundOrigin: "content-box",
                       alignItems: "center",
                       backgroundPosition: "center"}}></div>
@@ -219,7 +211,7 @@ const FirstStepper = () => {
                     <Step
                       style={ststyle}
                       label={
-                        currentStep == 3 ? (
+                        currentStep === 3 ? (
                           <span style={{ color: "red" }}>
                             1.General Details
                           </span>
@@ -235,7 +227,7 @@ const FirstStepper = () => {
                     <Step
                       style={stpstyle}
                       label={
-                        currentStep == 3 ? (
+                        currentStep === 3 ? (
                           <span style={{ color: "red" }}>2.Documents</span>
                         ) : (
                           ""
@@ -249,7 +241,7 @@ const FirstStepper = () => {
                     <Step
                       style={stpstyle}
                       label={
-                        currentStep == 3 ? (
+                        currentStep === 3 ? (
                           <span style={{ color: "red" }}>3.Payroll</span>
                         ) : (
                           ""
@@ -262,7 +254,6 @@ const FirstStepper = () => {
                     <div className="setper-four"  style={{
                       backgroundImage: "url(images/Step4.png)",
                       backgroundRepeat: "no-repeat",
-                      backgroundPosition:"10px 10px",
                       backgroundOrigin: "content-box",
                       alignItems: "center",
                       backgroundPosition: "center"}}></div>
@@ -290,7 +281,7 @@ const FirstStepper = () => {
                     <Step
                       style={ststyle}
                       label={
-                        currentStep == 4 ? (
+                        currentStep === 4 ? (
                           <span style={{ color: "red" }}>
                             1.General Details
                           </span>
@@ -306,7 +297,7 @@ const FirstStepper = () => {
                     <Step
                       style={stpstyle}
                       label={
-                        currentStep == 4 ? (
+                        currentStep === 4 ? (
                           <span style={{ color: "red" }}>2.Documents</span>
                         ) : (
                           ""
@@ -320,7 +311,7 @@ const FirstStepper = () => {
                     <Step
                       style={stpstyle}
                       label={
-                        currentStep == 4 ? (
+                        currentStep === 4 ? (
                           <span style={{ color: "red" }}>3.Payroll</span>
                         ) : (
                           ""
@@ -334,7 +325,7 @@ const FirstStepper = () => {
                     <Step
                       style={stpstyle}
                       label={
-                        currentStep == 4 ? (
+                        currentStep === 4 ? (
                           <span style={{ color: "red" }}>4.Job Details</span>
                         ) : (
                           ""

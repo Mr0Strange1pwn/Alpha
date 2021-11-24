@@ -10,29 +10,29 @@ import {
 } from "../../../Utils/fieldValidator";
 
 function Login() {
-  const { push } = useHistory();
   const auth = useSelector((store) => store);
   const dispatch = useDispatch();
-
-  console.log("store", auth.auth);
   const [errors, setErrors] = useState(false);
-  const [userEmail, setuserEmail] = useState("");
   const [isEmailvalid, setIsEmailvalid] = useState(true);
   const [ispasswordValid, setisPasswordValid] = useState(true);
-  const [rember, setRember] = useState(true);
   const [values, setValues] = useState({
     email: "",
     password: "",
     showPassword: false,
-    rember: true
+    rember: true,
   });
 
   useEffect(() => {
-    let data = JSON.parse(localStorage.getItem("userInfo"))
+    let data = JSON.parse(localStorage.getItem("userInfo"));
     if (data !== null) {
-      setValues({ ...values, email: data.email, password: data.password, rember: data.rememberMe })
+      setValues({
+        ...values,
+        email: data.email,
+        password: data.password,
+        rember: data.rememberMe,
+      });
     }
-  }, [])
+  }, []);
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
@@ -42,7 +42,7 @@ function Login() {
   };
 
   if (auth.auth.errorMessage.length > 0) {
-    setTimeout(() => dispatch({ type: "SET_ERROR_MSG", payload: "" }), 5000)
+    setTimeout(() => dispatch({ type: "SET_ERROR_MSG", payload: "" }), 5000);
   }
 
   const handleLogin = () => {
@@ -76,7 +76,7 @@ function Login() {
   const onChangeData = ({ name, value }) => {
     setIsEmailvalid(emailValidator(value.target.value));
     // setuserEmail(value.target.value);
-    setValues({ ...values, email: value.target.value })
+    setValues({ ...values, email: value.target.value });
   };
   return (
     <div>
@@ -152,7 +152,7 @@ function Login() {
               >
                 <img
                   src={
-                    values.showPassword == true
+                    values.showPassword === true
                       ? "images/Eye.png"
                       : "images/Eye-blue.png"
                   }
@@ -165,26 +165,27 @@ function Login() {
                 <p style={{ color: "red" }}>Password is required</p>
               ) : null
             ) : null}
-            {
-              auth.auth.errorMessage.length > 0 ? (
-                <p style={{ color: "red" }}>{auth.auth.errorMessage}</p>
-              ) : null
-            }
+            {auth.auth.errorMessage.length > 0 ? (
+              <p style={{ color: "red" }}>{auth.auth.errorMessage}</p>
+            ) : null}
             {!ispasswordValid ? (
               <p style={{ color: "red" }}>
                 Password should contain at least 1 Uppercase,1 Special
                 Character,1 Digit, and min 8 Characters.{" "}
               </p>
             ) : null}
-            <div class="form-group form-check">
+            <div className="form-group form-check">
               <input
                 checked={values.rember}
-                class="form-check-input" type="checkbox"
+                className="form-check-input"
+                type="checkbox"
                 id="flexCheckChecked"
                 value={values.rember}
-                onChange={(value) => setValues({ ...values, rember: !values.rember })}
+                onChange={(value) =>
+                  setValues({ ...values, rember: !values.rember })
+                }
               />
-              <label class="form-check-label" for="exampleCheck1" >
+              <label className="form-check-label" for="exampleCheck1">
                 Remember me
               </label>
 
@@ -199,7 +200,7 @@ function Login() {
           <button
             onClick={() => handleLogin()}
             type="button"
-            class="btn btn-lg"
+            className="btn btn-lg"
             style={{
               backgroundColor: "#003366",
               color: "white",

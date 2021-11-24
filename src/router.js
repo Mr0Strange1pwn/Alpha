@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Login from "./components/pages/Login";
 import ResetPassword from "./components/pages/ResetPassword";
 import ChangePassword from "./components/pages/changePassword";
 import Navbar from "./components/pages/navbar";
-import Error from "./components/pages/error";
 import Forgetpassword from "./components/pages/forgotpassword";
 import { useSelector, useDispatch } from "react-redux";
-import Home from "./components/pages/Home";
 import Dashboard from "./components/pages/dashboard";
 import Employee from "./components/pages/Employee";
 import Rolespermission from "./components/pages/Rolespermission";
 import Settings from "./components/pages/settings";
-import View from "./components/pages/People/View";
 import Registration from "./components/pages/Employee/Registration";
 import AddRole from "./components/pages/Rolespermission/addRole";
 import Documents from "./components/pages/Employee/Registration/Documents";
@@ -22,7 +19,6 @@ import FirstStepper from "./components/pages/Stepper/Stepper";
 import CreateProject from "./components/pages/Project";
 import Task from "./components/pages/Project/Task"
 import ProjectList from "./components/pages/Project/ProjectList";
-
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -35,7 +31,6 @@ function getWindowDimensions() {
 const Routes = () => {
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
   const { isLoggedIn, toggle } = useSelector((store) => store.auth);
-  const Location = useLocation()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -51,7 +46,6 @@ const Routes = () => {
 
   useEffect(() => {
     let userData = JSON.parse(localStorage.getItem("userData"))
-    console.log("userData", userData)
     if (userData) {
       dispatch({ type: "LOG_IN", payload: userData });
     }
@@ -77,7 +71,7 @@ const Routes = () => {
           {/* <div style={btnStyle}> {Location.pathname}  </div> */}
           <div style={btnStyle}  >
             <Switch>
-
+          
               <Route exact path="/">
                 <Dashboard />
               </Route>
@@ -141,9 +135,9 @@ const Routes = () => {
           <Route path="/changepassword">
             <ChangePassword />
           </Route>
-          <Route path="/View/:id">
+          {/* <Route path="/View/:id">
             <View />
-          </Route>
+          </Route> */}
 
           {/* <Route exact path ="/Post/:category" component={Post} />
     <Route component={Error}/ > */}

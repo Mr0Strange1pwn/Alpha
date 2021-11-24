@@ -26,7 +26,6 @@ function AddRole() {
     setValue({ ...selectedValue, [name]: value });
   };
   const handleSubmit = () => {
-    console.log("roleName", selectedValue);
     dispatch(AddRoleAPI(selectedValue));
 
   };
@@ -40,7 +39,7 @@ function AddRole() {
           </label>
           <input
             type="text"
-            class="form-control role"
+            className="form-control role"
             id="roleName"
             name="roleName"
             // onChange={(event) => setRoleName(event.target.value)}

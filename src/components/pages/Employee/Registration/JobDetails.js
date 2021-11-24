@@ -1,18 +1,13 @@
 import React, { useState , useContext } from "react";
-import Header from "../../Header/Header";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-input-2/lib/style.css";
-import TimePicker from "../../../common/TimePicker";
 import {Multistepcontext} from '../../../../StepContext';
 import Timeclock from "../../../common/Timeclock";
  
 
 function JobDetails() {
-  const [startDate, setStartDate] = useState(new Date());
-  const [value, setValue] = useState();
   const [showError ,setError ] =useState(false)
-  const {page ,backpackClick ,userData ,currentStep,setUserData ,setFinalData ,setCurrentStep} = useContext(Multistepcontext)
+  const {backpackClick ,setCurrentStep} = useContext(Multistepcontext)
   const [ details , SetDetails] =useState({
     jobType:"",
     shiftTime:"",

@@ -1,9 +1,7 @@
 import React, { useState ,useContext } from "react";
-import Header from "../../Header/Header";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-input-2/lib/style.css";
-import NumberInput from "../../../common/numberInput"
 import {Multistepcontext} from '../../../../StepContext';
 
 const ExampleCustomInput = ({ value, onClick }) => {
@@ -28,16 +26,14 @@ const ExampleCustomInput = ({ value, onClick }) => {
 };
 function Payroll() {
   const [startDate, setStartDate] = useState(new Date());
-  const [value, setValue] = useState();
   const [showerror ,setError ] =useState(false)
-  const {page ,backpackClick ,userData ,currentStep,setUserData ,setFinalData ,setCurrentStep} = useContext(Multistepcontext)
+  const {backpackClick ,setCurrentStep} = useContext(Multistepcontext)
   const [ details, setDetails] =useState({
     annualCtc: "",
     annualCtcThou:"",
     perDayCost: "",
     totalLeaveSL:"",
     totalLeavePL:"",
-    
   })
 
   const handleChange = (e) => {

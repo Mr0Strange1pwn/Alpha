@@ -12,7 +12,6 @@ const Setting = () => {
   const [InputDataTwo, setInputDataTwo] = useState("");
   const [Items, setItems] = useState([]);
   const [ItemsTwo, setItemsTwo] = useState([]);
-  const [range, setRange] = useState(false);
   const [isEditItem, setIsEditItem] = useState();
   const [isEditItemTwo, setIsEditItemTwo] = useState();
   const [addNewTask, setNewTask] = useState("");
@@ -24,20 +23,7 @@ const Setting = () => {
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [isOpenEditTwo, setIsOpenEditTwo] = useState(false);
 
-  const hidme = {
-    display: "flex",
-  };
-
-  if (range) {
-    hidme.display = "none";
-  }
-  const sohme = {
-    display: "none",
-  };
-
-  if (range) {
-    sohme.display = "flex";
-  }
+ 
 
   const addItems = (e) => {
     e.preventDefault();
@@ -167,7 +153,7 @@ const Setting = () => {
           </div>
           <div style={{ margin: "auto", width: "70%" }}>
             <div className="row">
-              <label class="form-check-label reg-lable" for="exampleCheck1">
+              <label className="form-check-label reg-lable" for="exampleCheck1">
                 Name
               </label>
               <input
@@ -188,7 +174,6 @@ const Setting = () => {
                 type="button"
                 className="btn"
                 style={{ backgroundColor: "#003366", color: "white" }}
-                type="submit"
                 onClick={() => handleSave()}
               >
                 Save
@@ -198,7 +183,6 @@ const Setting = () => {
                 type="button"
                 className="btn"
                 style={{ backgroundColor: " #717171", color: "white" }}
-                type="submit"
                 onClick={() => setIsOpenEdit(false)}
               >
                 Cancel
@@ -214,7 +198,7 @@ const Setting = () => {
           </div>
           <div style={{ margin: "auto", width: "70%" }}>
             <div className="row">
-              <label class="form-check-label reg-lable" for="exampleCheck1">
+              <label className="form-check-label reg-lable" for="exampleCheck1">
                 Name
               </label>
               <input
@@ -235,7 +219,6 @@ const Setting = () => {
                 type="button"
                 className="btn"
                 style={{ backgroundColor: "#003366", color: "white" }}
-                type="submit"
                 onClick={() => handleSaveTwo()}
               >
                 Save
@@ -245,7 +228,6 @@ const Setting = () => {
                 type="button"
                 className="btn"
                 style={{ backgroundColor: " #717171", color: "white" }}
-                type="submit"
                 onClick={() => setIsOpenEditTwo(false)}
               >
                 Cancel
@@ -259,9 +241,9 @@ const Setting = () => {
           <div className="setting-container">
             <div className="row">
               <div className="col" style={{ display: "flex" }}>
-                <img src="images/designation.png" alt="Project-info-icon" class="des-img" />
+                <img src="images/designation.png" alt="Project-info-icon" className="des-img" />
                 <label
-                  class="form-check-label reg-lable"
+                  className="form-check-label reg-lable"
                   for="exampleCheck1"
                   style={{
                     marginLeft: "10px",
@@ -281,7 +263,7 @@ const Setting = () => {
                   }
                   onClick={handleProject}
                   style={{ marginRight: "10px" }}
-                  alt="Project-info-icon" class="arrow-img"
+                  alt="Project-info-icon" className="arrow-img"
                 />
               </div>
             </div>
@@ -294,12 +276,12 @@ const Setting = () => {
                     <div className="row">
                       <div className="col-sm-12 col-md-12 col-lg-6">
                         <label
-                          class="form-check-label reg-lable"
+                          className="form-check-label reg-lable"
                           for="exampleCheck1"
                         >
                           Add Designation
                         </label>
-                        <div class="add-des-form" style={{ display: "flex" }}>
+                        <div className="add-des-form" style={{ display: "flex" }}>
                           <input
                             style={{ backgroundColor: "white" }}
                             type="text"
@@ -310,15 +292,11 @@ const Setting = () => {
                             onChange={(e) => setNewTask(e.target.value)}
                           />
                           <button
-                            className="btn"
-                            className="changebtn"
+                            className="btn changebtn"
                             onClick={addItems}
-                            type="submit"
-                            // style={{ backgroundColor:  }}
                             style={{
                               backgroundImage: "url(images/plusiconimage.png)",
                               backgroundRepeat: "no-repeat",
-                              backgroundPosition:"10px 10px",
                               backgroundPosition: "left",
                               backgroundOrigin: "content-box",
                               backgroundColor:"#25344b",
@@ -340,8 +318,8 @@ const Setting = () => {
 
                         {Items.map((elem) => {
                           return (
-                            <div class="doccontainernew">
-                              <table class="task-des" key={elem.id}>
+                            <div className="doccontainernew">
+                              <table className="task-des" key={elem.id}>
                                 <tr>
                                 <td>
                                   <p
@@ -387,12 +365,12 @@ const Setting = () => {
         </div>
 
         <div>
-          <div class="setting-container">
-            <div class="row">
+          <div className="setting-container">
+            <div className="row">
               <div className="col" style={{ display: "flex" }}>
                 <img src="images/jobtype.png" alt="Project-info-icon" class="des-img"/>
                 <label
-                  class="form-check-label reg-lable"
+                  className="form-check-label reg-lable"
                   for="exampleCheck1"
                   style={{ marginLeft: "10px", color: "white" }}
                 >
@@ -409,24 +387,24 @@ const Setting = () => {
                   onClick={handleTask}
                   style={{ marginRight: "10px" }}
                   alt="Project-info-icon"
-                class="arrow-img" />
+                className="arrow-img" />
               </div>
             </div>
           </div>
           {task === true ? (
-            <div class="smain-container">
+            <div className="smain-container">
               <div className="project-card">
                 <div>
                   <form>
                     <div className="row">
                       <div className="col-sm-12 col-md-12 col-lg-6">
                         <label
-                          class="form-check-label reg-lable"
+                          className="form-check-label reg-lable"
                           for="exampleCheck1"
                         >
                           Add Job Type
                         </label>
-                        <div class="job-form" style={{ display: "flex" }}>
+                        <div className="job-form" style={{ display: "flex" }}>
                           <input
                             style={{ backgroundColor: "white" }}
                             type="text"
@@ -437,14 +415,11 @@ const Setting = () => {
                             onChange={(e) => setNewTaskTwo(e.target.value)}
                           />
                           <button
-                            className="btn"
-                            className="changebtn"
+                            className="btn changebtn"
                             onClick={addItemsNew}
-                            type="submit"
                             style={{
                               backgroundImage: "url(images/plusiconimage.png)",
                               backgroundRepeat: "no-repeat",
-                              backgroundPosition:"10px 10px",
                               backgroundPosition: "left",
                               backgroundOrigin: "content-box",
                               backgroundColor:"#25344b",
@@ -466,8 +441,8 @@ const Setting = () => {
 
                         {ItemsTwo.map((elem) => {
                           return (
-                            <div class="doccontainernew">
-                              <table class="task-des" key={elem.id}>
+                            <div className="doccontainernew">
+                              <table className="task-des" key={elem.id}>
                                 <tr>
                                 <td>
                                   <p

@@ -96,7 +96,7 @@ function Navbar() {
             <img
               className="image__logo"
               src={
-                pathname == "/"
+                pathname === "/"
                   ? "images/Dashboard-h.png"
                   : "images/Dashboard.png"
               }
@@ -104,7 +104,7 @@ function Navbar() {
             />
             <a
               className="nav-link"
-              style={{ color: pathname == "/" ? "#f07238" : "white" }}
+              style={{ color: pathname === "/" ? "#f07238" : "white" }}
               href="/dashboard"
             >
               Dashboard
@@ -114,15 +114,15 @@ function Navbar() {
             <img
               className="image__logo"
               src={
-                pathname == "/Employee"
-                  ? "images/Employees-h.png" : pathname == "/AddPeople" ? "images/Employees-h.png"
+                pathname === "/Employee"
+                  ? "images/Employees-h.png" : pathname === "/AddPeople" ? "images/Employees-h.png"
                     : "images/Employee.png"
               }
               alt="logo"
             />{" "}
             <a
               className="nav-link"
-              style={{ color: pathname == "/Employee" ? "#f07238" : pathname == "/AddPeople" ? "#f07238" : "white" }}
+              style={{ color: pathname === "/Employee" ? "#f07238" : pathname === "/AddPeople" ? "#f07238" : "white" }}
               href=""
             >
               Employees
@@ -132,8 +132,8 @@ function Navbar() {
             <img
               className="image__logo"
               src={
-                pathname == "/Rolespermission"
-                  ? "images/Role-H.png" : pathname == "/AddRole" ? "images/Role-H.png"
+                pathname === "/Rolespermission"
+                  ? "images/Role-H.png" : pathname === "/AddRole" ? "images/Role-H.png"
                     : "images/Role.png"
               }
               alt="logo"
@@ -141,7 +141,7 @@ function Navbar() {
             <a
               className="nav-link"
               style={{
-                color: pathname == "/Rolespermission" ? "#f07238" : pathname == "/AddRole" ? "#f07238" : "white",
+                color: pathname === "/Rolespermission" ? "#f07238" : pathname === "/AddRole" ? "#f07238" : "white",
               }}
               href=""
             >
@@ -152,15 +152,15 @@ function Navbar() {
             <img
               className="image__logo"
               src={
-                pathname == "/Project"
-                  ? "images/Project-h.png" : pathname == "/Task" ? "images/Project-h.png"
+                pathname === "/Project"
+                  ? "images/Project-h.png" : pathname === "/Task" ? "images/Project-h.png"
                     : "images/Projects.png"
               }
               alt="logo"
             />{" "}
             <a
               className="nav-link"
-              style={{ color: pathname == "/Project" ? "#f07238" : pathname == "/Task" ? "#f07238" : "white" }}
+              style={{ color: pathname === "/Project" ? "#f07238" : pathname === "/Task" ? "#f07238" : "white" }}
               href=""
             >
               Projects
@@ -170,7 +170,7 @@ function Navbar() {
             <img
               className="image__logo"
               src={
-                pathname == "/settings"
+                pathname === "/settings"
                   ? "images/Set-h.png"
                   : "images/Setting.png"
               }
@@ -178,7 +178,7 @@ function Navbar() {
             />{" "}
             <a
               className="nav-link"
-              style={{ color: pathname == "/settings" ? "#f07238" : "white" }}
+              style={{ color: pathname === "/settings" ? "#f07238" : "white" }}
               href=""
             >
               Settings

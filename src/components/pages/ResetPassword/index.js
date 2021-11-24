@@ -1,32 +1,21 @@
 import React, { useState } from "react";
 import "./resetPassword.css";
-import { useHistory,useLocation, useParams } from "react-router-dom";
-import { Post } from "../../../Utils/JSONUtils";
-import {  reset } from "../../../redux/actions/authAction";
+import { useHistory, useParams } from "react-router-dom";
+import { reset } from "../../../redux/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
 
-import {
-  emailValidator,
-  passwordValidator,
-} from "../../../Utils/fieldValidator";
+import { passwordValidator } from "../../../Utils/fieldValidator";
 
 function ResetPassword() {
-  const location = useLocation();
-  // const { useremail } = location.state
   const [values, setValues] = useState({
     password: "",
     newpassword: "",
     showPassword: false,
     newshowPassword: false,
   });
-const { token } =useParams();
-console.log(token)
-  const { push } = useHistory();
-  const auth = useSelector((store) => store);
+  const { token } = useParams();
   const dispatch = useDispatch();
   const [errors, setErrors] = useState(false);
-  // const [userEmail, setuserEmail] = useState("");
-  const [isEmailvalid, setIsEmailvalid] = useState(true);
   const [ispasswordValid, setisPasswordValid] = useState(true);
 
   const handleClickShowPassword = () => {
@@ -48,25 +37,22 @@ console.log(token)
   };
   const handleLogin = () => {
     const resData = {
-      // email: useremail,
       password: values.password,
-      confirmPassword: values.newpassword
-    }
+      confirmPassword: values.newpassword,
+    };
     if (!values.password.length > 0) {
       setErrors(true);
     }
 
-    if ( values.password.length > 0  && ispasswordValid) {
+    if (values.password.length > 0 && ispasswordValid) {
       if (values.password.length > 0) {
-        if (values.password == values.newpassword) {
-          dispatch(reset(resData))
+        if (values.password === values.newpassword) {
+          dispatch(reset(resData));
         } else {
           setErrors(true);
-        
         }
       }
     }
-    
   };
 
   return (
@@ -76,11 +62,15 @@ console.log(token)
         style={{ backgroundImage: "url(/images/Login-bg.jpg)" }}
       >
         <div className="resetPassword__container">
-          <img className="resetPassword__logo" src="images/logo.png" alt="logo" />
+          <img
+            className="resetPassword__logo"
+            src="images/logo.png"
+            alt="logo"
+          />
           {/* <h5>Login</h5> */}
           <h4>RESET PASSWORD</h4>
           <form style={{ marginTop: "10%" }}>
-            <label class="form-check-label" for="exampleCheck1">
+            <label className="form-check-label" for="exampleCheck1">
               New Password
             </label>
             <div
@@ -111,7 +101,7 @@ console.log(token)
               >
                 <img
                   src={
-                    values.showPassword == true
+                    values.showPassword === true
                       ? "images/Eye.png"
                       : "images/Eye-blue.png"
                   }
@@ -124,11 +114,11 @@ console.log(token)
                 <p style={{ color: "red" }}>Password is required</p>
               ) : null
             ) : null}
-              
+
             {/* {!ispasswordValid ? <p style={{ color: "red" }}>password must contain atlest 1 chapital letter and spacial characters </p> : null} */}
 
             {/* New Password */}
-            <label class="form-check-label" for="exampleCheck1">
+            <label className="form-check-label" for="exampleCheck1">
               Confirm Password
             </label>
             <div
@@ -159,7 +149,7 @@ console.log(token)
               >
                 <img
                   src={
-                    values.newshowPassword == true
+                    values.newshowPassword === true
                       ? "images/Eye.png"
                       : "images/Eye-blue.png"
                   }
@@ -179,7 +169,7 @@ console.log(token)
               </p>
             ) : null}
             {errors ? (
-              values.password  !== values.newpassword ? (
+              values.password !== values.newpassword ? (
                 <p style={{ color: "red" }}>Incorrect password</p>
               ) : null
             ) : null}
@@ -188,7 +178,7 @@ console.log(token)
           <button
             onClick={() => handleLogin()}
             type="button"
-            class="btn btn-lg"
+            className="btn btn-lg"
             style={{
               backgroundColor: "#003366",
               color: "white",

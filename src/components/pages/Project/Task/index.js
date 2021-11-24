@@ -14,7 +14,6 @@ const Task = () => {
   const [range, setRange] = useState(false);
   const [employee, setEmployee] = useState([]);
   const [isEditItem, setIsEditItem] = useState();
-  const [toggleSubmit, setToggleSubmit] = useState(true);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [addNewTask, setNewTask] = useState("");
@@ -37,10 +36,10 @@ const Task = () => {
   }
 
   const history = useHistory();
-  const routeBack = () => {
-    let path = "./Project";
-    history.push(path);
-  };
+  // const routeBack = () => {
+  //   let path = "./Project";
+  //   history.push(path);
+  // };
   const addItems = (e) => {
     e.preventDefault();
     if (!addNewTask) {
@@ -211,7 +210,6 @@ const Task = () => {
               padding: "8px",
               width: "100px",
             }}
-            type="submit"
             onClick={() => setIsOpen(false)}
           >
             Cancel
@@ -220,10 +218,8 @@ const Task = () => {
 
         <div>
           <div
-            style={{ marginBottom: "30px" }}
-            style={{ ...sohme, marginLeft: "6%" }}
+            style={{ ...sohme, marginLeft: "6%",marginBottom: "30px" }}
           >
-            {" "}
             <input
               checked={!employee.some((result) => result?.isChecked !== true)}
               name="allSelect"
@@ -276,8 +272,7 @@ const Task = () => {
         <div className="labuttonew" style={sohme}>
           <button
             type="button"
-            className="labfour"
-            className="btn btn-outline-success float-right"
+            className="btn btn-outline-success float-right labfour"
             style={{
               backgroundColor: "green",
               color: "white",
@@ -285,8 +280,7 @@ const Task = () => {
               width: "100px",
               marginRight: "8px",
             }}
-            type="submit"
-            className="btn btn-info"
+            // className="btn btn-info "
           >
             Save
           </button>
@@ -300,7 +294,6 @@ const Task = () => {
               padding: "8px",
               width: "100px",
             }}
-            type="submit"
             onClick={() => setIsOpen(false)}
           >
             Cancel
@@ -336,7 +329,6 @@ const Task = () => {
                 type="button"
                 className="btn"
                 style={{ backgroundColor: "#003366", color: "white" }}
-                type="submit"
                 onClick={() => handleSave()}
               >
                 Save
@@ -346,7 +338,6 @@ const Task = () => {
                 type="button"
                 className="btn"
                 style={{ backgroundColor: " #717171", color: "white" }}
-                type="submit"
                 onClick={() => setIsOpenEdit(false)}
               >
                 Cancel
@@ -375,17 +366,15 @@ const Task = () => {
                       onChange={(e) => setNewTask(e.target.value)}
                     />
                     <button
-                      className="btn"
-                      className="changebtn"
+                      className="btn changebtn"
                       onClick={addItems}
                       type="submit"
                       style={{
                         backgroundImage: "url(images/plusiconimage.png)",
                         backgroundRepeat: "no-repeat",
-                        backgroundPosition:"10px 10px",
                         backgroundPosition: "left",
                         backgroundOrigin: "content-box",
-                        backgroundColor:"#25344b",
+                        backgroundColor: "#25344b",
                       }}
                     >
                       Add
@@ -395,77 +384,41 @@ const Task = () => {
               </div>
 
               <div className="row">
-                <div className="ShowItems">
-                  {Items.length > 0 ? (
-                    <div className="labaddtwo">
-                      <label style={{ fontWeight: "700" }}>Tasks</label>
-                    </div>
-                  ) : null}
+                <table class="mile-header">
+                  <tr>
+                    <th>Task Name </th>
+                    <th>Assinged To</th>
+                    <th>Department</th>
+                    <th>Category</th>
+                    <th>Action</th>
+                  </tr>
 
-                  {Items.map((elem) => {
+                  {Items.map((elem, i) => {
                     return (
-                      <div class="doccontainernew">
-                        <table class="tasks-table" key={elem.id}>
-                          <tr>
-                            <td>
-                              <span
-                                style={{
-                                  color: "black",
-                                  textAlign: "justify",
-                                }}
-                              >
-                                {elem.name}
-                              </span>
-                            </td>
-
-                            <td>
-                              <button
-                                className="action_image"
-                                onClick={(e) => handleModal(e)}
-                              >
-                                <img src="images/assigntask.png" alt="logo" />
-                              </button>
-                              <button
-                                className="action_image"
-                                // onClick={() => {
-                                //   deleteItems(elem.id);
-                                // }}
-                                onClick={(e) => delAlert(elem.id, e)}
-                              >
-                                <img src="images/Del.png" alt="logo" />
-                              </button>
-                              <button
-                                className="action_image"
-                                onClick={(e) => {
-                                  editItems(elem.id, e);
-                                }}
-                              >
-                                <img src="images/Edit.png" alt="logo" />
-                              </button>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
+                      <tr>
+                        <td>{elem.name}</td>
+                        <td>React Developer</td>
+                        <td>Developer</td>
+                        <td>==</td>
+                        <td style={{ width: "197px" }}>
+                          <button onClick={(e) => delAlert(elem.id, e)}>
+                            <img src="images/Del.png" alt="logo" />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              editItems(elem.id, e);
+                            }}
+                          >
+                            <img src="images/Edit.png" alt="logo" />
+                          </button>
+                          <button onClick={(e) => handleModal(e)}>
+                            <img src="images/assigntask.png" alt="logo" />
+                          </button>
+                        </td>
+                      </tr>
                     );
                   })}
-
-                  <div className="addTask_Button">
-                    <button
-                      className="btn  float-left"
-                      type="submit"
-                      style={{ backgroundColor: "#003366" }}
-                    >
-                      Save
-                    </button>
-                    <button
-                      className="btn  float-left"
-                      type="submit"
-                      onClick={routeBack}
-                    >
-                      Back
-                    </button>
-                  </div>
-                </div>
+                </table>
               </div>
             </form>
           </div>
