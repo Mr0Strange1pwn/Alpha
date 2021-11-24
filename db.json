@@ -100,13 +100,6 @@
     },
     {
       "useremail": "sester.mt@mechlin.com",
-      "username": "Ptester",
-      "userpassword": "98765",
-      "link": "link",
-      "id": 15
-    },
-    {
-      "useremail": "sester.mt@mechlin.com",
       "username": "Qtester",
       "userpassword": "98765",
       "link": "link",
@@ -118,20 +111,6 @@
       "userpassword": "98765",
       "link": "link",
       "id": 17
-    },
-    {
-      "useremail": "tester.mt@mechlin.com",
-      "username": "Sester",
-      "userpassword": "98765",
-      "link": "link",
-      "id": 18
-    },
-    {
-      "useremail": "sester.mt@mechlin.com",
-      "username": "tester",
-      "userpassword": "98765",
-      "link": "link",
-      "id": 19
     }
   ],
   "comments": [],
