@@ -17,61 +17,63 @@ import Payroll from "./components/pages/Employee/Registration/Payroll";
 import JobDetails from "./components/pages/Employee/Registration/JobDetails";
 import FirstStepper from "./components/pages/Stepper/Stepper";
 import CreateProject from "./components/pages/Project";
-import Task from "./components/pages/Project/Task"
+import Task from "./components/pages/Project/Task";
 import ProjectList from "./components/pages/Project/ProjectList";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
   return {
     width,
-    height
+    height,
   };
 }
 
 const Routes = () => {
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions()
+  );
   const { isLoggedIn, toggle } = useSelector((store) => store.auth);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
     }
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
-
   useEffect(() => {
-    let userData = JSON.parse(localStorage.getItem("userData"))
+    let userData = JSON.parse(localStorage.getItem("userData"));
     if (userData) {
       dispatch({ type: "LOG_IN", payload: userData });
     }
-  }, [])
+  }, []);
 
   const btnStyle = {
-    marginLeft: '20%'
-  }
-  if ((windowDimensions.width >= 768) && (windowDimensions.width <= 1023)) {
+    marginLeft: "20%",
+  };
+  if (windowDimensions.width >= 768 && windowDimensions.width <= 1023) {
     btnStyle.marginLeft = "7%";
   } else if (windowDimensions.width < 700) {
     btnStyle.marginLeft = "13%";
   }
   if (toggle) {
-    btnStyle.marginLeft = '5%'
+    btnStyle.marginLeft = "5%";
   }
   return (
     <>
       {/* <Navbar /> */}
       {isLoggedIn ? (
-        <div >
-          <div> <Navbar /></div>
+        <div>
+          <div>
+            {" "}
+            <Navbar />
+          </div>
           {/* <div style={btnStyle}> {Location.pathname}  </div> */}
-          <div style={btnStyle}  >
+          <div style={btnStyle}>
             <Switch>
-          
               <Route exact path="/">
                 <Dashboard />
               </Route>
@@ -112,7 +114,9 @@ const Routes = () => {
                 <Task />
               </Route>
 
-
+              <Route path="/changepassword">
+                <ChangePassword />
+              </Route>
 
               {/* <Route exact path="/">
                 <Home />
@@ -121,23 +125,17 @@ const Routes = () => {
           </div>
         </div>
       ) : (
-
         <Switch>
           <Route exact path="/">
             <Login />
           </Route>
-          <Route exact path="/resetPassword/:token">
+          <Route path="/resetPassword/:token">
             <ResetPassword />
           </Route>
           <Route path="/forgetpassword">
             <Forgetpassword />
           </Route>
-          <Route path="/changepassword">
-            <ChangePassword />
-          </Route>
-          {/* <Route path="/View/:id">
-            <View />
-          </Route> */}
+          
 
           {/* <Route exact path ="/Post/:category" component={Post} />
     <Route component={Error}/ > */}

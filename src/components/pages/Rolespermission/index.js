@@ -252,9 +252,9 @@ const Rolespermission = () => {
           {searchQuery.length > 0 ? filteredData.map((students, i) => {
             return (
               <tr>
-                <td className="geeks">{students.Id}</td>
-                <td>{students.RoleName}</td>
-                <td>{students.UserCount}</td>
+                <td className="geeks">{students.id}</td>
+                <td>{students.roleName}</td>
+                <td>{students.user_count}</td>
                 <td >
                   <button>
                     {" "}
@@ -270,9 +270,9 @@ const Rolespermission = () => {
           }) : currentItem.map((students, i) => {
             return (
               <tr>
-                <td className="geeks">{students.Id}</td>
-                <td>{students.RoleName}</td>
-                <td>{students.UserCount}</td>
+                <td className="geeks">{students.id}</td>
+                <td>{students.roleName}</td>
+                <td>{students.user_count}</td>
                 <td >
                   <button>
                     {" "}

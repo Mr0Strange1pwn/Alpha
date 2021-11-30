@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const BASE_URL ='http://mtmohali.dyndns.org:8034/api/Account'
+const BASE_URL ='https://alpha-mechlin.herokuapp.com/api'
+// const BASE_URL ='https://alpha-mechlin.herokuapp.com/API'
 
 export const Axios = axios.create({
     baseURL: BASE_URL,

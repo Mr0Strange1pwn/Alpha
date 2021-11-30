@@ -16,16 +16,17 @@ function ChangePassword() {
     newshowPassword: false,
     showCurrentPassword: false,
   });
-
+  const History = useHistory()
   const auth = useSelector((store) => store);
   const dispatch = useDispatch();
   const [errors, setErrors] = useState(false);
   const [ispasswordValid, setisPasswordValid] = useState(true);
-  const [loginmail, setLoginmail] =useState()
+  const [logintoken, setToken] =useState("sumit29998@gmail.com")
+  
+
   useEffect(() => {
     let data = JSON.parse(localStorage.getItem("userData"))
-    setLoginmail(data.email)
-    console.log(data.email)
+    setToken(data.token)
   }, [])
 
   const handleClickShowPassword = () => {
@@ -49,17 +50,16 @@ function ChangePassword() {
   };
   const handleLogin = () => {
     const changeData = {
-        email: loginmail,
-        currentPassword:values.currentpassword,
-        password: values.newpassword,
-        confirmPassword: values.password
+      currentpassword:values.currentpassword,
+      new_password: values.newpassword,
+      confirmpassword: values.password
     }
     if (!values.password.length > 0) {
       setErrors(true);
     }
 
     if (values.password.length > 0 && ispasswordValid) {
-      dispatch(change(changeData));
+      dispatch(change(changeData,logintoken,History));
     }
   };
 
@@ -218,7 +218,7 @@ function ChangePassword() {
 
           <div className="update-password-btn">
 <button
-            onClick={() => handleLogin()}
+            onClick={handleLogin}
             type="button"
             className="btn btn-lg"
             style={{

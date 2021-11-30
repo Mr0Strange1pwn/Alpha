@@ -17,7 +17,13 @@ function ResetPassword() {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState(false);
   const [ispasswordValid, setisPasswordValid] = useState(true);
-
+  const History = useHistory()
+ 
+  
+  const routeChange = () => {
+    History.push("/")
+  }
+  
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
@@ -37,9 +43,10 @@ function ResetPassword() {
   };
   const handleLogin = () => {
     const resData = {
-      password: values.password,
-      confirmPassword: values.newpassword,
+      new_password: values.password,
+      confirm_password: values.newpassword,
     };
+    
     if (!values.password.length > 0) {
       setErrors(true);
     }
@@ -47,7 +54,7 @@ function ResetPassword() {
     if (values.password.length > 0 && ispasswordValid) {
       if (values.password.length > 0) {
         if (values.password === values.newpassword) {
-          dispatch(reset(resData));
+          dispatch(reset(resData,token,routeChange));
         } else {
           setErrors(true);
         }
@@ -64,7 +71,7 @@ function ResetPassword() {
         <div className="resetPassword__container">
           <img
             className="resetPassword__logo"
-            src="images/logo.png"
+            src="/images/logo.png"
             alt="logo"
           />
           {/* <h5>Login</h5> */}
@@ -102,8 +109,8 @@ function ResetPassword() {
                 <img
                   src={
                     values.showPassword === true
-                      ? "images/Eye.png"
-                      : "images/Eye-blue.png"
+                      ? "/images/Eye.png"
+                      : "/images/Eye-blue.png"
                   }
                   style={{ marginRight: "2px" }}
                 />
@@ -150,8 +157,8 @@ function ResetPassword() {
                 <img
                   src={
                     values.newshowPassword === true
-                      ? "images/Eye.png"
-                      : "images/Eye-blue.png"
+                      ? "/images/Eye.png"
+                      : "/images/Eye-blue.png"
                   }
                   style={{ marginRight: "2px" }}
                 />

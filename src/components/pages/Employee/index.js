@@ -4,10 +4,11 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import Header from "../Header/Header";
 import Alert from "../../common/Alert";
+import { empLIst } from "../../../redux/actions/employeeAction";
+import { useSelector, useDispatch } from "react-redux";
 
 const Employee = () => {
-  const { id } = useParams();
-  const [student, setStudent] = useState([]);
+  const [employeelist, setEmployee] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [search, setSearch] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -17,9 +18,52 @@ const Employee = () => {
   const [pageNumberLimit, setpageNumberLimit] = useState(5);
   const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
+  const [ids, setID] = useState();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const emp = useSelector((store) => store.emp.userInfo);
 
+  useEffect(() => {
+    empListData();
+  }, []);
+
+  const empListData = () => {
+    dispatch(empLIst());
+    setEmployee(emp);
+  };
+  const routeChange = () => {
+    let path = `./AddPeople`;
+    history.push(path);
+  };
+
+  useEffect(() => {
+    if (searchQuery.length > 0) {
+      searchHandler();
+    } else {
+      empListData();
+      setSearch(false);
+    }
+  }, [searchQuery]);
+
+  const delAlert = (id) => {
+    setModalOpen(true);
+    setID(id);
+  };
+
+  const searchHandler = () => {
+    let filterDAta = employeelist.filter((data) =>
+      //  console.log("data",data)
+      data.useremail.includes(searchQuery)
+    );
+    if (filterDAta.length > 0) {
+      console.log("filterDAta", filterDAta);
+      // setStudent(filterDAta);
+    }
+    setSearch(true);
+  };
+ 
   const pages = [];
-  for (let i = 1; i <= Math.ceil(student.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(employeelist.length / itemsPerPage); i++) {
     pages.push(i);
   }
 
@@ -27,7 +71,7 @@ const Employee = () => {
   //  1  X 15 = 15 and 2 X 10 = 30
   const indexOfFistItem = indexOfLastItem - itemsPerPage;
   //   30 -15 = 15 and 15 -15 = 0
-  const currentItem = student.slice(indexOfFistItem, indexOfLastItem);
+  const currentItem = employeelist.slice(indexOfFistItem, indexOfLastItem);
 
   const handleNewClick = (event) => {
     setCurrentPage(Number(event.target.id));
@@ -49,15 +93,15 @@ const Employee = () => {
     }
   });
 
-  const handleLoadMoreMethod = () =>{
-    setItemPerPage(itemsPerPage +5);
-   }
-   
-   const handleLoadMoreMethoddec = () =>{
-    if(itemsPerPage>5){
-      setItemPerPage(itemsPerPage -5);
-     }
-   }
+  const handleLoadMoreMethod = () => {
+    setItemPerPage(itemsPerPage + 5);
+  };
+
+  const handleLoadMoreMethoddec = () => {
+    if (itemsPerPage > 5) {
+      setItemPerPage(itemsPerPage - 5);
+    }
+  };
   const handleNextbtn = () => {
     setCurrentPage(currentPage + 1);
 
@@ -85,58 +129,13 @@ const Employee = () => {
   if (minPageNumberLimit >= 1) {
     pageDecrementBtn = <li onClick={handlePrevbtn}> &hellip; </li>;
   }
-  //  className={currentPage == number ? "active" : null}
-
-  const [ids, setID] = useState();
-  const history = useHistory();
-  const routeChange = () => {
-    let path = `./AddPeople`;
-    history.push(path);
-  };
-  useEffect(() => {
-    getAllStudent();
-  }, []);
-
-  useEffect(() => {
-    if (searchQuery.length > 0) {
-      searchHandler();
-    } else {
-      getAllStudent();
-      setSearch(false);
-    }
-  }, [searchQuery]);
-
-  const delAlert = (id) => {
-    setModalOpen(true);
-    setID(id);
-  };
-
-  const searchHandler = () => {
-    let filterDAta = student.filter((data) =>
-      //  console.log("data",data)
-      data.useremail.includes(searchQuery)
-    );
-    if (filterDAta.length > 0) {
-      console.log("filterDAta", filterDAta);
-      setStudent(filterDAta);
-    }
-    setSearch(true);
-  };
-  async function getAllStudent() {
-    try {
-      const student = await axios.get("http://localhost:3003/posts");
-      setStudent(student.data);
-    } catch (error) {
-      console.log("something is wrong");
-    }
-  }
 
   const handleDelete = async (id) => {
     await axios.delete(`http://localhost:3003/posts/${id}`);
-    var newstudent = student.filter((item) => {
+    var newstudent = employeelist.filter((item) => {
       return item.id !== id;
     });
-    setStudent(newstudent);
+    // setStudent(newstudent);
     setModalOpen(false);
   };
 
@@ -233,25 +232,33 @@ const Employee = () => {
             <th>Action</th>
           </tr>
 
-          {currentItem.map((students, i) => {
+          {currentItem.map((employeelist, i) => {
             return (
               <tr>
-                <td class="geeks">{students.id}</td>
-                <td>{students.username}</td>
+                <td>{i + 1}</td>
+                <td>{employeelist.name}</td>
                 <td>
                   <a href="#" class="user-email">
-                    {students.useremail}
+                    {employeelist.email}
                   </a>
                 </td>
-                <td>8989898989</td>
-                <td>10/01/1990</td>
-                <td>Developer</td>
+                <td>{employeelist.mobile_number}</td>
+                <td>{employeelist.date_of_birth}</td>
+                {employeelist.roleId !== null ? (
+                  <td>{employeelist.roleId.roleName}</td>
+                ) : (
+                  ""
+                )}
+
                 <td>
                   <button>
                     {" "}
                     <img src="images/Edit.png" alt="logo" />
                   </button>
-                  <button onClick={() => delAlert(students.id)}>
+                  {/* <button onClick={() => delAlert(students.id)}>
+                    <img src="images/Del.png" alt="logo" />
+                  </button> */}
+                  <button>
                     <img src="images/Del.png" alt="logo" />
                   </button>
                 </td>
@@ -260,23 +267,34 @@ const Employee = () => {
           })}
         </table>
 
-    
-
         <nav aria-label="Page navigation example">
-        <div className="col-sm-12 col-md-6 col-lg-6">
-            
+          <div className="col-sm-12 col-md-6 col-lg-6">
             <div className="divboxnew">
-              <span><h6>Showing&nbsp;&nbsp;&nbsp;</h6></span>
-              <input
-                   value={itemsPerPage}
-                   className="payrollInputStylenew"
-                 />
-                 <div className="load"><button onClick={handleLoadMoreMethod} className="loadmorebuttonone" ><img src="images/up.png" className="loadmoreone" alt="logo" /> </button>
-                 <button onClick={handleLoadMoreMethoddec} className="loadmorebuttontwo" ><img src="images/down.png" className="loadmoretwo" alt="logo" /></button></div>
-                 <h6 style={{display:"flex"}}>of {student.length}</h6>
-
+              <span>
+                <h6>Showing&nbsp;&nbsp;&nbsp;</h6>
+              </span>
+              <input value={itemsPerPage} className="payrollInputStylenew" />
+              <div className="load">
+                <button
+                  onClick={handleLoadMoreMethod}
+                  className="loadmorebuttonone"
+                >
+                  <img src="images/up.png" className="loadmoreone" alt="logo" />{" "}
+                </button>
+                <button
+                  onClick={handleLoadMoreMethoddec}
+                  className="loadmorebuttontwo"
+                >
+                  <img
+                    src="images/down.png"
+                    className="loadmoretwo"
+                    alt="logo"
+                  />
+                </button>
+              </div>
+              <h6 style={{ display: "flex" }}>of {employeelist.length}</h6>
             </div>
-            </div>
+          </div>
 
           <ul className="pageNumbers">
             <li>
@@ -294,7 +312,9 @@ const Employee = () => {
             <li>
               <button
                 onClick={handleNextbtn}
-                disabled={currentPage === pages[pages.length - 1] ? true : false}
+                disabled={
+                  currentPage === pages[pages.length - 1] ? true : false
+                }
               >
                 Next
               </button>

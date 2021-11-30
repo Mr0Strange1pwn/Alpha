@@ -1,6 +1,6 @@
 import { Axios } from "../../Utils/axios";
 import { toast } from "react-toastify";
-
+import { HeaderToken } from "../../Utils/headerToken";
 export const ADD_ROLE = "ADD_ROLE";
 export const ROLE_LIST = "ROLE_LIST"
 
@@ -21,11 +21,12 @@ export const AddRoleAPI = (selectedValue) => {
           });
       };
 }
-export const roleLIst = (data) => {
+export const roleLIst = () => {
     return async (dispatch) => {
-        await Axios.get("/fetchgridInfo").then(
+        await Axios.get("/Account/roles",HeaderToken()).then(
           (res) => {
-            dispatch({ type: ROLE_LIST, payload: res.data });
+            console.log("res.data",res.data)
+            dispatch({ type: ROLE_LIST, payload: res.data.response });
           }
         )
         .catch((err) => {

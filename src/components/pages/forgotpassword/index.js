@@ -13,19 +13,9 @@ function Forgetpassword() {
   const [useremail, setUserEmail] = useState("");
   const [mailError, setmailError] = useState(true);
   const [showerror, setshowError] = useState(false);
-  const { push } = useHistory();
-  const history = useHistory();
   const auth = useSelector((store) => store);
   const dispatch=useDispatch();
-console.log("auth",auth.auth)
 
-const path = {
-  pathname: `./resetPassword`,
-  state: { useremail: useremail },
-};
-if(auth.auth.linkSend===true){
- history.push(path)
-}
   const handleSubmit = () => {
     if (!useremail.length > 0) {
       setshowError(true);
