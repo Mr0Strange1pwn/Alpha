@@ -3,6 +3,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-input-2/lib/style.css";
 import {Multistepcontext} from '../../../../StepContext';
+import moment from 'moment'
+import {useSelector} from "react-redux"
 
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
@@ -25,6 +27,7 @@ const ExampleCustomInput = ({ value, onClick }) => {
   );
 };
 function Payroll() {
+  const { designations, roles, employeeInfo } = useSelector(store => store.emp)
   const [startDate, setStartDate] = useState(new Date());
   const [showerror ,setError ] =useState(false)
   const {backpackClick ,setCurrentStep} = useContext(Multistepcontext)
@@ -43,7 +46,15 @@ function Payroll() {
   const handleNext = () => {
     setError(true)
     if(details.annualCtc && details.perDayCost && details.totalLeavePL && details.totalLeaveSL  && details.annualCtcThou){
-      setCurrentStep(4);backpackClick(4)
+      let res = {
+        "annual_ctc": details.annualCtc + details.annualCtcThou ,
+        "total_annual_leaves": details.totalLeavePL +details.totalLeaveSL ,
+        "per_day_cost": details.perDayCost,
+        "date_of_joining": moment(startDate).format("YYYY-MM-DD"),
+        "user_profile_id": employeeInfo.id
+      }
+      console.log("pay rol",details , res)
+      // setCurrentStep(4);backpackClick(4)
     }
 
   }

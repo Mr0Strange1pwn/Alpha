@@ -6,8 +6,11 @@ import Header from "../../Header/Header";
 import { Multistepcontext } from "../../../../StepContext";
 import Modal from "../../../common/Model";
 import Alert from "../../../common/Alert"
+import { useSelector, useDispatch} from 'react-redux'
+import {uploadDocument} from '../../../../redux/actions/employeeAction'
 
 const Documents = () => {
+  const dispatch = useDispatch()
   const { id } = useParams();
   const [student, setStudent] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -18,7 +21,7 @@ const Documents = () => {
   const [change, setChange] = useState(true);
   const [isOpen , setIsOpen] = useState(false);
   const [name, setName] = useState("");
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState();
   const [ids, setID] = useState();
   const history = useHistory();
 
@@ -27,6 +30,23 @@ const Documents = () => {
   const [pageNumberLimit, setpageNumberLimit] = useState(5);
   const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
+
+  const { designations, roles, employeeInfo } = useSelector(store => store.emp)
+
+  const changeHandler = (event) => {
+		setFile(event.target.files[0]);	
+	};
+
+  const handleUpload=()=>{
+    if(file.name){
+      let formData = new FormData
+      formData.append("user_profile_id",employeeInfo.id)
+      formData.append("document_file",file,file.name)
+      dispatch(uploadDocument(formData))
+    }
+  }
+
+  console.log("employeeInfo",{employeeInfo, file })
 
   const pages = [];
   for (let i = 1; i <= Math.ceil(student.length / itemsPerPage); i++) {
@@ -160,11 +180,11 @@ const Documents = () => {
 		  <div className="givespace" ><button className="labthree">Browse File</button></div>
              </div>
              </div>
-		<div className="Instyle" ><label id="l2" >File Name</label><br/><input type="text" placeholder="Enter File Name" /></div>
+		<div className="Instyle" ><label id="l2" >File Name</label><br/><input type="file" name="file" onChange={changeHandler} placeholder="Enter File Name" /></div>
 		<div className="labutton">
     <button type="button" className="labfour" className="btn btn-outline-success float-right"
      style={{ backgroundColor: "#003366", color: "white" }}
-     type="submit"  className ="btn btn-info">Upload</button><span>  </span>
+     type="submit"  className ="btn btn-info" onClick={handleUpload}>Upload</button><span>  </span>
 		<button type="button"className="btn float-left"
     style={{backgroundColor:" #717171", color:"white"}}
      type="submit"  onClick={()=> setIsOpen(false)} >Cancel</button>

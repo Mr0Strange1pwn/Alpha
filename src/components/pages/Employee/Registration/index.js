@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./Registration.css";
 import Upload from "./Upload";
 import DatePicker from "react-datepicker";
@@ -8,6 +8,9 @@ import "react-phone-input-2/lib/style.css";
 import { Multistepcontext } from '../../../../StepContext';
 import { useHistory } from "react-router-dom";
 import { emailValidator } from '../../../../Utils/fieldValidator'
+import { useDispatch, useSelector} from 'react-redux'
+import moment from 'moment'
+import { saveEmployee , getDesignitations, getRoles} from '../../../../redux/actions/employeeAction'
 
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
@@ -29,14 +32,18 @@ const ExampleCustomInput = ({ value, onClick }) => {
     </div>
   );
 };
+
+
 function Registration() {
+  const dispatch = useDispatch()
+  const { designations, roles } = useSelector(store => store.emp)
   const [startDate, setStartDate] = useState(new Date());
   const [phoneNO, setPhoneNO] = useState();
   const [details, setDetails] = useState({
     name: "",
     email: "",
     designation: "",
-    role: [],
+    role: "",
     manager: "",
     screenshot:""
   });
@@ -47,37 +54,63 @@ function Registration() {
     let path = `./Employee`;
     history.push(path);
   }
+
+  useEffect(()=>{
+    dispatch(getDesignitations())
+    dispatch(getRoles())
+  },[])
  
   const handleValueChange = (e) => {   
     setDetails({ ...details, [e.target.name]: e.target.value })
   }
 
   const handleRoleChange =(e)=> {
-      if( e.target.value === "SA"){
-        if(details.role.includes("SA")){
-          setDetails({ ...details, role: [] })
-        }else{
-          setDetails({ ...details, role: ["SA","1","2","3"] })
-        }      
-      } else{
-        if(details.role.includes(e.target.value)){
-          let role = details.role
-          let ind = role.indexOf(e.target.value)
-          role.splice(ind,1)
-          setDetails({ ...details, role: role })
-        }else{
-          setDetails({ ...details, role: [...details.role ,e.target.value ] })
-        } 
-      }
+    setDetails({ ...details, role: e.target.value })
+      // if( e.target.value === "SA"){
+      //   if(details.role.includes("SA")){
+      //     setDetails({ ...details, role: [] })
+      //   }else{
+      //     setDetails({ ...details, role: ["SA","1","2","3"] })
+      //   }      
+      // } else{
+      //   if(details.role.includes(e.target.value)){
+      //     let role = details.role
+      //     let ind = role.indexOf(e.target.value)
+      //     role.splice(ind,1)
+      //     setDetails({ ...details, role: role })
+      //   }else{
+      //     setDetails({ ...details, role: [...details.role ,e.target.value ] })
+      //   } 
+      // }
   }
 console.log("role, ", details.role)
   const handleNext = () => {
     setShowError(true)
-    if (details.name && details.designation && emailValidator(details.email) && details.role && details.manager && details.screenshot) {
+    if (details.name && details.designation && emailValidator(details.email) && details.role && details.manager && details.screenshot ) {
+      let formData = new FormData()
+      let req = {
+        name: details.name , 
+        email: details.email,
+        mobile_number: phoneNO , 
+        date_of_birth: moment(startDate).format("YYYY-MM-DD"),
+        roleId: parseInt(details.role[0]),
+        designation_name: parseInt(details.designation),
+        manager_name: details.manager,
+        screenshots: parseInt(details.screenshot),
+      }
+
+     Object.keys(req).map(key=>{
+       console.log("key",key)
+       formData.append(key, req[key])
+      })
+
+      dispatch(saveEmployee(formData))
+    //  console.log("details", req)
+    //  console.log("formData", formData)
       setCurrentStep(2); backpackClick(2)
     }
   }
-
+console.log("designations",designations)
   return (
     <div>
       {/* <Header headerName="Registration" /> */}
@@ -175,8 +208,11 @@ console.log("role, ", details.role)
                 id="flexCheckChecked"
               
               /></div> </option>
-                <option value="2">Tester</option>
-                <option value="3">Designer</option>
+              {
+                designations.map(value => <option value={value.id}>{value.designation_name}</option>)
+              }
+                {/* <option value="2">Tester</option>
+                <option value="3">Designer</option> */}
               </select>
               
             </div>
@@ -194,10 +230,12 @@ console.log("role, ", details.role)
                 onChange={e => handleRoleChange(e)}
               >         
                 <option selected>Choose Role</option>
-                <option value="SA" style={{color: details.role.includes("SA") ? "blue" : null}}>Select all</option>
+                {roles.map(value =>  <option value={value.id} style={{color: details.role.includes("1") ? "blue" : null}}>{value.roleName}</option>)}
+                {/* <option value="SA" style={{color: details.role.includes("SA") ? "blue" : null}}>Select all</option>
+
                 <option value="1" style={{color: details.role.includes("1") ? "blue" : null}}>Lead</option>
                 <option value="2" style={{color: details.role.includes("2") ? "blue" : null}}>QA Lead</option>
-                <option value="3" style={{color: details.role.includes("3") ? "blue" : null}}>Fresher</option>
+                <option value="3" style={{color: details.role.includes("3") ? "blue" : null}}>Fresher</option> */}
               </select>
             </div>
           </div>
@@ -231,9 +269,9 @@ console.log("role, ", details.role)
                 onChange={e => handleValueChange(e)}
               >
                 <option selected> Choose Manager</option>
-                <option value="1">Manager</option>
-                <option value="2">Assistant Manager</option>
-                <option value="3">Juniar Manager</option>
+                <option value="Manager">Manager</option>
+                <option value="Assistant Manager">Assistant Manager</option>
+                <option value="Juniar Manager">Juniar Manager</option>
               </select>
             </div>
 

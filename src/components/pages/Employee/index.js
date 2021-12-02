@@ -4,7 +4,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import Header from "../Header/Header";
 import Alert from "../../common/Alert";
-import { empLIst } from "../../../redux/actions/employeeAction";
+import { empLIst, deleteEmployee } from "../../../redux/actions/employeeAction";
 import { useSelector, useDispatch } from "react-redux";
 
 const Employee = () => {
@@ -25,11 +25,14 @@ const Employee = () => {
 
   useEffect(() => {
     empListData();
-  }, []);
+  }, [emp]);
 
   const empListData = () => {
-    dispatch(empLIst());
-    setEmployee(emp);
+    if(emp !== employeelist){
+      dispatch(empLIst());
+      setEmployee(emp);
+    }
+  
   };
   const routeChange = () => {
     let path = `./AddPeople`;
@@ -71,7 +74,7 @@ const Employee = () => {
   //  1  X 15 = 15 and 2 X 10 = 30
   const indexOfFistItem = indexOfLastItem - itemsPerPage;
   //   30 -15 = 15 and 15 -15 = 0
-  const currentItem = employeelist.slice(indexOfFistItem, indexOfLastItem);
+  const currentItem = employeelist.length>0 ? employeelist.slice(indexOfFistItem, indexOfLastItem) : []
 
   const handleNewClick = (event) => {
     setCurrentPage(Number(event.target.id));
@@ -131,11 +134,13 @@ const Employee = () => {
   }
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:3003/posts/${id}`);
-    var newstudent = employeelist.filter((item) => {
-      return item.id !== id;
-    });
+    // await axios.delete(`http://localhost:3003/posts/${id}`);
+    // var newstudent = employeelist.filter((item) => {
+    //   return item.id !== id;
+    // });
     // setStudent(newstudent);
+
+dispatch(deleteEmployee(id))
     setModalOpen(false);
   };
 
@@ -258,8 +263,8 @@ const Employee = () => {
                   {/* <button onClick={() => delAlert(students.id)}>
                     <img src="images/Del.png" alt="logo" />
                   </button> */}
-                  <button>
-                    <img src="images/Del.png" alt="logo" />
+                  <button onClick={() => delAlert(employeelist.id)}>
+                    <img src="images/Del.png" alt="logo"  />
                   </button>
                 </td>
               </tr>
