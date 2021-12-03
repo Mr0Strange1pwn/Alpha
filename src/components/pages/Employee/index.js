@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Employee.css";
 import { Link, useHistory, useParams } from "react-router-dom";
-import axios from "axios";
 import Header from "../Header/Header";
 import Alert from "../../common/Alert";
 import { empLIst, deleteEmployee } from "../../../redux/actions/employeeAction";
@@ -25,7 +24,7 @@ const Employee = () => {
 
   useEffect(() => {
     empListData();
-  }, [emp]);
+  }, []);
 
   const empListData = () => {
     if(emp !== employeelist){
@@ -43,7 +42,7 @@ const Employee = () => {
     if (searchQuery.length > 0) {
       searchHandler();
     } else {
-      empListData();
+      // empListData();
       setSearch(false);
     }
   }, [searchQuery]);

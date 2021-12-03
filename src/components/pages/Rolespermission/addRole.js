@@ -1,24 +1,25 @@
 import React, { useState } from "react";
 import "./addRole.css";
+import { useHistory } from "react-router-dom"
 import AddRolePermission from "../../common/AddRolePermission";
 import Header from "../Header/Header";
 import { AddRoleAPI } from "../../../redux/actions/roleAction";
 import { useSelector, useDispatch } from "react-redux";
 
 function AddRole() {
-  const [roleName, setRoleName] = useState();
   const [selectedValue, setValue] = useState({
-  roleName: "",
-  createRole: "",
-  manageRole: "",
-  createEmployee: "",
-  manageEmployee: "",
-  createProject: "",
-  createTask: "",
-  assignTask: "",
-  createProjectBoard: "",
-  reports: ""
+    assignTask: "",
+    createEmployee: "",
+    createProject: "",
+    createProjectBoard: "",
+    createRole: "",
+    createTask: "",
+    manageEmployee: "",
+    manageRole: "",
+    reports: "",
+    roleName: ""
   });
+  const History = useHistory()
   const dispatch = useDispatch();
   const auth = useSelector((store) => store);
   const handleChange = (e) => {
@@ -26,8 +27,7 @@ function AddRole() {
     setValue({ ...selectedValue, [name]: value });
   };
   const handleSubmit = () => {
-    dispatch(AddRoleAPI(selectedValue));
-
+     dispatch(AddRoleAPI(selectedValue,History));
   };
   return (
     <div className="conatiner">
@@ -54,8 +54,16 @@ function AddRole() {
           <div className="add-management">
             <div className="card-body">
               <h5 className="card-title">User Management</h5>
-              <AddRolePermission name="createRole" title="Create Role" onChange={handleChange} />
-              <AddRolePermission name="manageRole" title="Manage Role" onChange={handleChange} />
+              <AddRolePermission
+                name="createRole"
+                title="Create Role"
+                onChange={handleChange}
+              />
+              <AddRolePermission
+                name="manageRole"
+                title="Manage Role"
+                onChange={handleChange}
+              />
               <AddRolePermission
                 name="createEmployee"
                 title="Create Employee"
@@ -81,15 +89,30 @@ function AddRole() {
                 title="Create Project"
                 onChange={handleChange}
               />
-              <AddRolePermission name="createTask" title="Create Task" onChange={handleChange} />
-              <AddRolePermission name="assignTask" title="Assign Task" onChange={handleChange} />
-              <AddRolePermission  name="createProjectBoard" title="Create Project Board" />
-              <AddRolePermission  name="reports" title="Reports" onChange={handleChange} />
+              <AddRolePermission
+                name="createTask"
+                title="Create Task"
+                onChange={handleChange}
+              />
+              <AddRolePermission
+                name="assignTask"
+                title="Assign Task"
+                onChange={handleChange}
+              />
+              <AddRolePermission
+                name="createProjectBoard"
+                title="Create Project Board"
+                onChange={handleChange}
+              />
+              <AddRolePermission
+                name="reports"
+                title="Reports"
+                onChange={handleChange}
+              />
             </div>
           </div>
-        
         </div>
-      
+
         <div className="addrole_Button">
           <button
             className="btn  float-left save-btn"
@@ -98,14 +121,10 @@ function AddRole() {
           >
             Save
           </button>
-          <button
-            className="btn  float-left"
-            type="submit"
-          >
+          <button className="btn  float-left" type="submit">
             Cancel
           </button>
         </div>
-       
       </div>
     </div>
   );

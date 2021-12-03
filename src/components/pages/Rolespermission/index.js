@@ -4,7 +4,7 @@ import axios from "axios";
 import Header from "../Header/Header";
 import { useHistory } from "react-router-dom";
 import Alert from "../../common/Alert";
-import { roleLIst } from "../../../redux/actions/roleAction";
+import { roleLIst ,deleteRole } from "../../../redux/actions/roleAction";
 import { useSelector, useDispatch } from "react-redux";
 import { CSVLink } from "react-csv";
 import RoleFilter from "./RoleFilter"
@@ -162,12 +162,12 @@ const Rolespermission = () => {
     setID(id);
   };
 
-  const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:3003/posts/${id}`);
-    var newstudent = student.filter((item) => {
-      return item.id !== id;
-    });
-    setModalOpen(false);;
+  const handleDelete = (id) => {
+    const data = {
+        "roleid": id
+    }
+    dispatch(deleteRole(id))
+    setModalOpen(false);
   };
 
 

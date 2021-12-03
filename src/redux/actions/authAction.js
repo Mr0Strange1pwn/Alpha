@@ -1,6 +1,5 @@
 import { Axios } from "../../Utils/axios";
 import { toast } from "react-toastify";
-import { Link, useHistory } from "react-router-dom";
 import { HeaderToken } from "../../Utils/headerToken";
 export const LOG_IN = "LOG_IN";
 export const SIGN_UP = "SIGN_UP";
@@ -72,7 +71,6 @@ export const reset = (resData,token,routeChange) => {
 };
 
 export const forgot = (useremail) => {
- 
   let forgetData = {
     email: useremail,
     redirecturl: "http://localhost:3000/resetPassword/"
