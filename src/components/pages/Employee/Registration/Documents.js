@@ -42,11 +42,15 @@ const Documents = () => {
       let formData = new FormData
       formData.append("user_profile_id",employeeInfo.id)
       formData.append("document_file",file,file.name)
+      formData.append("name",file.name)
+      for (var pair of formData.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]); 
+        }
       dispatch(uploadDocument(formData))
     }
   }
 
-  console.log("employeeInfo",{employeeInfo, file })
+  console.log("employeeInfo",{employeeInfo })
 
   const pages = [];
   for (let i = 1; i <= Math.ceil(student.length / itemsPerPage); i++) {

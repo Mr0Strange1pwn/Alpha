@@ -1,22 +1,33 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import "./upload.css";
 
-class Upload extends Component {
-  state = {
-    profileImg:
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-  };
-  imageHandler = (e) => {
+function Upload ({setIMG , IMG}) {
+  const [ profileImg, setprofileImg ] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
+  // state = {
+  //   profileImg:
+  //     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+  // };
+ useEffect(()=>{
+if(IMG !== undefined){
+  if(typeof IMG === "string"){
+    setprofileImg(IMG)
+  }
+
+}
+  },[IMG])
+  console.log({IMG, profileImg})
+ const imageHandler = (e) => {
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
-        this.setState({ profileImg: reader.result });
+       setprofileImg(reader.result);
+       setIMG(e.target.files[0])
       }
     };
+    console.log("e.target.files[0]",e.target.files[0] , profileImg)
     reader.readAsDataURL(e.target.files[0]);
   };
-  render() {
-    const { profileImg } = this.state;
+ console.log("")
     return (
       <div className="imagepage">
         <div className="imagecontainer">
@@ -28,7 +39,7 @@ class Upload extends Component {
             accept="image/*"
             name="image-upload"
             id="imageinput"
-            onChange={this.imageHandler}
+            onChange={imageHandler}
           />
           <div className="imagelabel">
             <label className="image-upload" htmlFor="imageinput">
@@ -58,6 +69,6 @@ class Upload extends Component {
   //     </div>
   //   );
   // }
-}
+
 
 export default Upload;

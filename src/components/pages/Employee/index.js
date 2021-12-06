@@ -3,7 +3,7 @@ import "./Employee.css";
 import { Link, useHistory, useParams } from "react-router-dom";
 import Header from "../Header/Header";
 import Alert from "../../common/Alert";
-import { empLIst, deleteEmployee } from "../../../redux/actions/employeeAction";
+import { empLIst, deleteEmployee , EMP_SAVE } from "../../../redux/actions/employeeAction";
 import { useSelector, useDispatch } from "react-redux";
 
 const Employee = () => {
@@ -143,6 +143,17 @@ dispatch(deleteEmployee(id))
     setModalOpen(false);
   };
 
+const  handleEdit=(employeelist)=>{
+  dispatch({ type: EMP_SAVE, payload: employeelist })
+  routeChange()
+
+}
+
+const addEmployee=()=>{
+  dispatch({ type: EMP_SAVE, payload: {}})
+  routeChange()
+}
+
   return (
     <div className="header">
       <Alert
@@ -209,7 +220,7 @@ dispatch(deleteEmployee(id))
                   className="btn btn-outline-success float-right"
                   style={{ backgroundColor: "#003366", color: "white" }}
                   type="submit"
-                  onClick={routeChange}
+                  onClick={addEmployee}
                 >
                   Add Employee
                 </button>
@@ -257,7 +268,7 @@ dispatch(deleteEmployee(id))
                 <td>
                   <button>
                     {" "}
-                    <img src="images/Edit.png" alt="logo" />
+                    <img src="images/Edit.png" alt="logo"  onClick={() =>  handleEdit(employeelist)} />
                   </button>
                   {/* <button onClick={() => delAlert(students.id)}>
                     <img src="images/Del.png" alt="logo" />

@@ -23,6 +23,15 @@ function JobDetails() {
     setError(true)
     if(details.jobType && details.shiftTime && details.weekelyHoliday && details.probationPeriod){
       console.log("details", details)
+
+      let req = {
+        "start_time": "string",
+        "end_time": "string",
+        "weekly_holidays": 0,
+        "probation_period": "string",
+        "job_type": 0,
+        "user_profile_id": 0
+      }
     }
   }
   const inputStyle = {

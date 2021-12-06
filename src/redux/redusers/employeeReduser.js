@@ -1,11 +1,12 @@
-import { EMP_LIST, EMP_DESIGNATION, EMP_ROLE, EMP_EMPLOYES , EMP_SAVE} from "../actions/employeeAction" 
+import { EMP_LIST, EMP_DESIGNATION, EMP_ROLE, EMP_EMPLOYES , EMP_SAVE, EMP_PAYROLL} from "../actions/employeeAction" 
 
 const InitialState = {
     isLoggedIn: true,
     userInfo: {},
     designations:[],
     roles:[],
-    employeeInfo:{}
+    employeeInfo:{},
+    employeePayRoll:{},
 }
 
 const empReduser = (state = InitialState, action) => {
@@ -33,6 +34,12 @@ const empReduser = (state = InitialState, action) => {
             return {
                 ...state,
                 employeeInfo: action.payload
+            }
+        }
+        case EMP_PAYROLL:{
+            return {
+                ...state,
+                employeePayRol: action.payload
             }
         }
         default: return { ...state }

@@ -4,7 +4,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-input-2/lib/style.css";
 import {Multistepcontext} from '../../../../StepContext';
 import moment from 'moment'
-import {useSelector} from "react-redux"
+import {useSelector, useDispatch} from "react-redux"
+import {uploadPayroll} from "../../../../redux/actions/employeeAction"
 
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
@@ -27,6 +28,7 @@ const ExampleCustomInput = ({ value, onClick }) => {
   );
 };
 function Payroll() {
+  const dispatch = useDispatch()
   const { designations, roles, employeeInfo } = useSelector(store => store.emp)
   const [startDate, setStartDate] = useState(new Date());
   const [showerror ,setError ] =useState(false)
@@ -46,15 +48,21 @@ function Payroll() {
   const handleNext = () => {
     setError(true)
     if(details.annualCtc && details.perDayCost && details.totalLeavePL && details.totalLeaveSL  && details.annualCtcThou){
-      let res = {
-        "annual_ctc": details.annualCtc + details.annualCtcThou ,
-        "total_annual_leaves": details.totalLeavePL +details.totalLeaveSL ,
+      let formData = new FormData()
+      let req = {
+        "annual_ctc": parseInt(details.annualCtc) * 100000 + parseInt(details.annualCtcThou) *1000 ,
+        "total_annual_leaves": parseInt(details.totalLeavePL) + parseInt(details.totalLeaveSL) ,
         "per_day_cost": details.perDayCost,
         "date_of_joining": moment(startDate).format("YYYY-MM-DD"),
-        "user_profile_id": employeeInfo.id
+        "user_profile_id": parseInt(employeeInfo.id)
       }
-      console.log("pay rol",details , res)
-      // setCurrentStep(4);backpackClick(4)
+      console.log("pay rol",details , req)
+      Object.keys(req).map(key=>{
+        console.log("key",key)
+        formData.append(key, req[key])
+       })
+       dispatch(uploadPayroll(formData))
+      setCurrentStep(4);backpackClick(4)
     }
 
   }

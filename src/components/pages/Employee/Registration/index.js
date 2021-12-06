@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 import { emailValidator } from '../../../../Utils/fieldValidator'
 import { useDispatch, useSelector} from 'react-redux'
 import moment from 'moment'
-import { saveEmployee , getDesignitations, getRoles} from '../../../../redux/actions/employeeAction'
+import { saveEmployee , getDesignitations, getRoles, saveEmployeeUpdate} from '../../../../redux/actions/employeeAction'
 
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
@@ -36,9 +36,10 @@ const ExampleCustomInput = ({ value, onClick }) => {
 
 function Registration() {
   const dispatch = useDispatch()
-  const { designations, roles } = useSelector(store => store.emp)
+  const { designations, roles ,employeeInfo} = useSelector(store => store.emp)
   const [startDate, setStartDate] = useState(new Date());
   const [phoneNO, setPhoneNO] = useState();
+  const [IMG, setIMG] = useState()
   const [details, setDetails] = useState({
     name: "",
     email: "",
@@ -59,6 +60,22 @@ function Registration() {
     dispatch(getDesignitations())
     dispatch(getRoles())
   },[])
+
+  useEffect(()=>{
+    if(employeeInfo !== undefined && employeeInfo.id){
+      setDetails({
+        name: employeeInfo.name,
+        email: employeeInfo.email,
+        designation: employeeInfo.designation_name.id,
+        role: employeeInfo.roleId.id,
+        manager: employeeInfo.manager_name,
+        screenshot:employeeInfo.screenshots
+      })
+     // setStartDate(employeeInfo.date_of_birth)
+      setIMG(employeeInfo.profile_image)
+      setPhoneNO(employeeInfo.mobile_number)
+    }
+  },[employeeInfo])
  
   const handleValueChange = (e) => {   
     setDetails({ ...details, [e.target.name]: e.target.value })
@@ -83,7 +100,7 @@ function Registration() {
       //   } 
       // }
   }
-console.log("role, ", details.role)
+console.log("role, ", details.role,employeeInfo)
   const handleNext = () => {
     setShowError(true)
     if (details.name && details.designation && emailValidator(details.email) && details.role && details.manager && details.screenshot ) {
@@ -93,7 +110,7 @@ console.log("role, ", details.role)
         email: details.email,
         mobile_number: phoneNO , 
         date_of_birth: moment(startDate).format("YYYY-MM-DD"),
-        roleId: parseInt(details.role[0]),
+        roleId: parseInt(details.role),
         designation_name: parseInt(details.designation),
         manager_name: details.manager,
         screenshots: parseInt(details.screenshot),
@@ -103,13 +120,36 @@ console.log("role, ", details.role)
        console.log("key",key)
        formData.append(key, req[key])
       })
-
-      dispatch(saveEmployee(formData))
+      formData.append("profile_image",IMG,IMG.name)
+      if(employeeInfo.id){
+        formData.append("id", employeeInfo.id)
+        dispatch(saveEmployeeUpdate(formData))
+      }else{
+        dispatch(saveEmployee(formData))
+      }
+     
     //  console.log("details", req)
-    //  console.log("formData", formData)
+  //   for (var pair of formData.entries()) {
+  //     console.log(pair[0]+ ', ' + pair[1]); 
+  // }
       setCurrentStep(2); backpackClick(2)
     }
   }
+
+  const cleardetails=()=>{
+    setDetails(
+      {
+        name: "",
+        email: "",
+        designation: "",
+        role: "",
+        manager: "",
+        screenshot:""
+      }
+    )
+    setIMG()
+  }
+
 console.log("designations",designations)
   return (
     <div>
@@ -120,7 +160,7 @@ console.log("designations",designations)
             backgroundColor: "#f1f1f1",
           }}
         >
-          <Upload />
+          <Upload setIMG={setIMG} IMG={IMG} />
         </div>
       </div>
       <div class="container">
@@ -203,13 +243,13 @@ console.log("designations",designations)
                 onChange={e => handleValueChange(e)}
               >
                 <option selected>Choose Designation</option>
-                <option value="1" ><div><input
+                {/* <option value="1" ><div><input
                 class="form-check-input" type="checkbox"
                 id="flexCheckChecked"
               
-              /></div> </option>
+              /></div> </option> */}
               {
-                designations.map(value => <option value={value.id}>{value.designation_name}</option>)
+                designations.length > 0 ? designations.map(value => <option value={value.id}>{value.designation_name}</option>) : null
               }
                 {/* <option value="2">Tester</option>
                 <option value="3">Designer</option> */}
@@ -230,7 +270,7 @@ console.log("designations",designations)
                 onChange={e => handleRoleChange(e)}
               >         
                 <option selected>Choose Role</option>
-                {roles.map(value =>  <option value={value.id} style={{color: details.role.includes("1") ? "blue" : null}}>{value.roleName}</option>)}
+                {roles.length > 0 && roles.map(value =>  <option value={value.id} style={{color: details.role === value.id ? "blue" : null}}>{value.roleName}</option>)}
                 {/* <option value="SA" style={{color: details.role.includes("SA") ? "blue" : null}}>Select all</option>
 
                 <option value="1" style={{color: details.role.includes("1") ? "blue" : null}}>Lead</option>
@@ -298,7 +338,7 @@ console.log("designations",designations)
         </form>
         <div className="d-grid gap-2 d-md-block">
           <div className="addrole_Button">
-            <button className="btn  float-left" type="submit" onClick={routeChange}>
+            <button className="btn  float-left" type="submit" onClick={()=>{routeChange();cleardetails()}}>
               Cancel
             </button>
             <button onClick={() => handleNext()} className="btn  float-left" type="submit" style={{ backgroundColor: "#25344b" }}>
