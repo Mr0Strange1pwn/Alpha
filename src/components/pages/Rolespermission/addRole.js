@@ -7,6 +7,7 @@ import { AddRoleAPI } from "../../../redux/actions/roleAction";
 import { useSelector, useDispatch } from "react-redux";
 
 function AddRole() {
+  const role = useSelector((store) => store.role.userInfo);
   const [selectedValue, setValue] = useState({
     assignTask: "",
     createEmployee: "",
@@ -21,7 +22,8 @@ function AddRole() {
   });
   const History = useHistory()
   const dispatch = useDispatch();
-  const auth = useSelector((store) => store);
+  
+  console.log("role",role)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValue({ ...selectedValue, [name]: value });

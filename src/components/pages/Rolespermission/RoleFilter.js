@@ -4,7 +4,7 @@ import Modal from "../../common/Model";
 
 const options = [
   { value: 1, label: "Choose Role Name" },
-  { value: 2, label: "Manager" },
+  { value: 2, label: "Lead" },
   { value: 3, label: "Assistant Manager" },
   { value: 4, label: "Developer" },
   { value: 5, label: "Tester" },
@@ -13,11 +13,20 @@ const options = [
   { value: 8, label: "Accountent" },
 ];
 
-const RoleFilter = ({ open, onClose }) => {
+const RoleFilter = ({ open, onClose,data }) => {
   const [value, setState] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [toggleTwo, setToggleTwo] = useState(false);
+  const [roleName, setRoleName]=useState()
+//  if(!data){
+   
+//   let role=data.map((value)=>value.roleName)
+//   setRoleName(role)
+//  }
 
+// const [roleName, setRoleName]=useState(role)
+ 
+ 
   const changeColor = () => {
     setToggleTwo(false);
     setToggle(true);
@@ -54,7 +63,7 @@ const RoleFilter = ({ open, onClose }) => {
                 </label>
                 <Select
                   isMulti
-                  options={options}
+                  options={data}
                   onChange={handleChange}
                   placeholder={<div>Tickets</div>}
                 />
@@ -72,9 +81,11 @@ const RoleFilter = ({ open, onClose }) => {
                   name="screenshot"
                 >
                   <option selected>Choose User Count</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
                 </select>
               </div>
             </div>

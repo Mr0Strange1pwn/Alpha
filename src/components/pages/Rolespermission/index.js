@@ -4,7 +4,7 @@ import axios from "axios";
 import Header from "../Header/Header";
 import { useHistory } from "react-router-dom";
 import Alert from "../../common/Alert";
-import { roleLIst ,deleteRole } from "../../../redux/actions/roleAction";
+import { roleLIst ,deleteRole , getRoleById } from "../../../redux/actions/roleAction";
 import { useSelector, useDispatch } from "react-redux";
 import { CSVLink } from "react-csv";
 import RoleFilter from "./RoleFilter"
@@ -24,15 +24,55 @@ const Rolespermission = () => {
   const [filteredData, setFilteredData] = useState([])
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const routeChange = () => {
+    let path = `./AddRole`;
+    history.push(path);
+  };
 
   useEffect(() => {
     roleData()
-  }, [])
+  },[])
 
   const roleData = () => {
     dispatch(roleLIst());
-
   }
+
+// code for delete
+  const delAlert = (id) => {
+    setModalOpen(true);
+    setID(id);
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteRole(id))
+    setModalOpen(false);
+  };
+
+  const editRole = (id) => {
+    dispatch(getRoleById(id))
+    routeChange()
+  }
+
+  useEffect(() => {
+    if (searchQuery.length > 0) {
+      searchHandler();
+    } else {
+      roleData();
+    }
+  }, [searchQuery]);
+
+
+  const searchHandler = () => {
+    let filterDAta = student.filter((data) =>
+      data.roleName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    if (filterDAta.length > 0) {
+      setFilteredData(filterDAta)
+    }
+    setSearch(true);
+  };
 
  const applyshortRoleName = ()=>{
    if(searchQuery.length > 0 ){
@@ -42,9 +82,9 @@ const Rolespermission = () => {
     let stu =  student
    stu.sort((a, b) => (a.RoleName.toLowerCase() > b.RoleName.toLowerCase()) ? -1 : 1)
    }
- 
  }
  
+
  const applyshortUserCount = ()=>{
  if(searchQuery.length > 0 ){
   let stu =  filteredData
@@ -54,6 +94,7 @@ const Rolespermission = () => {
   stu.sort((a, b) => (a.UserCount > b.UserCount) ? 1 : -1)
  }
 }
+
 
   const pages = [];
   for (let i = 1; i <= Math.ceil(student.length / itemsPerPage); i++) {
@@ -133,48 +174,10 @@ const Rolespermission = () => {
     pageDecrementBtn = <li onClick={handlePrevbtn}> &hellip; </li>;
   }
 
-
-  useEffect(() => {
-    if (searchQuery.length > 0) {
-      searchHandler();
-    } else {
-      roleData();
-    }
-  }, [searchQuery]);
-
-  const history = useHistory();
-  const routeChange = () => {
-    let path = `./AddRole`;
-    history.push(path);
-  };
-  const searchHandler = () => {
-    let filterDAta = student.filter((data) =>
-      data.RoleName.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    if (filterDAta.length > 0) {
-      setFilteredData(filterDAta)
-    }
-    setSearch(true);
-  };
-
-  const delAlert = (id) => {
-    setModalOpen(true);
-    setID(id);
-  };
-
-  const handleDelete = (id) => {
-    const data = {
-        "roleid": id
-    }
-    dispatch(deleteRole(id))
-    setModalOpen(false);
-  };
-
-
   return (
     <div >
       <Alert message="delete the Role and Permission" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id) => handleDelete(id)} id={ids} />
-     <RoleFilter open={isOpenFilter} onClose={() => setIsOpenFilter(false)}/>
+     <RoleFilter open={isOpenFilter} onClose={() => setIsOpenFilter(false)} data={student}/>
       <Header headerName="Role and Permissions" />
       <div className="main">
         <div style={{ marginTop: "4%" }}>
@@ -256,8 +259,7 @@ const Rolespermission = () => {
                 <td>{students.roleName}</td>
                 <td>{students.user_count}</td>
                 <td >
-                  <button>
-                    {" "}
+                  <button onClick={() => editRole(students.id)}>
                     <img src="images/Edit.png" alt="logo" />
                   </button>
                   <button onClick={() => delAlert(students.id)}>
@@ -274,8 +276,7 @@ const Rolespermission = () => {
                 <td>{students.roleName}</td>
                 <td>{students.user_count}</td>
                 <td >
-                  <button>
-                    {" "}
+                  <button  onClick={() => editRole(students.id)}>
                     <img src="images/Edit.png" alt="logo" />
                   </button>
                   <button onClick={() => delAlert(students.id)}>
