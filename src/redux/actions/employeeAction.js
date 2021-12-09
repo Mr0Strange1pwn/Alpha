@@ -145,15 +145,15 @@ export const getDocuments = () => {
 
 
 export const deleteEmployee =(id)=>{
-  return async (dispatch) => {
-    await Axios.delete(`/Employee/save/${id}`,HeaderToken()).then(
+  return async (dispatch) => { 
+    await Axios.delete(`/Employee/delete/${id}`,HeaderToken()).then(
       (res) => {
           console.log("ress", res)
           if(res.data.result=="False"){
             toast.error(res.data.response);
           }else{
             toast.success("deleted");
-           dispatch({ type: EMP_DELETE, payload: res.data })
+          dispatch({ type: EMP_DELETE, payload: id})
           }
        // dispatch({ type: EMP_SAVE, payload: res.data.response });
       }
