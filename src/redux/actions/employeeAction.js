@@ -7,6 +7,7 @@ export const EMP_ROLE="EMP_ROLE"
 export const EMP_SAVE="EMP_SAVE"
 export const EMP_EMPLOYES = "EMP_EMPLOYES"
 export const EMP_PAYROLL = "EMP_PAYROLL"
+export const EMP_DOCUMENTS = "EMP_DOCUMENTS"
 
 export const empLIst = () => {
     return async (dispatch) => {
@@ -121,6 +122,26 @@ export const uploadDocument = (data) => {
         });
     };
 }
+
+export const getDocuments = () => {
+  return async (dispatch) => {
+      await Axios.get("/Document/upload",HeaderToken()).then(
+        (res) => {
+            console.log("ress getDocuments", res)
+            if(res.data.result=="False"){
+              toast.error(res.data.response);
+            }else{
+              dispatch({ type: EMP_DOCUMENTS, payload: res.data })
+            }
+         // dispatch({ type: EMP_SAVE, payload: res.data.response });
+        }
+      )
+      .catch((err) => {
+           toast.error("Network Error");
+        });
+    };
+}
+
 
 export const deleteEmployee =(id)=>{
   return async (dispatch) => {

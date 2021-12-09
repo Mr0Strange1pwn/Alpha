@@ -1,4 +1,4 @@
-import { EMP_LIST, EMP_DESIGNATION, EMP_ROLE, EMP_EMPLOYES , EMP_SAVE, EMP_PAYROLL} from "../actions/employeeAction" 
+import { EMP_LIST, EMP_DESIGNATION, EMP_ROLE, EMP_EMPLOYES , EMP_SAVE, EMP_PAYROLL, EMP_DOCUMENTS} from "../actions/employeeAction" 
 
 const InitialState = {
     isLoggedIn: true,
@@ -7,6 +7,7 @@ const InitialState = {
     roles:[],
     employeeInfo:{},
     employeePayRoll:{},
+    employeeDocuments:[],
 }
 
 const empReduser = (state = InitialState, action) => {
@@ -40,6 +41,12 @@ const empReduser = (state = InitialState, action) => {
             return {
                 ...state,
                 employeePayRol: action.payload
+            }
+        }
+        case EMP_DOCUMENTS:{
+            return {
+                ...state,
+                employeeDocuments: action.payload
             }
         }
         default: return { ...state }

@@ -7,7 +7,7 @@ import { empLIst, deleteEmployee , EMP_SAVE } from "../../../redux/actions/emplo
 import { useSelector, useDispatch } from "react-redux";
 
 const Employee = () => {
-  const [employeelist, setEmployee] = useState([]);
+  const [FilteredEmployees, setFilteredEmployees] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [search, setSearch] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -23,16 +23,17 @@ const Employee = () => {
   const emp = useSelector((store) => store.emp.userInfo);
 
   useEffect(() => {
-    empListData();
+    // empListData();
+    dispatch(empLIst());
   }, []);
 
-  const empListData = () => {
-    if(emp !== employeelist){
-      dispatch(empLIst());
-      setEmployee(emp);
-    }
-  
-  };
+  // const empListData = () => {
+  //   if(emp !== employeelist){
+  //     dispatch(empLIst());
+  //     setEmployee(emp);
+  //   }
+   //};
+
   const routeChange = () => {
     let path = `./AddPeople`;
     history.push(path);
@@ -43,6 +44,7 @@ const Employee = () => {
       searchHandler();
     } else {
       // empListData();
+      setFilteredEmployees([])
       setSearch(false);
     }
   }, [searchQuery]);
@@ -53,19 +55,21 @@ const Employee = () => {
   };
 
   const searchHandler = () => {
-    let filterDAta = employeelist.filter((data) =>
-      //  console.log("data",data)
-      data.useremail.includes(searchQuery)
+    let filterDAta = emp.filter((data) =>{
+      // console.log("data",data)
+     return data.email.includes(searchQuery) }
     );
+
     if (filterDAta.length > 0) {
       console.log("filterDAta", filterDAta);
       // setStudent(filterDAta);
+      setFilteredEmployees(filterDAta)
     }
     setSearch(true);
   };
  
   const pages = [];
-  for (let i = 1; i <= Math.ceil(employeelist.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(emp.length / itemsPerPage); i++) {
     pages.push(i);
   }
 
@@ -73,7 +77,7 @@ const Employee = () => {
   //  1  X 15 = 15 and 2 X 10 = 30
   const indexOfFistItem = indexOfLastItem - itemsPerPage;
   //   30 -15 = 15 and 15 -15 = 0
-  const currentItem = employeelist.length>0 ? employeelist.slice(indexOfFistItem, indexOfLastItem) : []
+  const currentItem = emp.length>0 ? emp.slice(indexOfFistItem, indexOfLastItem) : []
 
   const handleNewClick = (event) => {
     setCurrentPage(Number(event.target.id));
@@ -152,6 +156,41 @@ const  handleEdit=(employeelist)=>{
 const addEmployee=()=>{
   dispatch({ type: EMP_SAVE, payload: {}})
   routeChange()
+}
+
+const TableRow=({employeelist,i})=>{
+  console.log({employeelist,i})
+  return (
+    <tr>
+      <td>{i + 1}</td>
+      <td>{employeelist.name}</td>
+      <td>
+        <a href="#" class="user-email">
+          {employeelist.email}
+        </a>
+      </td>
+      <td>{employeelist.mobile_number}</td>
+      <td>{employeelist.date_of_birth}</td>
+      {employeelist.roleId !== null ? (
+        <td>{employeelist.roleId.roleName}</td>
+      ) : (
+        ""
+      )}
+
+      <td>
+        <button>
+          {" "}
+          <img src="images/Edit.png" alt="logo"  onClick={() =>  handleEdit(employeelist)} />
+        </button>
+        {/* <button onClick={() => delAlert(students.id)}>
+          <img src="images/Del.png" alt="logo" />
+        </button> */}
+        <button onClick={() => delAlert(employeelist.id)}>
+          <img src="images/Del.png" alt="logo"  />
+        </button>
+      </td>
+    </tr>
+  );
 }
 
   return (
@@ -247,39 +286,11 @@ const addEmployee=()=>{
             <th>Action</th>
           </tr>
 
-          {currentItem.map((employeelist, i) => {
-            return (
-              <tr>
-                <td>{i + 1}</td>
-                <td>{employeelist.name}</td>
-                <td>
-                  <a href="#" class="user-email">
-                    {employeelist.email}
-                  </a>
-                </td>
-                <td>{employeelist.mobile_number}</td>
-                <td>{employeelist.date_of_birth}</td>
-                {employeelist.roleId !== null ? (
-                  <td>{employeelist.roleId.roleName}</td>
-                ) : (
-                  ""
-                )}
-
-                <td>
-                  <button>
-                    {" "}
-                    <img src="images/Edit.png" alt="logo"  onClick={() =>  handleEdit(employeelist)} />
-                  </button>
-                  {/* <button onClick={() => delAlert(students.id)}>
-                    <img src="images/Del.png" alt="logo" />
-                  </button> */}
-                  <button onClick={() => delAlert(employeelist.id)}>
-                    <img src="images/Del.png" alt="logo"  />
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+          {FilteredEmployees.length > 0 ? FilteredEmployees.map((employeelist, i) => 
+            <TableRow employeelist={employeelist} i={i} />
+          ) : currentItem.map((employeelist, i) => 
+            <TableRow employeelist={employeelist} i={i} />
+          )}
         </table>
 
         <nav aria-label="Page navigation example">
@@ -307,7 +318,7 @@ const addEmployee=()=>{
                   />
                 </button>
               </div>
-              <h6 style={{ display: "flex" }}>of {employeelist.length}</h6>
+              <h6 style={{ display: "flex" }}>of {emp.length}</h6>
             </div>
           </div>
 

@@ -7,12 +7,12 @@ import { Multistepcontext } from "../../../../StepContext";
 import Modal from "../../../common/Model";
 import Alert from "../../../common/Alert"
 import { useSelector, useDispatch} from 'react-redux'
-import {uploadDocument} from '../../../../redux/actions/employeeAction'
+import {uploadDocument, getDocuments} from '../../../../redux/actions/employeeAction'
 
 const Documents = () => {
   const dispatch = useDispatch()
   const { id } = useParams();
-  const [student, setStudent] = useState([]);
+  // const [docuents, setDocuments] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [search, setSearch] = useState(false);
   const [changenew, setChangenew] = useState(false);
@@ -31,7 +31,7 @@ const Documents = () => {
   const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
 
-  const { designations, roles, employeeInfo } = useSelector(store => store.emp)
+  const { designations, roles, employeeInfo, employeeDocuments } = useSelector(store => store.emp)
 
   const changeHandler = (event) => {
 		setFile(event.target.files[0]);	
@@ -53,7 +53,7 @@ const Documents = () => {
   console.log("employeeInfo",{employeeInfo })
 
   const pages = [];
-  for (let i = 1; i <= Math.ceil(student.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(employeeDocuments.length / itemsPerPage); i++) {
     pages.push(i);
   }
 
@@ -61,7 +61,7 @@ const Documents = () => {
   //  1  X 15 = 15 and 2 X 10 = 30
   const indexOfFistItem = indexOfLastItem - itemsPerPage;
   //   30 -15 = 15 and 15 -15 = 0
-  const currentItem = student.slice(indexOfFistItem, indexOfLastItem);
+  const currentItem = employeeDocuments.slice(indexOfFistItem, indexOfLastItem);
 
   const handleNewClick = (event) => {
     setCurrentPage(Number(event.target.id));
@@ -120,8 +120,10 @@ const Documents = () => {
     let path = `./Registration`;
     history.push(path);
   };
+
   useEffect(() => {
-    getAllStudent();
+    // getAllStudent();
+    dispatch(getDocuments())
   }, []);
 
   const { userData, backpackClick, setUserData, setFinalData, setCurrentStep } =
@@ -151,19 +153,19 @@ const Documents = () => {
 
   async function getAllStudent() {
     try {
-      const student = await axios.get("http://localhost:3003/posts");
-      setStudent(student.data);
+      const docuents = await axios.get("http://localhost:3003/posts");
+      // setDocuments(docuents.data);
     } catch (error) {
       console.log("something is wrong");
     }
   }
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:3003/posts/${id}`);
-    var newstudent = student.filter((item) => {
-      return item.id !== id;
-    });
-    setStudent(newstudent);
+    // await axios.delete(`http://localhost:3003/posts/${id}`);
+    // var newstudent = docuents.filter((item) => {
+    //   return item.id !== id;
+    // });
+    // setDocuments(newstudent);
      setModalOpen(false)
     
   };
@@ -244,8 +246,8 @@ const Documents = () => {
           {currentItem.map((items, i) => {
             return (
               <tr>
-                <td class="geeks">File-{items.id}.pdf</td>
-                <td> Link</td>
+                <td class="geeks">{items.name}</td>
+                <td> <a  target='_blank' href={items.document_url}>Link</a></td>
                 <td><button> <img
                       src="images/Edit.png"
                       alt="logo"

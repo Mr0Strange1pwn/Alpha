@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import { emailValidator } from '../../../../Utils/fieldValidator'
 import { useDispatch, useSelector} from 'react-redux'
 import moment from 'moment'
+import { toast } from "react-toastify";
 import { saveEmployee , getDesignitations, getRoles, saveEmployeeUpdate} from '../../../../redux/actions/employeeAction'
 
 const ExampleCustomInput = ({ value, onClick }) => {
@@ -103,7 +104,10 @@ function Registration() {
 console.log("role, ", details.role,employeeInfo)
   const handleNext = () => {
     setShowError(true)
-    if (details.name && details.designation && emailValidator(details.email) && details.role && details.manager && details.screenshot ) {
+    if(!IMG){
+      toast.warning("Please select Profile Photo")
+    }
+    if (details.name && details.designation && emailValidator(details.email) && details.role && details.manager && details.screenshot && IMG ) {
       let formData = new FormData()
       let req = {
         name: details.name , 
