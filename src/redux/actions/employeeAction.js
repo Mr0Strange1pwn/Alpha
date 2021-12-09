@@ -7,7 +7,7 @@ export const EMP_ROLE="EMP_ROLE"
 export const EMP_SAVE="EMP_SAVE"
 export const EMP_EMPLOYES = "EMP_EMPLOYES"
 export const EMP_PAYROLL = "EMP_PAYROLL"
-
+export const EMP_DELETE= "EMP_DELETE"
 export const empLIst = () => {
     return async (dispatch) => {
         await Axios.get("/Employee/save",HeaderToken()).then(
@@ -124,16 +124,14 @@ export const uploadDocument = (data) => {
 
 export const deleteEmployee =(id)=>{
   return async (dispatch) => {
-    let formData = new FormData
-    formData.id = id
-    await Axios.delete("/Employee/save",HeaderToken(),formData).then(
+    await Axios.delete(`/Employee/save/${id}`,HeaderToken()).then(
       (res) => {
           console.log("ress", res)
           if(res.data.result=="False"){
             toast.error(res.data.response);
           }else{
             toast.success("deleted");
-          //  dispatch({ type: EMP_SAVE, payload: res.data.employee })
+           dispatch({ type: EMP_DELETE, payload: res.data })
           }
        // dispatch({ type: EMP_SAVE, payload: res.data.response });
       }

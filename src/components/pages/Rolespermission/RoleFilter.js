@@ -1,32 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import Modal from "../../common/Model";
+import { filterRole, roleLIst } from "../../../redux/actions/roleAction";
+import { useSelector, useDispatch } from "react-redux";
 
-const options = [
-  { value: 1, label: "Choose Role Name" },
-  { value: 2, label: "Lead" },
-  { value: 3, label: "Assistant Manager" },
-  { value: 4, label: "Developer" },
-  { value: 5, label: "Tester" },
-  { value: 6, label: "Designer" },
-  { value: 7, label: "BDM" },
-  { value: 8, label: "Accountent" },
-];
-
-const RoleFilter = ({ open, onClose,data }) => {
+const RoleFilter = ({ open, onClose }) => {
   const [value, setState] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [toggleTwo, setToggleTwo] = useState(false);
-  const [roleName, setRoleName]=useState()
-//  if(!data){
-   
-//   let role=data.map((value)=>value.roleName)
-//   setRoleName(role)
-//  }
+  const roleNameInfo = useSelector((store) => store.role.userInfo);
+  const [roleNameList, setRoleName] = useState([{}]);
+  const [userCount, setUserCount] =useState()
+  const dispatch = useDispatch();
 
-// const [roleName, setRoleName]=useState(role)
- 
- 
+  useEffect(() => {
+    roleData();
+     if(roleNameInfo.length>0){
+      setRoleName(
+        roleNameInfo.map((value) => ({ label: value.roleName, value: value.id }))
+    )}
+  }, []);
+
+  const roleData = () => {
+    dispatch(roleLIst());
+   
+    
+    
+  };
+  console.log("roleName", roleNameList,userCount,value);
   const changeColor = () => {
     setToggleTwo(false);
     setToggle(true);
@@ -45,9 +46,17 @@ const RoleFilter = ({ open, onClose,data }) => {
   let btn_classTwo = toggleTwo ? buttonColor : buttonwhite;
 
   const handleChange = (selectedOption) => {
-    setState(selectedOption.map((e) => e));
+    setState(selectedOption.map((e) => e.label));
   };
-
+ const handleSubmit = () => {
+   let data= {
+    roleName:value,
+    user_count:parseInt(userCount)
+   }
+   console.log("data",data)
+   dispatch(filterRole(data))
+   onClose()
+ }
   return (
     <div>
       <Modal open={open} onClose={onClose}>
@@ -63,7 +72,7 @@ const RoleFilter = ({ open, onClose,data }) => {
                 </label>
                 <Select
                   isMulti
-                  options={data}
+                  options={roleNameList}
                   onChange={handleChange}
                   placeholder={<div>Tickets</div>}
                 />
@@ -71,9 +80,8 @@ const RoleFilter = ({ open, onClose,data }) => {
             </div>
             <div className="row">
               <div className="col">
-                <label className="form-check-label reg-lable" for="exampleCheck1">
-                  User Count
-                </label>
+                {/*
+                  
                 <select
                   className="form-select"
                   id="inputGroupSelect03"
@@ -81,12 +89,27 @@ const RoleFilter = ({ open, onClose,data }) => {
                   name="screenshot"
                 >
                   <option selected>Choose User Count</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
+                  <option value="1">0</option>
+                  <option value="2">1</option>
+                  <option value="3">2</option>
+                  <option value="4"></option>
                   <option value="5">5</option>
-                </select>
+                </select> */}
+                 <label
+                  className="form-check-label reg-lable"
+                  for="exampleCheck1"
+                >
+                  User Count
+                </label>
+                <input
+                type="text"
+                id="lname"
+                name="email"
+                placeholder="User Count"
+                value={userCount}
+                onChange={(e)=>setUserCount(e.target.value)}
+              />
+
               </div>
             </div>
             <div className="sorting-data">
@@ -122,9 +145,9 @@ const RoleFilter = ({ open, onClose,data }) => {
                     Descinding
                   </button>
                 </div>
-                <div style={{padding:"20px"}}>
+                <div style={{ padding: "20px" }}>
                   {value.map((data) => (
-                    <div>{data.label}</div>
+                    <div>{data}</div>
                   ))}
                 </div>
               </div>
@@ -137,6 +160,7 @@ const RoleFilter = ({ open, onClose,data }) => {
                 type="button"
                 className="btn"
                 style={{ backgroundColor: "#003366", color: "white" }}
+                onClick={handleSubmit}
               >
                 Save
               </button>

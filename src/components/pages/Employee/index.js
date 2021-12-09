@@ -54,8 +54,7 @@ const Employee = () => {
 
   const searchHandler = () => {
     let filterDAta = employeelist.filter((data) =>
-      //  console.log("data",data)
-      data.useremail.includes(searchQuery)
+      data.name.includes(searchQuery)
     );
     if (filterDAta.length > 0) {
       console.log("filterDAta", filterDAta);
@@ -250,7 +249,7 @@ const addEmployee=()=>{
           {currentItem.map((employeelist, i) => {
             return (
               <tr>
-                <td>{i + 1}</td>
+                <td>{employeelist.id}</td>
                 <td>{employeelist.name}</td>
                 <td>
                   <a href="#" class="user-email">
@@ -270,9 +269,6 @@ const addEmployee=()=>{
                     {" "}
                     <img src="images/Edit.png" alt="logo"  onClick={() =>  handleEdit(employeelist)} />
                   </button>
-                  {/* <button onClick={() => delAlert(students.id)}>
-                    <img src="images/Del.png" alt="logo" />
-                  </button> */}
                   <button onClick={() => delAlert(employeelist.id)}>
                     <img src="images/Del.png" alt="logo"  />
                   </button>
