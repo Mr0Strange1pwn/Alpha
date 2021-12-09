@@ -1,8 +1,9 @@
-import { ADD_ROLE, ROLE_LIST , DELETE_ROLE , ROLE_DETAIL } from "../actions/roleAction"
+import { ADD_ROLE, ROLE_LIST , DELETE_ROLE , ROLE_DETAIL, ROLE_SAVE,FILTER_ROLE } from "../actions/roleAction"
 
 const InitialState = {
     isLoggedIn: true,
     userInfo: {},
+    // filterRoleList:{}
 }
 
 const roleReduser = (state = InitialState, action) => {
@@ -29,6 +30,20 @@ const roleReduser = (state = InitialState, action) => {
             }
         }
         case ROLE_DETAIL: {
+            return {
+                ...state,
+                isLoggedIn:true,
+                userInfo:action.payload
+            }
+        }
+        case ROLE_SAVE: {
+            return {
+                ...state,
+                isLoggedIn:true,
+                userInfo:action.payload
+            }
+        }
+        case FILTER_ROLE: {
             return {
                 ...state,
                 isLoggedIn:true,

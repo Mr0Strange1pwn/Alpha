@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./addRole.css";
 
 const AddRolePermission = (props) => {
- 
+ console.log("props",props.value)
   return (
     <div class="row">
       <div className="col-sm-12 col-md-3 col-lg-3">
@@ -14,6 +14,7 @@ const AddRolePermission = (props) => {
           id={props.title}
           name={props.name}
           value="1"
+          checked={props.value === "1"}
           onChange={props.onChange}
         />
         <label for="huey" className="radio_lable">
@@ -26,6 +27,7 @@ const AddRolePermission = (props) => {
           id={props.title}
           name={props.name}
           value="2"
+          checked={props.value === "2"}
           onChange={props.onChange}
         />
         <label for="huey" className="radio_lable">
@@ -38,6 +40,7 @@ const AddRolePermission = (props) => {
           id={props.title}
           name={props.name}
           value="3"
+          checked={props.value === "3"}
           onChange={props.onChange}
         />
         <label for="huey" className="radio_lable">

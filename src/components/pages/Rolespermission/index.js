@@ -4,24 +4,27 @@ import axios from "axios";
 import Header from "../Header/Header";
 import { useHistory } from "react-router-dom";
 import Alert from "../../common/Alert";
-import { roleLIst ,deleteRole , getRoleById } from "../../../redux/actions/roleAction";
+import {
+  roleLIst,
+  deleteRole,
+  getRoleById,
+} from "../../../redux/actions/roleAction";
 import { useSelector, useDispatch } from "react-redux";
 import { CSVLink } from "react-csv";
-import RoleFilter from "./RoleFilter"
+import RoleFilter from "./RoleFilter";
 
 const Rolespermission = () => {
-
   const [searchQuery, setSearchQuery] = useState("");
   const [search, setSearch] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [ids, setID] = useState();
-  const student = useSelector((store) => store.role.userInfo); 
+  const student = useSelector((store) => store.role.userInfo);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemPerPage] = useState(5);
   const [pageNumberLimit, setpageNumberLimit] = useState(5);
   const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
-  const [filteredData, setFilteredData] = useState([])
+  const [filteredData, setFilteredData] = useState([]);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -32,28 +35,33 @@ const Rolespermission = () => {
   };
 
   useEffect(() => {
-    roleData()
-  },[])
+    roleData();
+  }, []);
 
   const roleData = () => {
     dispatch(roleLIst());
-  }
+  };
 
-// code for delete
+  // code for delete
   const delAlert = (id) => {
     setModalOpen(true);
     setID(id);
   };
 
   const handleDelete = (id) => {
-    dispatch(deleteRole(id))
+    // var newstudent = student.filter((item) => {
+    //   return item.id !== id;
+    // });
+    // setStudent(newstudent);
+    dispatch(deleteRole(id));
     setModalOpen(false);
+    // roleData()
   };
 
   const editRole = (id) => {
-    dispatch(getRoleById(id))
-    routeChange()
-  }
+    dispatch(getRoleById(id));
+    routeChange();
+  };
 
   useEffect(() => {
     if (searchQuery.length > 0) {
@@ -69,32 +77,34 @@ const Rolespermission = () => {
       data.roleName.toLowerCase().includes(searchQuery.toLowerCase())
     );
     if (filterDAta.length > 0) {
-      setFilteredData(filterDAta)
+      setFilteredData(filterDAta);
     }
     setSearch(true);
   };
 
- const applyshortRoleName = ()=>{
-   if(searchQuery.length > 0 ){
-    let stu =  filteredData
-   stu.sort((a, b) => (a.RoleName.toLowerCase() > b.RoleName.toLowerCase()) ? 1 : -1)
-   }else{
-    let stu =  student
-   stu.sort((a, b) => (a.RoleName.toLowerCase() > b.RoleName.toLowerCase()) ? -1 : 1)
-   }
- }
- 
+  const applyshortRoleName = () => {
+    if (searchQuery.length > 0) {
+      let stu = filteredData;
+      stu.sort((a, b) =>
+        a.RoleName.toLowerCase() > b.RoleName.toLowerCase() ? 1 : -1
+      );
+    } else {
+      let stu = student;
+      stu.sort((a, b) =>
+        a.RoleName.toLowerCase() > b.RoleName.toLowerCase() ? -1 : 1
+      );
+    }
+  };
 
- const applyshortUserCount = ()=>{
- if(searchQuery.length > 0 ){
-  let stu =  filteredData
-  stu.sort((a, b) => (a.UserCount > b.UserCount) ? 1 : -1)
- }else{
-  let stu =  student
-  stu.sort((a, b) => (a.UserCount > b.UserCount) ? 1 : -1)
- }
-}
-
+  const applyshortUserCount = () => {
+    if (searchQuery.length > 0) {
+      let stu = filteredData;
+      stu.sort((a, b) => (a.UserCount > b.UserCount ? 1 : -1));
+    } else {
+      let stu = student;
+      stu.sort((a, b) => (a.UserCount > b.UserCount ? 1 : -1));
+    }
+  };
 
   const pages = [];
   for (let i = 1; i <= Math.ceil(student.length / itemsPerPage); i++) {
@@ -102,29 +112,29 @@ const Rolespermission = () => {
   }
   const handleLoadMoreMethod = () => {
     setItemPerPage(itemsPerPage + 5);
-  }
+  };
 
   const handleLoadMoreMethoddec = () => {
     if (itemsPerPage > 5) {
       setItemPerPage(itemsPerPage - 5);
     }
-
-  }
+  };
   const indexOfLastItem = currentPage * itemsPerPage;
   //  1  X 15 = 15 and 2 X 10 = 30
   const indexOfFistItem = indexOfLastItem - itemsPerPage;
   //   30 -15 = 15 and 15 -15 = 0
-  let currentItem = student.length > 0 ? student.slice(indexOfFistItem, indexOfLastItem) : []
+  let currentItem =
+    student.length > 0 ? student.slice(indexOfFistItem, indexOfLastItem) : [];
 
   useEffect(() => {
     if (filteredData.length > 0) {
-      currentItem = filteredData.slice(indexOfFistItem, indexOfLastItem)
+      currentItem = filteredData.slice(indexOfFistItem, indexOfLastItem);
     } else {
       if (student.length > 0) {
-        currentItem = student.slice(indexOfFistItem, indexOfLastItem)
+        currentItem = student.slice(indexOfFistItem, indexOfLastItem);
       }
     }
-  }, [filteredData])
+  }, [filteredData]);
 
   const handleNewClick = (event) => {
     setCurrentPage(Number(event.target.id));
@@ -175,9 +185,20 @@ const Rolespermission = () => {
   }
 
   return (
-    <div >
-      <Alert message="delete the Role and Permission" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={(id) => handleDelete(id)} id={ids} />
-     <RoleFilter open={isOpenFilter} onClose={() => setIsOpenFilter(false)} data={student}/>
+    <div>
+      <Alert
+        message="delete the Role and Permission"
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        setOpenModal={setModalOpen}
+        handleDelete={(id) => handleDelete(id)}
+        id={ids}
+      />
+      <RoleFilter
+        open={isOpenFilter}
+        onClose={() => setIsOpenFilter(false)}
+        data={student}
+      />
       <Header headerName="Role and Permissions" />
       <div className="main">
         <div style={{ marginTop: "4%" }}>
@@ -209,22 +230,27 @@ const Rolespermission = () => {
                 <button
                   className="btn float-right"
                   type="submit"
-                  style={{textDecoration:"none!important"}}
+                  style={{ textDecoration: "none!important" }}
                 >
-                <CSVLink data={student.length > 0 ? currentItem: []} filename={"my-saved.csv"}  className="btn">Export</CSVLink>
+                  <CSVLink
+                    data={student.length > 0 ? currentItem : []}
+                    filename={"my-saved.csv"}
+                    className="btn"
+                  >
+                    Export
+                  </CSVLink>
                 </button>
                 <button
                   className="btn btn-outline-success float-right"
                   type="submit"
-                  onClick={() =>setIsOpenFilter(!isOpenFilter)}
+                  onClick={() => setIsOpenFilter(!isOpenFilter)}
                 >
-                    <img
-                      className="filter_image"
-                      src="images/Filter.png"
-                      alt="logo"
-                    />
+                  <img
+                    className="filter_image"
+                    src="images/Filter.png"
+                    alt="logo"
+                  />
                   Filter
-
                 </button>
                 <button
                   className="btn btn-outline-success float-right"
@@ -239,68 +265,91 @@ const Rolespermission = () => {
           </div>
         </div>
 
-        <table className="role-header"  id="table-to-xls">
+        <table className="role-header" id="table-to-xls">
           <tr>
             <th>
               ID <img src="images/Sort.png" alt="logo" />
             </th>
             <th>
-              Role Name <img onClick={applyshortRoleName} src="images/Sort.png" alt="logo" />
+              Role Name{" "}
+              <img
+                onClick={applyshortRoleName}
+                src="images/Sort.png"
+                alt="logo"
+              />
             </th>
             <th>
-              User Count <img onClick={applyshortUserCount} src="images/Sort.png" alt="logo" />
+              User Count{" "}
+              <img
+                onClick={applyshortUserCount}
+                src="images/Sort.png"
+                alt="logo"
+              />
             </th>
             <th>Action</th>
           </tr>
-          {searchQuery.length > 0 ? filteredData.map((students, i) => {
-            return (
-              <tr>
-                <td className="geeks">{students.id}</td>
-                <td>{students.roleName}</td>
-                <td>{students.user_count}</td>
-                <td >
-                  <button onClick={() => editRole(students.id)}>
-                    <img src="images/Edit.png" alt="logo" />
-                  </button>
-                  <button onClick={() => delAlert(students.id)}>
-                    <img src="images/Del.png" alt="logo" />
-                  </button>
-                </td>
-              </tr>
-
-            );
-          }) : currentItem.map((students, i) => {
-            return (
-              <tr>
-                <td className="geeks">{students.id}</td>
-                <td>{students.roleName}</td>
-                <td>{students.user_count}</td>
-                <td >
-                  <button  onClick={() => editRole(students.id)}>
-                    <img src="images/Edit.png" alt="logo" />
-                  </button>
-                  <button onClick={() => delAlert(students.id)}>
-                    <img src="images/Del.png" alt="logo" />
-                  </button>
-                </td>
-              </tr>
-
-            );
-          })}
+          {searchQuery.length > 0
+            ? filteredData.map((students, i) => {
+                return (
+                  <tr>
+                    <td className="geeks">{students.id}</td>
+                    <td>{students.roleName}</td>
+                    <td>{students.user_count}</td>
+                    <td>
+                      <button onClick={() => editRole(students.id)}>
+                        <img src="images/Edit.png" alt="logo" />
+                      </button>
+                      <button onClick={() => delAlert(students.id)}>
+                        <img src="images/Del.png" alt="logo" />
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
+            : currentItem.map((students, i) => {
+                return (
+                  <tr>
+                    <td className="geeks">{i + 1}</td>
+                    <td>{students.roleName}</td>
+                    <td>{students.user_count}</td>
+                    <td>
+                      <button onClick={() => editRole(students.id)}>
+                        <img src="images/Edit.png" alt="logo" />
+                      </button>
+                      <button onClick={() => delAlert(students.id)}>
+                        <img src="images/Del.png" alt="logo" />
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
         </table>
         <nav aria-label="Page navigation example">
           <div className="col-sm-12 col-md-6 col-lg-6">
-
             <div className="divboxnew">
-              <span><h6>Showing&nbsp;&nbsp;&nbsp;</h6></span>
-              <input
-                value={itemsPerPage}
-                className="payrollInputStylenew"
-              />
-              <div className="load"><button onClick={handleLoadMoreMethod} className="loadmorebuttonone" ><img src="images/up.png" className="loadmoreone" alt="logo" /> </button>
-                <button onClick={handleLoadMoreMethoddec} className="loadmorebuttontwo" ><img src="images/down.png" className="loadmoretwo" alt="logo" /></button></div>
+              <span>
+                <h6>Showing&nbsp;&nbsp;&nbsp;</h6>
+              </span>
+              <input value={itemsPerPage} className="payrollInputStylenew" />
+              <div className="load">
+                <button
+                  onClick={handleLoadMoreMethod}
+                  className="loadmorebuttonone"
+                >
+                  <img src="images/up.png" className="loadmoreone" alt="logo" />{" "}
+                </button>
+                <button
+                  onClick={handleLoadMoreMethoddec}
+                  className="loadmorebuttontwo"
+                >
+                  <img
+                    src="images/down.png"
+                    className="loadmoretwo"
+                    alt="logo"
+                  />
+                </button>
+              </div>
               <h6 style={{ display: "flex" }}>of {student.length}</h6>
-
             </div>
           </div>
 
@@ -320,7 +369,9 @@ const Rolespermission = () => {
             <li>
               <button
                 onClick={handleNextbtn}
-                disabled={currentPage === pages[pages.length - 1] ? true : false}
+                disabled={
+                  currentPage === pages[pages.length - 1] ? true : false
+                }
               >
                 Next
               </button>
@@ -328,7 +379,6 @@ const Rolespermission = () => {
           </ul>
         </nav>
       </div>
-
     </div>
   );
 };

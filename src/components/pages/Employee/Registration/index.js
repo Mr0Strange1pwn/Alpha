@@ -84,22 +84,7 @@ function Registration() {
 
   const handleRoleChange =(e)=> {
     setDetails({ ...details, role: e.target.value })
-      // if( e.target.value === "SA"){
-      //   if(details.role.includes("SA")){
-      //     setDetails({ ...details, role: [] })
-      //   }else{
-      //     setDetails({ ...details, role: ["SA","1","2","3"] })
-      //   }      
-      // } else{
-      //   if(details.role.includes(e.target.value)){
-      //     let role = details.role
-      //     let ind = role.indexOf(e.target.value)
-      //     role.splice(ind,1)
-      //     setDetails({ ...details, role: role })
-      //   }else{
-      //     setDetails({ ...details, role: [...details.role ,e.target.value ] })
-      //   } 
-      // }
+   
   }
 console.log("role, ", details.role,employeeInfo)
   const handleNext = () => {

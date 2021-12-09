@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./addRole.css";
-import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom";
 import AddRolePermission from "../../common/AddRolePermission";
 import Header from "../Header/Header";
-import { AddRoleAPI } from "../../../redux/actions/roleAction";
+import { AddRoleAPI,saveRoleUpdate } from "../../../redux/actions/roleAction";
 import { useSelector, useDispatch } from "react-redux";
 
 function AddRole() {
-  const role = useSelector((store) => store.role.userInfo);
+  const roleInfo = useSelector((store) => store.role.userInfo);
+  const [roleid, setRoleID] = useState();
   const [selectedValue, setValue] = useState({
     assignTask: "",
     createEmployee: "",
@@ -18,19 +19,56 @@ function AddRole() {
     manageEmployee: "",
     manageRole: "",
     reports: "",
-    roleName: ""
+    roleName: "",
   });
-  const History = useHistory()
+  const History = useHistory();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (roleInfo !== undefined && roleInfo.id) {
+      setValue({
+        roleName: roleInfo.roleName,
+        assignTask: roleInfo.assignTask,
+        createEmployee: roleInfo.createEmployee,
+        createProject: roleInfo.createProject,
+        createProjectBoard: roleInfo.createProjectBoard,
+        createRole: roleInfo.createRole,
+        createTask: roleInfo.createTask,
+        manageEmployee: roleInfo.manageEmployee,
+        manageRole: roleInfo.manageRole,
+        reports: roleInfo.reports,
+      });
+    }
+  }, [roleInfo]);
+
   
-  console.log("role",role)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValue({ ...selectedValue, [name]: value });
   };
   const handleSubmit = () => {
-     dispatch(AddRoleAPI(selectedValue,History));
+    if (roleInfo.id) {
+      let updatedData = {
+        roleid:roleInfo.id,
+        assignTask: selectedValue.assignTask,
+        createEmployee: selectedValue.createEmployee,
+        createProject: selectedValue.createProject,
+        createProjectBoard: selectedValue.createProjectBoard,
+        createRole: selectedValue.createRole,
+        createTask: selectedValue.createTask,
+        manageEmployee:selectedValue.manageEmployee,
+        manageRole:selectedValue.manageRole,
+        reports:selectedValue.reports,
+        roleName: selectedValue.roleName,
+      };
+       dispatch(saveRoleUpdate(updatedData,History))
+    } else {
+       dispatch(AddRoleAPI(selectedValue,History));
+    }
   };
+  const handleCancel = () => {
+    History.push("/Rolespermission");
+  }
   return (
     <div className="conatiner">
       <Header headerName="Add Role" />
@@ -44,7 +82,7 @@ function AddRole() {
             className="form-control role"
             id="roleName"
             name="roleName"
-            // onChange={(event) => setRoleName(event.target.value)}
+            value={selectedValue.roleName}
             onChange={handleChange}
             placeholder="Enter role name"
           />
@@ -59,21 +97,25 @@ function AddRole() {
               <AddRolePermission
                 name="createRole"
                 title="Create Role"
+                value={selectedValue.createRole}
                 onChange={handleChange}
               />
               <AddRolePermission
                 name="manageRole"
                 title="Manage Role"
+                value={selectedValue.manageRole}
                 onChange={handleChange}
               />
               <AddRolePermission
                 name="createEmployee"
                 title="Create Employee"
+                value={selectedValue.createEmployee}
                 onChange={handleChange}
               />
               <AddRolePermission
                 name="manageEmployee"
                 title="Manage Employee"
+                value={selectedValue.manageEmployee}
                 onChange={handleChange}
               />
             </div>
@@ -89,26 +131,31 @@ function AddRole() {
               <AddRolePermission
                 name="createProject"
                 title="Create Project"
+                value={selectedValue.createProject}
                 onChange={handleChange}
               />
               <AddRolePermission
                 name="createTask"
                 title="Create Task"
+                value={selectedValue.createTask}
                 onChange={handleChange}
               />
               <AddRolePermission
                 name="assignTask"
                 title="Assign Task"
+                value={selectedValue.assignTask}
                 onChange={handleChange}
               />
               <AddRolePermission
                 name="createProjectBoard"
                 title="Create Project Board"
+                value={selectedValue.createProjectBoard}
                 onChange={handleChange}
               />
               <AddRolePermission
                 name="reports"
                 title="Reports"
+                value={selectedValue.reports}
                 onChange={handleChange}
               />
             </div>
@@ -123,7 +170,7 @@ function AddRole() {
           >
             Save
           </button>
-          <button className="btn  float-left" type="submit">
+          <button  onClick={handleCancel} className="btn  float-left" type="submit">
             Cancel
           </button>
         </div>
