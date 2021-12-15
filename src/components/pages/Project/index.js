@@ -4,8 +4,11 @@ import Header from "../Header/Header";
 import Task from "./Task";
 import MileStone from "./MileStone";
 import { useHistory } from "react-router-dom";
+import {useSelector, useDispatch} from 'react-redux';
+import { addProject} from '../../../redux/actions/projectActions'
 
 const CreateProject = () => {
+  const dispatch = useDispatch()
   const [projectInfo, setProjectInfo] = useState(false);
   const [Items, setItems] = useState([]);
   const [showError, SetError] = useState(false);
@@ -41,6 +44,16 @@ const CreateProject = () => {
     let path = `./Task`;
     history.push(path);
   };
+
+  const handleAddProject =(req)=>{
+    let formData = new FormData();
+    Object.keys(req).map(key=>{
+      console.log("key",key)
+      formData.append(key, req[key])
+     })
+     dispatch(addProject(formData))
+  }
+
   const handleCreate = () => {
     SetError(true);
     if (
@@ -50,6 +63,41 @@ const CreateProject = () => {
       projectDetails.assignedTo
     ) {
       console.log("projectDeatils", projectDetails);
+      if(projectDetails.projectType === "non_billable"){
+        let req = {
+          "project_name": projectDetails.name,
+          "project_type": projectDetails.projectType,
+          "project_description": projectDetails.description,
+          "assigned_to": projectDetails.assignedTo,
+        }
+        console.log(" req", req)
+        handleAddProject(req)
+      }else {
+        if( projectDetails.category === "retainer"){
+          let req = {
+            "project_name": projectDetails.name,
+            "project_type": projectDetails.projectType,
+            "project_description": projectDetails.description,
+            "assigned_to": projectDetails.assignedTo,
+            "project_category": projectDetails.category,
+            "per_hour_cost": projectDetails.perhourcost,
+            "weekly_hours": projectDetails.weekelyhour
+          }
+          console.log(" req", req)
+          handleAddProject(req)
+        }else{
+          let req = {
+            "project_name": projectDetails.name,
+            "project_type": projectDetails.projectType,
+            "project_description": projectDetails.description,
+            "assigned_to": projectDetails.assignedTo,
+            "project_category": projectDetails.category,
+          
+          }
+          console.log(" req", req)
+        }
+       
+      }
     }
   };
   return (
@@ -145,8 +193,8 @@ const CreateProject = () => {
                         onChange={(e) => handleChange(e)}
                       >
                         <option selected>Select Project Type</option>
-                        <option value="1">Billable</option>
-                        <option value="2">Non Billable</option>
+                        <option value="billable">Billable</option>
+                        <option value="non_billable">Non Billable</option>
                       </select>
                     </div>
                   </div>
@@ -208,7 +256,7 @@ const CreateProject = () => {
                       </select>
                     </div>
 
-                    {projectDetails.projectType === "1" ? (
+                    {projectDetails.projectType === "billable" ? (
                       <div className="col-md-6">
                         <label
                           className="form-check-label reg-lable"
@@ -234,15 +282,15 @@ const CreateProject = () => {
                           onChange={(e) => handleChange(e)}
                         >
                           <option selected>Choose Project Category</option>
-                          <option value="1">Retainer</option>
-                          <option value="2">Non Retainer</option>
+                          <option value="retainer">Retainer</option>
+                          <option value="non_retainer">Non Retainer</option>
                         </select>
                       </div>
                     ) : null}
                   </div>
 
-                  {projectDetails.projectType === "1" ? (
-                    projectDetails.category === "1" ? (
+                  {projectDetails.projectType === "billable" ? (
+                    projectDetails.category === "retainer" ? (
                       <div className="row">
                         <div className="col-md-6">
                           <label
@@ -308,7 +356,7 @@ const CreateProject = () => {
         </div>
 
         <div>
-          {projectDetails.category === "2" ? (
+          {projectDetails.category === "non_retainer" ? (
             <div className="project-container">
               <div className="row">
                 <div className="col" style={{ display: "flex" }}>
@@ -347,7 +395,7 @@ const CreateProject = () => {
 
           {mileStone === true ? <MileStone /> : null}
 
-          {projectDetails.projectType === "2" ? (
+          {projectDetails.projectType === "non_billable" ? (
             <div className="project-container">
               <div className="row">
                 <div className="col" style={{ display: "flex" }}>

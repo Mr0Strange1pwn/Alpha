@@ -3,7 +3,7 @@ import "./Employee.css";
 import { Link, useHistory, useParams } from "react-router-dom";
 import Header from "../Header/Header";
 import Alert from "../../common/Alert";
-import { empLIst, deleteEmployee , EMP_SAVE } from "../../../redux/actions/employeeAction";
+import { empLIst, deleteEmployee , EMP_SAVE ,getEmployeeAllDetails, getPayroll, getJobDetails } from "../../../redux/actions/employeeAction";
 import { useSelector, useDispatch } from "react-redux";
 
 const Employee = () => {
@@ -150,7 +150,10 @@ dispatch(deleteEmployee(id))
   };
 
 const  handleEdit=(employeelist)=>{
+  dispatch(getEmployeeAllDetails(employeelist.id))
   dispatch({ type: EMP_SAVE, payload: employeelist })
+  dispatch(getPayroll(employeelist.id))
+  dispatch(getJobDetails(employeelist.id))
   routeChange()
 
 }

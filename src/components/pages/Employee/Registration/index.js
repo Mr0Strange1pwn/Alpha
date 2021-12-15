@@ -67,12 +67,12 @@ function Registration() {
       setDetails({
         name: employeeInfo.name,
         email: employeeInfo.email,
-        designation: employeeInfo.designation_name.id,
-        role: employeeInfo.roleId.id,
+        designation: employeeInfo.designation_name.id ? employeeInfo.designation_name.id : employeeInfo.designation_name,
+        role: employeeInfo.roleId.id ? employeeInfo.roleId.id : employeeInfo.roleId ,
         manager: employeeInfo.manager_name,
         screenshot:employeeInfo.screenshots
       })
-     // setStartDate(employeeInfo.date_of_birth)
+      setStartDate(new Date(employeeInfo.date_of_birth))
       setIMG(employeeInfo.profile_image)
       setPhoneNO(employeeInfo.mobile_number)
     }
@@ -92,6 +92,7 @@ console.log("role, ", details.role,employeeInfo)
     if(!IMG){
       toast.warning("Please select Profile Photo")
     }
+    console.log("details",details)
     if (details.name && details.designation && emailValidator(details.email) && details.role && details.manager && details.screenshot && IMG ) {
       let formData = new FormData()
       let req = {
@@ -109,19 +110,21 @@ console.log("role, ", details.role,employeeInfo)
        console.log("key",key)
        formData.append(key, req[key])
       })
-      formData.append("profile_image",IMG,IMG.name)
+      if(typeof IMG !== "string"){
+        formData.append("profile_image",IMG,IMG.name)
+      }
+
       if(employeeInfo.id){
         formData.append("id", employeeInfo.id)
-        dispatch(saveEmployeeUpdate(formData))
+        dispatch(saveEmployeeUpdate(formData ,setCurrentStep, backpackClick))
       }else{
-        dispatch(saveEmployee(formData))
+        dispatch(saveEmployee(formData ,  setCurrentStep, backpackClick))
       }
      
     //  console.log("details", req)
   //   for (var pair of formData.entries()) {
   //     console.log(pair[0]+ ', ' + pair[1]); 
   // }
-      setCurrentStep(2); backpackClick(2)
     }
   }
 
@@ -223,7 +226,7 @@ console.log("designations",designations)
               </label>
 
               <select
-                style={{ border: showError ? details.designation.length === 0 ? " 1px solid red" : null : null }}
+                style={{ border: showError ? details.designation === 0 ? " 1px solid red" : null : null }}
                 class="form-select"
                 id="inputGroupSelect03"
                 aria-label="Example select with button addon"
@@ -250,7 +253,7 @@ console.log("designations",designations)
                 Role
               </label>
               <select
-                style={{ border: showError ? details.role.length === 0 ? " 1px solid red" : null : null }}
+                style={{ border: showError ?  details.role === 0 ? " 1px solid red" : null : null }}
                 class="form-select"
                 id="inputGroupSelect03"
                 aria-label="Example select with button addon"

@@ -1,13 +1,16 @@
-import { EMP_LIST, EMP_DESIGNATION, EMP_ROLE, EMP_EMPLOYES , EMP_SAVE, EMP_PAYROLL, EMP_DOCUMENTS , EMP_DELETE} from "../actions/employeeAction" 
+import { EMP_LIST, EMP_DESIGNATION,
+     EMP_ROLE, EMP_EMPLOYES , EMP_SAVE, EMP_PAYROLL,
+      EMP_DOCUMENTS , EMP_DELETE, EMP_ADD_DOCUMENT, EMP_JOB_DETAILS,EMP_DELETE_DOCUMENTS} from "../actions/employeeAction" 
 
 const InitialState = {
     isLoggedIn: true,
-    userInfo: {},
+    userInfo: [],
     designations:[],
     roles:[],
     employeeInfo:{},
     employeePayRoll:{},
     employeeDocuments:[],
+    employeeJobDetails:{},
 }
 
 const empReduser = (state = InitialState, action) => {
@@ -40,7 +43,7 @@ const empReduser = (state = InitialState, action) => {
         case EMP_PAYROLL:{
             return {
                 ...state,
-                employeePayRol: action.payload
+                employeePayRoll: action.payload
             }
         }
         case EMP_DOCUMENTS:{
@@ -49,11 +52,30 @@ const empReduser = (state = InitialState, action) => {
                 employeeDocuments: action.payload
             }
         }
+        case EMP_ADD_DOCUMENT:{
+            return {
+                ...state,
+                employeeDocuments: [...state.employeeDocuments ,action.payload]
+            }
+        }
         case EMP_DELETE:{
             let empList = state.userInfo.filter(user=> user.id !== action.payload)
             return {
                 ...state,
                 userInfo: empList
+            }
+        }
+        case EMP_JOB_DETAILS:{
+            return {
+                ...state,
+                employeeJobDetails: action.payload
+            }
+        }
+        case EMP_DELETE_DOCUMENTS:{
+            let docList = state.employeeDocuments.filter(doc=> doc.id !== action.payload)
+            return {
+                ...state,
+                employeeDocuments: docList
             }
         }
         default: return { ...state }

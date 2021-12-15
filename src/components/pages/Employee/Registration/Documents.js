@@ -7,7 +7,7 @@ import { Multistepcontext } from "../../../../StepContext";
 import Modal from "../../../common/Model";
 import Alert from "../../../common/Alert"
 import { useSelector, useDispatch} from 'react-redux'
-import {uploadDocument, getDocuments} from '../../../../redux/actions/employeeAction'
+import {uploadDocument, getDocumentsById, deleteDocuments} from '../../../../redux/actions/employeeAction'
 
 const Documents = () => {
   const dispatch = useDispatch()
@@ -47,6 +47,7 @@ const Documents = () => {
             console.log(pair[0]+ ', ' + pair[1]); 
         }
       dispatch(uploadDocument(formData))
+      setIsOpen(false)
     }
   }
 
@@ -61,7 +62,7 @@ const Documents = () => {
   //  1  X 15 = 15 and 2 X 10 = 30
   const indexOfFistItem = indexOfLastItem - itemsPerPage;
   //   30 -15 = 15 and 15 -15 = 0
-  const currentItem = employeeDocuments.slice(indexOfFistItem, indexOfLastItem);
+  const currentItem = employeeDocuments.length > 0 ? employeeDocuments.slice(indexOfFistItem, indexOfLastItem) : [];
 
   const handleNewClick = (event) => {
     setCurrentPage(Number(event.target.id));
@@ -123,8 +124,8 @@ const Documents = () => {
 
   useEffect(() => {
     // getAllStudent();
-    dispatch(getDocuments())
-  }, []);
+    dispatch(getDocumentsById(employeeInfo.id))
+  }, [employeeInfo]);
 
   const { userData, backpackClick, setUserData, setFinalData, setCurrentStep } =
     useContext(Multistepcontext);
@@ -166,6 +167,7 @@ const Documents = () => {
     //   return item.id !== id;
     // });
     // setDocuments(newstudent);
+    dispatch(deleteDocuments(id))
      setModalOpen(false)
     
   };

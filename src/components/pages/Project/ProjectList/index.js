@@ -6,6 +6,8 @@ import Header from "./../../Header/Header";
 import Alert from "../../../common/Alert";
 import Modal from "../../../common/Model";
 import DatePicker from "react-datepicker";
+import { useDispatch , useSelector} from 'react-redux'
+import { getProducts } from '../../../../redux/actions/projectActions'
 
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
@@ -29,7 +31,8 @@ const ExampleCustomInput = ({ value, onClick }) => {
 };
 
 const ProjectList = () => {
-
+  const dispatch = useDispatch()
+  const  {projects} = useSelector(store => store.project)
   const [student, setStudent] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [search, setSearch] = useState(false);
@@ -61,7 +64,7 @@ const ProjectList = () => {
   //  1  X 15 = 15 and 2 X 10 = 30
   const indexOfFistItem = indexOfLastItem - itemsPerPage;
   //   30 -15 = 15 and 15 -15 = 0
-  const currentItem = student.slice(indexOfFistItem, indexOfLastItem);
+  const currentItem = projects.slice(indexOfFistItem, indexOfLastItem);
 
   const handleNewClick = (event) => {
     setCurrentPage(Number(event.target.id));

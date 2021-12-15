@@ -23,10 +23,11 @@ const roleReduser = (state = InitialState, action) => {
             }
         }
         case DELETE_ROLE: {
+            let roleList = state.userInfo.filter(role=> role.id !== action.payload)
             return {
                 ...state,
                 isLoggedIn:true,
-                userInfo:action.payload
+                userInfo: roleList
             }
         }
         case ROLE_DETAIL: {

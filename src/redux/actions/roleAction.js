@@ -36,7 +36,7 @@ export const deleteRole = (id) => {
         console.log("ress", res.data);
         if (res.data.result === "true") {
           toast.success(res.data.response);
-          dispatch({ type: DELETE_ROLE, payload: res.data });
+          dispatch({ type: DELETE_ROLE, payload: id });
         }
         if (res.data.result === "false") {
           toast.error(res.data.response);

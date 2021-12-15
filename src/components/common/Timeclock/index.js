@@ -1,10 +1,18 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import TimeKeeper from "react-timekeeper";
 import "./timeclock.css";
 
-export default function Timeclock() {
+export default function Timeclock({setTimevalue, value}) {
   const [time, setTime] = useState("00:00");
   const [showTime, setShowTime] = useState(false);
+
+  useEffect(()=>{
+    console.log("Timeclock( val  ",value)
+    if(value){
+      setTime(value)
+    }
+  },[value])
 
   return (
     <div>
@@ -23,7 +31,7 @@ export default function Timeclock() {
         <div className="Timekeeperimage">
           <TimeKeeper
             time={time}
-            onChange={(newTime) => setTime(newTime.formatted12)}
+            onChange={(newTime) => {setTime(newTime.formatted12); setTimevalue(newTime.formatted12);console.log(newTime)}}
             onDoneClick={() => setShowTime(false)}
             switchToMinuteOnHourSelect
           />
