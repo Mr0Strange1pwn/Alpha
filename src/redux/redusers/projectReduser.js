@@ -1,9 +1,10 @@
-import { PROJECT , ADD_PROJECT, NEW_PROJECT , DELETE_PROJECT , PROJECT_MILESTONE , UPDATE_PROJECT} from '../actions/projectActions'
+import { PROJECT , ADD_PROJECT, NEW_PROJECT , DELETE_PROJECT , PROJECT_MILESTONE , UPDATE_PROJECT,GET_TASK,ADD_TASK} from '../actions/projectActions'
 
 const InitialState = {
   projects:[],
   project:{},
   milestone:{},
+  task:[],
 }
 
 const projectReduser =(state = InitialState, action)=>{
@@ -45,7 +46,13 @@ switch(action.type){
             projects: newprojects,
             project: action.payload,
         }
+    }
 
+    case GET_TASK : {
+        return {
+            ...state,
+            task: action.payload
+        }
     }
     default :return  {
         ...state,

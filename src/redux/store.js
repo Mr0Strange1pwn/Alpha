@@ -7,13 +7,15 @@ import roleReduser from './redusers/roleReduser'
 import empReduser from './redusers/employeeReduser';
 import projectReduser from './redusers/projectReduser'
 import jobtypeReduser from './redusers/jobtypeReduser';
+import designationReduser from './redusers/settingReduser';
 
 const rootReducer = combineReducers({
     auth: authReduser,
     role: roleReduser,
     emp: empReduser,
     project: projectReduser,
-    jobtype: jobtypeReduser
+    jobtype: jobtypeReduser,
+    setting:designationReduser
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

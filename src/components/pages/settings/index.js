@@ -1,16 +1,21 @@
-import React, { useState} from "react";
+import React, { useState, useEffect } from "react";
 import "./settings.css";
 import Header from "../Header/Header";
 import Modal from "./../../common/Model";
 import Alert from "./../../common/Alert";
-
+import {
+  getDesignation,
+  deleteDesignation,
+  addDesignation,
+  updateDesignation
+} from "../../../redux/actions/settingAction";
+import { useSelector, useDispatch } from "react-redux";
 
 const Setting = () => {
   const [projectInfo, setProjectInfo] = useState(false);
   const [task, setTask] = useState(false);
   const [InputData, setInputData] = useState("");
   const [InputDataTwo, setInputDataTwo] = useState("");
-  const [Items, setItems] = useState([]);
   const [ItemsTwo, setItemsTwo] = useState([]);
   const [isEditItem, setIsEditItem] = useState();
   const [isEditItemTwo, setIsEditItemTwo] = useState();
@@ -22,20 +27,25 @@ const Setting = () => {
   const [idsNew, setIDNew] = useState();
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [isOpenEditTwo, setIsOpenEditTwo] = useState(false);
+  const designation = useSelector((store) => store.setting.designation);
+  const dispatch = useDispatch();
 
- 
+  useEffect(() => {
+    dispatch(getDesignation());
+  }, []);
 
+  
   const addItems = (e) => {
     e.preventDefault();
     if (!addNewTask) {
       alert("please Fill Data");
     } else {
-      const allInputData = {
-        id: new Date().getTime().toString(),
-        name: addNewTask,
+      let data = {
+        designation_name: addNewTask,
       };
-      setItems([...Items, allInputData]);
-      setNewTask("");
+      console.log("addNewTask", data);
+      dispatch(addDesignation(data));
+      dispatch(getDesignation());
     }
   };
   const addItemsNew = (e) => {
@@ -61,13 +71,11 @@ const Setting = () => {
     setModalOpenTwo(true);
     setIDNew(id);
   };
-  const handleDelete = (index) => {
-    const updateditems = Items.filter((elem) => {
-      return index !== elem.id;
-    });
-    setItems(updateditems);
+  const handleDelete = (id) => {
+    dispatch(deleteDesignation(id));
     setModalOpen(false);
   };
+
   const handleDeleteNew = (index) => {
     const updateditems = ItemsTwo.filter((elem) => {
       return index !== elem.id;
@@ -75,16 +83,24 @@ const Setting = () => {
     setItemsTwo(updateditems);
     setModalOpenTwo(false);
   };
+
   const handleSave = () => {
-    setItems(
-      Items.map((elem) => {
-        if (elem.id === isEditItem) {
-          return { ...elem, name: InputData };
-        }
-        return elem;
-      })
-    );
-    setIsOpenEdit(false);
+    // setItems(
+    //   Items.map((elem) => {
+    //     if (elem.id === isEditItem) {
+    //       return { ...elem, name: InputData };
+    //     }
+    //     return elem;
+    //   })
+    // );
+    let data = {
+        id: isEditItem,
+        designation_name: InputData,
+    }
+    console.log("data",data)
+     dispatch(updateDesignation(data))
+     dispatch(getDesignation());
+     setIsOpenEdit(false);
   };
   const handleSaveTwo = () => {
     setItemsTwo(
@@ -100,11 +116,10 @@ const Setting = () => {
   const editItems = (id, e) => {
     e.preventDefault();
     setIsOpenEdit(true);
-    let newEditItem = Items.find((elem) => {
+    let newEditItem = designation.find((elem) => {
       return elem.id === id;
     });
-    console.log(newEditItem);
-    setInputData(newEditItem.name);
+    setInputData(newEditItem.designation_name);
     setIsEditItem(id);
   };
   const editItemsTwo = (id, e) => {
@@ -139,12 +154,12 @@ const Setting = () => {
         id={ids}
       />
       <Alert
-      message="delete the Job Type"
-      open={modalOpenTwo}
-      onClose={() => setModalOpen(false)}
-      setOpenModal={setModalOpenTwo}
-      handleDelete={(id) => handleDeleteNew(id)}
-      id={idsNew}
+        message="delete the Job Type"
+        open={modalOpenTwo}
+        onClose={() => setModalOpen(false)}
+        setOpenModal={setModalOpenTwo}
+        handleDelete={(id) => handleDeleteNew(id)}
+        id={idsNew}
       />
       <Modal open={isOpenEdit} onClose={() => setIsOpenEdit(false)}>
         <div style={{ marginTop: "4%" }}>
@@ -241,7 +256,11 @@ const Setting = () => {
           <div className="setting-container">
             <div className="row">
               <div className="col" style={{ display: "flex" }}>
-                <img src="images/designation.png" alt="Project-info-icon" className="des-img" />
+                <img
+                  src="images/designation.png"
+                  alt="Project-info-icon"
+                  className="des-img"
+                />
                 <label
                   className="form-check-label reg-lable"
                   for="exampleCheck1"
@@ -263,7 +282,8 @@ const Setting = () => {
                   }
                   onClick={handleProject}
                   style={{ marginRight: "10px" }}
-                  alt="Project-info-icon" className="arrow-img"
+                  alt="Project-info-icon"
+                  className="arrow-img"
                 />
               </div>
             </div>
@@ -281,7 +301,10 @@ const Setting = () => {
                         >
                           Add Designation
                         </label>
-                        <div className="add-des-form" style={{ display: "flex" }}>
+                        <div
+                          className="add-des-form"
+                          style={{ display: "flex" }}
+                        >
                           <input
                             style={{ backgroundColor: "white" }}
                             type="text"
@@ -299,7 +322,7 @@ const Setting = () => {
                               backgroundRepeat: "no-repeat",
                               backgroundPosition: "left",
                               backgroundOrigin: "content-box",
-                              backgroundColor:"#25344b",
+                              backgroundColor: "#25344b",
                             }}
                           >
                             Add
@@ -310,44 +333,46 @@ const Setting = () => {
 
                     <div className="row">
                       <div className="ShowItems">
-                        {Items.length > 0 ? (
+                        {designation.length > 0 ? (
                           <div className="labaddtwo">
-                            <label style={{ fontWeight: "700" }}>Designation</label>
+                            <label style={{ fontWeight: "700" }}>
+                              Designation
+                            </label>
                           </div>
                         ) : null}
 
-                        {Items.map((elem) => {
+                        {designation.map((elem) => {
                           return (
                             <div className="doccontainernew">
                               <table className="task-des" key={elem.id}>
                                 <tr>
-                                <td>
-                                  <p
-                                    style={{
-                                      color: "black",
-                                      textAlign: "justify",
-                                    }}
-                                  >
-                                    {elem.name}
-                                  </p>
-                                </td>
+                                  <td>
+                                    <p
+                                      style={{
+                                        color: "black",
+                                        textAlign: "justify",
+                                      }}
+                                    >
+                                      {elem.designation_name}
+                                    </p>
+                                  </td>
 
-                                <td>
-                                  <button
-                                    className="action_image"
-                                    onClick={(e) => delAlert(elem.id, e)}
-                                  >
-                                    <img src="images/Del.png" alt="logo" />
-                                  </button>
-                                  <button
-                                    className="action_image"
-                                    onClick={(e) => {
-                                      editItems(elem.id, e);
-                                    }}
-                                  >
-                                    <img src="images/Edit.png" alt="logo" />
-                                  </button>
-                                </td>
+                                  <td>
+                                    <button
+                                      className="action_image"
+                                      onClick={(e) => delAlert(elem.id, e)}
+                                    >
+                                      <img src="images/Del.png" alt="logo" />
+                                    </button>
+                                    <button
+                                      className="action_image"
+                                      onClick={(e) => {
+                                        editItems(elem.id, e);
+                                      }}
+                                    >
+                                      <img src="images/Edit.png" alt="logo" />
+                                    </button>
+                                  </td>
                                 </tr>
                               </table>
                             </div>
@@ -368,7 +393,11 @@ const Setting = () => {
           <div className="setting-container">
             <div className="row">
               <div className="col" style={{ display: "flex" }}>
-                <img src="images/jobtype.png" alt="Project-info-icon" class="des-img"/>
+                <img
+                  src="images/jobtype.png"
+                  alt="Project-info-icon"
+                  class="des-img"
+                />
                 <label
                   className="form-check-label reg-lable"
                   for="exampleCheck1"
@@ -387,7 +416,8 @@ const Setting = () => {
                   onClick={handleTask}
                   style={{ marginRight: "10px" }}
                   alt="Project-info-icon"
-                className="arrow-img" />
+                  className="arrow-img"
+                />
               </div>
             </div>
           </div>
@@ -422,7 +452,7 @@ const Setting = () => {
                               backgroundRepeat: "no-repeat",
                               backgroundPosition: "left",
                               backgroundOrigin: "content-box",
-                              backgroundColor:"#25344b",
+                              backgroundColor: "#25344b",
                             }}
                           >
                             Add
@@ -435,7 +465,9 @@ const Setting = () => {
                       <div className="ShowItems">
                         {ItemsTwo.length > 0 ? (
                           <div className="labaddtwo">
-                            <label style={{ fontWeight: "700" }}>Job Type</label>
+                            <label style={{ fontWeight: "700" }}>
+                              Job Type
+                            </label>
                           </div>
                         ) : null}
 
@@ -444,36 +476,36 @@ const Setting = () => {
                             <div className="doccontainernew">
                               <table className="task-des" key={elem.id}>
                                 <tr>
-                                <td>
-                                  <p
-                                    style={{
-                                      color: "black",
-                                      textAlign: "justify",
-                                    }}
-                                  >
-                                    {elem.name}
-                                  </p>
-                                </td>
+                                  <td>
+                                    <p
+                                      style={{
+                                        color: "black",
+                                        textAlign: "justify",
+                                      }}
+                                    >
+                                      {elem.name}
+                                    </p>
+                                  </td>
 
-                                <td>
-                                  <button
-                                    className="action_image"
-                                    // onClick={() => {
-                                    //   deleteItems(elem.id);
-                                    // }}
-                                    onClick={(e) => delAlertNew(elem.id, e)}
-                                  >
-                                    <img src="images/Del.png" alt="logo" />
-                                  </button>
-                                  <button
-                                    className="action_image"
-                                    onClick={(e) => {
-                                      editItemsTwo(elem.id, e);
-                                    }}
-                                  >
-                                    <img src="images/Edit.png" alt="logo" />
-                                  </button>
-                                </td>
+                                  <td>
+                                    <button
+                                      className="action_image"
+                                      // onClick={() => {
+                                      //   deleteItems(elem.id);
+                                      // }}
+                                      onClick={(e) => delAlertNew(elem.id, e)}
+                                    >
+                                      <img src="images/Del.png" alt="logo" />
+                                    </button>
+                                    <button
+                                      className="action_image"
+                                      onClick={(e) => {
+                                        editItemsTwo(elem.id, e);
+                                      }}
+                                    >
+                                      <img src="images/Edit.png" alt="logo" />
+                                    </button>
+                                  </td>
                                 </tr>
                               </table>
                             </div>

@@ -9,6 +9,9 @@ export const DELETE_PROJECT = "DELETE_PROJECT"
 export const PROJECT_MILESTONE = "PROJECT_MILESTONE"
 export const UPDATE_PROJECT = "UPDATE_PROJECT"
 
+export const ADD_TASK = "ADD_TASK"
+export const GET_TASK = "GET_TASK"
+
 export const getProjects = () => {
     return async (dispatch) => {
         await Axios.get("/Projects/project",HeaderToken()).then(
@@ -112,3 +115,33 @@ export const addProjectMilestone = (data, history)=>{
         });
     };
 }
+
+
+// task related function
+
+export const addTask = (data) => {
+  return async (dispatch) => {
+    await Axios.post("/Account/task",data,HeaderToken())
+    .then((res) => {
+      console.log("Addtask",res.data)
+      dispatch({ type:ADD_TASK, payload:res.data})
+    })
+    .catch((err) => {
+      toast.error("Network Error");
+    });
+  }
+}
+
+export const getTask = (id) => {
+ 
+  return async (dispatch) => {
+    await Axios.get(`/Projects/get_project_Tasks/${id}`, HeaderToken())
+      .then((res) => {
+        console.log("task res", res.data);
+        dispatch({ type: GET_TASK, payload: res.data.response });
+      })
+      .catch((err) => {
+        toast.error("Network Error");
+      });
+  };
+};

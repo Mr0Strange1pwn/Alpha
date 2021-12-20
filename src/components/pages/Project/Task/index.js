@@ -8,6 +8,7 @@ import axios from "axios";
 import Categories from "../Category/categories";
 import Categorytype from "../Category/categorytype";
 import { useSelector, useDispatch} from "react-redux"
+import { getTask ,addTask } from "../../../../redux/actions/projectActions"
 
 const Task = () => {
   const [InputData, setInputData] = useState("");
@@ -20,9 +21,16 @@ const Task = () => {
   const [addNewTask, setNewTask] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [ids, setID] = useState();
+  const dispatch =useDispatch();
+  const { project,task } = useSelector((store) => store.project)
 
-  const { project } = useSelector((store) => store.project)
+console.log("projectss",project.id)
+console.log("projectsstask",task)
 
+useEffect(() => {
+  let id = project.id
+  dispatch(getTask(id));
+}, []);
   const hidme = {
     display: "flex",
   };
@@ -37,7 +45,7 @@ const Task = () => {
   if (range) {
     sohme.display = "flex";
   }
-console.log("project", project)
+
   const history = useHistory();
   // const routeBack = () => {
   //   let path = "./Project";
@@ -53,6 +61,11 @@ console.log("project", project)
         name: addNewTask,
       };
       setItems([...Items, allInputData]);
+      let data = {
+        designation_name: addNewTask,
+      };
+      console.log("addNewTask", data);
+      dispatch(addDesignation(data));
       setNewTask("");
     }
   };
