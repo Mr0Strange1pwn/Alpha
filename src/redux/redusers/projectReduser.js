@@ -1,7 +1,9 @@
-import { PROJECT , ADD_PROJECT} from '../actions/projectActions'
+import { PROJECT , ADD_PROJECT, NEW_PROJECT , DELETE_PROJECT , PROJECT_MILESTONE , UPDATE_PROJECT} from '../actions/projectActions'
 
 const InitialState = {
-  projects:[]
+  projects:[],
+  project:{},
+  milestone:{},
 }
 
 const projectReduser =(state = InitialState, action)=>{
@@ -15,8 +17,35 @@ switch(action.type){
     case ADD_PROJECT :{
         return {
             ...state,
-            projects: [...state.projects, action.payload]
+            projects: [...state.projects, action.payload],
+            project: action.payload,
         }
+    }
+    case NEW_PROJECT: return { ...state , project: action.payload ?action.payload:{}}
+    case DELETE_PROJECT: {
+        let projects = state.projects.filter(pro=> pro.id !== action.payload)
+        return {
+            ...state,
+            projects: projects,
+        }
+    }
+    case PROJECT_MILESTONE : {
+        return {
+            ...state,
+            milestone: action.payload,
+        }
+    }
+    case UPDATE_PROJECT :{
+        let index = state.projects.findIndex(p => p.id === action.payload.id)
+        let newprojects =  state.projects
+
+        newprojects.splice(index, 1,  action.payload)
+        return {
+            ...state,
+            projects: newprojects,
+            project: action.payload,
+        }
+
     }
     default :return  {
         ...state,

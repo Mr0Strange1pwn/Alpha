@@ -7,7 +7,7 @@ import Alert from "../../../common/Alert";
 import Modal from "../../../common/Model";
 import DatePicker from "react-datepicker";
 import { useDispatch , useSelector} from 'react-redux'
-import { getProducts } from '../../../../redux/actions/projectActions'
+import { getProjects, NEW_PROJECT, getProject,deleteProduct } from '../../../../redux/actions/projectActions'
 
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
@@ -33,7 +33,7 @@ const ExampleCustomInput = ({ value, onClick }) => {
 const ProjectList = () => {
   const dispatch = useDispatch()
   const  {projects} = useSelector(store => store.project)
-  const [student, setStudent] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [search, setSearch] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -47,7 +47,7 @@ const ProjectList = () => {
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
 
   const pages = [];
-  for (let i = 1; i <= Math.ceil(student.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(projects.length / itemsPerPage); i++) {
     pages.push(i);
   }
   const handleLoadMoreMethod = () =>{
@@ -119,17 +119,20 @@ const ProjectList = () => {
   const history = useHistory();
   const routeChange = () => {
     let path = `./ProjectList`;
+    dispatch({type:NEW_PROJECT})
     history.push(path);
   };
   useEffect(() => {
-    getAllStudent();
+    // getAllStudent();
+    dispatch(getProjects())
   }, []);
 
   useEffect(() => {
+    console.log(searchQuery)
     if (searchQuery.length > 0) {
       searchHandler();
     } else {
-      getAllStudent();
+      setFilteredProjects([])
       setSearch(false);
     }
   }, [searchQuery]);
@@ -139,32 +142,58 @@ const ProjectList = () => {
     setID(id);
   };
 
+  const TableData = ({product,i}) => {
+    return (
+      <tr>
+        <td class="geeks">{i + 1}</td>
+        <td>{product.name}</td>
+        <td>
+          <a href="#" class="user-email">
+            {product.project_type}
+          </a>
+        </td>
+        <td>{product.assigned_to}</td>
+        <td>{product.addedOn}</td>
+        {/* <td>Developer</td> */}
+        <td>
+          <button
+            // onClick={(e) => {
+            //   editItems(product.id, e);
+            // }}
+          >
+            {" "}
+            <img src="images/Edit.png" alt="logo" onClick={()=>handleEdit(product)} />
+          </button>
+          <button onClick={() => delAlert(product.id)}>
+            <img src="images/Del.png" alt="logo" />
+          </button>
+        </td>
+      </tr>
+    );
+  }
+
   const searchHandler = () => {
-    let filterDAta = student.filter((data) =>
+    let filterDAta = projects.filter((data) =>
       //  console.log("data",data)
-      data.projectname.includes(searchQuery)
+      data.name.toLowerCase().includes(searchQuery)
     );
     if (filterDAta.length > 0) {
       console.log("filterDAta", filterDAta);
-      setStudent(filterDAta);
+      setFilteredProjects(filterDAta);
     }
     setSearch(true);
   };
-  async function getAllStudent() {
-    try {
-      const student = await axios.get("http://localhost:3003/projects");
-      setStudent(student.data);
-    } catch (error) {
-      console.log("something is wrong");
-    }
+ 
+
+  const handleEdit=(product)=>{
+    let path = `./ProjectList`;
+    dispatch(getProject(product.id))
+    history.push(path);
+ 
   }
 
-  const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:3003/projects/${id}`);
-    var newstudent = student.filter((item) => {
-      return item.id !== id;
-    });
-    setStudent(newstudent);
+  const handleDelete = (id) => {
+    dispatch(deleteProduct(id))
     setModalOpen(false);
   };
 
@@ -292,7 +321,7 @@ const ProjectList = () => {
                     type="search"
                     id="example-search-input"
                     placeholder="Search here.."
-                    //value={searchQuery}
+                    value={searchQuery}
                     onChange={(value) => setSearchQuery(value.target.value)}
                     style={{
                       backgroundImage:
@@ -360,34 +389,11 @@ const ProjectList = () => {
             <th>Action</th>
           </tr>
 
-          {currentItem.map((students, i) => {
-            return (
-              <tr>
-                <td class="geeks">{i + 1}</td>
-                <td>{students.projectname}</td>
-                <td>
-                  <a href="#" class="user-email">
-                    {students.projecttype}
-                  </a>
-                </td>
-                <td>{students.assignedto}</td>
-                <td>{students.addedOn}</td>
-                {/* <td>Developer</td> */}
-                <td>
-                  <button
-                    // onClick={(e) => {
-                    //   editItems(students.id, e);
-                    // }}
-                  >
-                    {" "}
-                    <img src="images/Edit.png" alt="logo" />
-                  </button>
-                  <button onClick={() => delAlert(students.id)}>
-                    <img src="images/Del.png" alt="logo" />
-                  </button>
-                </td>
-              </tr>
-            );
+          { filteredProjects.length > 0 ?  filteredProjects.map((product, i) => {
+        return  <TableData product={product} i={i} />
+          }) : 
+            currentItem.map((product, i) => {
+        return  <TableData product={product} i={i} />
           })}
         </table>
         <nav aria-label="Page navigation example">
@@ -401,7 +407,7 @@ const ProjectList = () => {
                  />
                  <div className="load"><button onClick={handleLoadMoreMethod} className="loadmorebuttonone" ><img src="images/up.png" className="loadmoreone" alt="logo" /> </button>
                  <button onClick={handleLoadMoreMethoddec} className="loadmorebuttontwo" ><img src="images/down.png" className="loadmoretwo" alt="logo" /></button></div>
-                 <h6 style={{display:"flex"}}>of {student.length}</h6>
+                 <h6 style={{display:"flex"}}>of {projects.length}</h6>
           
             </div>
             </div>

@@ -5,7 +5,8 @@ import Task from "./Task";
 import MileStone from "./MileStone";
 import { useHistory } from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux';
-import { addProject} from '../../../redux/actions/projectActions'
+import { addProject , updateProject } from '../../../redux/actions/projectActions'
+import { roleLIst } from "../../../redux/actions/roleAction";
 
 const CreateProject = () => {
   const dispatch = useDispatch()
@@ -23,6 +24,8 @@ const CreateProject = () => {
     weekelyhour: "",
     perhourcost: "",
   });
+  const roles = useSelector((store) => store.role.userInfo);
+  const { project } = useSelector((store) => store.project)
   const history = useHistory();
 
   const handleChange = (e) => {
@@ -32,6 +35,50 @@ const CreateProject = () => {
     setProjectInfo(!projectInfo);
     // setTask(false);
   };
+
+  useEffect(() => {
+    dispatch(roleLIst())
+  },[])
+
+  useEffect(() => {
+    console.log("project",project)
+    if(project.id){
+      if(project.project_type === "billable"){
+        if(project.project_category === "retainer"){
+          setDetails({
+            name: project.name,
+            projectType: project.project_type,
+            description: project.project_desc,
+            assignedTo: project.assigned_to,
+            category: project.project_category,
+            weekelyhour: project.weekly_hours,
+            perhourcost: project.per_hour_cost,
+          })
+        }else{
+          setDetails({
+            name: project.name,
+            projectType: project.project_type,
+            description: project.project_desc,
+            assignedTo: project.assigned_to,
+            category: project.project_category,
+            weekelyhour: "",
+            perhourcost: "",
+          })
+        }
+      }else{
+        setDetails({
+          name: project.name,
+          projectType: project.project_type,
+          description: project.project_desc,
+          assignedTo: project.assigned_to,
+          category: "",
+          weekelyhour: "",
+          perhourcost: "",
+        })
+      }
+     
+    }
+  },[project])
 
   const handleMileStone = () => {
     setMileStone(!mileStone);
@@ -45,13 +92,19 @@ const CreateProject = () => {
     history.push(path);
   };
 
-  const handleAddProject =(req)=>{
+  const handleAddProject =(req )=>{
     let formData = new FormData();
     Object.keys(req).map(key=>{
       console.log("key",key)
       formData.append(key, req[key])
      })
-     dispatch(addProject(formData))
+     if(project && project.id){
+      formData.append("id", project.id)
+      dispatch(updateProject(formData, history))
+     }else{
+      dispatch(addProject(formData, history))
+     }
+    
   }
 
   const handleCreate = () => {
@@ -95,6 +148,7 @@ const CreateProject = () => {
           
           }
           console.log(" req", req)
+          handleAddProject(req)
         }
        
       }
@@ -250,9 +304,10 @@ const CreateProject = () => {
                         onChange={(e) => handleChange(e)}
                       >
                         <option selected>Choose Assignee</option>
-                        <option value="1">Developer</option>
+                        {roles.map(role => <option value={role.id}>{role.roleName}</option> )}
+                        {/* <option value="1">Developer</option>
                         <option value="2">Tester</option>
-                        <option value="3">Designer</option>
+                        <option value="3">Designer</option> */}
                       </select>
                     </div>
 
@@ -356,7 +411,7 @@ const CreateProject = () => {
         </div>
 
         <div>
-          {projectDetails.category === "non_retainer" ? (
+          {/* {projectDetails.category === "non_retainer" ? (
             <div className="project-container">
               <div className="row">
                 <div className="col" style={{ display: "flex" }}>
@@ -393,9 +448,9 @@ const CreateProject = () => {
             </div>
           ) : null}
 
-          {mileStone === true ? <MileStone /> : null}
+          {mileStone === true ? <MileStone /> : null} */}
 
-          {projectDetails.projectType === "non_billable" ? (
+          {/* {projectDetails.projectType === "non_billable" ? (
             <div className="project-container">
               <div className="row">
                 <div className="col" style={{ display: "flex" }}>
@@ -430,7 +485,7 @@ const CreateProject = () => {
                 </div>
               </div>
             </div>
-          ) : null}
+          ) : null} */}
 
           {/* {task==true?<Task task={true}/>:null} */}
         </div>
@@ -442,9 +497,9 @@ const CreateProject = () => {
               style={{ backgroundColor: "#25344b" }}
               onClick={() => handleCreate()}
             >
-              Create
+             { projectDetails.projectType === "non_billable" ? "Next" : projectDetails.category === "non_retainer" ? "Next" : " Create"}
             </button>
-            <button className="btn  float-left" type="submit">
+            <button className="btn  float-left" onClick={()=> history.goBack()}>
               Cancel
             </button>
           </div>

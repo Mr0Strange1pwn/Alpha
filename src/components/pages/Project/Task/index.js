@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Categories from "../Category/categories";
 import Categorytype from "../Category/categorytype";
+import { useSelector, useDispatch} from "react-redux"
 
 const Task = () => {
   const [InputData, setInputData] = useState("");
@@ -19,6 +20,8 @@ const Task = () => {
   const [addNewTask, setNewTask] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [ids, setID] = useState();
+
+  const { project } = useSelector((store) => store.project)
 
   const hidme = {
     display: "flex",
@@ -34,7 +37,7 @@ const Task = () => {
   if (range) {
     sohme.display = "flex";
   }
-
+console.log("project", project)
   const history = useHistory();
   // const routeBack = () => {
   //   let path = "./Project";
@@ -117,6 +120,10 @@ const Task = () => {
       setEmployee(tempUser);
     }
   };
+
+  const addTask=()=>{
+    console.log("data Items",Items)
+  }
 
   return (
     <div className="task-header">
@@ -421,6 +428,21 @@ const Task = () => {
                 </table>
               </div>
             </form>
+            <div className="d-grid gap-2 d-md-block">
+          <div className="addrole_Button">
+            <button
+              className="btn  float-left"
+              type="submit"
+              style={{ backgroundColor: "#25344b" }}
+              onClick={() => {addTask()}}
+            >
+              Create
+            </button>
+            <button className="btn  float-left" type="submit">
+              Cancel
+            </button>
+          </div>
+        </div>
           </div>
         </div>
       </div>

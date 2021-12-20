@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./milestone.css";
-import {  useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import Modal from "../../../common/Model";
 import DatePicker from "react-datepicker";
 import Alert from "../../../common/Alert";
+import { addProjectMilestone } from "../../../../redux/actions/projectActions";
+import { useSelector, useDispatch } from "react-redux";
+import moment from "moment";
 
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
@@ -27,7 +30,7 @@ const ExampleCustomInput = ({ value, onClick }) => {
 };
 
 const MileStone = (props) => {
-
+  const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const [ids, setID] = useState();
   const [isOpen, setIsOpen] = useState(false);
@@ -44,13 +47,14 @@ const MileStone = (props) => {
     status: "",
     amount: "",
   });
-
+  const { project } = useSelector((store) => store.project);
   const history = useHistory();
   const handleRouteChange = () => {
     let path = `./Task`;
     history.push(path);
   };
   const handleChange = (e) => {
+    console.log({ [e.target.name]: e.target.value });
     setItem({
       ...item,
       id: new Date().getTime().toString(),
@@ -90,6 +94,7 @@ const MileStone = (props) => {
     // setToggleSubmit(false);
   };
 
+
   useEffect(() => {
     if (searchQuery.length > 0) {
       searchHandler();
@@ -118,6 +123,29 @@ const MileStone = (props) => {
   const delAlert = (id) => {
     setModalOpen(true);
     setID(id);
+  };
+
+  const handleCreate = () => {
+    if (data.length > 0) {
+      let val = data[0];
+      if (val.name && val.status && val.amount && startDate) {
+        let req = {
+          name: val.name,
+          status: val.status.toLowerCase(),
+          amount: val.amount,
+          release_date: moment(startDate).format("YYYY-MM-DD"),
+          project_id: project.id,
+        };
+        console.log("data req", req);
+        let formData = new FormData();
+        Object.keys(req).map((key) => {
+          console.log("key", key);
+          formData.append(key, req[key]);
+        });
+        dispatch(addProjectMilestone(formData));
+        history.push("/Project");
+      }
+    }
   };
 
   return (
@@ -213,8 +241,8 @@ const MileStone = (props) => {
                     onChange={(e) => handleChange(e)}
                   >
                     <option selected>Select Status</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Completed">Completed</option>
+                    <option value="pending">Pending</option>
+                    <option value="completed">Completed</option>
                   </select>
                 </div>
                 <div className="row">
@@ -379,46 +407,60 @@ const MileStone = (props) => {
             </div>
           </Modal>
         </div>
-   
-          <table class="mile-header">
-            <tr>
-              <th>
-                Name <img src="images/Sort.png" alt="logo" />
-              </th>
-              <th>Amount</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-         
-        
-        {data.map((students, i) => {
-          return (
-                <tr>
-                  <td >{students.name}</td>
-                  <td>{students.amount}</td>
-                  <td>{students.status}</td>
-                  <td style={{ width: "197px" }}>
-                    <button
-                      onClick={() => delAlert(students.id)}
-                    >
-                      <img src="images/Del.png" alt="logo" />
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        editItems(students.id, e);
-                      }}
-                    >
-                      <img src="images/Edit.png" alt="logo" />
-                    </button>
-                    <button onClick={() => handleRouteChange()}>
-                      <img src="images/task.png" alt="logo" />
-                    </button>
-                  </td>
-                </tr>
-            
-          );
-        })}
-              </table>
+
+        <table class="mile-header">
+          <tr>
+            <th>
+              Name <img src="images/Sort.png" alt="logo" />
+            </th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+
+          {data.map((students, i) => {
+            return (
+              <tr>
+                <td>{students.name}</td>
+                <td>{students.amount}</td>
+                <td>{students.status}</td>
+                <td style={{ width: "197px" }}>
+                  <button onClick={() => delAlert(students.id)}>
+                    <img src="images/Del.png" alt="logo" />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      editItems(students.id, e);
+                    }}
+                  >
+                    <img src="images/Edit.png" alt="logo" />
+                  </button>
+                  <button onClick={() => handleRouteChange()}>
+                    <img src="images/task.png" alt="logo" />
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </table>
+
+        <div className="d-grid gap-2 d-md-block">
+          <div className="addrole_Button">
+            <button
+              className="btn  float-left"
+              type="submit"
+              style={{ backgroundColor: "#25344b" }}
+              onClick={() => {
+                handleCreate();
+              }}
+            >
+              Create
+            </button>
+            <button className="btn  float-left" type="submit">
+              Cancel
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

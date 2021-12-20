@@ -18,6 +18,7 @@ import JobDetails from "./components/pages/Employee/Registration/JobDetails";
 import FirstStepper from "./components/pages/Stepper/Stepper";
 import CreateProject from "./components/pages/Project";
 import Task from "./components/pages/Project/Task";
+import Milestone from "./components/pages/Project/MileStone";
 import ProjectList from "./components/pages/Project/ProjectList";
 
 function getWindowDimensions() {
@@ -112,6 +113,9 @@ const Routes = () => {
               </Route>
               <Route path="/Task">
                 <Task />
+              </Route>
+              <Route path="/Milestone">
+<Milestone />
               </Route>
 
               <Route path="/changepassword">
