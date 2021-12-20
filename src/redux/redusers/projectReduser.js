@@ -1,10 +1,11 @@
-import { PROJECT , ADD_PROJECT, NEW_PROJECT , DELETE_PROJECT , PROJECT_MILESTONE , UPDATE_PROJECT,GET_TASK,ADD_TASK} from '../actions/projectActions'
+import { PROJECT , ADD_PROJECT, NEW_PROJECT , DELETE_PROJECT , ADD_PROJECT_MILESTONE, 
+     DELETE_PROJECT_MILESTONE, EDIT_PROJECT_MILESTONE ,PROJECT_MILESTONE , UPDATE_PROJECT,GET_TASK,ADD_TASK} from '../actions/projectActions'
 
 const InitialState = {
   projects:[],
   project:{},
-  milestone:{},
-  task:[],
+  milestones:[],
+  tasks:[],
 }
 
 const projectReduser =(state = InitialState, action)=>{
@@ -33,7 +34,30 @@ switch(action.type){
     case PROJECT_MILESTONE : {
         return {
             ...state,
-            milestone: action.payload,
+            milestones: action.payload,
+        }
+    }
+    case DELETE_PROJECT_MILESTONE:{
+        let MS = state.milestones.filter(ms=> ms.id !== action.payload)
+        return {
+            ...state,
+            milestones: MS,
+        }
+    }
+    case EDIT_PROJECT_MILESTONE :{
+        let index = state.milestones.findIndex(m => m.id === action.payload.id)
+        let newmilestones =  state.milestones
+
+        newmilestones.splice(index, 1,  action.payload)
+        return {
+            ...state,
+            milestones: newmilestones,
+        }
+    }
+    case ADD_PROJECT_MILESTONE : {
+        return {
+            ...state,
+            milestones: [...state.milestones, action.payload],
         }
     }
     case UPDATE_PROJECT :{
@@ -47,11 +71,16 @@ switch(action.type){
             project: action.payload,
         }
     }
-
     case GET_TASK : {
         return {
             ...state,
-            task: action.payload
+            tasks: action.payload
+        }
+    }
+    case ADD_TASK : {
+        return {
+            ...state,
+            tasks: [...state.tasks,action.payload]
         }
     }
     default :return  {

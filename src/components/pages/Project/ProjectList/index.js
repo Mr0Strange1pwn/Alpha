@@ -7,7 +7,7 @@ import Alert from "../../../common/Alert";
 import Modal from "../../../common/Model";
 import DatePicker from "react-datepicker";
 import { useDispatch , useSelector} from 'react-redux'
-import { getProjects, NEW_PROJECT, getProject,deleteProduct } from '../../../../redux/actions/projectActions'
+import { getProjects, NEW_PROJECT, getProject,deleteProject } from '../../../../redux/actions/projectActions'
 
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
@@ -193,7 +193,7 @@ const ProjectList = () => {
   }
 
   const handleDelete = (id) => {
-    dispatch(deleteProduct(id))
+    dispatch(deleteProject(id))
     setModalOpen(false);
   };
 

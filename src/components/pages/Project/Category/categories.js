@@ -11,18 +11,21 @@ class Categories extends PureComponent {
   };
 
   loadOptions = async (inputText, callback) => {
+    console.log("values forgfhb ## ", this.props)
     const response = await fetch(
       `http://localhost:3003/profile?employee_like=${inputText}`
     );
     const json = await response.json();
-    callback(json.map((i) => ({ label: i.employee, value: i.id })));
-  };
 
+    callback(json.map((i) => ({ label: i.designation_name, value: i.id })));
+  };
+ 
   renderEveryUser = (user) => {
     return <p></p>;
   };
 
   render() {
+    console.log("values forgfhb ## ", this.props.values)
     return (
       <div className="users">
         <AsyncSelect

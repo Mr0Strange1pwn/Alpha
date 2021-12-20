@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import Modal from "../../../common/Model";
 import DatePicker from "react-datepicker";
 import Alert from "../../../common/Alert";
-import { addProjectMilestone } from "../../../../redux/actions/projectActions";
+import { addProjectMilestone, getProjectMilestone , deleteMilestone , editProjectMilestone} from "../../../../redux/actions/projectActions";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 
@@ -47,7 +47,7 @@ const MileStone = (props) => {
     status: "",
     amount: "",
   });
-  const { project } = useSelector((store) => store.project);
+  const { project, milestones } = useSelector((store) => store.project);
   const history = useHistory();
   const handleRouteChange = () => {
     let path = `./Task`;
@@ -57,7 +57,6 @@ const MileStone = (props) => {
     console.log({ [e.target.name]: e.target.value });
     setItem({
       ...item,
-      id: new Date().getTime().toString(),
       [e.target.name]: e.target.value,
     });
   };
@@ -69,17 +68,44 @@ const MileStone = (props) => {
       //   id: new Date().getTime().toString(),
       //   item,
       // };
-      setData([...data, item]);
+      handleCreate()
+      // setData([...data, item]);
       setIsOpen(false);
     }
   };
   const handleEdit = () => {
-    let newArr = data;
-    let index = data.findIndex((x) => x.id === isEditItem);
+    // let newArr = data;
+    // let index = data.findIndex((x) => x.id === isEditItem);
 
-    newArr.splice(index, 1, item);
-    console.log("item", newArr);
-    setData(newArr);
+    // newArr.splice(index, 1, item);
+    // console.log("item", newArr);
+    // setData(newArr);
+    let val = item;
+    if (val.name && val.status && val.amount && startDate) {
+      let req = {
+        id: val.id,
+        name: val.name,
+        status: val.status.toLowerCase(),
+        amount: val.amount,
+        release_date: moment(startDate).format("YYYY-MM-DD"),
+        project_id: project.id,
+      };
+      console.log("data req", req);
+      let formData = new FormData();
+      Object.keys(req).map((key) => {
+        console.log("key", key);
+        formData.append(key, req[key]);
+      });
+      dispatch(editProjectMilestone(formData));
+      // history.push("/Project");
+      setItem({
+        id: "",
+        name: "",
+        status: "",
+        amount: "",
+      })
+      setStartDate(new Date())
+    }
     setIsOpenEdit(false);
   };
   const editItems = (id, e) => {
@@ -94,6 +120,9 @@ const MileStone = (props) => {
     // setToggleSubmit(false);
   };
 
+  useEffect(() => {
+    dispatch(getProjectMilestone(project.id))
+  },[project])
 
   useEffect(() => {
     if (searchQuery.length > 0) {
@@ -102,6 +131,26 @@ const MileStone = (props) => {
       setSearch(false);
     }
   }, [searchQuery]);
+
+  useEffect(() => {
+    if(milestones.length > 0) {
+      let newMileS = []
+
+      milestones.map(ms=>{
+        newMileS.push({
+          id: ms.id,
+          name: ms.name,
+          status: ms.status,
+          amount: ms.amount,
+          release_date:ms.release_date
+        })
+      })
+    
+      setData(newMileS);
+    }else{
+      setData([]);
+    }
+  },[milestones])
 
   const searchHandler = () => {
     let filterDAta = data.filter((newdata) =>
@@ -114,20 +163,21 @@ const MileStone = (props) => {
   };
 
   const handleDelete = (index) => {
-    const updateditems = data.filter((elem) => {
-      return index !== elem.id;
-    });
-    setData(updateditems);
+    // const updateditems = data.filter((elem) => {
+    //   return index !== elem.id;
+    // });
+    // setData(updateditems);
+    dispatch(deleteMilestone(ids))
     setModalOpen(false);
   };
   const delAlert = (id) => {
     setModalOpen(true);
     setID(id);
   };
-
+ console.log("date  ",startDate ,milestones)
   const handleCreate = () => {
-    if (data.length > 0) {
-      let val = data[0];
+    // if (data.length > 0) {
+      let val = item;
       if (val.name && val.status && val.amount && startDate) {
         let req = {
           name: val.name,
@@ -143,9 +193,16 @@ const MileStone = (props) => {
           formData.append(key, req[key]);
         });
         dispatch(addProjectMilestone(formData));
-        history.push("/Project");
+        // history.push("/Project");
+        setItem({
+          id: "",
+          name: "",
+          status: "",
+          amount: "",
+        })
+        setStartDate(new Date())
       }
-    }
+    // }
   };
 
   return (
@@ -207,6 +264,7 @@ const MileStone = (props) => {
         </div>
 
         <div>
+          {/* for edit  */}
           <Modal open={isOpenEdit} onClose={() => setIsOpenEdit(false)}>
             <div style={{ marginTop: "5%" }}>
               <div style={{ textAlignLast: "center" }}>
@@ -242,7 +300,7 @@ const MileStone = (props) => {
                   >
                     <option selected>Select Status</option>
                     <option value="pending">Pending</option>
-                    <option value="completed">Completed</option>
+                    <option value="done">Done</option>
                   </select>
                 </div>
                 <div className="row">
@@ -343,8 +401,8 @@ const MileStone = (props) => {
                     onChange={(e) => handleChange(e)}
                   >
                     <option selected>Select Status</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Completed">Completed</option>
+                    <option value="pending">Pending</option>
+                    <option value="done">Done</option>
                   </select>
                 </div>
                 <div className="row">
@@ -446,7 +504,7 @@ const MileStone = (props) => {
 
         <div className="d-grid gap-2 d-md-block">
           <div className="addrole_Button">
-            <button
+            {/* <button
               className="btn  float-left"
               type="submit"
               style={{ backgroundColor: "#25344b" }}
@@ -455,9 +513,9 @@ const MileStone = (props) => {
               }}
             >
               Create
-            </button>
-            <button className="btn  float-left" type="submit">
-              Cancel
+            </button> */}
+            <button className="btn  float-left" type="submit" onClick={() => {history.goBack()}} >
+              Back
             </button>
           </div>
         </div>

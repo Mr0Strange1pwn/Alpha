@@ -9,11 +9,13 @@ import Categories from "../Category/categories";
 import Categorytype from "../Category/categorytype";
 import { useSelector, useDispatch} from "react-redux"
 import { getTask ,addTask } from "../../../../redux/actions/projectActions"
+import {  getDesignitations, getRoles} from '../../../../redux/actions/employeeAction'
 
 const Task = () => {
   const [InputData, setInputData] = useState("");
   const [Items, setItems] = useState([]);
   const [range, setRange] = useState(false);
+  const { designations, roles } = useSelector(store => store.emp)
   const [employee, setEmployee] = useState([]);
   const [isEditItem, setIsEditItem] = useState();
   const [isOpenEdit, setIsOpenEdit] = useState(false);
@@ -22,15 +24,45 @@ const Task = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [ids, setID] = useState();
   const dispatch =useDispatch();
-  const { project,task } = useSelector((store) => store.project)
+  const { project,tasks } = useSelector((store) => store.project)
 
-console.log("projectss",project.id)
-console.log("projectsstask",task)
 
 useEffect(() => {
   let id = project.id
   dispatch(getTask(id));
-}, []);
+
+}, [project]);
+
+useEffect(() => {
+  dispatch(getDesignitations())
+  dispatch(getRoles())
+},[])
+
+useEffect(()=>{
+ 
+  console.log("projectsstask",tasks)
+  if(tasks.length > 0){
+
+    let tasksArr = []
+
+    tasks.map(task=>{
+      tasksArr.push({
+        id:task.id,
+          name: task.task_name,
+          assignTO: task.employees,
+          department: task.role == null ? "" : task.role,
+          category:"",
+          project: task.project
+        })
+
+    })
+    setItems(tasksArr)
+  }else{
+    setItems([])
+  }
+},[tasks])
+
+
   const hidme = {
     display: "flex",
   };
@@ -56,16 +88,27 @@ useEffect(() => {
     if (!addNewTask) {
       alert("please Fill Data");
     } else {
-      const allInputData = {
-        id: new Date().getTime().toString(),
-        name: addNewTask,
-      };
-      setItems([...Items, allInputData]);
-      let data = {
-        designation_name: addNewTask,
-      };
-      console.log("addNewTask", data);
-      dispatch(addDesignation(data));
+      let formData = new FormData();
+      let req = {
+        "task_name": addNewTask,
+        "project": project.id,
+      }
+      // const allInputData = {
+      //   name: addNewTask,
+      //   assignTO:[],
+      //   department:"",
+      //   category:"",
+      // };
+      // setItems([...Items, allInputData]);
+      // let data = {
+      //   designation_name: addNewTask,
+      // };
+      Object.keys(req).map(key=>{
+        console.log("key",key)
+        formData.append(key, req[key])
+       })
+
+       dispatch(addTask(formData));
       setNewTask("");
     }
   };
@@ -107,17 +150,19 @@ useEffect(() => {
     e.preventDefault();
     setIsOpen(true);
   };
-  async function getAllEmployee() {
-    try {
-      const employee = await axios.get("http://localhost:3003/profile");
-      setEmployee(employee.data);
-    } catch (error) {
-      console.log("something is wrong dude");
-    }
-  }
-  useEffect(() => {
-    getAllEmployee();
-  }, []);
+
+
+  // async function getAllEmployee() {
+  //   try {
+  //     const employee = await axios.get("http://localhost:3003/profile");
+  //     setEmployee(employee.data);
+  //   } catch (error) {
+  //     console.log("something is wrong dude");
+  //   }
+  // }
+  // useEffect(() => {
+  //   getAllEmployee();
+  // }, []);
 
   const handleChange = (e) => {
     const { name, checked } = e.target;
@@ -134,9 +179,6 @@ useEffect(() => {
     }
   };
 
-  const addTask=()=>{
-    console.log("data Items",Items)
-  }
 
   return (
     <div className="task-header">
@@ -181,10 +223,10 @@ useEffect(() => {
             </div>
             <div className="row" style={hidme}>
               <div className="col-sm-6" style={{ color: "black" }}>
-                <Categories />
+                <Categories values={roles} />
               </div>
               <div className="col-sm-6" style={{ color: "black" }}>
-                <Categorytype />
+                <Categorytype values={designations}  />
               </div>
               <div style={{ marginTop: "10px" }}>
                 <input
@@ -417,9 +459,9 @@ useEffect(() => {
                     return (
                       <tr>
                         <td>{elem.name}</td>
-                        <td>React Developer</td>
-                        <td>Developer</td>
-                        <td>==</td>
+                        <td>{elem.assignTO}</td>
+                        <td>{elem.department}</td>
+                        <td>{elem.category}</td>
                         <td style={{ width: "197px" }}>
                           <button onClick={(e) => delAlert(elem.id, e)}>
                             <img src="images/Del.png" alt="logo" />
@@ -443,16 +485,16 @@ useEffect(() => {
             </form>
             <div className="d-grid gap-2 d-md-block">
           <div className="addrole_Button">
-            <button
+            {/* <button
               className="btn  float-left"
               type="submit"
               style={{ backgroundColor: "#25344b" }}
-              onClick={() => {addTask()}}
+              onClick={() => {}}
             >
               Create
-            </button>
-            <button className="btn  float-left" type="submit">
-              Cancel
+            </button> */}
+            <button className="btn  float-left" type="submit" onClick={()=> history.goBack()}>
+              Back
             </button>
           </div>
         </div>

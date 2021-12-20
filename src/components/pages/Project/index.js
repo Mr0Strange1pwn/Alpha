@@ -10,7 +10,7 @@ import { roleLIst } from "../../../redux/actions/roleAction";
 
 const CreateProject = () => {
   const dispatch = useDispatch()
-  const [projectInfo, setProjectInfo] = useState(false);
+  const [projectInfo, setProjectInfo] = useState(true);
   const [Items, setItems] = useState([]);
   const [showError, SetError] = useState(false);
   const [mileStone, setMileStone] = useState(false);
