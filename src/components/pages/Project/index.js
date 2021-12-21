@@ -27,7 +27,6 @@ const CreateProject = () => {
   const roles = useSelector((store) => store.role.userInfo);
   const { project } = useSelector((store) => store.project)
   const history = useHistory();
-
   const handleChange = (e) => {
     setDetails({ ...projectDetails, [e.target.name]: e.target.value });
   };

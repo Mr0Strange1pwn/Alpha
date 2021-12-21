@@ -7,8 +7,14 @@ import {
   getDesignation,
   deleteDesignation,
   addDesignation,
-  updateDesignation
+  updateDesignation,
 } from "../../../redux/actions/settingAction";
+import {
+  getJobType,
+  deleteJobType,
+  addJobType,
+  updateJobType,
+} from "../../../redux/actions/jobtypeAction";
 import { useSelector, useDispatch } from "react-redux";
 
 const Setting = () => {
@@ -28,13 +34,14 @@ const Setting = () => {
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [isOpenEditTwo, setIsOpenEditTwo] = useState(false);
   const designation = useSelector((store) => store.setting.designation);
+  const jobTypeList = useSelector((store) => store.jobtype.jobTypes);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getDesignation());
+    dispatch(getJobType());
   }, []);
 
-  
   const addItems = (e) => {
     e.preventDefault();
     if (!addNewTask) {
@@ -43,22 +50,21 @@ const Setting = () => {
       let data = {
         designation_name: addNewTask,
       };
-      console.log("addNewTask", data);
       dispatch(addDesignation(data));
       dispatch(getDesignation());
     }
   };
   const addItemsNew = (e) => {
     e.preventDefault();
+    dispatch(getJobType());
     if (!addNewTaskTwo) {
       alert("please Fill Data");
     } else {
-      const allInputData = {
-        id: new Date().getTime().toString(),
-        name: addNewTaskTwo,
+      let data = {
+        Type_name: addNewTaskTwo,
       };
-      setItemsTwo([...ItemsTwo, allInputData]);
-      setNewTaskTwo("");
+      dispatch(addJobType(data));
+      dispatch(getJobType());
     }
   };
   const delAlert = (id, e) => {
@@ -76,41 +82,28 @@ const Setting = () => {
     setModalOpen(false);
   };
 
-  const handleDeleteNew = (index) => {
-    const updateditems = ItemsTwo.filter((elem) => {
-      return index !== elem.id;
-    });
-    setItemsTwo(updateditems);
+  const handleDeleteNew = (id) => {
+    dispatch(deleteJobType(id));
     setModalOpenTwo(false);
   };
 
   const handleSave = () => {
-    // setItems(
-    //   Items.map((elem) => {
-    //     if (elem.id === isEditItem) {
-    //       return { ...elem, name: InputData };
-    //     }
-    //     return elem;
-    //   })
-    // );
     let data = {
-        id: isEditItem,
-        designation_name: InputData,
-    }
-    console.log("data",data)
-     dispatch(updateDesignation(data))
-     dispatch(getDesignation());
-     setIsOpenEdit(false);
+      id: isEditItem,
+      designation_name: InputData,
+    };
+    console.log("data", data);
+    dispatch(updateDesignation(data));
+    dispatch(getDesignation());
+    setIsOpenEdit(false);
   };
   const handleSaveTwo = () => {
-    setItemsTwo(
-      ItemsTwo.map((elem) => {
-        if (elem.id === isEditItemTwo) {
-          return { ...elem, name: InputDataTwo };
-        }
-        return elem;
-      })
-    );
+    let data = {
+      id: isEditItemTwo,
+      Type_name: InputDataTwo,
+    };
+    dispatch(updateJobType(data));
+    dispatch(getJobType());
     setIsOpenEditTwo(false);
   };
   const editItems = (id, e) => {
@@ -125,11 +118,10 @@ const Setting = () => {
   const editItemsTwo = (id, e) => {
     e.preventDefault();
     setIsOpenEditTwo(true);
-    let newEditItem = ItemsTwo.find((elem) => {
+    let newEditItem = jobTypeList.find((elem) => {
       return elem.id === id;
     });
-    console.log(newEditItem);
-    setInputDataTwo(newEditItem.name);
+    setInputDataTwo(newEditItem.Type_name);
     setIsEditItemTwo(id);
   };
 
@@ -463,7 +455,7 @@ const Setting = () => {
 
                     <div className="row">
                       <div className="ShowItems">
-                        {ItemsTwo.length > 0 ? (
+                        {jobTypeList.length > 0 ? (
                           <div className="labaddtwo">
                             <label style={{ fontWeight: "700" }}>
                               Job Type
@@ -471,7 +463,7 @@ const Setting = () => {
                           </div>
                         ) : null}
 
-                        {ItemsTwo.map((elem) => {
+                        {jobTypeList.map((elem) => {
                           return (
                             <div className="doccontainernew">
                               <table className="task-des" key={elem.id}>
@@ -483,16 +475,13 @@ const Setting = () => {
                                         textAlign: "justify",
                                       }}
                                     >
-                                      {elem.name}
+                                      {elem.Type_name}
                                     </p>
                                   </td>
 
                                   <td>
                                     <button
                                       className="action_image"
-                                      // onClick={() => {
-                                      //   deleteItems(elem.id);
-                                      // }}
                                       onClick={(e) => delAlertNew(elem.id, e)}
                                     >
                                       <img src="images/Del.png" alt="logo" />
