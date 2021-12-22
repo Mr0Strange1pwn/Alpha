@@ -14,6 +14,8 @@ export const EDIT_PROJECT_MILESTONE = "EDIT_PROJECT_MILESTONE"
 
 export const ADD_TASK = "ADD_TASK"
 export const GET_TASK = "GET_TASK"
+export const DELETE_TASK = "DELETE_TASK"
+export const UPDATE_TASK = "UPDATE_TASK"
 
 export const getProjects = () => {
     return async (dispatch) => {
@@ -175,7 +177,14 @@ export const addTask = (data) => {
     await Axios.post("/Account/task",data,HeaderToken())
     .then((res) => {
       console.log("Addtask",res.data)
-      dispatch({ type:ADD_TASK, payload:res.data.response})
+
+      if (res.data.result === "true") {
+        toast.success("Successfully Added")
+        dispatch({ type:ADD_TASK, payload:res.data.response})
+      }else {
+        toast.error(res.data.response)
+      }
+      
     })
     .catch((err) => {
       toast.error("Network Error");
@@ -184,15 +193,15 @@ export const addTask = (data) => {
 }
 
 export const getTask = (id) => {
- 
   return async (dispatch) => {
     await Axios.get(`/Projects/get_project_Tasks/${id}`, HeaderToken())
       .then((res) => {
         console.log("task res", res.data);
-        if(res.data.response === "no data present" ){
-          dispatch({ type: GET_TASK, payload: []});
-        }else{
+        if(res.data.result=== "true" ){
           dispatch({ type: GET_TASK, payload: res.data.response });
+        }else{
+          toast.error(res.data.response)
+            dispatch({ type: GET_TASK, payload: []});
         }
        
       })
@@ -201,3 +210,41 @@ export const getTask = (id) => {
       });
   };
 };
+
+export const deleteTask = (id) => {
+  return async (dispatch) => {
+    await Axios.delete(`/Account/deletetask/${id}`, HeaderToken())
+      .then((res) => {
+        console.log("deleteTask", res.data);
+        if (res.data.result === "true") {
+          toast.success(res.data.response);
+          dispatch({ type: DELETE_TASK, payload: id });
+        }
+        if (res.data.result === "false") {
+          toast.error(res.data.response);
+        }
+      })
+      .catch((err) => {
+        toast.error("Network Error");
+      });
+  };
+};
+
+export const updateTask = (data) => {
+  return async (dispatch) => {
+      await Axios.put("/Account/task",data,HeaderToken())
+      .then((res) => {
+          console.log("updateTask",res.data)
+          if (res.data.result === "true") {
+          toast.success("Successfully Updated");
+          dispatch({
+              type: UPDATE_TASK,
+              payload:res.data.response
+          })
+      }
+      })
+      .catch((err) => {
+          toast.error("Network Error")
+      })
+  }
+}

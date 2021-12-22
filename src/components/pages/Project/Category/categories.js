@@ -1,82 +1,40 @@
-import React, { PureComponent } from "react";
-import AsyncSelect from "react-select/async";
+import React, { useState } from "react";
+import Select from "react-select";
 
-class Categories extends PureComponent {
-  state = { selectedUsers: [] };
 
-  onChange = (selectedUsers) => {
-    this.setState({
-      selectedUsers: selectedUsers || [],
-    });
-  };
 
-  loadOptions = async (inputText, callback) => {
-    console.log("values forgfhb ## ", this.props)
-    const response = await fetch(
-      `http://localhost:3003/profile?employee_like=${inputText}`
-    );
-    const json = await response.json();
-
-    callback(json.map((i) => ({ label: i.designation_name, value: i.id })));
-  };
- 
-  renderEveryUser = (user) => {
-    return <p></p>;
-  };
-
-  render() {
-    console.log("values forgfhb ## ", this.props.values)
-    return (
-      <div className="users">
-        <AsyncSelect
-          isMulti
-          value={this.state.selectedUsers}
-          onChange={this.onChange}
-          loadOptions={this.loadOptions}
-          theme={(theme) => ({
-            ...theme,
-            borderRadius: 5,
-            width: "60%",
-            DropdownIndicator: {
-              color: "darkblue",
-            },
-            colors: {
-              ...theme.colors,
-              primary25: "green",
-              primary: "ligntblue",
-              neutral0: "#f1f1f1",
-              neutral90: "#f1f1f1",
-            },
-          })}
-        />
-
-        <div
-          className="row"
-          style={{ display: "flex", marginTop: "40px", position: "absolute" }}
-        >
-          {this.state.selectedUsers.map((o) => (
-            <div className="col-sm-6" style={{ display: "flex" }}>
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="exampleCheck1"
-              />
-              <span
-                style={{
-                  color: "darkBlue",
-                  fontWeight: "600",
-                  marginLeft: "15px",
-                }}
-              >
-                {o.label}
-              </span>
-              <br />
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+const Categories = ({values}) => {
+  const [DisplayValue, getValue] = useState();
+  const [value,setState]=useState([])
+  const options = values.map(role => ({ label: role.roleName, value: role.id }) )
+  const handleChange = (selectedOption) => {
+    setState(selectedOption.map(e=>e));
+   
   }
-}
+
+  const handleDelete = (index) => {
+    const updateditems = value.filter((elem) => {
+       return index !== elem.value;
+    });
+    setState(updateditems);
+   
+  };
+
+  return (
+    <div>
+      <Select  isMulti options={options} onChange={handleChange}  placeholder={<div>Department</div>}/>
+      {/* <div className="styee"> {value.map((elem)=> 
+              <div class="select-option" style={{background: "skyblue",
+                padding:" 4px",
+                fontSize: "12px",
+                borderRadius: "8px",
+                textTransform: "uppercase",
+                margin: "4px",maxWidth: "max-content"}}>
+              {elem.label}<i onClick={(e) => handleDelete(elem.value, e)} class="fa fa-times" aria-hidden="true"></i>
+              </div>
+                )}</div> */}
+    </div>
+  );
+};
 
 export default Categories;

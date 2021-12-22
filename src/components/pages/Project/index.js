@@ -27,7 +27,6 @@ const CreateProject = () => {
   const roles = useSelector((store) => store.role.userInfo);
   const { project } = useSelector((store) => store.project)
   const history = useHistory();
-
   const handleChange = (e) => {
     setDetails({ ...projectDetails, [e.target.name]: e.target.value });
   };
@@ -39,7 +38,7 @@ const CreateProject = () => {
   useEffect(() => {
     dispatch(roleLIst())
   },[])
-
+console.log("roles",roles)
   useEffect(() => {
     console.log("project",project)
     if(project.id){
@@ -304,7 +303,7 @@ const CreateProject = () => {
                         onChange={(e) => handleChange(e)}
                       >
                         <option selected>Choose Assignee</option>
-                        {roles.map(role => <option value={role.id}>{role.roleName}</option> )}
+                        {roles.length> 0 ? roles.map(role => <option value={role.id}>{role.roleName}</option> ) : "" }
                         {/* <option value="1">Developer</option>
                         <option value="2">Tester</option>
                         <option value="3">Designer</option> */}
