@@ -175,7 +175,7 @@ export const addTask = (data) => {
     await Axios.post("/Account/task",data,HeaderToken())
     .then((res) => {
       console.log("Addtask",res.data)
-      dispatch({ type:ADD_TASK, payload:res.data})
+      dispatch({ type:ADD_TASK, payload:res.data.response})
     })
     .catch((err) => {
       toast.error("Network Error");

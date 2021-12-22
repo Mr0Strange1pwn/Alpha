@@ -48,7 +48,7 @@ const CreateProject = () => {
           setDetails({
             name: project.name,
             projectType: project.project_type,
-            description: project.project_desc,
+            description: project.project_description,
             assignedTo: project.assigned_to,
             category: project.project_category,
             weekelyhour: project.weekly_hours,
@@ -58,7 +58,7 @@ const CreateProject = () => {
           setDetails({
             name: project.name,
             projectType: project.project_type,
-            description: project.project_desc,
+            description: project.project_description,
             assignedTo: project.assigned_to,
             category: project.project_category,
             weekelyhour: "",
@@ -69,7 +69,7 @@ const CreateProject = () => {
         setDetails({
           name: project.name,
           projectType: project.project_type,
-          description: project.project_desc,
+          description: project.project_description,
           assignedTo: project.assigned_to,
           category: "",
           weekelyhour: "",
