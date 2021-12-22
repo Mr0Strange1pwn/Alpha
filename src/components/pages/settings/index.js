@@ -92,7 +92,6 @@ const Setting = () => {
       id: isEditItem,
       designation_name: InputData,
     };
-    console.log("data", data);
     dispatch(updateDesignation(data));
     dispatch(getDesignation());
     setIsOpenEdit(false);

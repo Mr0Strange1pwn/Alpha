@@ -7,15 +7,24 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Categories from "../Category/categories";
 import Categorytype from "../Category/categorytype";
-import { useSelector, useDispatch} from "react-redux"
-import { getTask ,addTask } from "../../../../redux/actions/projectActions"
-import {  getDesignitations, getRoles} from '../../../../redux/actions/employeeAction'
+import { useSelector, useDispatch } from "react-redux";
+import {
+  getTask,
+  addTask,
+  deleteTask,
+  updateTask,
+} from "../../../../redux/actions/projectActions";
+import {
+  getDesignitations,
+  getRoles,
+} from "../../../../redux/actions/employeeAction";
 
 const Task = () => {
-  const [InputData, setInputData] = useState("");
+  const [InputData, setInputData] = useState({});
+  const [editData, setEditData] = useState({});
   const [Items, setItems] = useState([]);
   const [range, setRange] = useState(false);
-  const { designations, roles } = useSelector(store => store.emp)
+  const { designations, roles } = useSelector((store) => store.emp);
   const [employee, setEmployee] = useState([]);
   const [isEditItem, setIsEditItem] = useState();
   const [isOpenEdit, setIsOpenEdit] = useState(false);
@@ -23,45 +32,39 @@ const Task = () => {
   const [addNewTask, setNewTask] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [ids, setID] = useState();
-  const dispatch =useDispatch();
-  const { project,tasks } = useSelector((store) => store.project)
+  const dispatch = useDispatch();
+  const { project, tasks } = useSelector((store) => store.project);
 
+  useEffect(() => {
+    let id = project.id;
+    dispatch(getTask(id));
+  }, [project]);
 
-useEffect(() => {
-  let id = project.id
-  dispatch(getTask(id));
+  useEffect(() => {
+    dispatch(getDesignitations());
+    dispatch(getRoles());
+  }, []);
 
-}, [project]);
+  useEffect(() => {
+    console.log("projectsstask", tasks);
+    if (tasks.length > 0) {
+      let tasksArr = [];
 
-useEffect(() => {
-  dispatch(getDesignitations())
-  dispatch(getRoles())
-},[])
-
-useEffect(()=>{
- 
-  console.log("projectsstask",tasks)
-  if(tasks.length > 0){
-
-    let tasksArr = []
-
-    tasks.map(task=>{
-      tasksArr.push({
-        id:task.id,
+      tasks.map((task) => {
+        tasksArr.push({
+          id: task.id,
           name: task.task_name,
           assignTO: task.employees,
           department: task.role == null ? "" : task.role,
-          category:"",
-          project: task.project
-        })
-
-    })
-    setItems(tasksArr)
-  }else{
-    setItems([])
-  }
-},[tasks])
-
+          category: "",
+          project: task.project,
+        });
+      });
+      setItems(tasksArr);
+    } else {
+      setItems([]);
+    }
+  }, [tasks]);
 
   const hidme = {
     display: "flex",
@@ -79,36 +82,25 @@ useEffect(()=>{
   }
 
   const history = useHistory();
-  // const routeBack = () => {
-  //   let path = "./Project";
-  //   history.push(path);
-  // };
   const addItems = (e) => {
     e.preventDefault();
     if (!addNewTask) {
       alert("please Fill Data");
     } else {
       let formData = new FormData();
+      let id = project.id;
       let req = {
-        "task_name": addNewTask,
-        "project": project.id,
-      }
-      // const allInputData = {
-      //   name: addNewTask,
-      //   assignTO:[],
-      //   department:"",
-      //   category:"",
-      // };
-      // setItems([...Items, allInputData]);
-      // let data = {
-      //   designation_name: addNewTask,
-      // };
-      Object.keys(req).map(key=>{
-        console.log("key",key)
-        formData.append(key, req[key])
-       })
+        task_name: addNewTask,
+        project: id,
+      };
 
-       dispatch(addTask(formData));
+      Object.keys(req).map((key) => {
+        console.log("key", key);
+        formData.append(key, req[key]);
+      });
+
+      dispatch(addTask(formData));
+      dispatch(getTask(id));
       setNewTask("");
     }
   };
@@ -117,32 +109,31 @@ useEffect(()=>{
     setModalOpen(true);
     setID(id);
   };
-  const handleDelete = (index) => {
-    const updateditems = Items.filter((elem) => {
-      return index !== elem.id;
-    });
-    setItems(updateditems);
+  const handleDelete = (id) => {
+    dispatch(deleteTask(id));
     setModalOpen(false);
   };
   const handleSave = () => {
-    setItems(
-      Items.map((elem) => {
-        if (elem.id === isEditItem) {
-          return { ...elem, name: InputData };
-        }
-        return elem;
-      })
-    );
+    let data = {
+      taskid: editData.id,
+      task_name: InputData,
+      project: editData.project,
+      employees: [0],
+    };
+    dispatch(updateTask(data));
+    dispatch(getTask(project.id));
     setIsOpenEdit(false);
   };
+  console.log("InputData", editData);
   const editItems = (id, e) => {
     e.preventDefault();
     setIsOpenEdit(true);
-    let newEditItem = Items.find((elem) => {
+    let newEditItem = tasks.find((elem) => {
       return elem.id === id;
     });
-    console.log(newEditItem);
-    setInputData(newEditItem.name);
+    console.log("newEditItem", newEditItem);
+    setInputData(newEditItem);
+    setEditData(newEditItem);
     setIsEditItem(id);
   };
 
@@ -150,19 +141,6 @@ useEffect(()=>{
     e.preventDefault();
     setIsOpen(true);
   };
-
-
-  // async function getAllEmployee() {
-  //   try {
-  //     const employee = await axios.get("http://localhost:3003/profile");
-  //     setEmployee(employee.data);
-  //   } catch (error) {
-  //     console.log("something is wrong dude");
-  //   }
-  // }
-  // useEffect(() => {
-  //   getAllEmployee();
-  // }, []);
 
   const handleChange = (e) => {
     const { name, checked } = e.target;
@@ -178,7 +156,6 @@ useEffect(()=>{
       setEmployee(tempUser);
     }
   };
-
 
   return (
     <div className="task-header">
@@ -201,6 +178,8 @@ useEffect(()=>{
             <img src="images/Filter-popup.png" alt="logo" />
           </button>
         </div>
+       
+
         <div className="cardforproject">
           <div className="container">
             <div className="row" style={hidme}>
@@ -226,7 +205,7 @@ useEffect(()=>{
                 <Categories values={roles} />
               </div>
               <div className="col-sm-6" style={{ color: "black" }}>
-                <Categorytype values={designations}  />
+                <Categorytype values={designations} />
               </div>
               <div style={{ marginTop: "10px" }}>
                 <input
@@ -277,13 +256,11 @@ useEffect(()=>{
             Cancel
           </button>
         </div>
-
+        
         <div>
-          <div
-            style={{ ...sohme, marginLeft: "6%",marginBottom: "30px" }}
-          >
+          <div style={{ ...sohme, marginLeft: "6%", marginBottom: "30px" }}>
             <input
-              checked={!employee.some((result) => result?.isChecked !== true)}
+              // checked={!designations.some((result) => result?.isChecked !== true)}
               name="allSelect"
               onChange={handleChange}
               type="checkbox"
@@ -297,7 +274,7 @@ useEffect(()=>{
             </span>
           </div>
           <div className="row" style={{ ...sohme, marginLeft: "5%" }}>
-            {employee.map((result) => {
+            {designations.map((result) => {
               return (
                 <div
                   className="row"
@@ -308,12 +285,12 @@ useEffect(()=>{
                     <div style={{ display: "flex" }}>
                       <input
                         type="checkbox"
-                        name={result.employee}
+                        name={result.designation_name}
                         className="form-check-input"
-                        checked={result?.isChecked || false}
+                        // checked={result?.isChecked || false}
                         onChange={handleChange}
                         id="exampleCheck1"
-                        value={result.employee}
+                        value={result.designation_name}
                       />
                       <span
                         style={{
@@ -322,7 +299,7 @@ useEffect(()=>{
                           marginLeft: "15px",
                         }}
                       >
-                        {result.employee}
+                        {result.designation_name}
                       </span>
                     </div>
                   </div>
@@ -378,7 +355,7 @@ useEffect(()=>{
                 id="fname"
                 name="name"
                 placeholder="Enter Name"
-                value={InputData}
+                value={InputData.task_name}
                 onChange={(e) => setInputData(e.target.value)}
               />
             </div>
@@ -484,8 +461,8 @@ useEffect(()=>{
               </div>
             </form>
             <div className="d-grid gap-2 d-md-block">
-          <div className="addrole_Button">
-            {/* <button
+              <div className="addrole_Button">
+                {/* <button
               className="btn  float-left"
               type="submit"
               style={{ backgroundColor: "#25344b" }}
@@ -493,11 +470,15 @@ useEffect(()=>{
             >
               Create
             </button> */}
-            <button className="btn  float-left" type="submit" onClick={()=> history.goBack()}>
-              Back
-            </button>
-          </div>
-        </div>
+                <button
+                  className="btn  float-left"
+                  type="submit"
+                  onClick={() => history.goBack()}
+                >
+                  Back
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
