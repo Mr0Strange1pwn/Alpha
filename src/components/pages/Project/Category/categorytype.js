@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import Select from "react-select";
 
-const Categorytype = ({ values }) => {
+const Categorytype = ({ values,valueChange }) => {
   const [DisplayValue, getValue] = useState();
   const [value, setState] = useState([]);
 
   const options = values.map((role) => ({
-    label: role.designation_name,
+    label: role.name,
     value: role.id,
   }));
   const handleChange = (selectedOption) => {
     setState(selectedOption.map((e) => e));
+   // console.log("selectedOption",selectedOption.map(v=> v.value))
+    valueChange(selectedOption.map(v=> v.value))
   };
-  console.log("values", values);
+  // console.log("values", values);
   const handleDelete = (index) => {
     const updateditems = value.filter((elem) => {
       return index !== elem.value;
@@ -32,7 +34,7 @@ const Categorytype = ({ values }) => {
         className="row"
         style={{ display: "flex", marginTop: "40px", position: "absolute" }}
       >
-        {value.map((o) => (
+        {/* {value.map((o) => (
           <div className="col-sm-6" style={{ display: "flex" }}>
             <input
               type="checkbox"
@@ -50,7 +52,7 @@ const Categorytype = ({ values }) => {
             </span>
             <br />
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );

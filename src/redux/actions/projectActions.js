@@ -17,6 +17,9 @@ export const GET_TASK = "GET_TASK"
 export const DELETE_TASK = "DELETE_TASK"
 export const UPDATE_TASK = "UPDATE_TASK"
 
+export const SET_MILESTONE_ID = "SET_MILESTONE_ID"
+export const TASK_FILTER_VIEW = "TASK_FILTER_VIEW"
+
 export const getProjects = () => {
     return async (dispatch) => {
         await Axios.get("/Projects/project",HeaderToken()).then(
@@ -59,6 +62,7 @@ export const updateProject = (data,history) => {
             history.push("/Milestone")
           }
         }else{
+          dispatch(setMileStoneID(null))
           history.push("/Task")
         }
       }
@@ -83,6 +87,7 @@ export const addProject = (data, history)=>{
                 history.push("/Milestone")
               }
             }else{
+              dispatch(setMileStoneID(null))
               history.push("/Task")
             }
           }
@@ -126,12 +131,21 @@ export const editProjectMilestone = (data, history)=>{
       await Axios.put("/Milestone/save/",data,HeaderToken()).then(
         (res) => {
             console.log("ress /Milestone/save/ edit", res.data)
-          dispatch({ type: EDIT_PROJECT_MILESTONE , payload: res.data.data});
+            dispatch(getProjectMilestone(res.data.data.project_id))
+
+            //this code is working but not reflecting any change in UI 
+         // dispatch({ type: EDIT_PROJECT_MILESTONE , payload: res.data.data});
         }
       )
       .catch((err) => {
            toast.error("Network Error");
         });
+    };
+}
+
+export const setMileStoneID = (id) => {
+  return async (dispatch) => {
+      dispatch({type: SET_MILESTONE_ID , payload: id})
     };
 }
 
@@ -246,5 +260,45 @@ export const updateTask = (data) => {
       .catch((err) => {
           toast.error("Network Error")
       })
+  }
+}
+
+export const assigntask =(data)=>{
+  return async (dispatch) => {
+    await Axios.post("/Account/taskassign",data,HeaderToken())
+    .then((res) => {
+      console.log("/Account/taskassign",res.data)
+
+      if (res.data.result === "true") {
+        toast.success("Successfully Added")
+      //  dispatch({ type:ADD_TASK, payload:res.data.response})
+      }else {
+        toast.error(res.data.response)
+      }
+      
+    })
+    .catch((err) => {
+      toast.error("Network Error");
+    });
+  }
+}
+
+
+export const taskFilterView =(data)=>{
+  return async (dispatch) => {
+    await Axios.post("/Account/TaskFilterView",data,HeaderToken())
+    .then((res) => {
+      console.log("/Account/TaskFilterView",res.data)
+
+      if (res.data.result === "true") {
+       dispatch({ type: TASK_FILTER_VIEW, payload:res.data.response})
+      }else {
+        toast.error(res.data.response)
+      }
+      
+    })
+    .catch((err) => {
+      toast.error("Network Error");
+    });
   }
 }

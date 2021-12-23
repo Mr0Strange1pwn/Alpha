@@ -13,10 +13,13 @@ import {
   addTask,
   deleteTask,
   updateTask,
+  assigntask,
+  taskFilterView
 } from "../../../../redux/actions/projectActions";
 import {
   getDesignitations,
   getRoles,
+  empLIst
 } from "../../../../redux/actions/employeeAction";
 
 const Task = () => {
@@ -30,10 +33,12 @@ const Task = () => {
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [addNewTask, setNewTask] = useState("");
+  const [department , setDepartment] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [ids, setID] = useState();
   const dispatch = useDispatch();
-  const { project, tasks } = useSelector((store) => store.project);
+  const { project, tasks , taskFilter, milestoneId} = useSelector((store) => store.project);
+  const emp = useSelector((store) => store.emp.userInfo)
 
   useEffect(() => {
     let id = project.id;
@@ -43,6 +48,7 @@ const Task = () => {
   useEffect(() => {
     dispatch(getDesignitations());
     dispatch(getRoles());
+    dispatch(empLIst());
   }, []);
 
   useEffect(() => {
@@ -98,6 +104,9 @@ const Task = () => {
         console.log("key", key);
         formData.append(key, req[key]);
       });
+      if(milestoneId != null){
+         formData.append("milestone", milestoneId);
+      }
 
       dispatch(addTask(formData));
       dispatch(getTask(id));
@@ -124,7 +133,7 @@ const Task = () => {
     dispatch(getTask(project.id));
     setIsOpenEdit(false);
   };
-  console.log("InputData", editData);
+  console.log("InputData", editData , emp);
   const editItems = (id, e) => {
     e.preventDefault();
     setIsOpenEdit(true);
@@ -137,25 +146,68 @@ const Task = () => {
     setIsEditItem(id);
   };
 
-  const handleModal = (e) => {
+  const handleModal = (pro,e) => {
     e.preventDefault();
+    setIsEditItem(pro.id)
+    console.log("pro", pro)
+   setEmployee(pro.assignTO)
+   setDepartment(pro.department)
     setIsOpen(true);
   };
 
-  const handleChange = (e) => {
+  const handleCheckChange = (e) => {
     const { name, checked } = e.target;
     if (name === "allSelect") {
-      let tempUser = employee.map((result) => {
-        return { ...result, isChecked: checked };
-      });
-      setEmployee(tempUser);
+      if(employee.length === emp.length){
+        setEmployee([]);
+      }else{
+        let tempUser = []
+        emp.map((result) => {
+         tempUser.push(result.id)
+       });
+       setEmployee(tempUser);
+      }
+     
     } else {
-      let tempUser = employee.map((result) =>
-        result.employee === name ? { ...result, isChecked: checked } : result
-      );
+      if(employee.includes(parseInt(name))){
+        let tempUser = employee.filter( res => res !== parseInt(name))
+        
       setEmployee(tempUser);
+      }else{
+        setEmployee([...employee , parseInt(name)])
+      }   
     }
   };
+  
+  useEffect(()=>{
+    if(department){
+      let formData = new FormData
+      let dep = roles.filter(rol=> rol.id == department)
+      let req = {
+        "roleName": dep[0].roleName
+      }
+      Object.keys(req).map((key) => {
+        console.log("key", key);
+        formData.append(key, req[key]);
+      });
+console.log("mkldhfdf  ",req)
+       dispatch(taskFilterView(formData));
+    }
+  },[department])
+
+  const handleAddEmployess = ()=>{
+    let formData = new FormData
+    let req = {
+      "id": isEditItem,
+      "employees": employee,
+      "role": parseInt(department)
+    }
+    console.log("req", req)
+    Object.keys(req).map(key=>{
+      formData.append(key, req[key])
+     })
+     dispatch(assigntask(formData))
+  }
 
   return (
     <div className="task-header">
@@ -202,12 +254,26 @@ const Task = () => {
             </div>
             <div className="row" style={hidme}>
               <div className="col-sm-6" style={{ color: "black" }}>
-                <Categories values={roles} />
+              <select
+                 style={{ border: department ?  department === 0 ? " 1px solid red" : null : null }}
+                class="form-select"
+                id="inputGroupSelect03"
+                aria-label="Example select with button addon"
+                name="role"
+                 value={department}
+                onChange={e => {setDepartment( e.target.value);console.log( e.target.value)} }
+              >         
+                <option selected>Choose Role</option>
+                {roles.length > 0 && roles.map(value =>  <option value={value.id} 
+                 style={{color: department == value.id ? "blue" : null}}
+                >{value.roleName}</option>)}
+              </select>
+                {/* <Categories values={roles} /> */}
               </div>
               <div className="col-sm-6" style={{ color: "black" }}>
-                <Categorytype values={designations} />
+                <Categorytype values={taskFilter}  valueChange={val =>  setEmployee(val)} />
               </div>
-              <div style={{ marginTop: "10px" }}>
+              {/* <div style={{ marginTop: "10px" }}>
                 <input
                   type="checkbox"
                   className="form-check-input"
@@ -222,7 +288,7 @@ const Task = () => {
                 >
                   Select All
                 </span>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -230,6 +296,7 @@ const Task = () => {
           <button
             type="button"
             className="labfour "
+            onClick={handleAddEmployess}
             style={{
               backgroundColor: "#25344b",
               color: "white",
@@ -262,8 +329,9 @@ const Task = () => {
             <input
               // checked={!designations.some((result) => result?.isChecked !== true)}
               name="allSelect"
-              onChange={handleChange}
+              onChange={handleCheckChange}
               type="checkbox"
+              checked={employee.length === emp.length}
               className="form-check-input"
               id="exampleCheck1"
             />
@@ -274,7 +342,7 @@ const Task = () => {
             </span>
           </div>
           <div className="row" style={{ ...sohme, marginLeft: "5%" }}>
-            {designations.map((result) => {
+            {emp.map((result) => {
               return (
                 <div
                   className="row"
@@ -285,12 +353,12 @@ const Task = () => {
                     <div style={{ display: "flex" }}>
                       <input
                         type="checkbox"
-                        name={result.designation_name}
+                        name={result.id}
                         className="form-check-input"
-                        // checked={result?.isChecked || false}
-                        onChange={handleChange}
+                         checked={employee.includes(result.id) ? true : false}
+                        onChange={handleCheckChange}
                         id="exampleCheck1"
-                        value={result.designation_name}
+                        value={result.id}
                       />
                       <span
                         style={{
@@ -299,7 +367,7 @@ const Task = () => {
                           marginLeft: "15px",
                         }}
                       >
-                        {result.designation_name}
+                        {result.name}
                       </span>
                     </div>
                   </div>
@@ -312,6 +380,7 @@ const Task = () => {
           <button
             type="button"
             className="btn btn-outline-success float-right labfour"
+            onClick={handleAddEmployess}
             style={{
               backgroundColor: "green",
               color: "white",
@@ -450,7 +519,7 @@ const Task = () => {
                           >
                             <img src="images/Edit.png" alt="logo" />
                           </button>
-                          <button onClick={(e) => handleModal(e)}>
+                          <button onClick={(e) => handleModal(elem, e)}>
                             <img src="images/assigntask.png" alt="logo" />
                           </button>
                         </td>

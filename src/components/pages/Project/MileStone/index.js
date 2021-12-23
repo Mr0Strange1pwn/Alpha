@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import Modal from "../../../common/Model";
 import DatePicker from "react-datepicker";
 import Alert from "../../../common/Alert";
-import { addProjectMilestone, getProjectMilestone , deleteMilestone , editProjectMilestone} from "../../../../redux/actions/projectActions";
+import { addProjectMilestone, getProjectMilestone , deleteMilestone , editProjectMilestone,setMileStoneID} from "../../../../redux/actions/projectActions";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 
@@ -49,8 +49,9 @@ const MileStone = (props) => {
   });
   const { project, milestones } = useSelector((store) => store.project);
   const history = useHistory();
-  const handleRouteChange = () => {
+  const handleRouteChange = (id) => {
     let path = `./Task`;
+    dispatch(setMileStoneID(id))
     history.push(path);
   };
   const handleChange = (e) => {
@@ -475,7 +476,7 @@ const MileStone = (props) => {
             <th>Status</th>
             <th>Action</th>
           </tr>
-
+                    {data.length == 0 && <h1>NO. MileStone present</h1>}
           {data.map((students, i) => {
             return (
               <tr>
@@ -493,7 +494,7 @@ const MileStone = (props) => {
                   >
                     <img src="images/Edit.png" alt="logo" />
                   </button>
-                  <button onClick={() => handleRouteChange()}>
+                  <button onClick={() => handleRouteChange(students.id)}>
                     <img src="images/task.png" alt="logo" />
                   </button>
                 </td>

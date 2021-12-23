@@ -11,7 +11,9 @@ import {
   GET_TASK,
   ADD_TASK,
   DELETE_TASK,
-  UPDATE_TASK
+  UPDATE_TASK,
+  TASK_FILTER_VIEW ,
+  SET_MILESTONE_ID
 } from "../actions/projectActions";
 
 const InitialState = {
@@ -19,7 +21,8 @@ const InitialState = {
   project: {},
   milestones: [],
   tasks: [],
-  tasksinfo: [],
+  taskFilter:[],
+  milestoneId:null
 };
 
 const projectReduser = (state = InitialState, action) => {
@@ -61,13 +64,25 @@ const projectReduser = (state = InitialState, action) => {
     }
     case EDIT_PROJECT_MILESTONE: {
       let index = state.milestones.findIndex((m) => m.id === action.payload.id);
-      let newmilestones = state.milestones;
-
-      newmilestones.splice(index, 1, action.payload);
+     
+      if (index !== -1) {
+         state.milestones[index] = action.payload;
+      }
+//       let newmilestones = state.milestones;
+// console.log({index,payload:action.payload})
+//       newmilestones.splice(index, 1, action.payload);
+//       let arr = newmilestones
+      console.log({index,payload:action.payload, newmilestones:state.milestones})
       return {
         ...state,
-        milestones: newmilestones,
+        milestones: state.milestones,
       };
+    }
+    case SET_MILESTONE_ID:{
+      return {
+        ...state,
+        milestoneId: action.payload
+      }
     }
     case ADD_PROJECT_MILESTONE: {
       return {
@@ -95,7 +110,7 @@ const projectReduser = (state = InitialState, action) => {
     case ADD_TASK: {
       return {
         ...state,
-        tasksinfo: [...state.tasks, action.payload],
+        tasks: [...state.tasks, action.payload],
       };
     }
     case DELETE_TASK: {
@@ -108,8 +123,14 @@ const projectReduser = (state = InitialState, action) => {
     case UPDATE_TASK : {
         return {
             ...state,
-            tasksinfo:action.payload
+            tasks:action.payload
         }
+    }
+    case TASK_FILTER_VIEW :{
+      return {
+        ...state,
+        taskFilter:action.payload
+    }
     }
     default:
       return {
