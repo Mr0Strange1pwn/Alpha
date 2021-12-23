@@ -1,14 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
 
-const Categorytype = ({ values,valueChange }) => {
+const Categorytype = ({ values,valueChange,employee }) => {
   const [DisplayValue, getValue] = useState();
   const [value, setState] = useState([]);
+
+
 
   const options = values.map((role) => ({
     label: role.name,
     value: role.id,
   }));
+
+  useEffect(() => {
+    if(employee.length>0){
+      let v = []
+      employee.map(emp=>{
+        
+        options.map(opt=>{
+          if(opt.value == emp){
+            v.push(opt)
+          }
+        })
+      })
+      console.log("vvvvv  ",v)
+      setState(v)
+    }
+  },[])
+
   const handleChange = (selectedOption) => {
     setState(selectedOption.map((e) => e));
    // console.log("selectedOption",selectedOption.map(v=> v.value))

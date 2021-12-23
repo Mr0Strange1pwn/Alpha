@@ -54,15 +54,17 @@ const Task = () => {
   useEffect(() => {
     console.log("projectsstask", tasks);
     if (tasks.length > 0) {
-      let tasksArr = [];
+      let tasksArr = []
 
       tasks.map((task) => {
+
         tasksArr.push({
           id: task.id,
           name: task.task_name,
-          assignTO: task.employees,
+          assignTO:task.employees ,
           department: task.role == null ? "" : task.role,
           category: "",
+          role:task.role,
           project: task.project,
         });
       });
@@ -71,6 +73,19 @@ const Task = () => {
       setItems([]);
     }
   }, [tasks]);
+
+  const idToName= (ids)=>{
+    let nameArr = [];
+
+    emp.map(e=>{
+      ids.map(id=> {
+        if(id == e.id){
+          nameArr.length > 0 ? nameArr.push(`, ${e.name}`) : nameArr.push(`${e.name}`) ;
+        }
+      })
+    })
+ return nameArr
+  }
 
   const hidme = {
     display: "flex",
@@ -127,13 +142,14 @@ const Task = () => {
       taskid: editData.id,
       task_name: InputData,
       project: editData.project,
-      employees: [0],
+      employees: employee,
     };
     dispatch(updateTask(data));
     dispatch(getTask(project.id));
     setIsOpenEdit(false);
   };
   console.log("InputData", editData , emp);
+
   const editItems = (id, e) => {
     e.preventDefault();
     setIsOpenEdit(true);
@@ -141,6 +157,7 @@ const Task = () => {
       return elem.id === id;
     });
     console.log("newEditItem", newEditItem);
+    setEmployee(newEditItem.employees)
     setInputData(newEditItem);
     setEditData(newEditItem);
     setIsEditItem(id);
@@ -148,11 +165,21 @@ const Task = () => {
 
   const handleModal = (pro,e) => {
     e.preventDefault();
-    setIsEditItem(pro.id)
-    console.log("pro", pro)
-   setEmployee(pro.assignTO)
-   setDepartment(pro.department)
-    setIsOpen(true);
+    let role = roles.filter(rol=> rol.roleName == pro.role)
+    if(role.length > 0){
+      setIsEditItem(pro.id)
+      console.log("pro", pro,role)
+     setEmployee(pro.assignTO)
+     setDepartment(role[0].id)
+      setIsOpen(true);
+    }else{
+      setIsEditItem(pro.id)
+      console.log("pro", pro,role)
+     setEmployee(pro.assignTO)
+     setDepartment("")
+      setIsOpen(true);
+    }
+  
   };
 
   const handleCheckChange = (e) => {
@@ -183,6 +210,8 @@ const Task = () => {
     if(department){
       let formData = new FormData
       let dep = roles.filter(rol=> rol.id == department)
+      console.log("dep",dep,department)
+     if(dep.length>0){
       let req = {
         "roleName": dep[0].roleName
       }
@@ -192,6 +221,7 @@ const Task = () => {
       });
 console.log("mkldhfdf  ",req)
        dispatch(taskFilterView(formData));
+     }
     }
   },[department])
 
@@ -203,10 +233,11 @@ console.log("mkldhfdf  ",req)
       "role": parseInt(department)
     }
     console.log("req", req)
-    Object.keys(req).map(key=>{
-      formData.append(key, req[key])
-     })
-     dispatch(assigntask(formData))
+    // Object.keys(req).map(key=>{
+    //   formData.append(key, req[key])
+    //  })
+     dispatch(assigntask(req))
+     setIsOpen(false)
   }
 
   return (
@@ -271,7 +302,7 @@ console.log("mkldhfdf  ",req)
                 {/* <Categories values={roles} /> */}
               </div>
               <div className="col-sm-6" style={{ color: "black" }}>
-                <Categorytype values={taskFilter}  valueChange={val =>  setEmployee(val)} />
+                <Categorytype values={taskFilter}  valueChange={val =>  setEmployee(val)} employee={employee} />
               </div>
               {/* <div style={{ marginTop: "10px" }}>
                 <input
@@ -505,7 +536,7 @@ console.log("mkldhfdf  ",req)
                     return (
                       <tr>
                         <td>{elem.name}</td>
-                        <td>{elem.assignTO}</td>
+                        <td>{idToName(elem.assignTO)}</td>
                         <td>{elem.department}</td>
                         <td>{elem.category}</td>
                         <td style={{ width: "197px" }}>
@@ -526,6 +557,7 @@ console.log("mkldhfdf  ",req)
                       </tr>
                     );
                   })}
+                  {Items.length === 0 &&  <h1>No Task present</h1>}
                 </table>
               </div>
             </form>

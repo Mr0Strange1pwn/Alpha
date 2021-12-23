@@ -19,6 +19,7 @@ export const UPDATE_TASK = "UPDATE_TASK"
 
 export const SET_MILESTONE_ID = "SET_MILESTONE_ID"
 export const TASK_FILTER_VIEW = "TASK_FILTER_VIEW"
+export const ASSIGN_TASK = "ASSIGN_TASK"
 
 export const getProjects = () => {
     return async (dispatch) => {
@@ -251,10 +252,11 @@ export const updateTask = (data) => {
           console.log("updateTask",res.data)
           if (res.data.result === "true") {
           toast.success("Successfully Updated");
-          dispatch({
-              type: UPDATE_TASK,
-              payload:res.data.response
-          })
+          dispatch(getTask(data.project))
+          // dispatch({
+          //     type: UPDATE_TASK,
+          //     payload:res.data.response
+          // })
       }
       })
       .catch((err) => {
@@ -271,7 +273,14 @@ export const assigntask =(data)=>{
 
       if (res.data.result === "true") {
         toast.success("Successfully Added")
-      //  dispatch({ type:ADD_TASK, payload:res.data.response})
+      
+          let response = res.data.response
+          let emp = response.employees.map(emp=> emp.id)
+          let payload = { ...response , employees:emp}
+          console.log("payload",payload)
+        
+          dispatch(getTask(payload.project.id))
+        // dispatch({ type:ASSIGN_TASK, payload: payload })
       }else {
         toast.error(res.data.response)
       }

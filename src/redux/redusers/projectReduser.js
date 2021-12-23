@@ -13,7 +13,8 @@ import {
   DELETE_TASK,
   UPDATE_TASK,
   TASK_FILTER_VIEW ,
-  SET_MILESTONE_ID
+  SET_MILESTONE_ID,
+  ASSIGN_TASK,
 } from "../actions/projectActions";
 
 const InitialState = {
@@ -113,6 +114,17 @@ const projectReduser = (state = InitialState, action) => {
         tasks: [...state.tasks, action.payload],
       };
     }
+    // case ASSIGN_TASK:{
+    //   let index = state.tasks.findIndex((m) => m.id === action.payload.id);
+     
+    //   if (index !== -1) {
+    //      state.tasks[index] = action.payload;
+    //   }
+    //   return {
+    //     ...state,
+    //     tasks:  state.tasks ,
+    //   };
+    // }
     case DELETE_TASK: {
         let taskList = state.tasks.filter(tasks=> tasks.id !== action.payload)
         return {
@@ -120,12 +132,12 @@ const projectReduser = (state = InitialState, action) => {
             tasks: taskList
         }
     }
-    case UPDATE_TASK : {
-        return {
-            ...state,
-            tasks:action.payload
-        }
-    }
+    // case UPDATE_TASK : {
+    //     return {
+    //         ...state,
+    //         tasks:action.payload
+    //     }
+    // }
     case TASK_FILTER_VIEW :{
       return {
         ...state,

@@ -233,7 +233,7 @@ console.log("roles",roles)
                         style={{
                           backgroundColor: "white",
                           border: showError
-                            ? projectDetails.projectType.length === 0
+                            ? projectDetails.projectType === ""
                               ? " 1px solid red"
                               : null
                             : null,
@@ -263,7 +263,7 @@ console.log("roles",roles)
                       <textarea
                         style={{
                           border: showError
-                            ? projectDetails.description.length === 0
+                            ? projectDetails.description === ""
                               ? " 1px solid red"
                               : null
                             : null,
@@ -290,7 +290,7 @@ console.log("roles",roles)
                         style={{
                           backgroundColor: "white",
                           border: showError
-                            ? projectDetails.assignedTo.length === 0
+                            ? projectDetails.assignedTo === ""
                               ? " 1px solid red"
                               : null
                             : null,
@@ -323,7 +323,7 @@ console.log("roles",roles)
                           style={{
                             backgroundColor: "white",
                             border: showError
-                              ? projectDetails.category.length === 0
+                              ? projectDetails.category === ""
                                 ? " 1px solid red"
                                 : null
                               : null,
@@ -358,7 +358,7 @@ console.log("roles",roles)
                             style={{
                               backgroundColor: "white",
                               border: showError
-                                ? projectDetails.perhourcost.length === 0
+                                ? projectDetails.perhourcost === ""
                                   ? " 1px solid red"
                                   : null
                                 : null,
@@ -385,7 +385,7 @@ console.log("roles",roles)
                             style={{
                               backgroundColor: "white",
                               border: showError
-                                ? projectDetails.weekelyhour.length === 0
+                                ? projectDetails.weekelyhour === ""
                                   ? " 1px solid red"
                                   : null
                                 : null,
