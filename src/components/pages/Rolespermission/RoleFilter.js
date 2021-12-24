@@ -10,24 +10,24 @@ const RoleFilter = ({ open, onClose }) => {
   const [toggleTwo, setToggleTwo] = useState(false);
   const roleNameInfo = useSelector((store) => store.role.userInfo);
   const [roleNameList, setRoleName] = useState([{}]);
-  const [userCount, setUserCount] =useState()
+  const [userCount, setUserCount] = useState();
   const dispatch = useDispatch();
 
   useEffect(() => {
     roleData();
-     if(roleNameInfo.length>0){
+    if (roleNameInfo.length > 0) {
       setRoleName(
-        roleNameInfo.map((value) => ({ label: value.roleName, value: value.id }))
-    )}
+        roleNameInfo.map((value) => ({
+          label: value.roleName,
+          value: value.id,
+        }))
+      );
+    }
   }, []);
 
   const roleData = () => {
     dispatch(roleLIst());
-   
-    
-    
   };
-  console.log("roleName", roleNameList,userCount,value);
   const changeColor = () => {
     setToggleTwo(false);
     setToggle(true);
@@ -48,15 +48,14 @@ const RoleFilter = ({ open, onClose }) => {
   const handleChange = (selectedOption) => {
     setState(selectedOption.map((e) => e.label));
   };
- const handleSubmit = () => {
-   let data= {
-    roleName:value,
-    user_count:parseInt(userCount)
-   }
-   console.log("data",data)
-   dispatch(filterRole(data))
-   onClose()
- }
+  const handleSubmit = () => {
+    let data = {
+      roleName: value,
+      user_count: parseInt(userCount),
+    };
+    dispatch(filterRole(data));
+    onClose();
+  };
   return (
     <div>
       <Modal open={open} onClose={onClose}>
@@ -95,21 +94,20 @@ const RoleFilter = ({ open, onClose }) => {
                   <option value="4"></option>
                   <option value="5">5</option>
                 </select> */}
-                 <label
+                <label
                   className="form-check-label reg-lable"
                   for="exampleCheck1"
                 >
                   User Count
                 </label>
                 <input
-                type="text"
-                id="lname"
-                name="email"
-                placeholder="User Count"
-                value={userCount}
-                onChange={(e)=>setUserCount(e.target.value)}
-              />
-
+                  type="text"
+                  id="lname"
+                  name="email"
+                  placeholder="User Count"
+                  value={userCount}
+                  onChange={(e) => setUserCount(e.target.value)}
+                />
               </div>
             </div>
             <div className="sorting-data">

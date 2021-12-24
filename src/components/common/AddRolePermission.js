@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./addRole.css";
 
 const AddRolePermission = (props) => {
- console.log("props",props.value)
   return (
     <div class="row">
       <div className="col-sm-12 col-md-3 col-lg-3">

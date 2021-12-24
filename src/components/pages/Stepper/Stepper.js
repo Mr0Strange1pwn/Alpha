@@ -63,7 +63,6 @@ const FirstStepper = () => {
         return <JobDetails />;
     }
   }
-  console.log("currentStep", currentStep);
   return (
     <>
       {page === 1 ? (

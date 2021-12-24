@@ -3,7 +3,14 @@ import "./Employee.css";
 import { Link, useHistory, useParams } from "react-router-dom";
 import Header from "../Header/Header";
 import Alert from "../../common/Alert";
-import { empLIst, deleteEmployee , EMP_SAVE ,getEmployeeAllDetails, getPayroll, getJobDetails } from "../../../redux/actions/employeeAction";
+import {
+  empLIst,
+  deleteEmployee,
+  EMP_SAVE,
+  getEmployeeAllDetails,
+  getPayroll,
+  getJobDetails,
+} from "../../../redux/actions/employeeAction";
 import { useSelector, useDispatch } from "react-redux";
 
 const Employee = () => {
@@ -32,7 +39,7 @@ const Employee = () => {
   //     dispatch(empLIst());
   //     setEmployee(emp);
   //   }
-   //};
+  //};
 
   const routeChange = () => {
     let path = `./AddPeople`;
@@ -43,8 +50,7 @@ const Employee = () => {
     if (searchQuery.length > 0) {
       searchHandler();
     } else {
-      // empListData();
-      setFilteredEmployees([])
+      setFilteredEmployees([]);
       setSearch(false);
     }
   }, [searchQuery]);
@@ -55,21 +61,16 @@ const Employee = () => {
   };
 
   const searchHandler = () => {
-
-    let filterDAta = emp.filter((data) =>{
-      console.log("data",data)
-     return data.email.includes(searchQuery) 
-  }
-    );
+    let filterDAta = emp.filter((data) => {
+      return data.email.includes(searchQuery);
+    });
 
     if (filterDAta.length > 0) {
-      console.log("filterDAta", filterDAta);
-      // setStudent(filterDAta);
-      setFilteredEmployees(filterDAta)
+      setFilteredEmployees(filterDAta);
     }
     setSearch(true);
   };
- 
+
   const pages = [];
   for (let i = 1; i <= Math.ceil(emp.length / itemsPerPage); i++) {
     pages.push(i);
@@ -79,7 +80,8 @@ const Employee = () => {
   //  1  X 15 = 15 and 2 X 10 = 30
   const indexOfFistItem = indexOfLastItem - itemsPerPage;
   //   30 -15 = 15 and 15 -15 = 0
-  const currentItem = emp.length>0 ? emp.slice(indexOfFistItem, indexOfLastItem) : []
+  const currentItem =
+    emp.length > 0 ? emp.slice(indexOfFistItem, indexOfLastItem) : [];
 
   const handleNewClick = (event) => {
     setCurrentPage(Number(event.target.id));
@@ -145,58 +147,60 @@ const Employee = () => {
     // });
     // setStudent(newstudent);
 
-dispatch(deleteEmployee(id))
+    dispatch(deleteEmployee(id));
     setModalOpen(false);
   };
 
-const  handleEdit=(employeelist)=>{
-  dispatch(getEmployeeAllDetails(employeelist.id))
-  dispatch({ type: EMP_SAVE, payload: employeelist })
-  dispatch(getPayroll(employeelist.id))
-  dispatch(getJobDetails(employeelist.id))
-  routeChange()
+  const handleEdit = (employeelist) => {
+    dispatch(getEmployeeAllDetails(employeelist.id));
+    dispatch({ type: EMP_SAVE, payload: employeelist });
+    dispatch(getPayroll(employeelist.id));
+    dispatch(getJobDetails(employeelist.id));
+    routeChange();
+  };
 
-}
+  const addEmployee = () => {
+    dispatch({ type: EMP_SAVE, payload: {} });
+    routeChange();
+  };
 
-const addEmployee=()=>{
-  dispatch({ type: EMP_SAVE, payload: {}})
-  routeChange()
-}
+  const TableRow = ({ employeelist, i }) => {
+    return (
+      <tr>
+        <td>{i + 1}</td>
+        <td>{employeelist.name}</td>
+        <td>
+          <a href="#" class="user-email">
+            {employeelist.email}
+          </a>
+        </td>
+        <td>{employeelist.mobile_number}</td>
+        <td>{employeelist.date_of_birth}</td>
+        {employeelist.roleId !== null ? (
+          <td>{employeelist.roleId.roleName}</td>
+        ) : (
+          ""
+        )}
 
-const TableRow=({employeelist,i})=>{
-  console.log({employeelist,i})
-  return (
-    <tr>
-      <td>{i + 1}</td>
-      <td>{employeelist.name}</td>
-      <td>
-        <a href="#" class="user-email">
-          {employeelist.email}
-        </a>
-      </td>
-      <td>{employeelist.mobile_number}</td>
-      <td>{employeelist.date_of_birth}</td>
-      {employeelist.roleId !== null ? (
-        <td>{employeelist.roleId.roleName}</td>
-      ) : (
-        ""
-      )}
-
-      <td>
-        <button>
-          {" "}
-          <img src="images/Edit.png" alt="logo"  onClick={() =>  handleEdit(employeelist)} />
-        </button>
-        {/* <button onClick={() => delAlert(students.id)}>
+        <td>
+          <button>
+            {" "}
+            <img
+              src="images/Edit.png"
+              alt="logo"
+              onClick={() => handleEdit(employeelist)}
+            />
+          </button>
+          {/* <button onClick={() => delAlert(students.id)}>
           <img src="images/Del.png" alt="logo" />
         </button> */}
-        <button onClick={() => delAlert(employeelist.id)}>
-          <img src="images/Del.png" alt="logo"  />
-        </button>
-      </td>
-    </tr>
-  );
-}
+          <button onClick={() => delAlert(employeelist.id)}>
+            <img src="images/Del.png" alt="logo" />
+          </button>
+        </td>
+      </tr>
+    );
+  };
 
   return (
     <div className="header">
@@ -291,11 +295,13 @@ const TableRow=({employeelist,i})=>{
             <th>Action</th>
           </tr>
 
-          {FilteredEmployees.length > 0 ? FilteredEmployees.map((employeelist, i) => 
-            <TableRow employeelist={employeelist} i={i} />
-          ) : currentItem.map((employeelist, i) => 
-            <TableRow employeelist={employeelist} i={i} />
-          )}
+          {FilteredEmployees.length > 0
+            ? FilteredEmployees.map((employeelist, i) => (
+                <TableRow employeelist={employeelist} i={i} />
+              ))
+            : currentItem.map((employeelist, i) => (
+                <TableRow employeelist={employeelist} i={i} />
+              ))}
         </table>
 
         <nav aria-label="Page navigation example">

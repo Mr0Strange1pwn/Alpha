@@ -4,7 +4,13 @@ import { useParams, useHistory } from "react-router-dom";
 import Modal from "../../../common/Model";
 import DatePicker from "react-datepicker";
 import Alert from "../../../common/Alert";
-import { addProjectMilestone, getProjectMilestone , deleteMilestone , editProjectMilestone,setMileStoneID} from "../../../../redux/actions/projectActions";
+import {
+  addProjectMilestone,
+  getProjectMilestone,
+  deleteMilestone,
+  editProjectMilestone,
+  setMileStoneID,
+} from "../../../../redux/actions/projectActions";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 
@@ -51,11 +57,10 @@ const MileStone = (props) => {
   const history = useHistory();
   const handleRouteChange = (id) => {
     let path = `./Task`;
-    dispatch(setMileStoneID(id))
+    dispatch(setMileStoneID(id));
     history.push(path);
   };
   const handleChange = (e) => {
-    console.log({ [e.target.name]: e.target.value });
     setItem({
       ...item,
       [e.target.name]: e.target.value,
@@ -65,22 +70,11 @@ const MileStone = (props) => {
   const handleSave = () => {
     SetError(true);
     if (item.name && item.status && item.amount) {
-      // const newData = {
-      //   id: new Date().getTime().toString(),
-      //   item,
-      // };
-      handleCreate()
-      // setData([...data, item]);
+      handleCreate();
       setIsOpen(false);
     }
   };
   const handleEdit = () => {
-    // let newArr = data;
-    // let index = data.findIndex((x) => x.id === isEditItem);
-
-    // newArr.splice(index, 1, item);
-    // console.log("item", newArr);
-    // setData(newArr);
     let val = item;
     if (val.name && val.status && val.amount && startDate) {
       let req = {
@@ -91,21 +85,18 @@ const MileStone = (props) => {
         release_date: moment(startDate).format("YYYY-MM-DD"),
         project_id: project.id,
       };
-      console.log("data req", req);
       let formData = new FormData();
       Object.keys(req).map((key) => {
-        console.log("key", key);
         formData.append(key, req[key]);
       });
       dispatch(editProjectMilestone(formData));
-      // history.push("/Project");
       setItem({
         id: "",
         name: "",
         status: "",
         amount: "",
-      })
-      setStartDate(new Date())
+      });
+      setStartDate(new Date());
     }
     setIsOpenEdit(false);
   };
@@ -115,15 +106,13 @@ const MileStone = (props) => {
     let newEditItem = data.find((elem) => {
       return elem.id === id;
     });
-    console.log(newEditItem);
     setItem(newEditItem);
     setIsEditItem(id);
-    // setToggleSubmit(false);
   };
 
   useEffect(() => {
-    dispatch(getProjectMilestone(project.id))
-  },[project])
+    dispatch(getProjectMilestone(project.id));
+  }, [project]);
 
   useEffect(() => {
     if (searchQuery.length > 0) {
@@ -134,24 +123,24 @@ const MileStone = (props) => {
   }, [searchQuery]);
 
   useEffect(() => {
-    if(milestones.length > 0) {
-      let newMileS = []
+    if (milestones.length > 0) {
+      let newMileS = [];
 
-      milestones.map(ms=>{
+      milestones.map((ms) => {
         newMileS.push({
           id: ms.id,
           name: ms.name,
           status: ms.status,
           amount: ms.amount,
-          release_date:ms.release_date
-        })
-      })
-    
+          release_date: ms.release_date,
+        });
+      });
+
       setData(newMileS);
-    }else{
+    } else {
       setData([]);
     }
-  },[milestones])
+  }, [milestones]);
 
   const searchHandler = () => {
     let filterDAta = data.filter((newdata) =>
@@ -164,45 +153,37 @@ const MileStone = (props) => {
   };
 
   const handleDelete = (index) => {
-    // const updateditems = data.filter((elem) => {
-    //   return index !== elem.id;
-    // });
-    // setData(updateditems);
-    dispatch(deleteMilestone(ids))
+    dispatch(deleteMilestone(ids));
     setModalOpen(false);
   };
   const delAlert = (id) => {
     setModalOpen(true);
     setID(id);
   };
- console.log("date  ",startDate ,milestones)
   const handleCreate = () => {
     // if (data.length > 0) {
-      let val = item;
-      if (val.name && val.status && val.amount && startDate) {
-        let req = {
-          name: val.name,
-          status: val.status.toLowerCase(),
-          amount: val.amount,
-          release_date: moment(startDate).format("YYYY-MM-DD"),
-          project_id: project.id,
-        };
-        console.log("data req", req);
-        let formData = new FormData();
-        Object.keys(req).map((key) => {
-          console.log("key", key);
-          formData.append(key, req[key]);
-        });
-        dispatch(addProjectMilestone(formData));
-        // history.push("/Project");
-        setItem({
-          id: "",
-          name: "",
-          status: "",
-          amount: "",
-        })
-        setStartDate(new Date())
-      }
+    let val = item;
+    if (val.name && val.status && val.amount && startDate) {
+      let req = {
+        name: val.name,
+        status: val.status.toLowerCase(),
+        amount: val.amount,
+        release_date: moment(startDate).format("YYYY-MM-DD"),
+        project_id: project.id,
+      };
+      let formData = new FormData();
+      Object.keys(req).map((key) => {
+        formData.append(key, req[key]);
+      });
+      dispatch(addProjectMilestone(formData));
+      setItem({
+        id: "",
+        name: "",
+        status: "",
+        amount: "",
+      });
+      setStartDate(new Date());
+    }
     // }
   };
 
@@ -476,7 +457,7 @@ const MileStone = (props) => {
             <th>Status</th>
             <th>Action</th>
           </tr>
-                    {data.length == 0 && <h1>NO. MileStone present</h1>}
+          {data.length == 0 && <h1>NO. MileStone present</h1>}
           {data.map((students, i) => {
             return (
               <tr>
@@ -515,7 +496,13 @@ const MileStone = (props) => {
             >
               Create
             </button> */}
-            <button className="btn  float-left" type="submit" onClick={() => {history.goBack()}} >
+            <button
+              className="btn  float-left"
+              type="submit"
+              onClick={() => {
+                history.goBack();
+              }}
+            >
               Back
             </button>
           </div>

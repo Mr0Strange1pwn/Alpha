@@ -8,7 +8,6 @@ export default function Timeclock({setTimevalue, value}) {
   const [showTime, setShowTime] = useState(false);
 
   useEffect(()=>{
-    console.log("Timeclock( val  ",value)
     if(value){
       setTime(value)
     }
@@ -31,7 +30,7 @@ export default function Timeclock({setTimevalue, value}) {
         <div className="Timekeeperimage">
           <TimeKeeper
             time={time}
-            onChange={(newTime) => {setTime(newTime.formatted12); setTimevalue(newTime.formatted12);console.log(newTime)}}
+            onChange={(newTime) => {setTime(newTime.formatted12); setTimevalue(newTime.formatted12)}}
             onDoneClick={() => setShowTime(false)}
             switchToMinuteOnHourSelect
           />

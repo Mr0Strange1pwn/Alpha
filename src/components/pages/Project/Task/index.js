@@ -14,12 +14,12 @@ import {
   deleteTask,
   updateTask,
   assigntask,
-  taskFilterView
+  taskFilterView,
 } from "../../../../redux/actions/projectActions";
 import {
   getDesignitations,
   getRoles,
-  empLIst
+  empLIst,
 } from "../../../../redux/actions/employeeAction";
 
 const Task = () => {
@@ -33,12 +33,14 @@ const Task = () => {
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [addNewTask, setNewTask] = useState("");
-  const [department , setDepartment] = useState("");
+  const [department, setDepartment] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [ids, setID] = useState();
   const dispatch = useDispatch();
-  const { project, tasks , taskFilter, milestoneId} = useSelector((store) => store.project);
-  const emp = useSelector((store) => store.emp.userInfo)
+  const { project, tasks, taskFilter, milestoneId } = useSelector(
+    (store) => store.project
+  );
+  const emp = useSelector((store) => store.emp.userInfo);
 
   useEffect(() => {
     let id = project.id;
@@ -52,19 +54,17 @@ const Task = () => {
   }, []);
 
   useEffect(() => {
-    console.log("projectsstask", tasks);
     if (tasks.length > 0) {
-      let tasksArr = []
+      let tasksArr = [];
 
       tasks.map((task) => {
-
         tasksArr.push({
           id: task.id,
           name: task.task_name,
-          assignTO:task.employees ,
+          assignTO: task.employees,
           department: task.role == null ? "" : task.role,
           category: "",
-          role:task.role,
+          role: task.role,
           project: task.project,
         });
       });
@@ -74,18 +74,20 @@ const Task = () => {
     }
   }, [tasks]);
 
-  const idToName= (ids)=>{
+  const idToName = (ids) => {
     let nameArr = [];
 
-    emp.map(e=>{
-      ids.map(id=> {
-        if(id == e.id){
-          nameArr.length > 0 ? nameArr.push(`, ${e.name}`) : nameArr.push(`${e.name}`) ;
+    emp.map((e) => {
+      ids.map((id) => {
+        if (id == e.id) {
+          nameArr.length > 0
+            ? nameArr.push(`, ${e.name}`)
+            : nameArr.push(`${e.name}`);
         }
-      })
-    })
- return nameArr
-  }
+      });
+    });
+    return nameArr;
+  };
 
   const hidme = {
     display: "flex",
@@ -116,11 +118,10 @@ const Task = () => {
       };
 
       Object.keys(req).map((key) => {
-        console.log("key", key);
         formData.append(key, req[key]);
       });
-      if(milestoneId != null){
-         formData.append("milestone", milestoneId);
+      if (milestoneId != null) {
+        formData.append("milestone", milestoneId);
       }
 
       dispatch(addTask(formData));
@@ -148,7 +149,6 @@ const Task = () => {
     dispatch(getTask(project.id));
     setIsOpenEdit(false);
   };
-  console.log("InputData", editData , emp);
 
   const editItems = (id, e) => {
     e.preventDefault();
@@ -156,89 +156,77 @@ const Task = () => {
     let newEditItem = tasks.find((elem) => {
       return elem.id === id;
     });
-    console.log("newEditItem", newEditItem);
-    setEmployee(newEditItem.employees)
+    setEmployee(newEditItem.employees);
     setInputData(newEditItem);
     setEditData(newEditItem);
     setIsEditItem(id);
   };
 
-  const handleModal = (pro,e) => {
+  const handleModal = (pro, e) => {
     e.preventDefault();
-    let role = roles.filter(rol=> rol.roleName == pro.role)
-    if(role.length > 0){
-      setIsEditItem(pro.id)
-      console.log("pro", pro,role)
-     setEmployee(pro.assignTO)
-     setDepartment(role[0].id)
+    let role = roles.filter((rol) => rol.roleName == pro.role);
+    if (role.length > 0) {
+      setIsEditItem(pro.id);
+      setEmployee(pro.assignTO);
+      setDepartment(role[0].id);
       setIsOpen(true);
-    }else{
-      setIsEditItem(pro.id)
-      console.log("pro", pro,role)
-     setEmployee(pro.assignTO)
-     setDepartment("")
+    } else {
+      setIsEditItem(pro.id);
+      setEmployee(pro.assignTO);
+      setDepartment("");
       setIsOpen(true);
     }
-  
   };
 
   const handleCheckChange = (e) => {
     const { name, checked } = e.target;
     if (name === "allSelect") {
-      if(employee.length === emp.length){
+      if (employee.length === emp.length) {
         setEmployee([]);
-      }else{
-        let tempUser = []
+      } else {
+        let tempUser = [];
         emp.map((result) => {
-         tempUser.push(result.id)
-       });
-       setEmployee(tempUser);
+          tempUser.push(result.id);
+        });
+        setEmployee(tempUser);
       }
-     
     } else {
-      if(employee.includes(parseInt(name))){
-        let tempUser = employee.filter( res => res !== parseInt(name))
-        
-      setEmployee(tempUser);
-      }else{
-        setEmployee([...employee , parseInt(name)])
-      }   
+      if (employee.includes(parseInt(name))) {
+        let tempUser = employee.filter((res) => res !== parseInt(name));
+
+        setEmployee(tempUser);
+      } else {
+        setEmployee([...employee, parseInt(name)]);
+      }
     }
   };
-  
-  useEffect(()=>{
-    if(department){
-      let formData = new FormData
-      let dep = roles.filter(rol=> rol.id == department)
-      console.log("dep",dep,department)
-     if(dep.length>0){
-      let req = {
-        "roleName": dep[0].roleName
-      }
-      Object.keys(req).map((key) => {
-        console.log("key", key);
-        formData.append(key, req[key]);
-      });
-console.log("mkldhfdf  ",req)
-       dispatch(taskFilterView(formData));
-     }
-    }
-  },[department])
 
-  const handleAddEmployess = ()=>{
-    let formData = new FormData
-    let req = {
-      "id": isEditItem,
-      "employees": employee,
-      "role": parseInt(department)
+  useEffect(() => {
+    if (department) {
+      let formData = new FormData();
+      let dep = roles.filter((rol) => rol.id == department);
+      if (dep.length > 0) {
+        let req = {
+          roleName: dep[0].roleName,
+        };
+        Object.keys(req).map((key) => {
+          formData.append(key, req[key]);
+        });
+        dispatch(taskFilterView(formData));
+      }
     }
-    console.log("req", req)
-    // Object.keys(req).map(key=>{
-    //   formData.append(key, req[key])
-    //  })
-     dispatch(assigntask(req))
-     setIsOpen(false)
-  }
+  }, [department]);
+
+  const handleAddEmployess = () => {
+    let formData = new FormData();
+    let req = {
+      id: isEditItem,
+      employees: employee,
+      role: parseInt(department),
+    };
+    dispatch(assigntask(req));
+    setIsOpen(false);
+  };
 
   return (
     <div className="task-header">
@@ -261,7 +249,6 @@ console.log("mkldhfdf  ",req)
             <img src="images/Filter-popup.png" alt="logo" />
           </button>
         </div>
-       
 
         <div className="cardforproject">
           <div className="container">
@@ -285,24 +272,44 @@ console.log("mkldhfdf  ",req)
             </div>
             <div className="row" style={hidme}>
               <div className="col-sm-6" style={{ color: "black" }}>
-              <select
-                 style={{ border: department ?  department === 0 ? " 1px solid red" : null : null }}
-                class="form-select"
-                id="inputGroupSelect03"
-                aria-label="Example select with button addon"
-                name="role"
-                 value={department}
-                onChange={e => {setDepartment( e.target.value);console.log( e.target.value)} }
-              >         
-                <option selected>Choose Role</option>
-                {roles.length > 0 && roles.map(value =>  <option value={value.id} 
-                 style={{color: department == value.id ? "blue" : null}}
-                >{value.roleName}</option>)}
-              </select>
+                <select
+                  style={{
+                    border: department
+                      ? department === 0
+                        ? " 1px solid red"
+                        : null
+                      : null,
+                  }}
+                  className="form-select"
+                  id="inputGroupSelect03"
+                  aria-label="Example select with button addon"
+                  name="role"
+                  value={department}
+                  onChange={(e) => {
+                    setDepartment(e.target.value);
+                  }}
+                >
+                  <option selected>Choose Role</option>
+                  {roles.length > 0 &&
+                    roles.map((value) => (
+                      <option
+                        value={value.id}
+                        style={{
+                          color: department == value.id ? "blue" : null,
+                        }}
+                      >
+                        {value.roleName}
+                      </option>
+                    ))}
+                </select>
                 {/* <Categories values={roles} /> */}
               </div>
               <div className="col-sm-6" style={{ color: "black" }}>
-                <Categorytype values={taskFilter}  valueChange={val =>  setEmployee(val)} employee={employee} />
+                <Categorytype
+                  values={taskFilter}
+                  valueChange={(val) => setEmployee(val)}
+                  employee={employee}
+                />
               </div>
               {/* <div style={{ marginTop: "10px" }}>
                 <input
@@ -354,7 +361,7 @@ console.log("mkldhfdf  ",req)
             Cancel
           </button>
         </div>
-        
+
         <div>
           <div style={{ ...sohme, marginLeft: "6%", marginBottom: "30px" }}>
             <input
@@ -386,7 +393,7 @@ console.log("mkldhfdf  ",req)
                         type="checkbox"
                         name={result.id}
                         className="form-check-input"
-                         checked={employee.includes(result.id) ? true : false}
+                        checked={employee.includes(result.id) ? true : false}
                         onChange={handleCheckChange}
                         id="exampleCheck1"
                         value={result.id}
@@ -447,7 +454,7 @@ console.log("mkldhfdf  ",req)
           </div>
           <div style={{ margin: "auto", width: "70%" }}>
             <div className="row">
-              <label class="form-check-label reg-lable" for="exampleCheck1">
+              <label className="form-check-label reg-lable" for="exampleCheck1">
                 Name
               </label>
               <input
@@ -485,16 +492,16 @@ console.log("mkldhfdf  ",req)
           </div>
         </div>
       </Modal>
-      <div class="task-container">
+      <div className="task-container">
         <div className="project-card">
           <div>
             <form>
               <div className="row">
                 <div className="col-sm-12 col-md-6 col-lg-6">
-                  <label class="form-check-label reg-lable" for="exampleCheck1">
+                  <label className="form-check-label reg-lable" for="exampleCheck1">
                     Name
                   </label>
-                  <div class="create-task-form" style={{ display: "flex" }}>
+                  <div className="create-task-form" style={{ display: "flex" }}>
                     <input
                       style={{ backgroundColor: "white" }}
                       type="text"
@@ -523,7 +530,7 @@ console.log("mkldhfdf  ",req)
               </div>
 
               <div className="row">
-                <table class="mile-header">
+                <table className="mile-header">
                   <tr>
                     <th>Task Name </th>
                     <th>Assinged To</th>
@@ -534,7 +541,7 @@ console.log("mkldhfdf  ",req)
 
                   {Items.map((elem, i) => {
                     return (
-                      <tr>
+                      <tr key={elem.name}>
                         <td>{elem.name}</td>
                         <td>{idToName(elem.assignTO)}</td>
                         <td>{elem.department}</td>
@@ -557,7 +564,7 @@ console.log("mkldhfdf  ",req)
                       </tr>
                     );
                   })}
-                  {Items.length === 0 &&  <h1>No Task present</h1>}
+                  {Items.length === 0 && <h1>No Task present</h1>}
                 </table>
               </div>
             </form>

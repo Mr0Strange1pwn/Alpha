@@ -11,7 +11,6 @@ export const getJobType = () => {
   return async (dispatch) => {
     await Axios.get("/Account/Job_Type", HeaderToken())
       .then((res) => {
-        console.log("res.data", res.data);
         dispatch({ type: JOB_TYPE, payload: res.data.response });
       })
       .catch((err) => {
@@ -24,7 +23,6 @@ export const deleteJobType = (id) => {
   return async (dispatch) => {
     await Axios.delete(`/Account/deleteJob_Type/${id}`, HeaderToken()).then(
       (res) => {
-        console.log("deleteJobTyep", res.data.response);
         if (res.data.result === "true") {
           toast.success(res.data.response);
           dispatch({ type: DELETE_JOB_TYPE, payload: id });
@@ -41,7 +39,6 @@ export const addJobType = (data) => {
   return async (dispatch) => {
     await Axios.post("/Account/Job_Type", data, HeaderToken())
       .then((res) => {
-        console.log("addJobtype", res.data.response);
         if (res.data.result === "true") {
           toast.success("Successfuly Added");
           dispatch({
@@ -61,19 +58,18 @@ export const addJobType = (data) => {
 
 export const updateJobType = (data) => {
   return async (dispatch) => {
-      await Axios.put("/Account/Job_Type",data,HeaderToken())
+    await Axios.put("/Account/Job_Type", data, HeaderToken())
       .then((res) => {
-          console.log("updateJobType",res.data)
-          if (res.data.result === "true") {
+        if (res.data.result === "true") {
           toast.success("Successfully Updated");
           dispatch({
-              type: UPDATE_JOB_TYPE,
-              payload:res.data.response
-          })
-      }
+            type: UPDATE_JOB_TYPE,
+            payload: res.data.response,
+          });
+        }
       })
       .catch((err) => {
-          toast.error("Network Error")
-      })
-  }
-}
+        toast.error("Network Error");
+      });
+  };
+};

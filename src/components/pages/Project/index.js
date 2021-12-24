@@ -4,12 +4,15 @@ import Header from "../Header/Header";
 import Task from "./Task";
 import MileStone from "./MileStone";
 import { useHistory } from "react-router-dom";
-import {useSelector, useDispatch} from 'react-redux';
-import { addProject , updateProject } from '../../../redux/actions/projectActions'
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addProject,
+  updateProject,
+} from "../../../redux/actions/projectActions";
 import { roleLIst } from "../../../redux/actions/roleAction";
 
 const CreateProject = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [projectInfo, setProjectInfo] = useState(true);
   const [Items, setItems] = useState([]);
   const [showError, SetError] = useState(false);
@@ -25,25 +28,22 @@ const CreateProject = () => {
     perhourcost: "",
   });
   const roles = useSelector((store) => store.role.userInfo);
-  const { project } = useSelector((store) => store.project)
+  const { project } = useSelector((store) => store.project);
   const history = useHistory();
   const handleChange = (e) => {
     setDetails({ ...projectDetails, [e.target.name]: e.target.value });
   };
   const handleProject = () => {
     setProjectInfo(!projectInfo);
-    // setTask(false);
   };
 
   useEffect(() => {
-    dispatch(roleLIst())
-  },[])
-console.log("roles",roles)
+    dispatch(roleLIst());
+  }, []);
   useEffect(() => {
-    console.log("project",project)
-    if(project.id){
-      if(project.project_type === "billable"){
-        if(project.project_category === "retainer"){
+    if (project.id) {
+      if (project.project_type === "billable") {
+        if (project.project_category === "retainer") {
           setDetails({
             name: project.name,
             projectType: project.project_type,
@@ -52,8 +52,8 @@ console.log("roles",roles)
             category: project.project_category,
             weekelyhour: project.weekly_hours,
             perhourcost: project.per_hour_cost,
-          })
-        }else{
+          });
+        } else {
           setDetails({
             name: project.name,
             projectType: project.project_type,
@@ -62,9 +62,9 @@ console.log("roles",roles)
             category: project.project_category,
             weekelyhour: "",
             perhourcost: "",
-          })
+          });
         }
-      }else{
+      } else {
         setDetails({
           name: project.name,
           projectType: project.project_type,
@@ -73,11 +73,10 @@ console.log("roles",roles)
           category: "",
           weekelyhour: "",
           perhourcost: "",
-        })
+        });
       }
-     
     }
-  },[project])
+  }, [project]);
 
   const handleMileStone = () => {
     setMileStone(!mileStone);
@@ -91,20 +90,18 @@ console.log("roles",roles)
     history.push(path);
   };
 
-  const handleAddProject =(req )=>{
+  const handleAddProject = (req) => {
     let formData = new FormData();
-    Object.keys(req).map(key=>{
-      console.log("key",key)
-      formData.append(key, req[key])
-     })
-     if(project && project.id){
-      formData.append("id", project.id)
-      dispatch(updateProject(formData, history))
-     }else{
-      dispatch(addProject(formData, history))
-     }
-    
-  }
+    Object.keys(req).map((key) => {
+      formData.append(key, req[key]);
+    });
+    if (project && project.id) {
+      formData.append("id", project.id);
+      dispatch(updateProject(formData, history));
+    } else {
+      dispatch(addProject(formData, history));
+    }
+  };
 
   const handleCreate = () => {
     SetError(true);
@@ -114,42 +111,36 @@ console.log("roles",roles)
       projectDetails.description &&
       projectDetails.assignedTo
     ) {
-      console.log("projectDeatils", projectDetails);
-      if(projectDetails.projectType === "non_billable"){
+      if (projectDetails.projectType === "non_billable") {
         let req = {
-          "project_name": projectDetails.name,
-          "project_type": projectDetails.projectType,
-          "project_description": projectDetails.description,
-          "assigned_to": projectDetails.assignedTo,
-        }
-        console.log(" req", req)
-        handleAddProject(req)
-      }else {
-        if( projectDetails.category === "retainer"){
+          project_name: projectDetails.name,
+          project_type: projectDetails.projectType,
+          project_description: projectDetails.description,
+          assigned_to: projectDetails.assignedTo,
+        };
+        handleAddProject(req);
+      } else {
+        if (projectDetails.category === "retainer") {
           let req = {
-            "project_name": projectDetails.name,
-            "project_type": projectDetails.projectType,
-            "project_description": projectDetails.description,
-            "assigned_to": projectDetails.assignedTo,
-            "project_category": projectDetails.category,
-            "per_hour_cost": projectDetails.perhourcost,
-            "weekly_hours": projectDetails.weekelyhour
-          }
-          console.log(" req", req)
-          handleAddProject(req)
-        }else{
+            project_name: projectDetails.name,
+            project_type: projectDetails.projectType,
+            project_description: projectDetails.description,
+            assigned_to: projectDetails.assignedTo,
+            project_category: projectDetails.category,
+            per_hour_cost: projectDetails.perhourcost,
+            weekly_hours: projectDetails.weekelyhour,
+          };
+          handleAddProject(req);
+        } else {
           let req = {
-            "project_name": projectDetails.name,
-            "project_type": projectDetails.projectType,
-            "project_description": projectDetails.description,
-            "assigned_to": projectDetails.assignedTo,
-            "project_category": projectDetails.category,
-          
-          }
-          console.log(" req", req)
-          handleAddProject(req)
+            project_name: projectDetails.name,
+            project_type: projectDetails.projectType,
+            project_description: projectDetails.description,
+            assigned_to: projectDetails.assignedTo,
+            project_category: projectDetails.category,
+          };
+          handleAddProject(req);
         }
-       
       }
     }
   };
@@ -303,7 +294,11 @@ console.log("roles",roles)
                         onChange={(e) => handleChange(e)}
                       >
                         <option selected>Choose Assignee</option>
-                        {roles.length> 0 ? roles.map(role => <option value={role.id}>{role.roleName}</option> ) : "" }
+                        {roles.length > 0
+                          ? roles.map((role) => (
+                              <option value={role.id}>{role.roleName}</option>
+                            ))
+                          : ""}
                         {/* <option value="1">Developer</option>
                         <option value="2">Tester</option>
                         <option value="3">Designer</option> */}
@@ -496,9 +491,16 @@ console.log("roles",roles)
               style={{ backgroundColor: "#25344b" }}
               onClick={() => handleCreate()}
             >
-             { projectDetails.projectType === "non_billable" ? "Next" : projectDetails.category === "non_retainer" ? "Next" : " Create"}
+              {projectDetails.projectType === "non_billable"
+                ? "Next"
+                : projectDetails.category === "non_retainer"
+                ? "Next"
+                : " Create"}
             </button>
-            <button className="btn  float-left" onClick={()=> history.goBack()}>
+            <button
+              className="btn  float-left"
+              onClick={() => history.goBack()}
+            >
               Cancel
             </button>
           </div>

@@ -26,9 +26,7 @@ function JobDetails() {
   useEffect(()=>{
 dispatch(getJobType())
   },[])
-console.log("jobtypes",jobTypes)
   useEffect(()=>{
-    console.log(employeeJobDetails)
     if(employeeJobDetails){
       SetDetails({
         jobType:employeeJobDetails.job_type,
@@ -48,8 +46,7 @@ console.log("jobtypes",jobTypes)
   const handleSave = () => {
     setError(true)
     if(details.jobType && details.shiftTimeFrom && details.shiftTimeTo  && details.weekelyHoliday && details.probationPeriod){
-      console.log("details", details)
-
+ 
       let req = {
         "start_time": details.shiftTimeFrom,
         "end_time": details.shiftTimeTo,
@@ -60,10 +57,8 @@ console.log("jobtypes",jobTypes)
       }
       let formData = new FormData
       Object.keys(req).map(key=>{
-        console.log("key",key)
         formData.append(key, req[key])
        })
-      console.log("job detils req ", req)
       if(employeeJobDetails.user_profile_id){
         dispatch(updateJobDetails(formData, history, setCurrentStep,backpackClick))
       }else{

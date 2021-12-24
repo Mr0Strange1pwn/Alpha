@@ -12,7 +12,7 @@ import {
   ADD_TASK,
   DELETE_TASK,
   UPDATE_TASK,
-  TASK_FILTER_VIEW ,
+  TASK_FILTER_VIEW,
   SET_MILESTONE_ID,
   ASSIGN_TASK,
 } from "../actions/projectActions";
@@ -22,8 +22,8 @@ const InitialState = {
   project: {},
   milestones: [],
   tasks: [],
-  taskFilter:[],
-  milestoneId:null
+  taskFilter: [],
+  milestoneId: null,
 };
 
 const projectReduser = (state = InitialState, action) => {
@@ -65,25 +65,21 @@ const projectReduser = (state = InitialState, action) => {
     }
     case EDIT_PROJECT_MILESTONE: {
       let index = state.milestones.findIndex((m) => m.id === action.payload.id);
-     
+
       if (index !== -1) {
-         state.milestones[index] = action.payload;
+        state.milestones[index] = action.payload;
       }
-//       let newmilestones = state.milestones;
-// console.log({index,payload:action.payload})
-//       newmilestones.splice(index, 1, action.payload);
-//       let arr = newmilestones
-      console.log({index,payload:action.payload, newmilestones:state.milestones})
+
       return {
         ...state,
         milestones: state.milestones,
       };
     }
-    case SET_MILESTONE_ID:{
+    case SET_MILESTONE_ID: {
       return {
         ...state,
-        milestoneId: action.payload
-      }
+        milestoneId: action.payload,
+      };
     }
     case ADD_PROJECT_MILESTONE: {
       return {
@@ -116,7 +112,7 @@ const projectReduser = (state = InitialState, action) => {
     }
     // case ASSIGN_TASK:{
     //   let index = state.tasks.findIndex((m) => m.id === action.payload.id);
-     
+
     //   if (index !== -1) {
     //      state.tasks[index] = action.payload;
     //   }
@@ -126,11 +122,11 @@ const projectReduser = (state = InitialState, action) => {
     //   };
     // }
     case DELETE_TASK: {
-        let taskList = state.tasks.filter(tasks=> tasks.id !== action.payload)
-        return {
-            ...state,
-            tasks: taskList
-        }
+      let taskList = state.tasks.filter((tasks) => tasks.id !== action.payload);
+      return {
+        ...state,
+        tasks: taskList,
+      };
     }
     // case UPDATE_TASK : {
     //     return {
@@ -138,11 +134,11 @@ const projectReduser = (state = InitialState, action) => {
     //         tasks:action.payload
     //     }
     // }
-    case TASK_FILTER_VIEW :{
+    case TASK_FILTER_VIEW: {
       return {
         ...state,
-        taskFilter:action.payload
-    }
+        taskFilter: action.payload,
+      };
     }
     default:
       return {

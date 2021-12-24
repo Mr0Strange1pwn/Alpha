@@ -6,8 +6,13 @@ import Header from "./../../Header/Header";
 import Alert from "../../../common/Alert";
 import Modal from "../../../common/Model";
 import DatePicker from "react-datepicker";
-import { useDispatch , useSelector} from 'react-redux'
-import { getProjects, NEW_PROJECT, getProject,deleteProject } from '../../../../redux/actions/projectActions'
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getProjects,
+  NEW_PROJECT,
+  getProject,
+  deleteProject,
+} from "../../../../redux/actions/projectActions";
 
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
@@ -31,8 +36,8 @@ const ExampleCustomInput = ({ value, onClick }) => {
 };
 
 const ProjectList = () => {
-  const dispatch = useDispatch()
-  const  {projects} = useSelector(store => store.project)
+  const dispatch = useDispatch();
+  const { projects } = useSelector((store) => store.project);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [search, setSearch] = useState(false);
@@ -50,16 +55,15 @@ const ProjectList = () => {
   for (let i = 1; i <= Math.ceil(projects.length / itemsPerPage); i++) {
     pages.push(i);
   }
-  const handleLoadMoreMethod = () =>{
-    setItemPerPage(itemsPerPage +5);
-   }
-   
-   const handleLoadMoreMethoddec = () =>{
-     if(itemsPerPage>5){
-      setItemPerPage(itemsPerPage -5);
-     }
-   
-   }
+  const handleLoadMoreMethod = () => {
+    setItemPerPage(itemsPerPage + 5);
+  };
+
+  const handleLoadMoreMethoddec = () => {
+    if (itemsPerPage > 5) {
+      setItemPerPage(itemsPerPage - 5);
+    }
+  };
   const indexOfLastItem = currentPage * itemsPerPage;
   //  1  X 15 = 15 and 2 X 10 = 30
   const indexOfFistItem = indexOfLastItem - itemsPerPage;
@@ -115,24 +119,21 @@ const ProjectList = () => {
   }
   //  className={currentPage == number ? "active" : null}
 
-
   const history = useHistory();
   const routeChange = () => {
     let path = `./ProjectList`;
-    dispatch({type:NEW_PROJECT})
+    dispatch({ type: NEW_PROJECT });
     history.push(path);
   };
   useEffect(() => {
-    // getAllStudent();
-    dispatch(getProjects())
+    dispatch(getProjects());
   }, []);
 
   useEffect(() => {
-    console.log(searchQuery)
     if (searchQuery.length > 0) {
       searchHandler();
     } else {
-      setFilteredProjects([])
+      setFilteredProjects([]);
       setSearch(false);
     }
   }, [searchQuery]);
@@ -142,7 +143,7 @@ const ProjectList = () => {
     setID(id);
   };
 
-  const TableData = ({product,i}) => {
+  const TableData = ({ product, i }) => {
     return (
       <tr>
         <td class="geeks">{i + 1}</td>
@@ -157,12 +158,16 @@ const ProjectList = () => {
         {/* <td>Developer</td> */}
         <td>
           <button
-            // onClick={(e) => {
-            //   editItems(product.id, e);
-            // }}
+          // onClick={(e) => {
+          //   editItems(product.id, e);
+          // }}
           >
             {" "}
-            <img src="images/Edit.png" alt="logo" onClick={()=>handleEdit(product)} />
+            <img
+              src="images/Edit.png"
+              alt="logo"
+              onClick={() => handleEdit(product)}
+            />
           </button>
           <button onClick={() => delAlert(product.id)}>
             <img src="images/Del.png" alt="logo" />
@@ -170,44 +175,28 @@ const ProjectList = () => {
         </td>
       </tr>
     );
-  }
+  };
 
   const searchHandler = () => {
     let filterDAta = projects.filter((data) =>
-      //  console.log("data",data)
       data.name.toLowerCase().includes(searchQuery)
     );
     if (filterDAta.length > 0) {
-      console.log("filterDAta", filterDAta);
       setFilteredProjects(filterDAta);
     }
     setSearch(true);
   };
- 
 
-  const handleEdit=(product)=>{
+  const handleEdit = (product) => {
     let path = `./ProjectList`;
-    dispatch(getProject(product.id))
+    dispatch(getProject(product.id));
     history.push(path);
- 
-  }
-
-  const handleDelete = (id) => {
-    dispatch(deleteProject(id))
-    setModalOpen(false);
   };
 
-  // const editItems = (id, e) => {
-  //   e.preventDefault();
-  //   setIsOpenEdit(true);
-  //   // let newEditItem = data.find((elem) => {
-  //   //   return elem.id === id;
-  //   // });
-  //   // console.log(newEditItem);
-  //   // setItem(newEditItem);
-  //   // setIsEditItem(id);
-  //   // setToggleSubmit(false);
-  // };
+  const handleDelete = (id) => {
+    dispatch(deleteProject(id));
+    setModalOpen(false);
+  };
 
   return (
     <div className="header">
@@ -389,28 +378,42 @@ const ProjectList = () => {
             <th>Action</th>
           </tr>
 
-          { filteredProjects.length > 0 ?  filteredProjects.map((product, i) => {
-        return  <TableData product={product} i={i} />
-          }) : 
-            currentItem.map((product, i) => {
-        return  <TableData product={product} i={i} />
-          })}
+          {filteredProjects.length > 0
+            ? filteredProjects.map((product, i) => {
+                return <TableData product={product} i={i} />;
+              })
+            : currentItem.map((product, i) => {
+                return <TableData product={product} i={i} />;
+              })}
         </table>
         <nav aria-label="Page navigation example">
-        <div className="col-sm-12 col-md-6 col-lg-6">
-            
+          <div className="col-sm-12 col-md-6 col-lg-6">
             <div className="divboxnew">
-              <span><h6>Showing&nbsp;&nbsp;&nbsp;</h6></span>
-              <input
-                   value={itemsPerPage}
-                   className="payrollInputStylenew"
-                 />
-                 <div className="load"><button onClick={handleLoadMoreMethod} className="loadmorebuttonone" ><img src="images/up.png" className="loadmoreone" alt="logo" /> </button>
-                 <button onClick={handleLoadMoreMethoddec} className="loadmorebuttontwo" ><img src="images/down.png" className="loadmoretwo" alt="logo" /></button></div>
-                 <h6 style={{display:"flex"}}>of {projects.length}</h6>
-          
+              <span>
+                <h6>Showing&nbsp;&nbsp;&nbsp;</h6>
+              </span>
+              <input value={itemsPerPage} className="payrollInputStylenew" />
+              <div className="load">
+                <button
+                  onClick={handleLoadMoreMethod}
+                  className="loadmorebuttonone"
+                >
+                  <img src="images/up.png" className="loadmoreone" alt="logo" />{" "}
+                </button>
+                <button
+                  onClick={handleLoadMoreMethoddec}
+                  className="loadmorebuttontwo"
+                >
+                  <img
+                    src="images/down.png"
+                    className="loadmoretwo"
+                    alt="logo"
+                  />
+                </button>
+              </div>
+              <h6 style={{ display: "flex" }}>of {projects.length}</h6>
             </div>
-            </div>
+          </div>
           <ul className="pageNumbers">
             <li>
               <button
@@ -427,7 +430,9 @@ const ProjectList = () => {
             <li>
               <button
                 onClick={handleNextbtn}
-                disabled={currentPage === pages[pages.length - 1] ? true : false}
+                disabled={
+                  currentPage === pages[pages.length - 1] ? true : false
+                }
               >
                 Next
               </button>

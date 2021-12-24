@@ -13,7 +13,6 @@ export const AddRoleAPI = (selectedValue, History) => {
   return async (dispatch) => {
     await Axios.post("/Account/addroles", selectedValue, HeaderToken())
       .then((res) => {
-        console.log("response", res.data);
         if (res.data.result === "true") {
           toast.success(res.data.response);
           dispatch({ type: ADD_ROLE, payload: res.data });
@@ -33,7 +32,6 @@ export const deleteRole = (id) => {
   return async (dispatch) => {
     await Axios.delete(`/Account/deleterole/${id}`, HeaderToken())
       .then((res) => {
-        console.log("ress", res.data);
         if (res.data.result === "true") {
           toast.success(res.data.response);
           dispatch({ type: DELETE_ROLE, payload: id });
@@ -51,7 +49,6 @@ export const roleLIst = () => {
   return async (dispatch) => {
     await Axios.get("/Account/roles", HeaderToken())
       .then((res) => {
-        console.log("res.data", res.data);
         dispatch({ type: ROLE_LIST, payload: res.data.response });
       })
       .catch((err) => {
@@ -61,11 +58,9 @@ export const roleLIst = () => {
 };
 
 export const getRoleById = (id) => {
-  console.log("idss".id);
   return async (dispatch) => {
     await Axios.get(`/Account/getrole/${id}`, HeaderToken())
       .then((res) => {
-        console.log("getRoleByIdssss", res.data);
         dispatch({ type: ROLE_DETAIL, payload: res.data.response });
       })
       .catch((err) => {
@@ -75,11 +70,9 @@ export const getRoleById = (id) => {
 };
 
 export const saveRoleUpdate = (updatedData, History) => {
-  console.log("updatedData", updatedData);
   return async (dispatch) => {
     await Axios.put("/Account/roles", updatedData, HeaderToken())
       .then((res) => {
-        console.log("ress", res.data);
         if (res.data.result == "False") {
           toast.error(res.data.response);
         } else {
@@ -98,7 +91,6 @@ export const filterRole = (data) => {
   return async (dispatch) => {
     await Axios.post("/Account/filterrole/",data, HeaderToken())
      .then((res) => {
-      console.log("filterdata",res.data);
       if(res.data.result == "False") {
         toast.error(res.data.response);
       }else {

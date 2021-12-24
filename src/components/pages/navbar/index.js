@@ -73,7 +73,6 @@ function Navbar() {
   }
   const location = useLocation();
   const pathname = location.pathname;
-  console.log("windowDimensions", windowDimensions)
   return (
     <div className="sidebar" style={btnStyle}>
       <Alert message="Logout" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={handleDelete} />
