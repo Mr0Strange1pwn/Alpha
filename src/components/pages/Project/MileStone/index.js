@@ -198,7 +198,7 @@ const MileStone = (props) => {
         id={ids}
       />
 
-      <div style={{ marginTop: "5%" }}>
+      <div style={{ padding:"5%" }}>
         <div style={{ display: "flex", marginBottom: "2%" }}>
           <img src="images/milestone.png" alt="Project-info-icon" />
           <h4 style={{ alignSelf: "center", paddingLeft: "10px" }}>
