@@ -18,6 +18,7 @@ const CreateProject = () => {
   const [showError, SetError] = useState(false);
   const [mileStone, setMileStone] = useState(false);
   const [task, setTask] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
   const [projectDetails, setDetails] = useState({
     name: "",
     projectType: "",
@@ -99,7 +100,7 @@ const CreateProject = () => {
       formData.append("id", project.id);
       dispatch(updateProject(formData, history));
     } else {
-      dispatch(addProject(formData, history));
+      dispatch(addProject(formData, history, setInProgress));
     }
   };
 
@@ -488,14 +489,15 @@ const CreateProject = () => {
             <button
               className="btn  float-left"
               type="submit"
-              style={{ backgroundColor: "#25344b" }}
+              disabled={inProgress}
+              style={{ backgroundColor: inProgress? "yellowgreen" : "#25344b"  }}
               onClick={() => handleCreate()}
             >
               {projectDetails.projectType === "non_billable"
                 ? "Next"
                 : projectDetails.category === "non_retainer"
                 ? "Next"
-                : " Create"}
+                : inProgress ? "Creating..." : " Create"}
             </button>
             <button
               className="btn  float-left"

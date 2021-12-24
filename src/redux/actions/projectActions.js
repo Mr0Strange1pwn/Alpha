@@ -67,24 +67,29 @@ export const updateProject = (data, history) => {
   };
 };
 
-export const addProject = (data, history) => {
+export const addProject = (data, history, setInProgress) => {
   return async (dispatch) => {
+    setInProgress(true)
     await Axios.post("/Projects/project", data, HeaderToken())
       .then((res) => {
         dispatch({ type: ADD_PROJECT, payload: res.data.response });
         if (res.data.response.profile_type === "billable") {
           if (res.data.response.project_category === "retainer") {
+            setInProgress(false)
             history.push("/Project");
           } else {
+            setInProgress(false)
             history.push("/Milestone");
           }
         } else {
           dispatch(setMileStoneID(null));
+          setInProgress(false)
           history.push("/Task");
         }
       })
       .catch((err) => {
         toast.error("Network Error");
+        setInProgress(false)
       });
   };
 };
@@ -183,7 +188,24 @@ export const addTask = (data) => {
 
 export const getTask = (id) => {
   return async (dispatch) => {
-    await Axios.get(`/Projects/get_project_Tasks/${id}`, HeaderToken())
+    await Axios.get(`/Projects/getTasksby_project_id/${id}`, HeaderToken())
+      .then((res) => {
+        if (res.data.result === "true") {
+          dispatch({ type: GET_TASK, payload: res.data.response });
+        } else {
+          toast.error(res.data.response);
+          dispatch({ type: GET_TASK, payload: [] });
+        }
+      })
+      .catch((err) => {
+        toast.error("Network Error");
+      });
+  };
+};
+
+export const getTaskByMilestone= (id) => {
+  return async (dispatch) => {
+    await Axios.get(`/Milestone/getTasksby_milestoneid/${id}`, HeaderToken())
       .then((res) => {
         if (res.data.result === "true") {
           dispatch({ type: GET_TASK, payload: res.data.response });
@@ -237,12 +259,18 @@ export const assigntask = (data) => {
       .then((res) => {
         if (res.data.result === "true") {
           toast.success("Successfully Added");
-
+console.log("/Account/taskassign",res.data)
           let response = res.data.response;
           let emp = response.employees.map((emp) => emp.id);
           let payload = { ...response, employees: emp };
 
-          dispatch(getTask(payload.project.id));
+          if(response.milestone != null){
+           
+            dispatch(getTaskByMilestone(response.milestone.id));
+          }else{
+            dispatch(getTask(payload.project.id));
+          }
+          
           // dispatch({ type:ASSIGN_TASK, payload: payload })
         } else {
           toast.error(res.data.response);

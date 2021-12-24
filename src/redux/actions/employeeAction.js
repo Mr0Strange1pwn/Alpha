@@ -236,7 +236,7 @@ export const updatePayroll = (data, setCurrentStep, backpackClick) => {
 
 export const getPayroll = (id) => {
   return async (dispatch) => {
-    await Axios.get(`/Account/payroll${id}`, HeaderToken())
+    await Axios.get(`/Account/payroll/${id}`, HeaderToken())
       .then((res) => {
         if (res.data.result == "False") {
           toast.error(res.data.response);
@@ -275,7 +275,7 @@ export const uploadJobDetails = (
 
 export const getJobDetails = (id) => {
   return async (dispatch) => {
-    await Axios.get(`/Account/job_details${id}`, HeaderToken())
+    await Axios.get(`/Account/job_details/${id}`, HeaderToken())
       .then((res) => {
         if (res.data.result == "False") {
           toast.error(res.data.response);

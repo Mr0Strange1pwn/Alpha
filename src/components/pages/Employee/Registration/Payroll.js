@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   uploadPayroll,
   updatePayroll,
+  getPayroll,
 } from "../../../../redux/actions/employeeAction";
 
 const ExampleCustomInput = ({ value, onClick }) => {
@@ -50,11 +51,11 @@ function Payroll() {
     setDetails({ ...details, [e.target.name]: e.target.value });
   };
 
-  //   useEffect(() =>{
-  // if(employeeInfo.id){
-  //   dispatch(getEmployeePayRoll(employeeInfo.id))
-  // }
-  //   },[employeeInfo])
+    useEffect(() =>{
+  if(employeeInfo.id){
+    dispatch(getPayroll(employeeInfo.id))
+  }
+    },[employeeInfo])
 
   useEffect(() => {
     if (employeePayRoll && employeePayRoll.annual_ctc) {

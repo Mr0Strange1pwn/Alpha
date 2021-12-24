@@ -4,7 +4,7 @@ import "react-phone-input-2/lib/style.css";
 import {Multistepcontext} from '../../../../StepContext';
 import Timeclock from "../../../common/Timeclock";
 import { useSelector, useDispatch} from 'react-redux'
-import {uploadJobDetails, updateJobDetails} from '../../../../redux/actions/employeeAction' 
+import {uploadJobDetails, updateJobDetails, getJobDetails} from '../../../../redux/actions/employeeAction' 
 import { getJobType } from '../../../../redux/actions/jobtypeAction' 
 import {useHistory} from 'react-router-dom'
 
@@ -25,8 +25,13 @@ function JobDetails() {
 
   useEffect(()=>{
 dispatch(getJobType())
+
   },[])
+
+  useEffect(()=>{dispatch(getJobDetails(employeeInfo.id))},[employeeInfo])
+
   useEffect(()=>{
+    console.log("employeeJobDetails]",employeeJobDetails)
     if(employeeJobDetails){
       SetDetails({
         jobType:employeeJobDetails.job_type,

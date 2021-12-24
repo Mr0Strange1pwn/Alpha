@@ -15,6 +15,7 @@ import {
   updateTask,
   assigntask,
   taskFilterView,
+  getTaskByMilestone,
 } from "../../../../redux/actions/projectActions";
 import {
   getDesignitations,
@@ -44,7 +45,13 @@ const Task = () => {
 
   useEffect(() => {
     let id = project.id;
-    dispatch(getTask(id));
+    console.log("milestoneId",milestoneId)
+    if(milestoneId != null) {
+      dispatch(getTaskByMilestone(milestoneId))
+    }else{
+      dispatch(getTask(id));
+    }
+ 
   }, [project]);
 
   useEffect(() => {
