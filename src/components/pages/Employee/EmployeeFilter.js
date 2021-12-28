@@ -4,13 +4,15 @@ import Modal from "../../common/Model";
 import { filterRole, roleLIst } from "../../../redux/actions/roleAction";
 import { useSelector, useDispatch } from "react-redux";
 
-const RoleFilter = ({ open, onClose }) => {
+const EmployeeFilter = ({ open, onClose }) => {
   const [value, setState] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [toggleTwo, setToggleTwo] = useState(false);
   const roleNameInfo = useSelector((store) => store.role.userInfo);
+  const empInfo = useSelector((store) => store.emp.userInfo);
+  const [empNameList,setEmpNameList] =useState([{}])
   const [roleNameList, setRoleName] = useState([{}]);
-  const [userCount, setUserCount] = useState();
+  const [empEmailList, setEmpEmailList] = useState([{}])
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,6 +25,22 @@ const RoleFilter = ({ open, onClose }) => {
         }))
       );
     }
+    if (empInfo.length > 0) {
+        setEmpNameList(
+            empInfo.map((value) => ({
+            label: value.name,
+            value: value.id,
+          }))
+        );
+      }
+      if (empInfo.length > 0) {
+        setEmpEmailList(
+            empInfo.map((value) => ({
+            label: value.email,
+            value: value.id,
+          }))
+        );
+      }
   }, []);
 
   const roleData = () => {
@@ -51,7 +69,7 @@ const RoleFilter = ({ open, onClose }) => {
   const handleSubmit = () => {
     let data = {
       roleName: value,
-      user_count: parseInt(userCount),
+    //   user_count: parseInt(userCount),
     };
     dispatch(filterRole(data));
     onClose();
@@ -61,37 +79,45 @@ const RoleFilter = ({ open, onClose }) => {
       <Modal open={open} onClose={onClose}>
         <div style={{ marginTop: "4%" }}>
           <div style={{ textAlignLast: "center" }}>
-            <h4 style={{ fontWeight: "700" }}>Filter Role And Permission</h4>
+            <h4 style={{ fontWeight: "700" }}>Filter Employee Screen</h4>
           </div>
           <div style={{ margin: "auto", width: "70%" }}>
             <div className="row">
               <div className="col">
                 <label class="form-check-label reg-lable" for="exampleCheck1">
-                  Role Name
+                  Employee Name
                 </label>
                 <Select
                   isMulti
                   options={roleNameList}
                   onChange={handleChange}
-                  placeholder={<div>Tickets</div>}
+                  placeholder={<div>Employer Name</div>}
                 />
               </div>
             </div>
             <div className="row">
-              <div className="col">
-                <label
-                  className="form-check-label reg-lable"
-                  for="exampleCheck1"
-                >
-                  User Count
+            <div className="col">
+                <label class="form-check-label reg-lable" for="exampleCheck1">
+                  Role Name
                 </label>
-                <input
-                  type="text"
-                  id="lname"
-                  name="email"
-                  placeholder="User Count"
-                  value={userCount}
-                  onChange={(e) => setUserCount(e.target.value)}
+                <Select
+                  isMulti
+                  options={empNameList}
+                  onChange={handleChange}
+                  placeholder={<div>Role Name</div>}
+                />
+              </div>
+            </div>
+            <div className="row">
+            <div className="col">
+                <label class="form-check-label reg-lable" for="exampleCheck1">
+                  Email
+                </label>
+                <Select
+                  isMulti
+                  options={empEmailList}
+                  onChange={handleChange}
+                  placeholder={<div>Emails</div>}
                 />
               </div>
             </div>
@@ -164,4 +190,4 @@ const RoleFilter = ({ open, onClose }) => {
   );
 };
 
-export default RoleFilter;
+export default EmployeeFilter;

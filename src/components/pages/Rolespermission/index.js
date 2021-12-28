@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./Rolespermission.css";
-import axios from "axios";
 import Header from "../Header/Header";
 import { useHistory } from "react-router-dom";
 import Alert from "../../common/Alert";
@@ -49,13 +48,8 @@ const Rolespermission = () => {
   };
 
   const handleDelete = (id) => {
-    // var newstudent = student.filter((item) => {
-    //   return item.id !== id;
-    // });
-    // setStudent(newstudent);
     dispatch(deleteRole(id));
     setModalOpen(false);
-    // roleData()
   };
 
   const editRole = (id) => {

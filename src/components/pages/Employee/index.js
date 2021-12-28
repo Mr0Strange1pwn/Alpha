@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Employee.css";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Header from "../Header/Header";
 import Alert from "../../common/Alert";
 import {
@@ -11,7 +11,9 @@ import {
   getPayroll,
   getJobDetails,
 } from "../../../redux/actions/employeeAction";
+import { CSVLink } from "react-csv";
 import { useSelector, useDispatch } from "react-redux";
+import EmployeeFilter from "./EmployeeFilter"
 
 const Employee = () => {
   const [FilteredEmployees, setFilteredEmployees] = useState([]);
@@ -28,18 +30,11 @@ const Employee = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const emp = useSelector((store) => store.emp.userInfo);
+  const [isOpenFilter, setIsOpenFilter] = useState(false);
 
   useEffect(() => {
-    // empListData();
     dispatch(empLIst());
   }, []);
-
-  // const empListData = () => {
-  //   if(emp !== employeelist){
-  //     dispatch(empLIst());
-  //     setEmployee(emp);
-  //   }
-  //};
 
   const routeChange = () => {
     let path = `./AddPeople`;
@@ -141,12 +136,6 @@ const Employee = () => {
   }
 
   const handleDelete = async (id) => {
-    // await axios.delete(`http://localhost:3003/posts/${id}`);
-    // var newstudent = employeelist.filter((item) => {
-    //   return item.id !== id;
-    // });
-    // setStudent(newstudent);
-
     dispatch(deleteEmployee(id));
     setModalOpen(false);
   };
@@ -191,9 +180,6 @@ const Employee = () => {
               onClick={() => handleEdit(employeelist)}
             />
           </button>
-          {/* <button onClick={() => delAlert(students.id)}>
-          <img src="images/Del.png" alt="logo" />
-        </button> */}
           <button onClick={() => delAlert(employeelist.id)}>
             <img src="images/Del.png" alt="logo" />
           </button>
@@ -211,6 +197,11 @@ const Employee = () => {
         setOpenModal={setModalOpen}
         handleDelete={(id) => handleDelete(id)}
         id={ids}
+      />
+      <EmployeeFilter 
+        open={isOpenFilter}
+        onClose={() => setIsOpenFilter(false)}
+        // data={student}
       />
       <Header headerName="Employee List" />
       <div className="main">
@@ -242,18 +233,18 @@ const Employee = () => {
             <div class="col-sm-6">
               <div className="pos">
                 <button className="btn  float-right" type="submit">
-                  <Link to="/">
-                    <img
-                      className="export_image"
-                      src="images/Export.png"
-                      alt="logo"
-                    />
-                  </Link>
-                  Export
+                  <CSVLink
+                    data={emp.length > 0 ? currentItem : []}
+                    filename={"my-saved.csv"}
+                    className="btn"
+                  >
+                    Export
+                  </CSVLink>
                 </button>
                 <button
                   className="btn btn-outline-success float-right"
                   type="submit"
+                  onClick={() => setIsOpenFilter(!isOpenFilter)}
                 >
                   <Link to="/">
                     <img

@@ -3,7 +3,6 @@ import { ADD_ROLE, ROLE_LIST , DELETE_ROLE , ROLE_DETAIL, ROLE_SAVE,FILTER_ROLE 
 const InitialState = {
     isLoggedIn: true,
     userInfo: {},
-    // filterRoleList:{}
 }
 
 const roleReduser = (state = InitialState, action) => {

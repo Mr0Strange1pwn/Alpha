@@ -274,10 +274,6 @@ const Documents = () => {
                   </a>
                 </td>
                 <td>
-                  <button>
-                    {" "}
-                    <img src="images/Edit.png" alt="logo" />
-                  </button>
                   <button onClick={() => delAlert(items.id)}>
                     <img src="images/Del.png" alt="logo" />
                   </button>

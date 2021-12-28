@@ -61,6 +61,7 @@ export const updateJobType = (data) => {
     await Axios.put("/Account/Job_Type", data, HeaderToken())
       .then((res) => {
         if (res.data.result === "true") {
+          console.log("update",res.data)
           toast.success("Successfully Updated");
           dispatch({
             type: UPDATE_JOB_TYPE,

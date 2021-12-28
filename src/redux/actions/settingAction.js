@@ -63,7 +63,9 @@ export const updateDesignation = (data) => {
     return async (dispatch) => {
         await Axios.put("/Account/Designation",data,HeaderToken())
         .then((res) => {
+         
             if (res.data.result === "true") {
+              console.log("update",res.data)
             toast.success("Successfully Updated");
             dispatch({
                 type: UPDATE_DESIGNATION,

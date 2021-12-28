@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ProjectList.css";
 import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
+import { CSVLink } from "react-csv";
 import Header from "./../../Header/Header";
 import Alert from "../../../common/Alert";
 import Modal from "../../../common/Model";
@@ -117,7 +117,6 @@ const ProjectList = () => {
   if (minPageNumberLimit >= 1) {
     pageDecrementBtn = <li onClick={handlePrevbtn}> &hellip; </li>;
   }
-  //  className={currentPage == number ? "active" : null}
 
   const history = useHistory();
   const routeChange = () => {
@@ -155,13 +154,8 @@ const ProjectList = () => {
         </td>
         <td>{product.assigned_to}</td>
         <td>{product.addedOn}</td>
-        {/* <td>Developer</td> */}
         <td>
-          <button
-          // onClick={(e) => {
-          //   editItems(product.id, e);
-          // }}
-          >
+          <button>
             {" "}
             <img
               src="images/Edit.png"
@@ -327,15 +321,14 @@ const ProjectList = () => {
             </div>
             <div class="col-sm-6">
               <div className="pos">
-                <button className="btn  float-right" type="submit">
-                  <Link to="/">
-                    <img
-                      className="export_image"
-                      src="images/Export.png"
-                      alt="logo"
-                    />
-                  </Link>
-                  Export
+                <button className="btn float-right" type="submit">
+                  <CSVLink
+                    data={projects.length > 0 ? currentItem : []}
+                    filename={"my-saved.csv"}
+                    className="btn"
+                  >
+                    Export
+                  </CSVLink>
                 </button>
                 <button
                   className="btn btn-outline-success float-right"

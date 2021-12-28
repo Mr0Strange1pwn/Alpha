@@ -4,8 +4,6 @@ import Header from "../../Header/Header";
 import "./task.css";
 import Alert from "../../../common/Alert";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
-import Categories from "../Category/categories";
 import Categorytype from "../Category/categorytype";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -45,13 +43,12 @@ const Task = () => {
 
   useEffect(() => {
     let id = project.id;
-    console.log("milestoneId",milestoneId)
-    if(milestoneId != null) {
-      dispatch(getTaskByMilestone(milestoneId))
-    }else{
+    console.log("milestoneId", milestoneId);
+    if (milestoneId != null) {
+      dispatch(getTaskByMilestone(milestoneId));
+    } else {
       dispatch(getTask(id));
     }
- 
   }, [project]);
 
   useEffect(() => {
@@ -309,7 +306,6 @@ const Task = () => {
                       </option>
                     ))}
                 </select>
-                {/* <Categories values={roles} /> */}
               </div>
               <div className="col-sm-6" style={{ color: "black" }}>
                 <Categorytype
@@ -318,22 +314,6 @@ const Task = () => {
                   employee={employee}
                 />
               </div>
-              {/* <div style={{ marginTop: "10px" }}>
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="exampleCheck1"
-                />
-                <span
-                  style={{
-                    color: "green",
-                    fontWeight: "600",
-                    marginLeft: "15px",
-                  }}
-                >
-                  Select All
-                </span>
-              </div> */}
             </div>
           </div>
         </div>
@@ -372,7 +352,6 @@ const Task = () => {
         <div>
           <div style={{ ...sohme, marginLeft: "6%", marginBottom: "30px" }}>
             <input
-              // checked={!designations.some((result) => result?.isChecked !== true)}
               name="allSelect"
               onChange={handleCheckChange}
               type="checkbox"
@@ -433,7 +412,6 @@ const Task = () => {
               width: "100px",
               marginRight: "8px",
             }}
-            // className="btn btn-info "
           >
             Save
           </button>
@@ -505,7 +483,10 @@ const Task = () => {
             <form>
               <div className="row">
                 <div className="col-sm-12 col-md-6 col-lg-6">
-                  <label className="form-check-label reg-lable" for="exampleCheck1">
+                  <label
+                    className="form-check-label reg-lable"
+                    for="exampleCheck1"
+                  >
                     Name
                   </label>
                   <div className="create-task-form" style={{ display: "flex" }}>

@@ -11,10 +11,8 @@ import {
   GET_TASK,
   ADD_TASK,
   DELETE_TASK,
-  UPDATE_TASK,
   TASK_FILTER_VIEW,
   SET_MILESTONE_ID,
-  ASSIGN_TASK,
 } from "../actions/projectActions";
 
 const InitialState = {
@@ -128,12 +126,6 @@ const projectReduser = (state = InitialState, action) => {
         tasks: taskList,
       };
     }
-    // case UPDATE_TASK : {
-    //     return {
-    //         ...state,
-    //         tasks:action.payload
-    //     }
-    // }
     case TASK_FILTER_VIEW: {
       return {
         ...state,
