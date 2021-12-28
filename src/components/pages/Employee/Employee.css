@@ -11,6 +11,12 @@
 .empcontainer p,.emp-container p {
     margin-bottom: 0;
 }
+.pos button a:focus,.pos button:focus{
+    box-shadow: none;
+}
+.pos button:hover a{
+    color: #fff;
+}
 .emp-container{
     background-color: #f07238;
     color:white;
@@ -134,8 +140,6 @@ a.user-email {
 
 }
 .pageNumbers li {
-    /* padding: 10px; */
-    /* border: 1px solid darkblue; */
     cursor: pointer;
     padding-left: 10px;
     padding-right: 10px;

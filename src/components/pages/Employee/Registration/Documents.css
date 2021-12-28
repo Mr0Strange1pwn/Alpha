@@ -77,7 +77,7 @@ select::-ms-expand {
 }
 .labone
 {
-	margin-left: 60px;
+	margin-left: 80px;
   color: darkblue;
   position: absolute;
   bottom: 90px;
@@ -85,7 +85,8 @@ select::-ms-expand {
 }
 .labutton{
   margin-top: 70px;
-  margin-left: 60px;
+  margin-left:50px;
+  padding-bottom: 20px;
   
 }
 .labtwo
@@ -100,15 +101,22 @@ select::-ms-expand {
   background-color: #f07238; /* Green */
   border: none;
   color: white;
-  padding: 10px 40px;
+  padding: 8px 35px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   border-radius: 30px;
 }
+.labthree .image-upload{
+  width: auto;
+  height: auto;
+  color: #fff;
+  margin-top: 0;
+  text-decoration: none;
+}
 .givespace{
-  margin-left: 75px;
+  margin: 0 80px;
   position: absolute;
   bottom: 20px;
 }
@@ -121,6 +129,7 @@ select::-ms-expand {
   font-weight: 600;
   position: absolute;
   bottom:65px;
+  padding-bottom: 20px;
 }
 .document-header{
   margin-bottom: 2px;

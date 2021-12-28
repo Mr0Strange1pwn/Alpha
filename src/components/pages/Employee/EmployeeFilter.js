@@ -5,14 +5,16 @@ import { filterRole, roleLIst } from "../../../redux/actions/roleAction";
 import { useSelector, useDispatch } from "react-redux";
 
 const EmployeeFilter = ({ open, onClose }) => {
-  const [value, setState] = useState([]);
+  const [valueName, setState] = useState([]);
+  const [roleValue, setRoleState] = useState([]);
+  const [emailValue, setEmailState] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [toggleTwo, setToggleTwo] = useState(false);
   const roleNameInfo = useSelector((store) => store.role.userInfo);
   const empInfo = useSelector((store) => store.emp.userInfo);
-  const [empNameList,setEmpNameList] =useState([{}])
+  const [empNameList, setEmpNameList] = useState([{}]);
   const [roleNameList, setRoleName] = useState([{}]);
-  const [empEmailList, setEmpEmailList] = useState([{}])
+  const [empEmailList, setEmpEmailList] = useState([{}]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,21 +28,21 @@ const EmployeeFilter = ({ open, onClose }) => {
       );
     }
     if (empInfo.length > 0) {
-        setEmpNameList(
-            empInfo.map((value) => ({
-            label: value.name,
-            value: value.id,
-          }))
-        );
-      }
-      if (empInfo.length > 0) {
-        setEmpEmailList(
-            empInfo.map((value) => ({
-            label: value.email,
-            value: value.id,
-          }))
-        );
-      }
+      setEmpNameList(
+        empInfo.map((value) => ({
+          label: value.name,
+          value: value.id,
+        }))
+      );
+    }
+    if (empInfo.length > 0) {
+      setEmpEmailList(
+        empInfo.map((value) => ({
+          label: value.email,
+          value: value.id,
+        }))
+      );
+    }
   }, []);
 
   const roleData = () => {
@@ -66,10 +68,15 @@ const EmployeeFilter = ({ open, onClose }) => {
   const handleChange = (selectedOption) => {
     setState(selectedOption.map((e) => e.label));
   };
+  const handleChangeEmail = (selectedOption) => {
+    setEmailState(selectedOption.map((e) => e.label));
+  };
+  const handleChangeName = (selectedOption) => {
+    setRoleState(selectedOption.map((e) => e.label));
+  };
   const handleSubmit = () => {
     let data = {
-      roleName: value,
-    //   user_count: parseInt(userCount),
+      roleName: valueName,
     };
     dispatch(filterRole(data));
     onClose();
@@ -89,34 +96,34 @@ const EmployeeFilter = ({ open, onClose }) => {
                 </label>
                 <Select
                   isMulti
-                  options={roleNameList}
+                  options={empNameList}
                   onChange={handleChange}
                   placeholder={<div>Employer Name</div>}
                 />
               </div>
             </div>
             <div className="row">
-            <div className="col">
+              <div className="col">
                 <label class="form-check-label reg-lable" for="exampleCheck1">
                   Role Name
                 </label>
                 <Select
                   isMulti
-                  options={empNameList}
-                  onChange={handleChange}
+                  options={roleNameList}
+                  onChange={handleChangeName}
                   placeholder={<div>Role Name</div>}
                 />
               </div>
             </div>
             <div className="row">
-            <div className="col">
+              <div className="col">
                 <label class="form-check-label reg-lable" for="exampleCheck1">
                   Email
                 </label>
                 <Select
                   isMulti
                   options={empEmailList}
-                  onChange={handleChange}
+                  onChange={handleChangeEmail}
                   placeholder={<div>Emails</div>}
                 />
               </div>
@@ -154,11 +161,64 @@ const EmployeeFilter = ({ open, onClose }) => {
                     Descinding
                   </button>
                 </div>
-                <div style={{ padding: "20px" }}>
-                  {value.map((data) => (
-                    <div>{data}</div>
-                  ))}
-                </div>
+
+                {valueName.length > 0 ? (
+                  <div style={{ paddingLeft: "20px", display: "flex" }}>
+                    <div>
+                      <label
+                        class="form-check-label reg-lable"
+                        for="exampleCheck1"
+                      >
+                        Employee Name
+                      </label>
+                    </div>
+                    <div style={{ display: "contents" }} className="emp-name">
+                      {valueName.map((data) => (
+                        <ul>{data}</ul>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                {roleValue.length > 0 ? (
+                  <div style={{ paddingLeft: "20px", display: "flex" }}>
+                    <div>
+                      <label
+                        class="form-check-label reg-lable"
+                        for="exampleCheck1"
+                      >
+                        Role Name
+                      </label>
+                    </div>
+                    <div style={{ display: "contents" }}>
+                      {roleValue.map((data) => (
+                        <ul>{data}</ul>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                {emailValue.length > 0 ? (
+                  <div style={{ paddingLeft: "20px", display: "flex" }}>
+                    <div>
+                      <label
+                        class="form-check-label reg-lable"
+                        for="exampleCheck1"
+                      >
+                        Email
+                      </label>
+                    </div>
+                    <div style={{ display: "contents" }} >
+                      {emailValue.map((data) => (
+                        <ul>{data}</ul>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <div

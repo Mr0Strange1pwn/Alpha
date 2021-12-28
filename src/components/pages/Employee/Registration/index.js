@@ -158,9 +158,6 @@ function Registration() {
       >
         <div
           className="uploadImage"
-          style={{
-            backgroundColor: "#f1f1f1",
-          }}
         >
           <Upload setIMG={setIMG} IMG={IMG} />
         </div>
@@ -308,11 +305,7 @@ function Registration() {
                       {value.roleName}
                     </option>
                   ))}
-                {/* <option value="SA" style={{color: details.role.includes("SA") ? "blue" : null}}>Select all</option>
-
-                <option value="1" style={{color: details.role.includes("1") ? "blue" : null}}>Lead</option>
-                <option value="2" style={{color: details.role.includes("2") ? "blue" : null}}>QA Lead</option>
-                <option value="3" style={{color: details.role.includes("3") ? "blue" : null}}>Fresher</option> */}
+               
               </select>
             </div>
           </div>
