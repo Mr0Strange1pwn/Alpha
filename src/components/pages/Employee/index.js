@@ -13,14 +13,13 @@ import {
 } from "../../../redux/actions/employeeAction";
 import { CSVLink } from "react-csv";
 import { useSelector, useDispatch } from "react-redux";
-import EmployeeFilter from "./EmployeeFilter"
+import EmployeeFilter from "./EmployeeFilter";
 
 const Employee = () => {
   const [FilteredEmployees, setFilteredEmployees] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [search, setSearch] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemPerPage] = useState(5);
   const [pageNumberLimit, setpageNumberLimit] = useState(5);
@@ -77,7 +76,19 @@ const Employee = () => {
   //   30 -15 = 15 and 15 -15 = 0
   const currentItem =
     emp.length > 0 ? emp.slice(indexOfFistItem, indexOfLastItem) : [];
+  
 
+  const currentData = () => {
+  let exportData =  currentItem.map((data) => {
+      return {
+        ...data,
+        designation_name: data.designation_name.designation_name,
+        roleId: data.roleId.roleName,
+      };
+    });
+    return exportData
+  };
+ 
   const handleNewClick = (event) => {
     setCurrentPage(Number(event.target.id));
   };
@@ -198,7 +209,7 @@ const Employee = () => {
         handleDelete={(id) => handleDelete(id)}
         id={ids}
       />
-      <EmployeeFilter 
+      <EmployeeFilter
         open={isOpenFilter}
         onClose={() => setIsOpenFilter(false)}
         // data={student}
@@ -234,7 +245,7 @@ const Employee = () => {
               <div className="pos">
                 <button className="btn  float-right" type="submit">
                   <CSVLink
-                    data={emp.length > 0 ? currentItem : []}
+                    data={emp.length > 0 ?  currentData() : []}
                     filename={"my-saved.csv"}
                     className="btn"
                   >

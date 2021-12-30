@@ -16,7 +16,7 @@ function JobDetails() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [showError, setError] = useState(false);
-  const { designations, roles, employeeInfo, employeeJobDetails } = useSelector(
+  const { employeeInfo, employeeJobDetails } = useSelector(
     (store) => store.emp
   );
   const { jobTypes } = useSelector((store) => store.jobtype);
@@ -76,6 +76,7 @@ function JobDetails() {
         console.log("key", key);
         formData.append(key, req[key]);
       });
+      console.log("formData",formData)
       if (employeeJobDetails.user_profile_id) {
         dispatch(
           updateJobDetails(formData, history, setCurrentStep, backpackClick)
@@ -106,8 +107,7 @@ function JobDetails() {
               </label>
 
               <select
-                // style={{border: showError ? details.jobType.length === 0 ? " 1px solid red" : null : null}}
-                class="form-select"
+                className="form-select"
                 id="inputGroupSelect03"
                 aria-label="Example select with button addon"
                 name="jobType"
@@ -145,16 +145,6 @@ function JobDetails() {
                   />
                 </div>
               </div>
-              {/* <TimePicker/> */}
-              {/* <input
-                style={{...inputStyle, border: showError ? details.shiftTime.length === 0 ? " 1px solid red" : null : null }}
-                // defaultValue="04:20"
-                type="time"
-                name="shiftTime"
-                value={details.shiftTime}
-                onChange={e => handleChange(e)}
-
-	            /> */}
             </div>
           </div>
           <div className="row">
@@ -210,14 +200,6 @@ function JobDetails() {
         <div className="d-grid gap-2 d-md-block">
           <div className="addrole_Button">
             <button
-              className="btn  float-left"
-              type="submit"
-              style={{ backgroundColor: "#25344b" }}
-              onClick={() => handleSave()}
-            >
-              Save
-            </button>
-            <button
               onClick={() => {
                 setCurrentStep(3);
                 backpackClick(3);
@@ -226,6 +208,14 @@ function JobDetails() {
               type="submit"
             >
               Back
+            </button>
+            <button
+              className="btn  float-left"
+              type="submit"
+              style={{ backgroundColor: "#25344b" }}
+              onClick={() => handleSave()}
+            >
+              Save
             </button>
           </div>
         </div>

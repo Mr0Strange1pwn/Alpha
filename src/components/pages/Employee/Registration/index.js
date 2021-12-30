@@ -47,6 +47,7 @@ function Registration() {
   const [startDate, setStartDate] = useState(new Date());
   const [phoneNO, setPhoneNO] = useState();
   const [IMG, setIMG] = useState();
+  const [inProgress, setInProgress] = useState(false);
   const [details, setDetails] = useState({
     name: "",
     email: "",
@@ -131,9 +132,9 @@ function Registration() {
 
       if (employeeInfo.id) {
         formData.append("id", employeeInfo.id);
-        dispatch(saveEmployeeUpdate(formData, setCurrentStep, backpackClick));
+        dispatch(saveEmployeeUpdate(formData, setCurrentStep, backpackClick,setInProgress));
       } else {
-        dispatch(saveEmployee(formData, setCurrentStep, backpackClick));
+        dispatch(saveEmployee(formData, setCurrentStep, backpackClick,setInProgress));
       }
     }
   };
@@ -260,18 +261,11 @@ function Registration() {
                 onChange={(e) => handleValueChange(e)}
               >
                 <option selected>Choose Designation</option>
-                {/* <option value="1" ><div><input
-                class="form-check-input" type="checkbox"
-                id="flexCheckChecked"
-              
-              /></div> </option> */}
                 {designations.length > 0
                   ? designations.map((value) => (
                       <option value={value.id}>{value.designation_name}</option>
                     ))
                   : null}
-                {/* <option value="2">Tester</option>
-                <option value="3">Designer</option> */}
               </select>
             </div>
             <div className="col">
@@ -394,8 +388,11 @@ function Registration() {
               onClick={() => handleNext()}
               className="btn  float-left"
               type="submit"
-              style={{ backgroundColor: "#25344b" }}
+              disabled={inProgress}
+              style={{ backgroundColor: inProgress? "yellowgreen" : "#25344b"  }}
             >
+              {inProgress == true ? <span class="spinner-grow spinner-grow-sm"></span>:""}
+               
               Next
             </button>
           </div>

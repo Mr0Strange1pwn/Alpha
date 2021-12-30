@@ -13,6 +13,7 @@ import {
   getProject,
   deleteProject,
 } from "../../../../redux/actions/projectActions";
+import ProjectFilter from "../ProjectFilter";
 
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
@@ -50,7 +51,9 @@ const ProjectList = () => {
   const [pageNumberLimit, setpageNumberLimit] = useState(5);
   const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
+  const [isOpenFilter, setIsOpenFilter] = useState(false);
 
+  console.log("projects",projects)
   const pages = [];
   for (let i = 1; i <= Math.ceil(projects.length / itemsPerPage); i++) {
     pages.push(i);
@@ -153,10 +156,9 @@ const ProjectList = () => {
           </a>
         </td>
         <td>{product.assigned_to}</td>
-        <td>{product.addedOn}</td>
+        {/* <td>{product.addedOn}</td> */}
         <td>
           <button>
-            {" "}
             <img
               src="images/Edit.png"
               alt="logo"
@@ -194,6 +196,10 @@ const ProjectList = () => {
 
   return (
     <div className="header">
+      <ProjectFilter
+       open={isOpenFilter}
+       onClose={() => setIsOpenFilter(false)}
+      />
       <Alert
         message="delete the Project"
         open={modalOpen}
@@ -333,6 +339,7 @@ const ProjectList = () => {
                 <button
                   className="btn btn-outline-success float-right"
                   type="submit"
+                  onClick={() => setIsOpenFilter(!isOpenFilter)}
                 >
                   <Link to="/">
                     <img
@@ -367,7 +374,7 @@ const ProjectList = () => {
               Project Type <img src="images/Sort.png" alt="logo" />
             </th>
             <th>Assigned To </th>
-            <th>Added On</th>
+            {/* <th>Added On</th> */}
             <th>Action</th>
           </tr>
 

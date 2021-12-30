@@ -4,7 +4,7 @@ import TimeKeeper from "react-timekeeper";
 import "./timeclock.css";
 
 export default function Timeclock({setTimevalue, value}) {
-  const [time, setTime] = useState("00:00");
+  const [time, setTime] = useState("6:00 AM");
   const [showTime, setShowTime] = useState(false);
 
   useEffect(()=>{

@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./Documents.css";
-import { Link, useHistory, useParams } from "react-router-dom";
-import axios from "axios";
-import Header from "../../Header/Header";
+import { useParams } from "react-router-dom";
 import { Multistepcontext } from "../../../../StepContext";
 import Modal from "../../../common/Model";
 import Alert from "../../../common/Alert";
@@ -16,25 +14,19 @@ import {
 const Documents = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [search, setSearch] = useState(false);
   const [changenew, setChangenew] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const [people, setPeople] = useState([]);
-  const [change, setChange] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const [name, setName] = useState("");
   const [file, setFile] = useState("");
   const [ids, setID] = useState();
-  const history = useHistory();
-
+  const [inProgress, setInProgress] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemPerPage] = useState(5);
   const [pageNumberLimit, setpageNumberLimit] = useState(5);
   const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
 
-  const { designations, roles, employeeInfo, employeeDocuments } = useSelector(
+  const { employeeInfo, employeeDocuments } = useSelector(
     (store) => store.emp
   );
 
@@ -50,7 +42,7 @@ const Documents = () => {
       formData.append("name", file.name);
       for (var pair of formData.entries()) {
       }
-      dispatch(uploadDocument(formData));
+      dispatch(uploadDocument(formData, setInProgress));
       setIsOpen(false);
     }
   };
@@ -122,10 +114,10 @@ const Documents = () => {
   }
 
   useEffect(() => {
-    dispatch(getDocumentsById(employeeInfo.id));
+    dispatch(getDocumentsById(employeeInfo.id, setInProgress));
   }, [employeeInfo]);
 
-  const { userData, backpackClick, setUserData, setFinalData, setCurrentStep } =
+  const { backpackClick,setCurrentStep } =
     useContext(Multistepcontext);
 
   const hideme = {
@@ -245,8 +237,6 @@ const Documents = () => {
                   className="btn btn-outline-success float-right"
                   style={{ backgroundColor: "#003366", color: "white" }}
                   type="submit"
-                  //   onClick={routeChange}
-                  // onClick={() => setChangenew(!changenew)}
                   onClick={() => setIsOpen(true)}
                 >
                   Upload Files
@@ -282,6 +272,17 @@ const Documents = () => {
             );
           })}
         </table>
+        {inProgress == true ? (
+            <div style={{textAlign:"center"}}>
+              <div class="spinner-grow text-muted"></div>
+              <div class="spinner-grow text-primary"></div>
+              <div class="spinner-grow text-success"></div>
+              <div class="spinner-grow text-info"></div>
+              <div class="spinner-grow text-warning"></div>
+            </div>
+          ) : (
+           ""
+          )}
         <div className="d-grid gap-2 d-md-block">
           <div className="addrole_Button">
             <button
@@ -301,7 +302,10 @@ const Documents = () => {
               }}
               className="btn  float-left"
               type="submit"
-              style={{ backgroundColor: "#25344b" }}
+              disabled={inProgress}
+              style={{
+                backgroundColor: inProgress ? "yellowgreen" : "#25344b",
+              }}
             >
               Next
             </button>

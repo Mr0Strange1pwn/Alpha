@@ -12,12 +12,30 @@ export const EMP_ADD_DOCUMENT = "EMP_ADD_DOCUMENT";
 export const EMP_DELETE = "EMP_DELETE";
 export const EMP_JOB_DETAILS = "EMP_JOB_DETAILS";
 export const EMP_DELETE_DOCUMENTS = "EMP_DELETE_DOCUMENTS";
+export const EMP_FILTER = "EMP_FILTER";
 
 export const empLIst = () => {
   return async (dispatch) => {
     await Axios.get("/Employee/save", HeaderToken())
       .then((res) => {
         dispatch({ type: EMP_LIST, payload: res.data.response });
+      })
+      .catch((err) => {
+        toast.error("Network Error");
+      });
+  };
+};
+
+export const empfilter = (data) => {
+  return async (dispatch) => {
+    await Axios.post("/Account/filter/", data, HeaderToken())
+      .then((res) => {
+        console.log("empfilter",res.data.response)
+        if (res.data.result == "False") {
+          toast.error(res.data.response);
+        } else {
+          dispatch({ type: EMP_FILTER, payload: res.data.response });
+        }
       })
       .catch((err) => {
         toast.error("Network Error");
@@ -49,31 +67,38 @@ export const getRoles = () => {
   };
 };
 
-export const saveEmployee = (data, setCurrentStep, backpackClick) => {
+export const saveEmployee = (data, setCurrentStep, backpackClick,setInProgress) => {
   return async (dispatch) => {
+    setInProgress(true)
     await Axios.post("/Employee/save", data, HeaderToken())
       .then((res) => {
         if (res.data.result == "False") {
           toast.error(res.data.response);
+          setInProgress(false)
         } else {
           dispatch({ type: EMP_SAVE, payload: res.data.employee });
+          setInProgress(false)
           setCurrentStep(2);
           backpackClick(2);
         }
       })
       .catch((err) => {
         toast.error("Network Error");
+        setInProgress(false)
       });
   };
 };
 
-export const saveEmployeeUpdate = (data, setCurrentStep, backpackClick) => {
+export const saveEmployeeUpdate = (data, setCurrentStep, backpackClick,setInProgress) => {
   return async (dispatch) => {
+    setInProgress(true)
     await Axios.put("/Employee/save", data, HeaderToken())
       .then((res) => {
         if (res.data.result == "False") {
+          setInProgress(false)
           toast.error(res.data.response);
         } else {
+          setInProgress(false)
           dispatch({ type: EMP_SAVE, payload: res.data.employee });
           setCurrentStep(2);
           backpackClick(2);
@@ -81,6 +106,7 @@ export const saveEmployeeUpdate = (data, setCurrentStep, backpackClick) => {
       })
       .catch((err) => {
         toast.error("Network Error");
+        setInProgress(false)
       });
   };
 };
@@ -113,20 +139,24 @@ export const getEmployeeAllDetails = (id) => {
   };
 };
 
-export const uploadDocument = (data) => {
+export const uploadDocument = (data,setInProgress) => {
   return async (dispatch) => {
+    setInProgress(true)
     await Axios.post("/Document/upload", data, HeaderToken())
       .then((res) => {
         if (res.data.document !== undefined) {
+          setInProgress(false)
           return dispatch({
             type: EMP_ADD_DOCUMENT,
             payload: res.data.document,
           });
         } else {
+          setInProgress(false)
           return toast.error(res.data.response);
         }
       })
       .catch((err) => {
+        setInProgress(false)
         toast.error("Network Error");
       });
   };
@@ -148,18 +178,22 @@ export const getDocuments = () => {
   };
 };
 
-export const getDocumentsById = (id) => {
+export const getDocumentsById = (id,setInProgress) => {
   return async (dispatch) => {
+    setInProgress(true)
     await Axios.get(`/Account/document/${id}`, HeaderToken())
       .then((res) => {
         if (res.data.result == "false") {
           toast.error(res.data.response);
+          setInProgress(false)
           dispatch({ type: EMP_DOCUMENTS, payload: [] });
         } else {
+          setInProgress(false)
           dispatch({ type: EMP_DOCUMENTS, payload: res.data.response });
         }
       })
       .catch((err) => {
+        setInProgress(false)
         toast.error("Network Error");
       });
   };
@@ -259,6 +293,7 @@ export const uploadJobDetails = (
   return async (dispatch) => {
     await Axios.post("/Account/job_details", data, HeaderToken())
       .then((res) => {
+        console.log("uploadJobDetails",uploadJobDetails)
         if (res.data.result == "False") {
           toast.error(res.data.response);
         } else {

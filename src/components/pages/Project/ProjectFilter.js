@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import Modal from "../../common/Model";
-import { empfilter } from "../../../redux/actions/employeeAction";
+import { filterRole, roleLIst } from "../../../redux/actions/roleAction";
 import { useSelector, useDispatch } from "react-redux";
 
-const EmployeeFilter = ({ open, onClose }) => {
+const ProjectFilter = ({ open, onClose }) => {
   const [valueName, setState] = useState([]);
   const [roleValue, setRoleState] = useState([]);
   const [emailValue, setEmailState] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [toggleTwo, setToggleTwo] = useState(false);
+  const { projects } = useSelector((store) => store.project);
   const roleNameInfo = useSelector((store) => store.role.userInfo);
-  const empInfo = useSelector((store) => store.emp.userInfo);
-  const [empNameList, setEmpNameList] = useState([{}]);
+  const [projectNameList, setProjectNameList] = useState([{}]);
   const [roleNameList, setRoleName] = useState([{}]);
-  const [empEmailList, setEmpEmailList] = useState([{}]);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // roleData();
+    roleData();
     if (roleNameInfo.length > 0) {
       setRoleName(
         roleNameInfo.map((value) => ({
@@ -27,27 +26,19 @@ const EmployeeFilter = ({ open, onClose }) => {
         }))
       );
     }
-    if (empInfo.length > 0) {
-      setEmpNameList(
-        empInfo.map((value) => ({
+    if (projects.length > 0) {
+        setProjectNameList(
+            projects.map((value) => ({
           label: value.name,
-          value: value.id,
-        }))
-      );
-    }
-    if (empInfo.length > 0) {
-      setEmpEmailList(
-        empInfo.map((value) => ({
-          label: value.email,
           value: value.id,
         }))
       );
     }
   }, []);
 
-  // const roleData = () => {
-  //   dispatch(roleLIst());
-  // };
+  const roleData = () => {
+    dispatch(roleLIst());
+  };
   const changeColor = () => {
     setToggleTwo(false);
     setToggle(true);
@@ -74,31 +65,29 @@ const EmployeeFilter = ({ open, onClose }) => {
   const handleChangeName = (selectedOption) => {
     setRoleState(selectedOption.map((e) => e.label));
   };
-
   const handleSubmit = () => {
-    let req = {
-      name: valueName,
-      email: emailValue[0],
-      roleName: roleValue[0],
+    let data = {
+      roleName: valueName,
     };
-    dispatch(empfilter(req));
+    dispatch(filterRole(data));
+    onClose();
   };
   return (
     <div>
       <Modal open={open} onClose={onClose}>
         <div style={{ marginTop: "4%" }}>
           <div style={{ textAlignLast: "center" }}>
-            <h4 style={{ fontWeight: "700" }}>Filter Employee Screen</h4>
+            <h4 style={{ fontWeight: "700" }}>Filter Project Screen</h4>
           </div>
           <div style={{ margin: "auto", width: "70%" }}>
             <div className="row">
               <div className="col">
                 <label class="form-check-label reg-lable" for="exampleCheck1">
-                  Employee Name
+                  Project Name
                 </label>
                 <Select
                   isMulti
-                  options={empNameList}
+                  options={projectNameList}
                   onChange={handleChange}
                   placeholder={<div>Employer Name</div>}
                 />
@@ -117,19 +106,7 @@ const EmployeeFilter = ({ open, onClose }) => {
                 />
               </div>
             </div>
-            <div className="row">
-              <div className="col">
-                <label class="form-check-label reg-lable" for="exampleCheck1">
-                  Email
-                </label>
-                <Select
-                  isMulti
-                  options={empEmailList}
-                  onChange={handleChangeEmail}
-                  placeholder={<div>Emails</div>}
-                />
-              </div>
-            </div>
+          
             <div className="sorting-data">
               <div
                 className="row"
@@ -171,7 +148,7 @@ const EmployeeFilter = ({ open, onClose }) => {
                         class="form-check-label reg-lable"
                         for="exampleCheck1"
                       >
-                        Employee Name
+                        Project Name
                       </label>
                     </div>
                     <div style={{ display: "contents" }} className="emp-name">
@@ -212,7 +189,7 @@ const EmployeeFilter = ({ open, onClose }) => {
                         Email
                       </label>
                     </div>
-                    <div style={{ display: "contents" }}>
+                    <div style={{ display: "contents" }} >
                       {emailValue.map((data) => (
                         <ul>{data}</ul>
                       ))}
@@ -252,4 +229,4 @@ const EmployeeFilter = ({ open, onClose }) => {
   );
 };
 
-export default EmployeeFilter;
+export default ProjectFilter;

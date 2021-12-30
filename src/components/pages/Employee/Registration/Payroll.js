@@ -51,11 +51,11 @@ function Payroll() {
     setDetails({ ...details, [e.target.name]: e.target.value });
   };
 
-    useEffect(() =>{
-  if(employeeInfo.id){
-    dispatch(getPayroll(employeeInfo.id))
-  }
-    },[employeeInfo])
+  useEffect(() => {
+    if (employeeInfo.id) {
+      dispatch(getPayroll(employeeInfo.id));
+    }
+  }, [employeeInfo]);
 
   useEffect(() => {
     if (employeePayRoll && employeePayRoll.annual_ctc) {
@@ -116,8 +116,6 @@ function Payroll() {
 
   return (
     <div>
-      {/* <Header headerName="Registration Payroll" /> */}
-
       <div class="container">
         <form>
           <div className="row">
@@ -126,11 +124,7 @@ function Payroll() {
                 Annual CTC
               </label>
               <div className="col-12" style={{ display: "flex" }}>
-                <div
-                  className="col-sm-12 col-md-6 col-lg-6"
-                  // style={{ width: "48%", margin: "auto" }}
-                >
-                  {/* <NumberInput placeholder="Lakh"/> */}
+                <div className="col-sm-12 col-md-6 col-lg-6">
                   <input
                     name="annualCtc"
                     value={details.annualCtc}
@@ -149,7 +143,6 @@ function Payroll() {
                 </div>
 
                 <div className="col-sm-12 col-md-6 col-lg-6">
-                  {/* <NumberInput placeholder="Thousands"/> */}
                   <input
                     name="annualCtcThou"
                     value={details.annualCtcThou}
@@ -218,7 +211,6 @@ function Payroll() {
                 </div>
 
                 <div className="col-sm-12 col-md-6 col-lg-6">
-                  {/* <NumberInput placeholder="SL" /> */}
                   <input
                     style={{
                       ...payrollInputStyle,

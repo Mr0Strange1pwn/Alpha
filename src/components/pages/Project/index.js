@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./createprojet.css";
 import Header from "../Header/Header";
-import Task from "./Task";
-import MileStone from "./MileStone";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -14,10 +12,7 @@ import { roleLIst } from "../../../redux/actions/roleAction";
 const CreateProject = () => {
   const dispatch = useDispatch();
   const [projectInfo, setProjectInfo] = useState(true);
-  const [Items, setItems] = useState([]);
   const [showError, SetError] = useState(false);
-  const [mileStone, setMileStone] = useState(false);
-  const [task, setTask] = useState(false);
   const [inProgress, setInProgress] = useState(false);
   const [projectDetails, setDetails] = useState({
     name: "",
@@ -78,18 +73,6 @@ const CreateProject = () => {
       }
     }
   }, [project]);
-
-  const handleMileStone = () => {
-    setMileStone(!mileStone);
-    setProjectInfo(false);
-  };
-
-  const handleTask = () => {
-    setTask(!task);
-    setProjectInfo(false);
-    let path = `./Task`;
-    history.push(path);
-  };
 
   const handleAddProject = (req) => {
     let formData = new FormData();
@@ -300,9 +283,6 @@ const CreateProject = () => {
                               <option value={role.id}>{role.roleName}</option>
                             ))
                           : ""}
-                        {/* <option value="1">Developer</option>
-                        <option value="2">Tester</option>
-                        <option value="3">Designer</option> */}
                       </select>
                     </div>
 
@@ -349,7 +329,6 @@ const CreateProject = () => {
                           >
                             Per Hour Cost
                           </label>
-                          {/* <div style={{display:"flex"}}> */}
                           <input
                             style={{
                               backgroundColor: "white",
@@ -366,8 +345,6 @@ const CreateProject = () => {
                             value={projectDetails.perhourcost}
                             onChange={(e) => handleChange(e)}
                           />
-                          {/* <span class="input-group-text border-start-0"style={{backgroundColor:" white"}}>INR</span> */}
-                          {/* </div> */}
                         </div>
                         <div className="col-md-6">
                           <label
@@ -405,99 +382,25 @@ const CreateProject = () => {
           )}
         </div>
 
-        <div>
-          {/* {projectDetails.category === "non_retainer" ? (
-            <div className="project-container">
-              <div className="row">
-                <div className="col" style={{ display: "flex" }}>
-                  <img
-                    src="images/mstone.png"
-                    alt="Project-info-icon"
-                    style={{ padding: "3px", marginLeft: "1%" }}
-                  />
-                  <label
-                    className="form-check-label reg-lable"
-                    for="exampleCheck1"
-                    style={{
-                      marginLeft: "10px",
-                      color: "white",
-                      marginRight: "10px",
-                    }}
-                  >
-                    Project Milestone
-                  </label>
-                </div>
-                <div className="col" style={{ display: "contents" }}>
-                  <img
-                    src={
-                      mileStone == true
-                        ? "images/downicon.png"
-                        : "images/forwardicon.png"
-                    }
-                    onClick={handleMileStone}
-                    style={{ marginRight: "2%", padding: "10px" }}
-                    alt="Project-info-icon"
-                  />
-                </div>
-              </div>
-            </div>
-          ) : null}
-
-          {mileStone === true ? <MileStone /> : null} */}
-
-          {/* {projectDetails.projectType === "non_billable" ? (
-            <div className="project-container">
-              <div className="row">
-                <div className="col" style={{ display: "flex" }}>
-                  <img
-                    src="images/Tasks.png"
-                    alt="Project-info-icon"
-                    style={{ padding: "8px", marginLeft: "1%" }}
-                  />
-                  <label
-                    className="form-check-label reg-lable"
-                    for="exampleCheck1"
-                    style={{
-                      marginLeft: "10px",
-                      color: "white",
-                      marginRight: "10px",
-                    }}
-                  >
-                    Task
-                  </label>
-                </div>
-                <div className="col" style={{ display: "contents" }}>
-                  <img
-                    src={
-                      task === true
-                        ? "images/downicon.png"
-                        : "images/forwardicon.png"
-                    }
-                    onClick={handleTask}
-                    style={{ marginRight: "2%", padding: "10px" }}
-                    alt="Project-info-icon"
-                  />
-                </div>
-              </div>
-            </div>
-          ) : null} */}
-
-          {/* {task==true?<Task task={true}/>:null} */}
-        </div>
+        <div></div>
         <div className="d-grid gap-2 d-md-block">
           <div className="addrole_Button">
             <button
               className="btn  float-left"
               type="submit"
               disabled={inProgress}
-              style={{ backgroundColor: inProgress? "yellowgreen" : "#25344b"  }}
+              style={{
+                backgroundColor: inProgress ? "yellowgreen" : "#25344b",
+              }}
               onClick={() => handleCreate()}
             >
               {projectDetails.projectType === "non_billable"
                 ? "Next"
                 : projectDetails.category === "non_retainer"
                 ? "Next"
-                : inProgress ? "Creating..." : " Create"}
+                : inProgress
+                ? "Creating..."
+                : " Create"}
             </button>
             <button
               className="btn  float-left"
