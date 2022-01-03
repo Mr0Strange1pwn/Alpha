@@ -59,18 +59,17 @@ const ProjectFilter = ({ open, onClose }) => {
   const handleChange = (selectedOption) => {
     setState(selectedOption.map((e) => e.label));
   };
-  const handleChangeEmail = (selectedOption) => {
-    setEmailState(selectedOption.map((e) => e.label));
-  };
   const handleChangeName = (selectedOption) => {
     setRoleState(selectedOption.map((e) => e.label));
   };
   const handleSubmit = () => {
     let data = {
-      roleName: valueName,
+      project_name: valueName,
+      assigned_to:roleValue
     };
-    dispatch(filterRole(data));
-    onClose();
+    console.log("projectData",data)
+    // dispatch(filterRole(data));
+    // onClose();
   };
   return (
     <div>

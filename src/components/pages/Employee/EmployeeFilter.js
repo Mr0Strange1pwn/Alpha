@@ -45,9 +45,6 @@ const EmployeeFilter = ({ open, onClose }) => {
     }
   }, []);
 
-  // const roleData = () => {
-  //   dispatch(roleLIst());
-  // };
   const changeColor = () => {
     setToggleTwo(false);
     setToggle(true);
@@ -82,6 +79,7 @@ const EmployeeFilter = ({ open, onClose }) => {
       roleName: roleValue[0],
     };
     dispatch(empfilter(req));
+    onClose();
   };
   return (
     <div>

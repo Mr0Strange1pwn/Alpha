@@ -20,7 +20,6 @@ export default function Timeclock({setTimevalue, value}) {
           <span className="divcolor"> {time}</span>
           {!showTime && (
             <button className="divbutton" onClick={() => setShowTime(true)}>
-              {" "}
               <img className="clockimg" src="images/clock.png" alt="logo" />
             </button>
           )}

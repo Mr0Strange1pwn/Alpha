@@ -21,7 +21,6 @@ const InitialState = {
   employeePayRoll: {},
   employeeDocuments: [],
   employeeJobDetails: {},
-  filterImp:[]
 };
 
 const empReduser = (state = InitialState, action) => {
@@ -36,7 +35,7 @@ const empReduser = (state = InitialState, action) => {
     case EMP_FILTER: {
       return {
         ...state,
-        filterImp: action.payload,
+        userInfo: action.payload,
       };
     }
     case EMP_DESIGNATION: {

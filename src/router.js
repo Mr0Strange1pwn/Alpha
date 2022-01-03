@@ -69,10 +69,8 @@ const Routes = () => {
       {isLoggedIn ? (
         <div>
           <div>
-            {" "}
             <Navbar />
           </div>
-          {/* <div style={btnStyle}> {Location.pathname}  </div> */}
           <div style={btnStyle}>
             <Switch>
               <Route exact path="/">
@@ -115,16 +113,12 @@ const Routes = () => {
                 <Task />
               </Route>
               <Route path="/Milestone">
-<Milestone />
+                <Milestone />
               </Route>
 
               <Route path="/changepassword">
                 <ChangePassword />
               </Route>
-
-              {/* <Route exact path="/">
-                <Home />
-              </Route> */}
             </Switch>
           </div>
         </div>
@@ -139,10 +133,6 @@ const Routes = () => {
           <Route path="/forgetpassword">
             <Forgetpassword />
           </Route>
-          
-
-          {/* <Route exact path ="/Post/:category" component={Post} />
-    <Route component={Error}/ > */}
         </Switch>
       )}
     </>
