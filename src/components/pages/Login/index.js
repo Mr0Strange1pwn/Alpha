@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Login.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { logIn } from "../../../redux/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -46,11 +46,7 @@ function Login() {
   }
 
   const handleLogin = () => {
-    //  if( auth.auth. === "Login Failed" ) {
-    //   setErrors(true)
-    // }
     const userInfo = {
-      // email: userEmail,
       email: values.email,
       password: values.password,
       rememberMe: values.rember,
@@ -63,7 +59,6 @@ function Login() {
     }
 
     if (
-      // userEmail.length > 0 &&
       values.email.length > 0 &&
       values.password.length > 0 &&
       isEmailvalid &&
@@ -75,7 +70,6 @@ function Login() {
 
   const onChangeData = ({ name, value }) => {
     setIsEmailvalid(emailValidator(value.target.value));
-    // setuserEmail(value.target.value);
     setValues({ ...values, email: value.target.value });
   };
   return (
@@ -86,7 +80,6 @@ function Login() {
       >
         <div className="login__container">
           <img className="login__logo" src="images/logo.png" alt="logo" />
-          {/* <h5>Login</h5> */}
           <h4>LOGIN</h4>
           <form style={{ marginTop: "10%" }}>
             <div
@@ -105,8 +98,6 @@ function Login() {
                   border: "none",
                 }}
                 value={values.email}
-                // onChange={(event) => setUserEmail(event.target.value)}
-                // onChange={(value) => onChangeData({ name: "userEmail", value })}
                 onChange={(value) => onChangeData({ name: "email", value })}
                 placeholder="Email"
                 type="email"
@@ -141,7 +132,6 @@ function Login() {
                 type={values.showPassword ? "text" : "password"}
                 onChange={handlePasswordChange("password")}
                 value={values.password}
-                // onChange={(event) => setUserpassword(event.target.value)}
                 placeholder="Password"
               />
 

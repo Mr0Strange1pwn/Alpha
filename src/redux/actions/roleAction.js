@@ -73,7 +73,7 @@ export const saveRoleUpdate = (updatedData, History) => {
   return async (dispatch) => {
     await Axios.put("/Account/roles", updatedData, HeaderToken())
       .then((res) => {
-        if (res.data.result == "False") {
+        if (res.data.result === "False") {
           toast.error(res.data.response);
         } else {
           dispatch({ type: ROLE_SAVE, payload: res.data });
@@ -91,7 +91,7 @@ export const filterRole = (data) => {
   return async (dispatch) => {
     await Axios.post("/Account/filterrole/",data, HeaderToken())
      .then((res) => {
-      if(res.data.result == "False") {
+      if(res.data.result === "False") {
         toast.error(res.data.response);
       }else {
         dispatch({type:FILTER_ROLE, payload:res.data.response})

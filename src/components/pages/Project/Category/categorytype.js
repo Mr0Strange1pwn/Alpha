@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Select from "react-select";
 
 const Categorytype = ({ values, valueChange, employee }) => {
-  const [DisplayValue, getValue] = useState();
   const [value, setState] = useState([]);
 
   const options = values.map((role) => ({
@@ -28,12 +27,7 @@ const Categorytype = ({ values, valueChange, employee }) => {
     setState(selectedOption.map((e) => e));
     valueChange(selectedOption.map((v) => v.value));
   };
-  const handleDelete = (index) => {
-    const updateditems = value.filter((elem) => {
-      return index !== elem.value;
-    });
-    setState(updateditems);
-  };
+ 
 
   return (
     <div>
@@ -47,25 +41,7 @@ const Categorytype = ({ values, valueChange, employee }) => {
         className="row"
         style={{ display: "flex", marginTop: "40px", position: "absolute" }}
       >
-        {/* {value.map((o) => (
-          <div className="col-sm-6" style={{ display: "flex" }}>
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="exampleCheck1"
-            />
-            <span
-              style={{
-                color: "darkBlue",
-                fontWeight: "600",
-                marginLeft: "15px",
-              }}
-            >
-              {o.label}
-            </span>
-            <br />
-          </div>
-        ))} */}
+      
       </div>
     </div>
   );

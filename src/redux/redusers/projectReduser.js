@@ -13,6 +13,7 @@ import {
   DELETE_TASK,
   TASK_FILTER_VIEW,
   SET_MILESTONE_ID,
+  PROJECT_FILTER
 } from "../actions/projectActions";
 
 const InitialState = {
@@ -37,6 +38,12 @@ const projectReduser = (state = InitialState, action) => {
         ...state,
         projects: [...state.projects, action.payload],
         project: action.payload,
+      };
+    }
+    case PROJECT_FILTER: {
+      return {
+        ...state,
+        projects: action.payload,
       };
     }
     case NEW_PROJECT:

@@ -17,7 +17,6 @@ function ChangePassword() {
     showCurrentPassword: false,
   });
   const History = useHistory()
-  const auth = useSelector((store) => store);
   const dispatch = useDispatch();
   const [errors, setErrors] = useState(false);
   const [ispasswordValid, setisPasswordValid] = useState(true);

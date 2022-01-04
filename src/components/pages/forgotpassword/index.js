@@ -1,20 +1,14 @@
 import React, { useState } from "react";
 import "./forgetpassword.css";
-import { FaRegCheckCircle } from "react-icons/fa";
-import { Link, useHistory } from "react-router-dom";
-import { Post } from "../../../Utils/JSONUtils";
 import { forgot } from "../../../redux/actions/authAction";
-import { useDispatch , useSelector } from "react-redux"
-import { emailValidator,  passwordValidator,} from "../../../Utils/fieldValidator";
-import store from "../../../redux/store";
-  
- 
+import { useDispatch } from "react-redux";
+import { emailValidator } from "../../../Utils/fieldValidator";
+
 function Forgetpassword() {
   const [useremail, setUserEmail] = useState("");
   const [mailError, setmailError] = useState(true);
   const [showerror, setshowError] = useState(false);
-  const auth = useSelector((store) => store);
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   const handleSubmit = () => {
     if (!useremail.length > 0) {
@@ -22,7 +16,7 @@ function Forgetpassword() {
     }
 
     if (useremail.length > 0 && mailError) {
-      dispatch(forgot(useremail))
+      dispatch(forgot(useremail));
       // To Do next implementation
     }
   };

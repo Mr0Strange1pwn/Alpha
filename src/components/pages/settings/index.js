@@ -22,7 +22,6 @@ const Setting = () => {
   const [task, setTask] = useState(false);
   const [InputData, setInputData] = useState("");
   const [InputDataTwo, setInputDataTwo] = useState("");
-  const [ItemsTwo, setItemsTwo] = useState([]);
   const [isEditItem, setIsEditItem] = useState();
   const [isEditItemTwo, setIsEditItemTwo] = useState();
   const [addNewTask, setNewTask] = useState("");

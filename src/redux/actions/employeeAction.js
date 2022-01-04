@@ -31,7 +31,7 @@ export const empfilter = (data) => {
     await Axios.post("/Account/filter/", data, HeaderToken())
       .then((res) => {
         console.log("empfilter",res.data.response)
-        if (res.data.result == "False") {
+        if (res.data.result === "False") {
           toast.error(res.data.response);
         } else {
           dispatch({ type: EMP_FILTER, payload: res.data.response });
@@ -72,7 +72,7 @@ export const saveEmployee = (data, setCurrentStep, backpackClick,setInProgress) 
     setInProgress(true)
     await Axios.post("/Employee/save", data, HeaderToken())
       .then((res) => {
-        if (res.data.result == "False") {
+        if (res.data.result === "False") {
           toast.error(res.data.response);
           setInProgress(false)
         } else {
@@ -94,7 +94,7 @@ export const saveEmployeeUpdate = (data, setCurrentStep, backpackClick,setInProg
     setInProgress(true)
     await Axios.put("/Employee/save", data, HeaderToken())
       .then((res) => {
-        if (res.data.result == "False") {
+        if (res.data.result === "False") {
           setInProgress(false)
           toast.error(res.data.response);
         } else {
@@ -127,7 +127,7 @@ export const getEmployeeAllDetails = (id) => {
   return async (dispatch) => {
     await Axios.get(`/Account/employe_list/${id}`, HeaderToken())
       .then((res) => {
-        let response = res.data.response;
+        // let response = res.data.response;
         //  dispatch({ type: EMP_SAVE, payload: response.user_profile });
         //  dispatch({ type: EMP_PAYROLL, payload: response.payroll_details })
         //  dispatch({ type: EMP_DOCUMENTS, payload: response.document_details })
@@ -166,7 +166,7 @@ export const getDocuments = () => {
   return async (dispatch) => {
     await Axios.get("/Document/upload", HeaderToken())
       .then((res) => {
-        if (res.data.result == "False") {
+        if (res.data.result === "False") {
           toast.error(res.data.response);
         } else {
           dispatch({ type: EMP_DOCUMENTS, payload: res.data });
@@ -183,7 +183,7 @@ export const getDocumentsById = (id,setInProgress) => {
     setInProgress(true)
     await Axios.get(`/Account/document/${id}`, HeaderToken())
       .then((res) => {
-        if (res.data.result == "false") {
+        if (res.data.result === "false") {
           toast.error(res.data.response);
           setInProgress(false)
           dispatch({ type: EMP_DOCUMENTS, payload: [] });
@@ -203,7 +203,7 @@ export const deleteDocuments = (id) => {
   return async (dispatch) => {
     await Axios.delete(`/Document/delete/${id}`, HeaderToken())
       .then((res) => {
-        if (res.data.result == "False") {
+        if (res.data.result === "False") {
           toast.error(res.data.response);
         } else {
           dispatch({ type: EMP_DELETE_DOCUMENTS, payload: id });
@@ -219,7 +219,7 @@ export const deleteEmployee = (id) => {
   return async (dispatch) => {
     await Axios.delete(`/Employee/delete/${id}`, HeaderToken())
       .then((res) => {
-        if (res.data.result == "False") {
+        if (res.data.result === "False") {
           toast.error(res.data.response);
         } else {
           toast.success("deleted");
@@ -236,7 +236,7 @@ export const uploadPayroll = (data, setCurrentStep, backpackClick) => {
   return async (dispatch) => {
     await Axios.post("/Account/payroll", data, HeaderToken())
       .then((res) => {
-        if (res.data.result == "False") {
+        if (res.data.result === "False") {
           toast.error(res.data.response);
         } else {
           dispatch({ type: EMP_PAYROLL, payload: res.data.payroll });
@@ -254,7 +254,7 @@ export const updatePayroll = (data, setCurrentStep, backpackClick) => {
   return async (dispatch) => {
     await Axios.put("/Account/payroll", data, HeaderToken())
       .then((res) => {
-        if (res.data.result == "False") {
+        if (res.data.result === "False") {
           toast.error(res.data.response);
         } else {
           dispatch({ type: EMP_PAYROLL, payload: res.data.data });
@@ -272,7 +272,7 @@ export const getPayroll = (id) => {
   return async (dispatch) => {
     await Axios.get(`/Account/payroll/${id}`, HeaderToken())
       .then((res) => {
-        if (res.data.result == "False") {
+        if (res.data.result === "False") {
           toast.error(res.data.response);
         } else {
           dispatch({ type: EMP_PAYROLL, payload: res.data.response[0] });
@@ -294,7 +294,7 @@ export const uploadJobDetails = (
     await Axios.post("/Account/job_details", data, HeaderToken())
       .then((res) => {
         console.log("uploadJobDetails",uploadJobDetails)
-        if (res.data.result == "False") {
+        if (res.data.result === "False") {
           toast.error(res.data.response);
         } else {
           history.push("/Employee");
@@ -312,7 +312,7 @@ export const getJobDetails = (id) => {
   return async (dispatch) => {
     await Axios.get(`/Account/job_details/${id}`, HeaderToken())
       .then((res) => {
-        if (res.data.result == "False") {
+        if (res.data.result === "False") {
           toast.error(res.data.response);
         } else {
           dispatch({ type: EMP_JOB_DETAILS, payload: res.data.response[0] });
@@ -333,7 +333,7 @@ export const updateJobDetails = (
   return async (dispatch) => {
     await Axios.put("/Account/job_details", data, HeaderToken())
       .then((res) => {
-        if (res.data.result == "False") {
+        if (res.data.result === "False") {
           toast.error(res.data.response);
         } else {
           dispatch({ type: EMP_JOB_DETAILS, payload: res.data.payroll });

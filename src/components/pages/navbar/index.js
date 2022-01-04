@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./navbar.css";
 import { useSelector, useDispatch } from "react-redux";
-import { faToggleOff } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
 import { logOut } from "../../../redux/actions/authAction";
 import Alert from "../../common/Alert";
@@ -11,39 +10,38 @@ function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
   return {
     width,
-    height
+    height,
   };
 }
-
 
 function Navbar() {
   const [change, setChange] = useState(false);
   const { toggle } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-  const { isLoggedIn, userInfo } = useSelector(store => store.auth)
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions()
+  );
   const [modalOpen, setModalOpen] = useState(false);
-  const History = useHistory()
+  const History = useHistory();
 
   const delAlert = () => {
     setModalOpen(true);
   };
   const handleDelete = async () => {
-    dispatch(logOut())
+    dispatch(logOut());
     setModalOpen(false);
-    History.push("/")
-
+    History.push("/");
   };
   useEffect(() => {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
     }
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => { }, [change]);
+  useEffect(() => {}, [change]);
 
   const clickHandle = () => {
     toggle ? dispatch({ type: "OFF" }) : dispatch({ type: "ON" });
@@ -57,7 +55,7 @@ function Navbar() {
   const hidemedown = {
     display: "flex",
   };
-  if ((windowDimensions.width >= 768) && (windowDimensions.width <= 1023)) {
+  if (windowDimensions.width >= 768 && windowDimensions.width <= 1023) {
     btnStyle.width = "7%";
     hidemedown.display = "none";
   } else if (windowDimensions.width < 700) {
@@ -67,7 +65,6 @@ function Navbar() {
     btnStyle.width = "5%";
   }
 
-
   if (change) {
     hideme.display = "none";
   }
@@ -75,7 +72,13 @@ function Navbar() {
   const pathname = location.pathname;
   return (
     <div className="sidebar" style={btnStyle}>
-      <Alert message="Logout" open={modalOpen} onClose={() => setModalOpen(false)} setOpenModal={setModalOpen} handleDelete={handleDelete} />
+      <Alert
+        message="Logout"
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        setOpenModal={setModalOpen}
+        handleDelete={handleDelete}
+      />
       <nav class="nav flex-column">
         <div class="logo-main">
           <img className="login__logo" src="images/logo.png" alt="logo" />{" "}
@@ -90,7 +93,7 @@ function Navbar() {
             &#9776;
           </button>
         </div>
-        <div class="nav-main-div" style={{ marginTop: "10%" }} >
+        <div class="nav-main-div" style={{ marginTop: "10%" }}>
           <Link to="/" className="navBar-link">
             <img
               className="image__logo"
@@ -114,14 +117,23 @@ function Navbar() {
               className="image__logo"
               src={
                 pathname === "/Employee"
-                  ? "images/Employees-h.png" : pathname === "/AddPeople" ? "images/Employees-h.png"
-                    : "images/Employee.png"
+                  ? "images/Employees-h.png"
+                  : pathname === "/AddPeople"
+                  ? "images/Employees-h.png"
+                  : "images/Employee.png"
               }
               alt="logo"
             />{" "}
             <a
               className="nav-link"
-              style={{ color: pathname === "/Employee" ? "#f07238" : pathname === "/AddPeople" ? "#f07238" : "white" }}
+              style={{
+                color:
+                  pathname === "/Employee"
+                    ? "#f07238"
+                    : pathname === "/AddPeople"
+                    ? "#f07238"
+                    : "white",
+              }}
               href=""
             >
               Employees
@@ -132,15 +144,22 @@ function Navbar() {
               className="image__logo"
               src={
                 pathname === "/Rolespermission"
-                  ? "images/Role-H.png" : pathname === "/AddRole" ? "images/Role-H.png"
-                    : "images/Role.png"
+                  ? "images/Role-H.png"
+                  : pathname === "/AddRole"
+                  ? "images/Role-H.png"
+                  : "images/Role.png"
               }
               alt="logo"
             />{" "}
             <a
               className="nav-link"
               style={{
-                color: pathname === "/Rolespermission" ? "#f07238" : pathname === "/AddRole" ? "#f07238" : "white",
+                color:
+                  pathname === "/Rolespermission"
+                    ? "#f07238"
+                    : pathname === "/AddRole"
+                    ? "#f07238"
+                    : "white",
               }}
               href=""
             >
@@ -152,14 +171,23 @@ function Navbar() {
               className="image__logo"
               src={
                 pathname === "/Project"
-                  ? "images/Project-h.png" : pathname === "/Task" ? "images/Project-h.png"
-                    : "images/Projects.png"
+                  ? "images/Project-h.png"
+                  : pathname === "/Task"
+                  ? "images/Project-h.png"
+                  : "images/Projects.png"
               }
               alt="logo"
             />{" "}
             <a
               className="nav-link"
-              style={{ color: pathname === "/Project" ? "#f07238" : pathname === "/Task" ? "#f07238" : "white" }}
+              style={{
+                color:
+                  pathname === "/Project"
+                    ? "#f07238"
+                    : pathname === "/Task"
+                    ? "#f07238"
+                    : "white",
+              }}
               href=""
             >
               Projects
@@ -183,8 +211,6 @@ function Navbar() {
               Settings
             </a>
           </Link>
-
-
         </div>
       </nav>
 
@@ -195,7 +221,6 @@ function Navbar() {
         onClick={() => {
           setChange(!change);
           clickHandle();
-
         }}
       >
         {">>"}

@@ -26,9 +26,7 @@ const Documents = () => {
   const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
 
-  const { employeeInfo, employeeDocuments } = useSelector(
-    (store) => store.emp
-  );
+  const { employeeInfo, employeeDocuments } = useSelector((store) => store.emp);
 
   const changeHandler = (event) => {
     setFile(event.target.files[0]);
@@ -117,8 +115,7 @@ const Documents = () => {
     dispatch(getDocumentsById(employeeInfo.id, setInProgress));
   }, [employeeInfo]);
 
-  const { backpackClick,setCurrentStep } =
-    useContext(Multistepcontext);
+  const { backpackClick, setCurrentStep } = useContext(Multistepcontext);
 
   const hideme = {
     display: "flex",
@@ -273,16 +270,16 @@ const Documents = () => {
           })}
         </table>
         {inProgress == true ? (
-            <div style={{textAlign:"center"}}>
-              <div class="spinner-grow text-muted"></div>
-              <div class="spinner-grow text-primary"></div>
-              <div class="spinner-grow text-success"></div>
-              <div class="spinner-grow text-info"></div>
-              <div class="spinner-grow text-warning"></div>
-            </div>
-          ) : (
-           ""
-          )}
+          <div style={{ textAlign: "center" }}>
+            <div class="spinner-grow text-muted"></div>
+            <div class="spinner-grow text-primary"></div>
+            <div class="spinner-grow text-success"></div>
+            <div class="spinner-grow text-info"></div>
+            <div class="spinner-grow text-warning"></div>
+          </div>
+        ) : (
+          ""
+        )}
         <div className="d-grid gap-2 d-md-block">
           <div className="addrole_Button">
             <button

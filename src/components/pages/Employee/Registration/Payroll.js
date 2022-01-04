@@ -33,9 +33,7 @@ const ExampleCustomInput = ({ value, onClick }) => {
 };
 function Payroll() {
   const dispatch = useDispatch();
-  const { designations, roles, employeeInfo, employeePayRoll } = useSelector(
-    (store) => store.emp
-  );
+  const { employeeInfo, employeePayRoll } = useSelector((store) => store.emp);
   const [startDate, setStartDate] = useState(new Date());
   const [showerror, setError] = useState(false);
   const { backpackClick, setCurrentStep } = useContext(Multistepcontext);

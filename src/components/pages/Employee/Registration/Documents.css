@@ -209,8 +209,6 @@ select::-ms-expand {
 
 }
 .pageNumbers li {
-  /* padding: 10px; */
-  /* border: 1px solid darkblue; */
   cursor: pointer;
   padding-left: 10px;
   padding-right: 10px;
@@ -222,7 +220,6 @@ select::-ms-expand {
   color:white;
 }
 .pageNumbers li button {
-  /* background-color: transparent; */
   border: none;
   color:darkblue;
   font-size: 1rem;

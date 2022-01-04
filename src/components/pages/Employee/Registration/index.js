@@ -132,9 +132,18 @@ function Registration() {
 
       if (employeeInfo.id) {
         formData.append("id", employeeInfo.id);
-        dispatch(saveEmployeeUpdate(formData, setCurrentStep, backpackClick,setInProgress));
+        dispatch(
+          saveEmployeeUpdate(
+            formData,
+            setCurrentStep,
+            backpackClick,
+            setInProgress
+          )
+        );
       } else {
-        dispatch(saveEmployee(formData, setCurrentStep, backpackClick,setInProgress));
+        dispatch(
+          saveEmployee(formData, setCurrentStep, backpackClick, setInProgress)
+        );
       }
     }
   };
@@ -157,9 +166,7 @@ function Registration() {
         class="upload-image"
         style={{ display: "flex", marginLeft: "8%", marginTop: "5%" }}
       >
-        <div
-          className="uploadImage"
-        >
+        <div className="uploadImage">
           <Upload setIMG={setIMG} IMG={IMG} />
         </div>
       </div>
@@ -299,7 +306,6 @@ function Registration() {
                       {value.roleName}
                     </option>
                   ))}
-               
               </select>
             </div>
           </div>
@@ -389,10 +395,15 @@ function Registration() {
               className="btn  float-left"
               type="submit"
               disabled={inProgress}
-              style={{ backgroundColor: inProgress? "yellowgreen" : "#25344b"  }}
+              style={{
+                backgroundColor: inProgress ? "yellowgreen" : "#25344b",
+              }}
             >
-              {inProgress == true ? <span class="spinner-grow spinner-grow-sm"></span>:""}
-               
+              {inProgress == true ? (
+                <span class="spinner-grow spinner-grow-sm"></span>
+              ) : (
+                ""
+              )}
               Next
             </button>
           </div>

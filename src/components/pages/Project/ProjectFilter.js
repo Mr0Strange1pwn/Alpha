@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import Modal from "../../common/Model";
-import { filterRole, roleLIst } from "../../../redux/actions/roleAction";
+import {roleLIst } from "../../../redux/actions/roleAction";
+import { projectFilter } from "../../../redux/actions/projectActions";
 import { useSelector, useDispatch } from "react-redux";
 
 const ProjectFilter = ({ open, onClose }) => {
@@ -63,13 +64,26 @@ const ProjectFilter = ({ open, onClose }) => {
     setRoleState(selectedOption.map((e) => e.label));
   };
   const handleSubmit = () => {
-    let data = {
-      project_name: valueName,
-      assigned_to:roleValue
-    };
-    console.log("projectData",data)
-    // dispatch(filterRole(data));
-    // onClose();
+    if(roleValue.length> 0 && !valueName ) {
+      let data = {
+        assigned_to:roleValue[0]
+      };
+      console.log("data",data)
+      dispatch(projectFilter(data));
+      onClose();
+     
+    }else if(valueName.length>0) {
+      let data = {
+        name: valueName,
+        assigned_to:roleValue[0]
+      };
+      dispatch(projectFilter(data));
+      onClose();
+      
+    
+    }
+    setState("")
+    setRoleState("")
   };
   return (
     <div>

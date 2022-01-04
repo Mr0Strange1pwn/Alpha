@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./resetPassword.css";
 import { useHistory, useParams } from "react-router-dom";
 import { reset } from "../../../redux/actions/authAction";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { passwordValidator } from "../../../Utils/fieldValidator";
 

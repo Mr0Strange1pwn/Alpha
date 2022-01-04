@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./milestone.css";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Modal from "../../../common/Model";
 import DatePicker from "react-datepicker";
 import Alert from "../../../common/Alert";
@@ -45,7 +45,6 @@ const MileStone = (props) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [data, setData] = useState([]);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
-  const [isEditItem, setIsEditItem] = useState();
   const [showError, SetError] = useState(false);
   const [item, setItem] = useState({
     id: "",
@@ -107,7 +106,6 @@ const MileStone = (props) => {
       return elem.id === id;
     });
     setItem(newEditItem);
-    setIsEditItem(id);
   };
 
   useEffect(() => {

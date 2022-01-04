@@ -76,7 +76,7 @@ function JobDetails() {
         console.log("key", key);
         formData.append(key, req[key]);
       });
-      console.log("formData",formData)
+      console.log("formData", formData);
       if (employeeJobDetails.user_profile_id) {
         dispatch(
           updateJobDetails(formData, history, setCurrentStep, backpackClick)
@@ -171,7 +171,7 @@ function JobDetails() {
                 <option selected>Weekely Holidays</option>
                 <option value="1">+1.5</option>
                 <option value="2">+2</option>
-                <option value="3">+2.5</option> 
+                <option value="3">+2.5</option>
               </select>
             </div>
 

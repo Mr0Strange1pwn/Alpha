@@ -18,7 +18,6 @@ const EmployeeFilter = ({ open, onClose }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // roleData();
     if (roleNameInfo.length > 0) {
       setRoleName(
         roleNameInfo.map((value) => ({

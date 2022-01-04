@@ -99,7 +99,6 @@ export const logIn = (userInfo) => {
         }
       })
       .catch((err) => {
-        // toast.error("Login failed");
         dispatch({ type: "SET_ERROR_MSG", payload: "Login Failed" });
       });
   };

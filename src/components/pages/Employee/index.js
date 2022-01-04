@@ -184,7 +184,6 @@ const Employee = () => {
 
         <td>
           <button>
-            {" "}
             <img
               src="images/Edit.png"
               alt="logo"
@@ -312,7 +311,7 @@ const Employee = () => {
               <span>
                 <h6>Showing&nbsp;&nbsp;&nbsp;</h6>
               </span>
-              <input value={itemsPerPage} className="payrollInputStylenew" />
+              <input value={itemsPerPage} onChange={handleLoadMoreMethoddec} className="payrollInputStylenew" />
               <div className="load">
                 <button
                   onClick={handleLoadMoreMethod}

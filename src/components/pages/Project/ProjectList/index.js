@@ -225,9 +225,6 @@ const ProjectList = () => {
                 id="fname"
                 name="name"
                 placeholder="Enter Name"
-                // value={item.name}
-                // onChange={(e) => handleChange(e)}
-                // onChange={(e) => setInputData(e.target.value)}
               />
             </div>
             <div className="row">
@@ -240,8 +237,6 @@ const ProjectList = () => {
                 id="inputGroupSelect03"
                 aria-label="Example select with button addon"
                 name="status"
-                // value={item.status}
-                // onChange={e => handleChange(e)}
               >
                 <option selected>Select Status</option>
                 <option value="Pending">Pending</option>
@@ -257,8 +252,6 @@ const ProjectList = () => {
                 id="fname"
                 name="amount"
                 placeholder="Assignee name"
-                // value={item.amount}
-                // onChange={(e) => handleChange(e)}
               />
             </div>
             <div className="row">
@@ -392,7 +385,7 @@ const ProjectList = () => {
               <span>
                 <h6>Showing&nbsp;&nbsp;&nbsp;</h6>
               </span>
-              <input value={itemsPerPage} className="payrollInputStylenew" />
+              <input value={itemsPerPage} onChange={handleLoadMoreMethoddec} className="payrollInputStylenew" />
               <div className="load">
                 <button
                   onClick={handleLoadMoreMethod}

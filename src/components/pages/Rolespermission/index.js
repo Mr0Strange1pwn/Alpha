@@ -286,7 +286,7 @@ const Rolespermission = () => {
             ? filteredData.map((students, i) => {
                 return (
                   <tr>
-                    <td className="geeks">{students.id}</td>
+                    <td key={students.id}>{students.id}</td>
                     <td>{students.roleName}</td>
                     <td>{students.user_count}</td>
                     <td>
@@ -324,7 +324,7 @@ const Rolespermission = () => {
               <span>
                 <h6>Showing&nbsp;&nbsp;&nbsp;</h6>
               </span>
-              <input value={itemsPerPage} className="payrollInputStylenew" />
+              <input value={itemsPerPage} onChange={handleLoadMoreMethoddec} className="payrollInputStylenew" />
               <div className="load">
                 <button
                   onClick={handleLoadMoreMethod}
