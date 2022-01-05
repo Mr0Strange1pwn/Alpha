@@ -56,7 +56,7 @@ const Employee = () => {
 
   const searchHandler = () => {
     let filterDAta = emp.filter((data) => {
-      return data.email.includes(searchQuery);
+      return data.name.includes(searchQuery);
     });
 
     if (filterDAta.length > 0) {

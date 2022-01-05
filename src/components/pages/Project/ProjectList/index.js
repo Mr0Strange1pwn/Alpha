@@ -52,8 +52,6 @@ const ProjectList = () => {
   const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
-
-  console.log("projects",projects)
   const pages = [];
   for (let i = 1; i <= Math.ceil(projects.length / itemsPerPage); i++) {
     pages.push(i);
@@ -175,7 +173,9 @@ const ProjectList = () => {
 
   const searchHandler = () => {
     let filterDAta = projects.filter((data) =>
-      data.name.toLowerCase().includes(searchQuery)
+     { 
+      return data.name.toLowerCase().includes(searchQuery)
+    }
     );
     if (filterDAta.length > 0) {
       setFilteredProjects(filterDAta);
