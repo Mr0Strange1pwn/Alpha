@@ -100,7 +100,7 @@ const RoleFilter = ({ open, onClose }) => {
                 className="row"
                 style={{ padingLeft: "3px", paddingRight: "5px" }}
               >
-                <div className="col" style={{ alignSelf: "center" }}>
+                <div className="col-md-4" style={{ alignSelf: "center" }}>
                   <label
                     className="form-check-label reg-lable"
                     for="exampleCheck1"

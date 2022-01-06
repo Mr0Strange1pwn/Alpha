@@ -21,10 +21,16 @@ function ChangePassword() {
   const [errors, setErrors] = useState(false);
   const [ispasswordValid, setisPasswordValid] = useState(true);
   const [logintoken, setToken] =useState("sumit29998@gmail.com")
-  
 
   useEffect(() => {
     let data = JSON.parse(localStorage.getItem("userData"))
+    let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      if (userInfo !== null) {
+      setValues({
+        ...values,
+        currentpassword: userInfo.password
+      });
+    }
     setToken(data.token)
   }, [])
 

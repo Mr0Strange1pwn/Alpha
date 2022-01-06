@@ -285,8 +285,6 @@ const Task = () => {
                       : null,
                   }}
                   className="form-select"
-                  id="inputGroupSelect03"
-                  aria-label="Example select with button addon"
                   name="role"
                   value={department}
                   onChange={(e) => {
@@ -350,7 +348,7 @@ const Task = () => {
         </div>
 
         <div>
-          <div style={{ ...sohme, marginLeft: "6%", marginBottom: "30px" }}>
+          <div style={{ ...sohme, padding: "0 23px 30px" }}>
             <input
               name="allSelect"
               onChange={handleCheckChange}
@@ -365,7 +363,9 @@ const Task = () => {
               Select All
             </span>
           </div>
-          <div className="row" style={{ ...sohme, marginLeft: "5%" }}>
+          <div className="data-shown">
+          <div className="row" style={{ ...sohme,padding: "0 30px" }}>
+          
             {emp.map((result) => {
               return (
                 <div
@@ -374,7 +374,7 @@ const Task = () => {
                 >
                   <div className="col-sm-4" style={{ padding: "4px" }}>
                     {" "}
-                    <div style={{ display: "flex" }}>
+                    <div>
                       <input
                         type="checkbox"
                         name={result.id}
@@ -388,7 +388,8 @@ const Task = () => {
                         style={{
                           color: "black",
                           fontWeight: "600",
-                          marginLeft: "15px",
+                          marginLeft: "8px",
+                          fontSize: "14px",
                         }}
                       >
                         {result.name}
@@ -396,8 +397,11 @@ const Task = () => {
                     </div>
                   </div>
                 </div>
+               
               );
             })}
+            
+          </div>
           </div>
         </div>
         <div className="labuttonew" style={sohme}>
@@ -523,7 +527,7 @@ const Task = () => {
                     <th>Task Name </th>
                     <th>Assinged To</th>
                     <th>Department</th>
-                    <th>Category</th>
+                    {/* <th>Category</th> */}
                     <th>Action</th>
                   </tr>
 
@@ -533,7 +537,7 @@ const Task = () => {
                         <td>{elem.name}</td>
                         <td>{idToName(elem.assignTO)}</td>
                         <td>{elem.department}</td>
-                        <td>{elem.category}</td>
+                        {/* <td>{elem.category}</td> */}
                         <td style={{ width: "197px" }}>
                           <button onClick={(e) => delAlert(elem.id, e)}>
                             <img src="images/Del.png" alt="logo" />

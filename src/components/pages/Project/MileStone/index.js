@@ -38,6 +38,7 @@ const ExampleCustomInput = ({ value, onClick }) => {
 const MileStone = (props) => {
   const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [ids, setID] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
@@ -53,6 +54,7 @@ const MileStone = (props) => {
     amount: "",
   });
   const { project, milestones } = useSelector((store) => store.project);
+  console.log("milestones",milestones)
   const history = useHistory();
   const handleRouteChange = (id) => {
     let path = `./Task`;
@@ -140,13 +142,23 @@ const MileStone = (props) => {
     }
   }, [milestones]);
 
+  useEffect(() => {
+    if (searchQuery.length > 0) {
+      searchHandler();
+    } else {
+      setFilteredProjects([]);
+      setSearch(false);
+    }
+  }, [searchQuery]);
+
   const searchHandler = () => {
     let filterDAta = data.filter((newdata) =>
       newdata.name.includes(searchQuery)
     );
     if (filterDAta.length > 0) {
-      setData(filterDAta);
+      setFilteredProjects(filterDAta);
     }
+    
     setSearch(true);
   };
 
@@ -183,6 +195,31 @@ const MileStone = (props) => {
       setStartDate(new Date());
     }
     // }
+  };
+
+  const TableData = ({ product, i }) => {
+    return (
+      <tr>
+        <td>{product.name}</td>
+                <td>{product.amount}</td>
+                <td>{product.status}</td>
+                <td style={{ width: "197px" }}>
+                  <button onClick={() => delAlert(product.id)}>
+                    <img src="images/Del.png" alt="logo" />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      editItems(product.id, e);
+                    }}
+                  >
+                    <img src="images/Edit.png" alt="logo" />
+                  </button>
+                  <button onClick={() => handleRouteChange(product.id)}>
+                    <img src="images/task.png" alt="logo" />
+                  </button>
+                </td>
+      </tr>
+    );
   };
 
   return (
@@ -456,30 +493,17 @@ const MileStone = (props) => {
             <th>Action</th>
           </tr>
           {data.length == 0 && <h1>NO. MileStone present</h1>}
-          {data.map((students, i) => {
-            return (
-              <tr>
-                <td>{students.name}</td>
-                <td>{students.amount}</td>
-                <td>{students.status}</td>
-                <td style={{ width: "197px" }}>
-                  <button onClick={() => delAlert(students.id)}>
-                    <img src="images/Del.png" alt="logo" />
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      editItems(students.id, e);
-                    }}
-                  >
-                    <img src="images/Edit.png" alt="logo" />
-                  </button>
-                  <button onClick={() => handleRouteChange(students.id)}>
-                    <img src="images/task.png" alt="logo" />
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+            {/* {data.map((product, i) => {
+                return <TableData product={product} i={i} />;
+              })
+           } */}
+            {filteredProjects.length > 0
+            ? filteredProjects.map((product, i) => {
+                return <TableData product={product} i={i} />;
+              })
+            : data.map((product, i) => {
+                return <TableData product={product} i={i} />;
+              })}
         </table>
 
         <div className="d-grid gap-2 d-md-block">
