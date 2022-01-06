@@ -13,6 +13,7 @@ import {
 } from "../../../../redux/actions/projectActions";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
+import MileStoneModal from "./MileStoneModal";
 
 const ExampleCustomInput = ({ value, onClick }) => {
   return (
@@ -54,7 +55,6 @@ const MileStone = (props) => {
     amount: "",
   });
   const { project, milestones } = useSelector((store) => store.project);
-  console.log("milestones",milestones)
   const history = useHistory();
   const handleRouteChange = (id) => {
     let path = `./Task`;
@@ -100,6 +100,12 @@ const MileStone = (props) => {
       setStartDate(new Date());
     }
     setIsOpenEdit(false);
+    setItem({
+      id: "",
+      name: "",
+      status: "",
+      amount: "",
+    });
   };
   const editItems = (id, e) => {
     e.preventDefault();
@@ -196,7 +202,15 @@ const MileStone = (props) => {
     }
     // }
   };
-
+const EditModal = () => {
+  setIsOpenEdit(false)
+  setItem({
+        id: "",
+        name: "",
+        status: "",
+        amount: "",
+      });
+}
   const TableData = ({ product, i }) => {
     return (
       <tr>
@@ -281,8 +295,10 @@ const MileStone = (props) => {
         </div>
 
         <div>
+        <MileStoneModal header="Edit Milestone" isEdit={isOpenEdit} open={isOpenEdit} onClose={() => EditModal()} showError={showError} handleChange={handleChange} item={item} handleSave={handleEdit} startDate={startDate} setStartDate={setStartDate} ExampleCustomInput={ExampleCustomInput}/>
+        <MileStoneModal header="Add Milestone" isEdit={isOpenEdit} open={isOpen} onClose={() => setIsOpen(false)} showError={showError} handleChange={handleChange} item={item} handleSave={handleSave} startDate={startDate} setStartDate={setStartDate} ExampleCustomInput={ExampleCustomInput}/>
           {/* for edit  */}
-          <Modal open={isOpenEdit} onClose={() => setIsOpenEdit(false)}>
+          {/* <Modal open={isOpenEdit} onClose={() => setIsOpenEdit(false)}>
             <div style={{ marginTop: "5%" }}>
               <div style={{ textAlignLast: "center" }}>
                 <h4 style={{ fontWeight: "700" }}>Edit Milestone</h4>
@@ -371,9 +387,9 @@ const MileStone = (props) => {
                 </div>
               </div>
             </div>
-          </Modal>
-
-          <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+          </Modal> */}
+  
+          {/* <Modal open={isOpen} onClose={() => setIsOpen(false)}>
             <div style={{ marginTop: "5%" }}>
               <div style={{ textAlignLast: "center" }}>
                 <h4 style={{ fontWeight: "700" }}>Add Milestone</h4>
@@ -480,7 +496,7 @@ const MileStone = (props) => {
                 </div>
               </div>
             </div>
-          </Modal>
+          </Modal> */}
         </div>
 
         <table class="mile-header">
@@ -493,10 +509,6 @@ const MileStone = (props) => {
             <th>Action</th>
           </tr>
           {data.length == 0 && <h1>NO. MileStone present</h1>}
-            {/* {data.map((product, i) => {
-                return <TableData product={product} i={i} />;
-              })
-           } */}
             {filteredProjects.length > 0
             ? filteredProjects.map((product, i) => {
                 return <TableData product={product} i={i} />;
