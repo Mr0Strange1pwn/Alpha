@@ -310,13 +310,13 @@ const Rolespermission = () => {
             : currentItem.map((students, i) => {
                 return (
                   <tr>
-                    <td>
-                      {/* <input
+                    {/* <td>
+                      <input
                         type="checkbox"
                         className="form-check-input"
                         id="exampleCheck1"
-                      /> */}
-                    </td>
+                      />
+                    </td> */}
                     <td>{i + 1}</td>
                     <td>{students.roleName}</td>
                     <td>{students.user_count}</td>
