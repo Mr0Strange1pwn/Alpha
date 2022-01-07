@@ -33,7 +33,12 @@ export const change = (changeData, logintoken, History) => {
 
 export const reset = (resData, token, routeChange) => {
   return async (dispatch) => {
-    await Axios.post("/Account/resetpassword", resData, HeaderToken()).then(
+    let config = {
+      headers: {
+        Authorization: `${token}`,
+      },
+    };
+    await Axios.post("/Account/resetpassword", resData,config).then(
       (res) => {
         if (res.data.result === "true") {
           toast.success(res.data.response);

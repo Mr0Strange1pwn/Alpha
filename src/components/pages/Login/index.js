@@ -76,10 +76,11 @@ function Login() {
     <div>
       <div
         className="login"
-        style={{ backgroundImage: "url(/images/Login-bg.jpg)" }}
+         style={{ backgroundImage: "url(/images/Login-bg.jpg)" }}
+        // style={{ backgroundImage: "url(/images/Login-bg.jpg)" }}
       >
         <div className="login__container">
-          <img className="login__logo" src="images/logo.png" alt="logo" />
+          <img className="login__logo" src="images/clocklogo.jpg" alt="logo" />
           <h4>LOGIN</h4>
           <form style={{ marginTop: "10%" }}>
             <div

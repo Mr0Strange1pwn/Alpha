@@ -81,7 +81,7 @@ function Navbar() {
       />
       <nav class="nav flex-column">
         <div class="logo-main">
-          <img className="login__logo" src="images/logo.png" alt="logo" />{" "}
+          <img className="login__logo" src="images/clocklogo.jpg" alt="logo" />{" "}
           <button
             class="openbtn"
             style={hideme}

@@ -293,10 +293,11 @@ export const uploadJobDetails = (
   return async (dispatch) => {
     await Axios.post("/Account/job_details", data, HeaderToken())
       .then((res) => {
-        console.log("uploadJobDetails",uploadJobDetails)
+        console.log("resss",res.data)
         if (res.data.result === "False") {
           toast.error(res.data.response);
         } else {
+          dispatch({ type: EMP_JOB_DETAILS, payload: res.data.payroll });
           history.push("/Employee");
           setCurrentStep(1);
           backpackClick(1);

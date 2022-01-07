@@ -19,7 +19,7 @@ function ResetPassword() {
   const [ispasswordValid, setisPasswordValid] = useState(true);
   const History = useHistory()
  
-  
+  console.log("token",token)
   const routeChange = () => {
     History.push("/")
   }
@@ -71,7 +71,7 @@ function ResetPassword() {
         <div className="resetPassword__container">
           <img
             className="resetPassword__logo"
-            src="/images/logo.png"
+            src="/images/clocklogo.jpg"
             alt="logo"
           />
           {/* <h5>Login</h5> */}

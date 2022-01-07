@@ -65,7 +65,6 @@ const Rolespermission = () => {
     }
   }, [searchQuery]);
 
-
   const searchHandler = () => {
     let filterDAta = student.filter((data) =>
       data.roleName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -261,6 +260,14 @@ const Rolespermission = () => {
 
         <table className="role-header" id="table-to-xls">
           <tr>
+            {/* <th>
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id="exampleCheck1"
+              />{" "}
+              Select ALL
+            </th> */}
             <th>
               ID <img src="images/Sort.png" alt="logo" />
             </th>
@@ -303,7 +310,14 @@ const Rolespermission = () => {
             : currentItem.map((students, i) => {
                 return (
                   <tr>
-                    <td className="geeks">{i + 1}</td>
+                    <td>
+                      {/* <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id="exampleCheck1"
+                      /> */}
+                    </td>
+                    <td>{i + 1}</td>
                     <td>{students.roleName}</td>
                     <td>{students.user_count}</td>
                     <td>
@@ -324,7 +338,11 @@ const Rolespermission = () => {
               <span>
                 <h6>Showing&nbsp;&nbsp;&nbsp;</h6>
               </span>
-              <input value={itemsPerPage} onChange={handleLoadMoreMethoddec} className="payrollInputStylenew" />
+              <input
+                value={itemsPerPage}
+                onChange={handleLoadMoreMethoddec}
+                className="payrollInputStylenew"
+              />
               <div className="load">
                 <button
                   onClick={handleLoadMoreMethod}

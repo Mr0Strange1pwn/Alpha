@@ -28,7 +28,10 @@ function JobDetails() {
     weekelyHoliday: "",
     probationPeriod: "",
   });
-
+  // const routeChange = () => {
+  //   let path = `./Employee`;
+  //   history.push(path);
+  // };
   useEffect(() => {
     dispatch(getJobType());
   }, []);
@@ -71,17 +74,18 @@ function JobDetails() {
         job_type: details.jobType,
         user_profile_id: employeeInfo.id,
       };
+      console.log("req",req)
       let formData = new FormData();
       Object.keys(req).map((key) => {
-        console.log("key", key);
         formData.append(key, req[key]);
       });
-      console.log("formData", formData);
       if (employeeJobDetails.user_profile_id) {
+        console.log("updatejobdetails")
         dispatch(
           updateJobDetails(formData, history, setCurrentStep, backpackClick)
         );
       } else {
+        console.log("newjobdetails")
         dispatch(
           uploadJobDetails(formData, history, setCurrentStep, backpackClick)
         );

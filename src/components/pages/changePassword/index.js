@@ -75,7 +75,7 @@ function ChangePassword() {
         style={{ backgroundImage: "url(/images/Login-bg.jpg)" }}
       >
         <div className="changePassword__container">
-          <img className="logo" src="images/logo.png" alt="logo" />
+          <img className="logo" src="images/clocklogo.jpg" alt="logo" />
           <h4>CHANGE PASSWORD</h4>
           <form style={{ marginTop: "8%" }}>
             <label className="form-check-label" for="exampleCheck1">

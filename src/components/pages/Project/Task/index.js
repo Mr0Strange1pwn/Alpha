@@ -197,7 +197,6 @@ const Task = () => {
     } else {
       if (employee.includes(parseInt(name))) {
         let tempUser = employee.filter((res) => res !== parseInt(name));
-
         setEmployee(tempUser);
       } else {
         setEmployee([...employee, parseInt(name)]);
