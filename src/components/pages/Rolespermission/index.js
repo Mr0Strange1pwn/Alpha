@@ -27,6 +27,7 @@ const Rolespermission = () => {
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
+  const [selectedRoles, setSelectedRoles] = useState([])
 
   const routeChange = () => {
     let path = `./AddRole`;
@@ -129,6 +130,25 @@ const Rolespermission = () => {
     }
   }, [filteredData]);
 
+  const onselectChange = (val) =>{
+    if(val === "all"){
+      if(currentItem.length === selectedRoles.length){
+        setSelectedRoles([])
+      }else{
+        setSelectedRoles(currentItem)
+      }
+     
+    }else{
+      if(selectedRoles.includes(val)){
+        setSelectedRoles(selectedRoles.filter(role=> role.id !== val.id))
+      }else{
+        setSelectedRoles([...selectedRoles,val])
+      }
+     
+    }
+console.log(selectedRoles)
+  }
+
   const handleNewClick = (event) => {
     setCurrentPage(Number(event.target.id));
   };
@@ -226,7 +246,7 @@ const Rolespermission = () => {
                   style={{ textDecoration: "none!important" }}
                 >
                   <CSVLink
-                    data={student.length > 0 ? currentItem : []}
+                    data={student.length > 0 ? selectedRoles.length > 0 ? selectedRoles : currentItem : []}
                     filename={"my-saved.csv"}
                     className="btn"
                   >
@@ -265,6 +285,8 @@ const Rolespermission = () => {
                 type="checkbox"
                 className="form-check-input"
                 id="exampleCheck1"
+                checked={currentItem.length === selectedRoles.length}
+                onClick={()=>{onselectChange('all')}}
               />{" "}
               Select ALL
             </th>
@@ -315,6 +337,8 @@ const Rolespermission = () => {
                         type="checkbox"
                         className="form-check-input"
                         id="exampleCheck1"
+                        checked={selectedRoles.includes(students)}
+                        onClick={()=>{onselectChange(students)}}
                       />
                     </td>
                     <td>{i + 1}</td>
