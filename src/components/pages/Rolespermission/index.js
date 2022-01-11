@@ -260,14 +260,14 @@ const Rolespermission = () => {
 
         <table className="role-header" id="table-to-xls">
           <tr>
-            {/* <th>
+            <th>
               <input
                 type="checkbox"
                 className="form-check-input"
                 id="exampleCheck1"
               />{" "}
               Select ALL
-            </th> */}
+            </th>
             <th>
               ID <img src="images/Sort.png" alt="logo" />
             </th>
@@ -310,13 +310,13 @@ const Rolespermission = () => {
             : currentItem.map((students, i) => {
                 return (
                   <tr>
-                    {/* <td>
+                    <td>
                       <input
                         type="checkbox"
                         className="form-check-input"
                         id="exampleCheck1"
                       />
-                    </td> */}
+                    </td>
                     <td>{i + 1}</td>
                     <td>{students.roleName}</td>
                     <td>{students.user_count}</td>
