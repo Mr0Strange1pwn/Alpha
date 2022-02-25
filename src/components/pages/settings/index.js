@@ -131,7 +131,7 @@ const Setting = () => {
     setTask(!task);
     setProjectInfo(false);
   };
-
+console.log("jobTypeList",jobTypeList)
   return (
     <div className="project-header">
       <Header headerName="Settings" />
@@ -461,7 +461,7 @@ const Setting = () => {
                           </div>
                         ) : null}
 
-                        {jobTypeList.map((elem) => {
+                        {typeof jobTypeList !== "string" && jobTypeList.map((elem) => {
                           return (
                             <div className="doccontainernew">
                               <table className="task-des" key={elem.id}>

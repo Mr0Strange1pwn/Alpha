@@ -8,6 +8,7 @@ import empReduser from './redusers/employeeReduser';
 import projectReduser from './redusers/projectReduser'
 import jobtypeReduser from './redusers/jobtypeReduser';
 import designationReduser from './redusers/settingReduser';
+import screenshortreduser from './redusers/screenshotsReduser'
 
 const rootReducer = combineReducers({
     auth: authReduser,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
     emp: empReduser,
     project: projectReduser,
     jobtype: jobtypeReduser,
-    setting:designationReduser
+    setting:designationReduser,
+    screenshorts: screenshortreduser
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

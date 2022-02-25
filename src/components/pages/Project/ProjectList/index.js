@@ -120,11 +120,13 @@ const ProjectList = () => {
   }
 
   const history = useHistory();
+
   const routeChange = () => {
     let path = `./ProjectList`;
     dispatch({ type: NEW_PROJECT });
     history.push(path);
   };
+  
   useEffect(() => {
     dispatch(getProjects());
   }, []);

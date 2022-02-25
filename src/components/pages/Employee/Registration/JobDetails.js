@@ -32,6 +32,7 @@ function JobDetails() {
   //   let path = `./Employee`;
   //   history.push(path);
   // };
+  console.log('job t,',jobTypes)
   useEffect(() => {
     dispatch(getJobType());
   }, []);
@@ -118,7 +119,7 @@ function JobDetails() {
                 value={details.jobType}
                 onChange={(e) => handleChange(e)}
               >
-                {jobTypes.map((job) => (
+                {typeof jobTypes !== "string" && jobTypes.map((job) => (
                   <option value={job.id}>{job.Type_name}</option>
                 ))}
               </select>

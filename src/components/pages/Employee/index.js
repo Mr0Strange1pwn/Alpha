@@ -79,11 +79,12 @@ const Employee = () => {
   
 
   const currentData = () => {
+    console.log(" dddddddddddddddddddd",currentItem)
   let exportData =  currentItem.map((data) => {
       return {
         ...data,
         designation_name: data.designation_name.designation_name,
-        roleId: data.roleId.roleName,
+        roleId: data.roleId?.roleName,
       };
     });
     return exportData
