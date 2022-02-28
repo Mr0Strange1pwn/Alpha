@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import { useSelector } from "react-redux";
 import moment from "moment";
@@ -28,15 +28,30 @@ const ExampleCustomInput = ({ value, onClick }) => {
 export default function ScreenShorts() {
   const { SS } = useSelector((store) => store.screenshorts);
   const { projects } = useSelector((store) => store.project);
-  console.log("ss ", SS , projects);
+ 
   const [startDate, setStartDate] = useState(new Date());
+  const [ screenshorts , setScreenShorts ] = useState([])
+
+  useEffect(()=>{
+    let ss = SS.filter(data=> moment(data.datetime_of_capture).format("DD/MM/YYYY")  === moment(startDate).format("DD/MM/YYYY") )
+    console.log("ss ", ss , startDate );
+    setScreenShorts(ss)
+  },[SS, startDate])
+
+  // const filterSS =()=>{
+  //   let ss = SS.filter(data=> moment(data.datetime_of_capture).format("DD/MM/YYYY")  === moment(startDate).format("DD/MM/YYYY") )
+  //   console.log("ss ", ss , startDate );
+  //   setScreenShorts(ss)
+  // }
 
   return (
     <>
       <h5>Screen Shorts</h5>
 
       <div className="ss-action">
-        <div className="job-form" style={{ display: "flex" }}>
+       
+        <div className="job-form" style={{ display: "flex" , justifyContent:"space-between", alignItems:"center"}}>
+        <h5 style={{width:"70px"}}>Date : </h5>
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
@@ -46,14 +61,15 @@ export default function ScreenShorts() {
             dropdownMode="select"
             customInput={<ExampleCustomInput />}
           />
-          <button
+          {/* <button
             className="btn changebtn"
             style={{
               backgroundColor: "#25344b",
             }}
+            onClick={filterSS}
           >
             Apply
-          </button>
+          </button> */}
         </div>
 
         <div className="ss-action">
@@ -63,18 +79,20 @@ export default function ScreenShorts() {
         </div>
       </div>
 
-      <div className="ss-container">
-        <div className="ss-card">
+   
+
+        {/* <div className="ss-card">
   <img className="ss-card-img"  src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" />
   <h5 className="ss-card-titel" >UI design</h5>
   <p className="ss-card-para">time</p>
-</div>
+</div> */}
 
-        {SS.length > 0 &&
-          SS.map((ss) => {
-            console.log('Pro',projects.filter(pro => pro.id === ss.task))
+        {screenshorts.length > 0 ?
+          <div className="ss-container">{
+          screenshorts.map((ss) => {
             let pro = projects.filter(pro => pro.id === ss.task)
             return (
+            
             <div className="ss-card">
               <img className="ss-card-img" src={ss.userScreenshot} />
               <h5 className="ss-card-titel">{pro.length > 0 && pro[0].name}</h5>
@@ -82,8 +100,12 @@ export default function ScreenShorts() {
                 {moment(ss.datetime_of_capture).format("DD/MM/YYYY hh:mm a")}
               </p>
             </div>
+           
           )})}
-      </div>
+           </div>  :  ( <h2>
+          No Screen Shorts for : <span className="ss-total-time">{ moment(startDate).format("DD/MM/YYYY")}</span>
+        </h2>) }
+ 
     </>
   );
 }
