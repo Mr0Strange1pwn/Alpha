@@ -47,7 +47,7 @@ function Navbar() {
     toggle ? dispatch({ type: "OFF" }) : dispatch({ type: "ON" });
   };
   const btnStyle = {
-    width: "20%",
+    width: "200px",
   };
   const hideme = {
     display: "flex",
@@ -62,7 +62,7 @@ function Navbar() {
     btnStyle.width = "13%";
   }
   if (change) {
-    btnStyle.width = "5%";
+    btnStyle.width = "60px";
   }
 
   if (change) {
@@ -217,7 +217,6 @@ function Navbar() {
       <button
         style={hidemedown}
         className="openbtn"
-        value={clickHandle}
         onClick={() => {
           setChange(!change);
           clickHandle();
