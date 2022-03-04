@@ -54,7 +54,7 @@ const Routes = () => {
   }, []);
 
   const btnStyle = {
-    marginLeft: "20%",
+    marginLeft: "200px",
   };
   if (windowDimensions.width >= 768 && windowDimensions.width <= 1023) {
     btnStyle.marginLeft = "7%";
@@ -62,7 +62,7 @@ const Routes = () => {
     btnStyle.marginLeft = "13%";
   }
   if (toggle) {
-    btnStyle.marginLeft = "5%";
+    btnStyle.marginLeft = "60px";
   }
   return (
     <>
