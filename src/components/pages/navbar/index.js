@@ -57,7 +57,7 @@ function Navbar() {
   };
   if (windowDimensions.width >= 768 && windowDimensions.width <= 1023) {
     btnStyle.width = "7%";
-    hidemedown.display = "none";
+    // hidemedown.display = "none";
   } else if (windowDimensions.width < 700) {
     btnStyle.width = "13%";
   }
