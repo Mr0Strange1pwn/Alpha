@@ -329,7 +329,7 @@ console.log(selectedRoles)
                   </tr>
                 );
               })
-            : currentItem.map((students, i) => {
+            : currentItem.length > 0 ? currentItem.map((students, i) => {
                 return (
                   <tr>
                     <td>
@@ -354,7 +354,7 @@ console.log(selectedRoles)
                     </td>
                   </tr>
                 );
-              })}
+              }) : <h3>No role present Please Create one</h3>}
         </table>
         <nav aria-label="Page navigation example">
           <div className="col-sm-12 col-md-6 col-lg-6">

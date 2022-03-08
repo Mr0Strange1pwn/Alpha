@@ -10,6 +10,7 @@ import {
   getEmployeeAllDetails,
   getPayroll,
   getJobDetails,
+  getEmployes
 } from "../../../redux/actions/employeeAction";
 import { CSVLink } from "react-csv";
 import { useSelector, useDispatch } from "react-redux";
@@ -33,6 +34,7 @@ const Employee = () => {
 
   useEffect(() => {
     dispatch(empLIst());
+    // dispatch(getEmployes())
   }, []);
 
   const routeChange = () => {
@@ -171,9 +173,9 @@ const Employee = () => {
         <td>{i + 1}</td>
         <td>{employeelist.name}</td>
         <td>
-          <a href="#" class="user-email">
+          <Link to={`/screenshorts/${employeelist.name}/${employeelist.id}`} className="user-email">
             {employeelist.email}
-          </a>
+          </Link>
         </td>
         <td>{employeelist.mobile_number}</td>
         <td>{employeelist.date_of_birth}</td>

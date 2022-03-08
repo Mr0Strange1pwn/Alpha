@@ -25,7 +25,7 @@ export const getProjects = () => {
   return async (dispatch) => {
     await Axios.get("/Projects/project", HeaderToken())
       .then((res) => {
-        dispatch({ type: PROJECT, payload: res.data.response });
+        dispatch({ type: PROJECT, payload: typeof res.data.response !== 'string' ? res.data.response : []});
       })
       .catch((err) => {
         toast.error("Network Error");

@@ -20,7 +20,7 @@ import CreateProject from "./components/pages/Project";
 import Task from "./components/pages/Project/Task";
 import Milestone from "./components/pages/Project/MileStone";
 import ProjectList from "./components/pages/Project/ProjectList";
-import ScreenShots from "./components/pages/dashboard/ScreenShorts"
+import EmpScreenShorts from './components/common/ScreenShorts'
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -121,8 +121,8 @@ const Routes = () => {
                 <ChangePassword />
               </Route>
 
-              <Route path='/screenshorts'>
-                <ScreenShots />
+              <Route path='/screenshorts/:empName/:empID'>
+                <EmpScreenShorts />
               </Route>
               
             </Switch>

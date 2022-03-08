@@ -10,6 +10,7 @@ import {
   EMP_ADD_DOCUMENT,
   EMP_JOB_DETAILS,
   EMP_DELETE_DOCUMENTS,
+  EMP_EMPLOYES,
 } from "../actions/employeeAction";
 
 const InitialState = {
@@ -21,6 +22,7 @@ const InitialState = {
   employeePayRoll: {},
   employeeDocuments: [],
   employeeJobDetails: {},
+  EMPLOYES:[]
 };
 
 const empReduser = (state = InitialState, action) => {
@@ -30,6 +32,12 @@ const empReduser = (state = InitialState, action) => {
         ...state,
         isLoggedIn: true,
         userInfo: action.payload,
+      };
+    }
+    case EMP_EMPLOYES: {
+      return {
+        ...state,
+        EMPLOYES: action.payload,
       };
     }
     case EMP_FILTER: {

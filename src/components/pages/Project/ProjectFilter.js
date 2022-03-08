@@ -19,7 +19,7 @@ const ProjectFilter = ({ open, onClose }) => {
 
   useEffect(() => {
     roleData();
-    if (roleNameInfo.length > 0) {
+    if (typeof roleNameInfo !== "string" &&  roleNameInfo.length > 0) {
       setRoleName(
         roleNameInfo.map((value) => ({
           label: value.roleName,

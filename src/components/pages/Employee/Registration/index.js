@@ -16,6 +16,7 @@ import {
   getDesignitations,
   getRoles,
   saveEmployeeUpdate,
+  getEmployes
 } from "../../../../redux/actions/employeeAction";
 
 const ExampleCustomInput = ({ value, onClick }) => {
@@ -41,7 +42,7 @@ const ExampleCustomInput = ({ value, onClick }) => {
 
 function Registration() {
   const dispatch = useDispatch();
-  const { designations, roles, employeeInfo } = useSelector(
+  const { designations, roles, employeeInfo , EMPLOYES} = useSelector(
     (store) => store.emp
   );
   const [startDate, setStartDate] = useState(new Date());
@@ -67,6 +68,7 @@ function Registration() {
   useEffect(() => {
     dispatch(getDesignitations());
     dispatch(getRoles());
+    dispatch(getEmployes())
   }, []);
 
   useEffect(() => {
@@ -92,7 +94,7 @@ function Registration() {
   const handleValueChange = (e) => {
     setDetails({ ...details, [e.target.name]: e.target.value });
   };
-
+console.log("EMPs", EMPLOYES)
   const handleRoleChange = (e) => {
     setDetails({ ...details, role: e.target.value });
   };
@@ -345,9 +347,10 @@ function Registration() {
                 onChange={(e) => handleValueChange(e)}
               >
                 <option selected> Choose Manager</option>
-                <option value="Manager">Manager</option>
+                {EMPLOYES.map(emp=>  <option value={emp.id}>{emp.email}</option>)}
+                {/* <option value="Manager">Manager</option>
                 <option value="Assistant Manager">Assistant Manager</option>
-                <option value="Juniar Manager">Juniar Manager</option>
+                <option value="Juniar Manager">Juniar Manager</option> */}
               </select>
             </div>
 

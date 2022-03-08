@@ -115,7 +115,8 @@ export const getEmployes = () => {
   return async (dispatch) => {
     await Axios.get("/Employee/all", HeaderToken())
       .then((res) => {
-        dispatch({ type: EMP_EMPLOYES, payload: res.data.response });
+        console.log("all res ",res)
+        dispatch({ type: EMP_EMPLOYES, payload: res.data });
       })
       .catch((err) => {
         toast.error("Network Error");

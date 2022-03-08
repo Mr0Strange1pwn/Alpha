@@ -377,9 +377,9 @@ const ProjectList = () => {
             ? filteredProjects.map((product, i) => {
                 return <TableData product={product} i={i} />;
               })
-            : currentItem.map((product, i) => {
+            : currentItem.length > 0? currentItem.map((product, i) => {
                 return <TableData product={product} i={i} />;
-              })}
+              }) : <h3>No Project present Please Create one</h3>}
         </table>
         <nav aria-label="Page navigation example">
           <div className="col-sm-12 col-md-6 col-lg-6">

@@ -49,7 +49,7 @@ export const roleLIst = () => {
   return async (dispatch) => {
     await Axios.get("/Account/roles", HeaderToken())
       .then((res) => {
-        dispatch({ type: ROLE_LIST, payload: res.data.response });
+        dispatch({ type: ROLE_LIST, payload: typeof res.data.response !== 'string' ? res.data.response : []});
       })
       .catch((err) => {
         toast.error("Network Error");

@@ -1,9 +1,10 @@
-import { SET_SCREENSHOTS, SET_WORK_TIME } from '../actions/screenshortsAction'
+import { SET_SCREENSHOTS, SET_WORK_TIME, SET_EMP_SCREENSHOTS } from '../actions/screenshortsAction'
 
 
 const initialState = {
     SS : [],
-    workTime:[]
+    workTime:[],
+    empSS:[]
 }
 
 const screenshortreduser = ( state = initialState , action ) =>{
@@ -19,6 +20,12 @@ const screenshortreduser = ( state = initialState , action ) =>{
             return {
                 ...state,
                 workTime: action.payload
+            }
+        }
+        case SET_EMP_SCREENSHOTS:{
+            return {
+                ...state,
+                empSS: action.payload
             }
         }
         default: return {
